@@ -5,7 +5,8 @@
  */
 package G2Dj;
 
-import G2Dj.Implementation.Input.KeyboardInputHandler;
+import G2Dj.Imp.Input.KeyboardInputHandler;
+import G2Dj.Imp.Input.KeyCode;
 
 /**
  *
@@ -21,6 +22,6 @@ public class Input
     //***********
     //Passthoughs
     //***********
-    public static boolean getKeyDown(){return s_KeyboardInputHandler.getKeyDown();}
+    public static boolean getKeyDown(KeyCode aKeyCode){return s_KeyboardInputHandler.getKeyDown(aKeyCode);}
     
 }
