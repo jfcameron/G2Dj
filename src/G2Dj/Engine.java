@@ -10,20 +10,14 @@ package G2Dj;
  * @author Joe
  */
 public class Engine 
-{
-//    private static 
-    
-    static
-    {
-        
-        
-    }
-    
+{    
     public static void init()
     {
         Input.init();
         Graphics.init();
         
     }
+    
+    
     
 }
