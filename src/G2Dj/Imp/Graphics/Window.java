@@ -5,6 +5,8 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Imp.Input.KeyboardInputHandler;
+
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.KeyListener;
@@ -17,14 +19,14 @@ import java.awt.event.WindowListener;
  */
 public class Window extends Frame implements WindowListener
 {
-    public Window() 
+    public Window(KeyboardInputHandler aKeyboardInputHandler) 
     {
         super("OpenGL");
 
         setLayout(new BorderLayout());
         
         addWindowListener(this);
-        //addKeyListener((KeyListener)this);
+        addKeyListener((KeyListener)aKeyboardInputHandler);
 
         setSize(600, 600);
         setLocation(40, 40);

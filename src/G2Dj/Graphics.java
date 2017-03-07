@@ -13,8 +13,8 @@ import G2Dj.Imp.Graphics.Window;
  */
 public class Graphics 
 {
-    private static Window s_Window = new Window();
+    protected static Window s_Window = new Window(Input.s_KeyboardInputHandler);
     
-    public static void hello(){};
+    protected static void init(){}
     
 }

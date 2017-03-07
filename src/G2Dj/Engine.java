@@ -19,4 +19,11 @@ public class Engine
         
     }
     
+    public static void init()
+    {
+        Input.init();
+        Graphics.init();
+        
+    }
+    
 }

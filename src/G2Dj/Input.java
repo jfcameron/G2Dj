@@ -13,15 +13,18 @@ import G2Dj.Imp.Input.KeyCode;
  * @author Joe
  */
 public class Input 
-{
+{    
     //**********************
     //Implementation objects
     //**********************
-    private static KeyboardInputHandler s_KeyboardInputHandler = new KeyboardInputHandler();
+    protected static KeyboardInputHandler s_KeyboardInputHandler = new KeyboardInputHandler();
     
     //***********
     //Passthoughs
     //***********
     public static boolean getKeyDown(KeyCode aKeyCode){return s_KeyboardInputHandler.getKeyDown(aKeyCode);}
+    
+    
+    protected static void init(){}
     
 }
