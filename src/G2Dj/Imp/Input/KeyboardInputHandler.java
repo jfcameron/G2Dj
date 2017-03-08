@@ -1,9 +1,10 @@
 package G2Dj.Imp.Input;
 
 import G2Dj.Imp.Input.KeyState;
+import com.jogamp.newt.event.KeyListener;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+//import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 public class KeyboardInputHandler implements KeyListener 
@@ -50,8 +51,6 @@ public class KeyboardInputHandler implements KeyListener
     }
 
   }
-
-        
 
   public synchronized void update() {
 
@@ -104,9 +103,10 @@ public class KeyboardInputHandler implements KeyListener
 
   }
 
-        
-
-  public synchronized void keyPressed( KeyEvent e ) {
+  
+  @Override
+  public void keyPressed(com.jogamp.newt.event.KeyEvent e) 
+  {
 
     int keyCode = e.getKeyCode();
 
@@ -118,9 +118,9 @@ public class KeyboardInputHandler implements KeyListener
 
   }
 
-
-
-  public synchronized void keyReleased( KeyEvent e ) {
+  @Override
+  public void keyReleased(com.jogamp.newt.event.KeyEvent e) 
+  {
 
     int keyCode = e.getKeyCode();
 
@@ -129,14 +129,6 @@ public class KeyboardInputHandler implements KeyListener
       currentKeys[ keyCode ] = false;
 
     }
-
-  }
-
-
-
-  public void keyTyped( KeyEvent e ) {
-
-    // Not needed
 
   }
   
@@ -263,5 +255,7 @@ public class KeyboardInputHandler implements KeyListener
         s_G2DjKeyMapToAWTKey.put(KeyCode.NumPeriod  ,KeyEvent.VK_PERIOD  );
         
     }
+
+    
 
 }
