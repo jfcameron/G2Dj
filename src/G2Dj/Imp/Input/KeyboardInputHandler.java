@@ -1,272 +1,267 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package G2Dj.Imp.Input;
 
-import G2Dj.Imp.Input.KeyCode;
-import G2Dj.Imp.Input.KeyboardState;
+import G2Dj.Imp.Input.KeyState;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-/**
- *
- * @author Joe
- */
-public class KeyboardInputHandler implements KeyListener
+public class KeyboardInputHandler implements KeyListener 
 {
-    //
-    // Data members
-    //
-    private static final int c_NumberOfFrames = 2;
-    private static final HashMap<Integer,KeyCode> s_AWTKeyToG2DjKeyMap = new HashMap<>();
-    
-    private final ArrayList<KeyboardState> m_KeyboardStates = new ArrayList<>();
-    private int m_CurrentKeyboardStateIndex = 0;
-    
-    
-    //
-    // init
-    //
-    public KeyboardInputHandler()
-    {
-        for(int i = 0; i < c_NumberOfFrames; i++)
-            m_KeyboardStates.add(new KeyboardState());
-                
+  private static final int KEY_COUNT = 256;
+
+        
+
+  /*private enum KeyState {
+
+    RELEASED, // Not down
+
+    PRESSED,  // Down, but not the first time
+
+    ONCE      // Down for the first time
+
+  }*/
+
+        
+
+  // Current state of the keyboard
+
+  private boolean[] currentKeys = null;
+
+        
+
+  // Polled keyboard state
+
+  private KeyState[] keys = null;
+
+        
+
+  public KeyboardInputHandler() 
+  {
+
+    currentKeys = new boolean[ KEY_COUNT ];
+
+    keys = new KeyState[ KEY_COUNT ];
+
+    for( int i = 0; i < KEY_COUNT; ++i ) {
+
+      keys[ i ] = KeyState.Up;
+
     }
-    
-    static
+
+  }
+
+        
+
+  public synchronized void update() {
+
+    for( int i = 0; i < KEY_COUNT; ++i ) {
+
+      // Set the key state 
+
+      if( currentKeys[ i ] ) {
+
+        // If the key is down now, but was not
+
+        // down last frame, set it to ONCE,
+
+        // otherwise, set it to PRESSED
+
+        if( keys[ i ] == KeyState.Up )
+
+          keys[ i ] = KeyState.JustPressed;
+
+        else
+
+          keys[ i ] = KeyState.Down;
+
+      } else {
+
+        keys[ i ] = KeyState.Up;
+
+      }
+
+    }
+
+  }
+
+        
+
+  public boolean getKey( int keyCode ) {
+
+    return keys[ keyCode ] == KeyState.JustPressed ||
+
+           keys[ keyCode ] == KeyState.Down;
+
+  }
+
+        
+
+  public boolean getKeyDown( KeyCode keyCode ) 
+  {
+
+    return keys[s_G2DjKeyMapToAWTKey.get(keyCode)] == KeyState.JustPressed;
+
+  }
+
+        
+
+  public synchronized void keyPressed( KeyEvent e ) {
+
+    int keyCode = e.getKeyCode();
+
+    if( keyCode >= 0 && keyCode < KEY_COUNT ) {
+
+      currentKeys[ keyCode ] = true;
+
+    }
+
+  }
+
+
+
+  public synchronized void keyReleased( KeyEvent e ) {
+
+    int keyCode = e.getKeyCode();
+
+    if( keyCode >= 0 && keyCode < KEY_COUNT ) {
+
+      currentKeys[ keyCode ] = false;
+
+    }
+
+  }
+
+
+
+  public void keyTyped( KeyEvent e ) {
+
+    // Not needed
+
+  }
+  
+  private static final HashMap<KeyCode,Integer> s_G2DjKeyMapToAWTKey = new HashMap<>();
+  static
     {
         //Top row
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_ESCAPE, KeyCode.Escape);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F1, KeyCode.F1);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F2, KeyCode.F2);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F3, KeyCode.F3);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F4, KeyCode.F4);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F5, KeyCode.F5);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F6, KeyCode.F6);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F7, KeyCode.F7);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F8, KeyCode.F8);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F9, KeyCode.F9);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F10, KeyCode.F10);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F11, KeyCode.F11);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F12, KeyCode.F12);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_PRINTSCREEN, KeyCode.PrintScreen);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_SCROLL_LOCK, KeyCode.ScrollLock);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_PAUSE, KeyCode.PauseBreak);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Escape,KeyEvent.VK_ESCAPE);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F1,KeyEvent.VK_F1);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F2,KeyEvent.VK_F2);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F3,KeyEvent.VK_F3);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F4,KeyEvent.VK_F4);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F5,KeyEvent.VK_F5);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F6,KeyEvent.VK_F6);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F7,KeyEvent.VK_F7);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F8,KeyEvent.VK_F8);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F9,KeyEvent.VK_F9);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F10,KeyEvent.VK_F10);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F11,KeyEvent.VK_F11);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F12,KeyEvent.VK_F12);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.PrintScreen,KeyEvent.VK_PRINTSCREEN);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.ScrollLock,KeyEvent.VK_SCROLL_LOCK);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.PauseBreak,KeyEvent.VK_PAUSE);
         
         //Number row
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_1, KeyCode.One);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_2, KeyCode.Two);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_3, KeyCode.Three);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_4, KeyCode.Four);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_5, KeyCode.Five);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_6, KeyCode.Six);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_7, KeyCode.Seven);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_8, KeyCode.Eight);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_9, KeyCode.Nine);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_0, KeyCode.Zero);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_BACK_QUOTE, KeyCode.Tilda);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_MINUS, KeyCode.Minus);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_EQUALS, KeyCode.Equals);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_BACK_SPACE, KeyCode.Backspace);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_HOME, KeyCode.Home);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_END, KeyCode.End);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.One       , KeyEvent.VK_1          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Two       , KeyEvent.VK_2          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Three     , KeyEvent.VK_3          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Four      , KeyEvent.VK_4          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Five      , KeyEvent.VK_5          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Six       , KeyEvent.VK_6          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Seven     , KeyEvent.VK_7          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Eight     , KeyEvent.VK_8          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Nine      , KeyEvent.VK_9          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Zero      , KeyEvent.VK_0          );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Tilda     , KeyEvent.VK_BACK_QUOTE );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Minus     , KeyEvent.VK_MINUS      );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Equals    , KeyEvent.VK_EQUALS     );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Backspace , KeyEvent.VK_BACK_SPACE );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Home      , KeyEvent.VK_HOME       );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.End       , KeyEvent.VK_END        );
 
         //Q Row
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_TAB, KeyCode.Tab);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_OPEN_BRACKET, KeyCode.OpenBracket);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_CLOSE_BRACKET, KeyCode.CloseBracket);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_BACK_SLASH, KeyCode.Backslash);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_INSERT, KeyCode.Insert);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_PAGE_UP, KeyCode.PageUp);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Tab          , KeyEvent.VK_TAB           );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.OpenBracket  , KeyEvent.VK_OPEN_BRACKET  );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.CloseBracket , KeyEvent.VK_CLOSE_BRACKET );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Backslash    , KeyEvent.VK_BACK_SLASH    );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Insert       , KeyEvent.VK_INSERT        );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.PageUp       , KeyEvent.VK_PAGE_UP       );
         
         //A row
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_CAPS_LOCK, KeyCode.Capslock);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_SEMICOLON, KeyCode.SemiColon);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_QUOTE, KeyCode.Quote);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_ENTER, KeyCode.Enter);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_DELETE, KeyCode.Delete);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_PAGE_DOWN, KeyCode.PageDown);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Capslock ,KeyEvent.VK_CAPS_LOCK );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.SemiColon,KeyEvent.VK_SEMICOLON );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Quote    ,KeyEvent.VK_QUOTE     );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Enter    ,KeyEvent.VK_ENTER     );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Delete   ,KeyEvent.VK_DELETE    );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.PageDown ,KeyEvent.VK_PAGE_DOWN );
         
         //Z row
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_SHIFT, KeyCode.LeftShift);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_COMMA, KeyCode.Comma);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_PERIOD, KeyCode.Period);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_SLASH, KeyCode.ForwardSlash);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_SHIFT, KeyCode.RightShift); //NOTE: AWT offers no way to differentiate shift keys
+        s_G2DjKeyMapToAWTKey.put(KeyCode.LeftShift    , KeyEvent.VK_SHIFT  );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Comma        , KeyEvent.VK_COMMA  );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Period       , KeyEvent.VK_PERIOD );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.ForwardSlash , KeyEvent.VK_SLASH  );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.RightShift   , KeyEvent.VK_SHIFT  ); //NOTE: AWT offers no way to differentiate shift keys
         
         //Alphabet
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_Q, KeyCode.Q);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_W, KeyCode.W);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_E, KeyCode.E);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_R, KeyCode.R);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_T, KeyCode.T);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_Y, KeyCode.Y);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_U, KeyCode.U);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_I, KeyCode.I);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_O, KeyCode.O);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_P, KeyCode.P);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_A, KeyCode.A);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_S, KeyCode.S);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_D, KeyCode.D);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_F, KeyCode.F);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_G, KeyCode.G);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_H, KeyCode.H);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_J, KeyCode.J);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_K, KeyCode.K);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_L, KeyCode.L);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_Z, KeyCode.Z);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_X, KeyCode.X);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_C, KeyCode.C);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_V, KeyCode.V);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_B, KeyCode.B);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_N, KeyCode.N);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_M, KeyCode.M);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Q,KeyEvent.VK_Q);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.W,KeyEvent.VK_W);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.E,KeyEvent.VK_E);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.R,KeyEvent.VK_R);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.T,KeyEvent.VK_T);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Y,KeyEvent.VK_Y);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.U,KeyEvent.VK_U);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.I,KeyEvent.VK_I);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.O,KeyEvent.VK_O);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.P,KeyEvent.VK_P);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.A,KeyEvent.VK_A);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.S,KeyEvent.VK_S);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.D,KeyEvent.VK_D);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.F,KeyEvent.VK_F);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.G,KeyEvent.VK_G);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.H,KeyEvent.VK_H);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.J,KeyEvent.VK_J);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.K,KeyEvent.VK_K);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.L,KeyEvent.VK_L);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Z,KeyEvent.VK_Z);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.X,KeyEvent.VK_X);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.C,KeyEvent.VK_C);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.V,KeyEvent.VK_V);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.B,KeyEvent.VK_B);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.N,KeyEvent.VK_N);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.M,KeyEvent.VK_M);
         
         //Bottom row
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_CONTROL, KeyCode.LeftControl); //NOTE: AWT offers no way to differentiate ctrl keys
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_ALT, KeyCode.LeftAlt); //NOTE: AWT offers no way to differentiate alt keys
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_SPACE, KeyCode.Space);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_ALT, KeyCode.RightAlt);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_CONTROL, KeyCode.RightControl);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.LeftControl ,KeyEvent.VK_CONTROL); //NOTE: AWT offers no way to differentiate ctrl keys
+        s_G2DjKeyMapToAWTKey.put(KeyCode.LeftAlt     ,KeyEvent.VK_ALT    ); //NOTE: AWT offers no way to differentiate alt keys
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Space       ,KeyEvent.VK_SPACE  );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.RightAlt    ,KeyEvent.VK_ALT    );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.RightControl,KeyEvent.VK_CONTROL);
         
         //Arrow keys
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_LEFT, KeyCode.LeftArrow);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_RIGHT, KeyCode.RightArrow);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_UP, KeyCode.UpArrow);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_DOWN, KeyCode.DownArrow);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.LeftArrow ,KeyEvent.VK_LEFT );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.RightArrow,KeyEvent.VK_RIGHT);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.UpArrow   ,KeyEvent.VK_UP   );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.DownArrow ,KeyEvent.VK_DOWN );
         
         //Numpad
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUM_LOCK, KeyCode.Numlock);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_SLASH, KeyCode.NumSlash); //NOTE: AWT offers no way to differentiate slash keys
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_ASTERISK, KeyCode.NumAsterisk); 
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_MINUS, KeyCode.NumMinus); //NOTE: AWT offers no way to differentiate minus keys
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD7, KeyCode.Num7);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD8, KeyCode.Num8);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD9, KeyCode.Num9);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_PLUS, KeyCode.NumPlus);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD4, KeyCode.Num4);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD5, KeyCode.Num5);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD6, KeyCode.Num6);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD1, KeyCode.Num1);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD2, KeyCode.Num2);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD3, KeyCode.Num3);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_ENTER, KeyCode.NumEnter);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_NUMPAD0, KeyCode.Num0);
-        s_AWTKeyToG2DjKeyMap.put(KeyEvent.VK_PERIOD, KeyCode.NumPeriod);
-        
-    }
-    
-    //
-    // Implementation
-    //
-    public void update()
-    {
-        //calculate the last frame index
-        int lastFrameIndex = calcLastFrameIndex();
-        {
-            //System.out.print(m_CurrentKeyboardStateIndex+", "+lastFrameIndex+"\n");
-            //m_KeyboardStates.get(m_CurrentKeyboardStateIndex).forEach((k,v) -> System.out.println("key: "+k+" value:"+v));
-            
-            //System.out.print(m_CurrentKeyboardStateIndex+": "+m_KeyboardStates.get(m_CurrentKeyboardStateIndex).getKey(KeyCode.Tilda)+"\n");
-            
-            m_KeyboardStates.get(m_CurrentKeyboardStateIndex).forEach
-            (
-                (k,v) -> 
-                {
-                    
-                    //if (v == KeyState.JustPressed || v == KeyState.Up)
-                    //{    
-                        if (m_KeyboardStates.get(lastFrameIndex).getKey(k) == KeyState.JustPressed)
-                        {
-                            m_KeyboardStates.get(m_CurrentKeyboardStateIndex).setKey(k, KeyState.Down);
-                    
-                        }
-                        else if (m_KeyboardStates.get(lastFrameIndex).getKey(k) == KeyState.JustReleased)
-                        {
-                            m_KeyboardStates.get(m_CurrentKeyboardStateIndex).setKey(k, KeyState.Up);
-                    
-                        }
-                        else
-                        {
-                            m_KeyboardStates.get(m_CurrentKeyboardStateIndex).setKey(k,m_KeyboardStates.get(lastFrameIndex).getKey(k));
-                            
-                        }
-                        
-                        
-                    
-                }
-        
-            );
-        
-        }
-        
-        m_CurrentKeyboardStateIndex = calcNextFrameIndex(); //update the current frame
-        
-    }
-    
-    private int calcLastFrameIndex()
-    {
-        return m_CurrentKeyboardStateIndex > 0 ? m_CurrentKeyboardStateIndex-1 : m_KeyboardStates.size()-1;
-        
-    }
-    
-    private int calcNextFrameIndex()
-    {
-        return m_CurrentKeyboardStateIndex >= m_KeyboardStates.size()-1 ? 0 : ++m_CurrentKeyboardStateIndex;
-        
-    }
-    
-    
-    public boolean getKeyDown(KeyCode aKeyCode)
-    {
-        if (m_KeyboardStates.get(m_CurrentKeyboardStateIndex).getKey(aKeyCode) == KeyState.JustPressed)
-            return true;
-        
-        return false;
-        
-    }
-    
-    public boolean getKey(KeyCode aKeyCode)
-    {
-        if (m_KeyboardStates.get(m_CurrentKeyboardStateIndex).getKey(aKeyCode) == KeyState.Down)
-            return true;
-        
-        return false;
-        
-    }
-    
-    //*************************************
-    // KeyListener interface implementation
-    //*************************************
-    @Override
-    public void keyTyped(KeyEvent e) 
-    {
-        //System.out.print(e + "KEY TYPED: ");
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Numlock    ,KeyEvent.VK_NUM_LOCK);
+        s_G2DjKeyMapToAWTKey.put(KeyCode.NumSlash   ,KeyEvent.VK_SLASH   ); //NOTE: AWT offers no way to differentiate slash keys
+        s_G2DjKeyMapToAWTKey.put(KeyCode.NumAsterisk,KeyEvent.VK_ASTERISK); 
+        s_G2DjKeyMapToAWTKey.put(KeyCode.NumMinus   ,KeyEvent.VK_MINUS   ); //NOTE: AWT offers no way to differentiate minus keys
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num7       ,KeyEvent.VK_NUMPAD7 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num8       ,KeyEvent.VK_NUMPAD8 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num9       ,KeyEvent.VK_NUMPAD9 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.NumPlus    ,KeyEvent.VK_PLUS    );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num4       ,KeyEvent.VK_NUMPAD4 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num5       ,KeyEvent.VK_NUMPAD5 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num6       ,KeyEvent.VK_NUMPAD6 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num1       ,KeyEvent.VK_NUMPAD1 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num2       ,KeyEvent.VK_NUMPAD2 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num3       ,KeyEvent.VK_NUMPAD3 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.NumEnter   ,KeyEvent.VK_ENTER   );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.Num0       ,KeyEvent.VK_NUMPAD0 );
+        s_G2DjKeyMapToAWTKey.put(KeyCode.NumPeriod  ,KeyEvent.VK_PERIOD  );
         
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) 
-    {
-        //if ()
-        
-        m_KeyboardStates.get(m_CurrentKeyboardStateIndex).setKey(s_AWTKeyToG2DjKeyMap.get(e.getKeyCode()), KeyState.JustPressed);
-
-        
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) 
-    {
-        m_KeyboardStates.get(m_CurrentKeyboardStateIndex).setKey(s_AWTKeyToG2DjKeyMap.get(e.getKeyCode()), KeyState.JustReleased);
-                
-    }
-    
 }
