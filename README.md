@@ -1,5 +1,5 @@
 #G2Dj
-![alt tag](http://jfcameron.github.io/Images/WebInterface_DirectoryExplorer/Big.png "")
+![alt tag]( "")
 
 ##Description:
 2D Engine written in Java. Uses the [JOGL](http://jogamp.org/) project (version 2.3) to access OpenGL.
