@@ -6,6 +6,7 @@
 package G2Dj.Imp.Input;
 
 import java.util.HashMap;
+import java.util.function.BiConsumer;
 
 /**
  *
@@ -13,21 +14,30 @@ import java.util.HashMap;
  */
 public class KeyboardState 
 {
-    private final HashMap<KeyCode,Boolean> m_Keys = new HashMap<>();
+    private final HashMap<KeyCode,KeyState> m_Keys = new HashMap<>();
     
     public KeyboardState()
     {
         initKeysHashMap();
         
-    }
-    
-    public boolean getKey(KeyCode aKeyCode)
-    {
-        return m_Keys.getOrDefault(aKeyCode, Boolean.FALSE);
+       // m_Keys.forEach(action);
         
     }
     
-    public void setKey(KeyCode aKeyCode, boolean aValue)
+    public void forEach(BiConsumer<KeyCode,KeyState> action)
+    {
+        m_Keys.forEach(action);
+        
+    }
+    
+    
+    public KeyState getKey(KeyCode aKeyCode)
+    {
+        return m_Keys.getOrDefault(aKeyCode, KeyState.Up);
+        
+    }
+    
+    public void setKey(KeyCode aKeyCode, KeyState aValue)
     {
         m_Keys.put(aKeyCode, aValue);
         
@@ -40,7 +50,7 @@ public class KeyboardState
         KeyCode[] values = KeyCode.values();
         
         for (int i = 0; i < values.length;i++)
-            m_Keys.put(values[i], Boolean.FALSE);
+            m_Keys.put(values[i], KeyState.Up);
         
     }
     

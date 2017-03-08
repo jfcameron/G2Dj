@@ -27,4 +27,10 @@ public class Input
     
     protected static void init(){}
     
+    protected static void update()
+    {
+        s_KeyboardInputHandler.update();
+        
+    }
+    
 }

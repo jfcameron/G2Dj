@@ -18,6 +18,10 @@ public class Engine
         
     }
     
-    
+    public static void update()
+    {
+        Input.update();
+        
+    }
     
 }
