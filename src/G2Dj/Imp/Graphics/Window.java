@@ -46,7 +46,7 @@ public final class Window implements WindowListener
         m_GLWindow = GLWindow.create(screen, glCapabilities);
         
         //Configure the window
-        setTitle("G2Dj Project");
+        setTitle("A G2Dj Project");
         setSize(1024, 768);
         setPosition(50, 50);
         setAlwaysOnTop(false);
@@ -74,18 +74,9 @@ public final class Window implements WindowListener
     //*****************
     // Window interface
     //*****************
-    //@Override
-    public void init(GLAutoDrawable drawable) 
-    {
-        
-        
-    }
-    
     public void draw()
     {
         GL gl = m_GLWindow.getGL(); 
-        
-        Debug.log("displaying");
         
         /*Test glr = new Test()
         {

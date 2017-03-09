@@ -15,6 +15,9 @@ public class Graphics
 {
     protected static final Window s_Window = new Window(Input.s_KeyboardInputHandler);
     
+    //getters
+    public static Window getWindow(){return s_Window;}
+    
     protected static void init(){}
     
     protected static void draw()
