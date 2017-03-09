@@ -21,73 +21,48 @@ import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.GLProfile;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-//import java.awt.event.KeyListener;
-//import java.awt.event.WindowListener;
-
 /**
  *
  * @author Joe
  */
-public class Window extends Frame implements WindowListener, GLEventListener
+public class Window implements WindowListener, GLEventListener
 {
-    private GLWindow glWindow;
+    private GLWindow m_GLWindow;
     
+    //***************
+    // Initialization
+    //***************
     public Window(KeyboardInputHandler aKeyboardInputHandler) 
     {
+        //Configure the GL
         Display display = NewtFactory.createDisplay(null);
         Screen screen = NewtFactory.createScreen(display, 0);
         GLProfile glProfile = GLProfile.get(GLProfile.GL4);
         GLCapabilities glCapabilities = new GLCapabilities(glProfile);
+        m_GLWindow = GLWindow.create(screen, glCapabilities);
         
-        glWindow = GLWindow.create(screen, glCapabilities);
-
-        glWindow.setSize(1024, 768);
-        glWindow.setPosition(50, 50);
-        glWindow.setUndecorated(false);
-        glWindow.setAlwaysOnTop(false);
-        glWindow.setFullscreen(false);
-        glWindow.setPointerVisible(true);
-        glWindow.confinePointer(false);
-        glWindow.setTitle("Hello Triangle");
-        glWindow.setContextCreationFlags(GLContext.CTX_OPTION_DEBUG);
-        glWindow.setVisible(true);
+        //Configure the window
+        m_GLWindow.setSize(1024, 768);
+        m_GLWindow.setPosition(50, 50);
+        m_GLWindow.setUndecorated(false);
+        m_GLWindow.setAlwaysOnTop(false);
+        m_GLWindow.setFullscreen(false);
+        m_GLWindow.setPointerVisible(true);
+        m_GLWindow.confinePointer(false);
+        m_GLWindow.setTitle("G2Dj Project");
+        m_GLWindow.setContextCreationFlags(GLContext.CTX_OPTION_DEBUG);
+        m_GLWindow.setVisible(true);
         
-        ///////////////
-        
-        //super("OpenGL");
-/*
-        setLayout(new BorderLayout());
-        
-        addWindowListener(this);
-        addKeyListener((KeyListener)aKeyboardInputHandler);
-
-        setSize(600, 600);
-        setLocation(40, 40);
-
-        setVisible(true);
-
-        //setupJOGL();
-        
-        System.out.print("WINDOW CREATED");
-        */
-
-        glWindow.addWindowListener((WindowListener)this);
-        glWindow.addKeyListener((KeyListener)aKeyboardInputHandler);
-        
-        
-        
-        
+        //Attach listeners
+        m_GLWindow.addWindowListener((WindowListener)this);
+        m_GLWindow.addKeyListener((KeyListener)aKeyboardInputHandler);
         
     }
     
-    /*public static void main(String[] args) 
-    {
-        //HelloWorldDemo demo = new HelloWorldDemo();
-        //demo.setVisible(true);
-    
-    }*/
+    //*****************
+    // Window interface
+    //*****************
+    //public void setSize()
 
     //*******************************
     // GLEventListener implementation
