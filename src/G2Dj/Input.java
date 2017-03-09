@@ -23,7 +23,7 @@ public class Input
     //Passthoughs
     //***********
     public static boolean getKeyDown(KeyCode aKeyCode){return s_KeyboardInputHandler.getKeyDown(aKeyCode);}
-    
+    public static boolean getKey(KeyCode aKeyCode){return s_KeyboardInputHandler.getKey(aKeyCode);}
     
     protected static void init(){}
     

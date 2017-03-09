@@ -16,11 +16,15 @@ import static com.jogamp.opengl.math.FloatUtil.sqrt;
  */
 public abstract class VectorBase 
 {
+    //**********************
     //package-wide interface
+    //**********************
     protected abstract float getX();
     protected abstract float getY();
     
+    //******************************
     //Non mutating vector operations
+    //******************************
     @Override public String toString(){return "{"+getX()+", "+getY()+"}";}
     
     public float aspectRatio() {return getX() / getY(); }

@@ -22,6 +22,8 @@ public class Engine
     {
         Input.update();
         
+        Graphics.draw();
+        
     }
     
 }

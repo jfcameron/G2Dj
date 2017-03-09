@@ -5,7 +5,12 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Debug;
 import G2Dj.Imp.Input.KeyboardInputHandler;
+
+import G2Dj.Imp.Graphics.DisplayMode;
+import G2Dj.Imp.Input.KeyCode;
+import G2Dj.Input;
 
 import com.jogamp.newt.Display;
 import com.jogamp.newt.NewtFactory;
@@ -13,6 +18,9 @@ import com.jogamp.newt.Screen;
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.event.WindowUpdateEvent;
+
+import com.jogamp.opengl.GL;
+
 import com.jogamp.newt.opengl.GLWindow;
 
 import com.jogamp.opengl.GLAutoDrawable;
@@ -20,14 +28,15 @@ import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.GLProfile;
+import com.jogamp.opengl.util.Animator;
 
 /**
  *
  * @author Joe
  */
-public class Window implements WindowListener, GLEventListener
+public final class Window implements WindowListener, GLEventListener
 {
-    private GLWindow m_GLWindow;
+    private final GLWindow m_GLWindow;
     
     //***************
     // Initialization
@@ -37,42 +46,161 @@ public class Window implements WindowListener, GLEventListener
         //Configure the GL
         Display display = NewtFactory.createDisplay(null);
         Screen screen = NewtFactory.createScreen(display, 0);
-        GLProfile glProfile = GLProfile.get(GLProfile.GL4);
+        GLProfile glProfile = GLProfile.get(GLProfile.GL3);
         GLCapabilities glCapabilities = new GLCapabilities(glProfile);
+        
+        //Create the GL context & create the window
         m_GLWindow = GLWindow.create(screen, glCapabilities);
         
         //Configure the window
-        m_GLWindow.setSize(1024, 768);
-        m_GLWindow.setPosition(50, 50);
-        m_GLWindow.setUndecorated(false);
-        m_GLWindow.setAlwaysOnTop(false);
-        m_GLWindow.setFullscreen(false);
-        m_GLWindow.setPointerVisible(true);
-        m_GLWindow.confinePointer(false);
-        m_GLWindow.setTitle("G2Dj Project");
-        m_GLWindow.setContextCreationFlags(GLContext.CTX_OPTION_DEBUG);
-        m_GLWindow.setVisible(true);
+        setTitle("G2Dj Project");
+        setSize(1024, 768);
+        setPosition(50, 50);
+        setAlwaysOnTop(false);
+        setDisplayMode(DisplayMode.Windowed);
+        setPointerVisible(true);
+        setPointerLockMode(PointerLockMode.Free);
+        //m_GLWindow.setContextCreationFlags(GLContext.CTX_OPTION_DEBUG); //TODO: decide on this
         
-        //Attach listeners
+        //Attach window event listeners
         m_GLWindow.addWindowListener((WindowListener)this);
         m_GLWindow.addKeyListener((KeyListener)aKeyboardInputHandler);
+        m_GLWindow.addGLEventListener(this);
+        
+        ///????????????
+        final Animator animator = new Animator(m_GLWindow);
+        animator.setRunAsFastAsPossible(true);
+        animator.start();
         
     }
     
     //*****************
     // Window interface
     //*****************
-    //public void setSize()
+    @Override
+    public void init(GLAutoDrawable drawable) 
+    {
+        GL gl = drawable.getGL();
+        
+        gl.glViewport(0, 0, m_GLWindow.getWidth(), m_GLWindow.getHeight());
+        gl.glDepthMask(true);
+        gl.glEnable(GL.GL_DEPTH_TEST);
+        gl.glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        
+    }
+    
+    @Override
+    public void display(GLAutoDrawable drawable)
+    {
+        GL gl = drawable.getGL();
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        
+        //Debug.log("drawing");
+        
+        //m_GLWindow.swapBuffers();
+        //m_GLWindow.display();
+        
+        if (Input.getKey(KeyCode.A))
+        {
+            gl.glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
+            
+        }
+        
+        if (Input.getKey(KeyCode.S))
+        {
+            gl.glClearColor(0.0f, 0.1f, 0.7f, 1.0f);
+            
+        }
+        
+    }
+    
+    public void draw()
+    {
+        
+        
+        //m_GLWindow.swapBuffers();
+        //m_GLWindow.display();
+        
+        
+    }
+    
+    public final void setSize(final int aX, final int aY){m_GLWindow.setSize(aX, aY);}
+    public final void setPosition(final int aX, final int aY){m_GLWindow.setPosition(aX, aY);}
+    public final void setAlwaysOnTop(final boolean aIsAlwaysOnTop){m_GLWindow.setAlwaysOnTop(aIsAlwaysOnTop);}
+    public final void setPointerVisible(final boolean aPointerIsVisible){m_GLWindow.setPointerVisible(aPointerIsVisible);}
+    public final void setTitle(final String aTitle){m_GLWindow.setTitle(aTitle);}
+    
+    public final void setPointerLockMode(final PointerLockMode aPointerLockMode)
+    {
+        m_GLWindow.confinePointer(false);
+        //m_GLWindow
+        
+        switch(aPointerLockMode)
+        {
+            case Free:
+            {
+                                
+            } break;
+            
+            case ConfinedToWindow:
+            {
+                m_GLWindow.confinePointer(true);
+                
+            } break;
+            
+            case Locked:
+            default:
+                throw new UnsupportedOperationException("Not supported yet.");
+            
+        }
+        
+    }
+    
+    public final void setDisplayMode(final DisplayMode aDisplayMode)
+    {
+        m_GLWindow.setFullscreen(false);
+        m_GLWindow.setUndecorated(false);
+        m_GLWindow.setVisible(true);
+                
+        switch(aDisplayMode)
+        {
+            case Windowed:
+            {
+                
+            } break;
+            
+            case Borderless:
+            {
+                m_GLWindow.setUndecorated(true);
+                
+            } break;
+            
+            case FullScreen:
+            {
+                m_GLWindow.setFullscreen(true);
+                
+            } break;
+            
+            case Hidden:
+            {
+                m_GLWindow.setVisible(false);
+                
+            } break;
+            
+        }
+        
+    }
 
     //*******************************
     // GLEventListener implementation
     //*******************************
-    @Override
+    /*@Override
     public void init(GLAutoDrawable glad) 
     {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
-    }
+    }*/
 
     @Override
     public void dispose(GLAutoDrawable glad) 
@@ -81,12 +209,12 @@ public class Window implements WindowListener, GLEventListener
         
     }
 
-    @Override
+    /*@Override
     public void display(GLAutoDrawable glad) 
     {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
-    }
+    }*/
 
     @Override
     public void reshape(GLAutoDrawable glad, int i, int i1, int i2, int i3) 

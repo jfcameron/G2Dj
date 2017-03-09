@@ -86,11 +86,10 @@ public class KeyboardInputHandler implements KeyListener
 
         
 
-  public boolean getKey( int keyCode ) {
-
-    return keys[ keyCode ] == KeyState.JustPressed ||
-
-           keys[ keyCode ] == KeyState.Down;
+  public boolean getKey( KeyCode keyCode ) 
+  {
+      return keys[s_G2DjKeyMapToAWTKey.get(keyCode)] == KeyState.JustPressed ||
+             keys[s_G2DjKeyMapToAWTKey.get(keyCode)] == KeyState.Down;
 
   }
 
