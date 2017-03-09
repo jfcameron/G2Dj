@@ -19,7 +19,6 @@ public class Camera
     //************
     private Color           m_ClearColor;
     private Vector2         m_ViewportPosition;		
-    private boolean         m_ClearIsEnabled;
     private CameraClearMode m_ClearMode;
     
     //
@@ -29,8 +28,10 @@ public class Camera
     //public:
     public Color getClearColor(){return m_ClearColor;}//Color getClearColor    (void) { return m_ClearColor;           }
     //std::weak_ptr<RenderTexture> getRenderTexture (void) { return m_RenderTexture;        }
+    public Vector2 getViewportPosition(){return m_ViewportPosition;}
+    public CameraClearMode getCameraClearMode(){return m_ClearMode;}
 			
-    //void setClearColor      (const Color                  &aClearColor      ) { m_ClearColor       = aClearColor       ; }
+    void setClearColor( final Color aClearColor ) { m_ClearColor = aClearColor; }
     //void setRenderTexture   (std::weak_ptr<RenderTexture> aRenderTexture    ) { m_RenderTexture    = aRenderTexture    ; }
     //void setViewportPosition(const Math::Vector2          &aViewportPosition) { m_ViewportPosition = aViewportPosition ; }
     //void setViewportSize    (const Math::Vector2          &aViewportSize    ) { m_ViewportSize     = aViewportSize     ; }
@@ -39,7 +40,11 @@ public class Camera
     //Math::Vector3 getWorldPointFromScreenPoint(const Math::Vector2 &aScreenPoint);
     //Math::Vector3 getWorldPointFromScreenPoint(const Math::Vector2 &aScreenPoint, const float &aWorldSpaceDistance);
 
-    //void draw(void) override;
+    public void draw() //void draw(void) override;
+    {
+        
+        
+    }
 
     //RenderCamera();
 

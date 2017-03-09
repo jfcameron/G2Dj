@@ -9,7 +9,7 @@ package G2Dj.Imp.Graphics;
  *
  * @author Joe
  */
-enum CameraClearMode
+public enum CameraClearMode
 {
     Nothing,
     Color,
