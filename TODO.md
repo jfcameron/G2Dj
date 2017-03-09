@@ -1,4 +1,4 @@
-Finish GL loading
+Implement RenderObserver & camera
 
 Shader 
     -loading,
