@@ -6,11 +6,9 @@
 package G2Dj.Imp.Graphics;
 
 import G2Dj.Debug;
-import G2Dj.Imp.Input.KeyboardInputHandler;
-
-import G2Dj.Imp.Graphics.DisplayMode;
-import G2Dj.Imp.Input.KeyCode;
 import G2Dj.Input;
+import G2Dj.Imp.Input.KeyboardInputHandler;
+import G2Dj.Imp.Input.KeyCode;
 
 import com.jogamp.newt.Display;
 import com.jogamp.newt.NewtFactory;
@@ -18,23 +16,18 @@ import com.jogamp.newt.Screen;
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.event.WindowUpdateEvent;
-
-import com.jogamp.opengl.GL;
-
 import com.jogamp.newt.opengl.GLWindow;
 
+import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
-import com.jogamp.opengl.GLContext;
-import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.GLProfile;
-import com.jogamp.opengl.util.Animator;
 
 /**
  *
  * @author Joe
  */
-public final class Window implements WindowListener, GLEventListener
+public final class Window implements WindowListener
 {
     private final GLWindow m_GLWindow;
     
@@ -60,47 +53,83 @@ public final class Window implements WindowListener, GLEventListener
         setDisplayMode(DisplayMode.Windowed);
         setPointerVisible(true);
         setPointerLockMode(PointerLockMode.Free);
-        //m_GLWindow.setContextCreationFlags(GLContext.CTX_OPTION_DEBUG); //TODO: decide on this
+        
+        //Bypass JOGL's multithreaded event system
+        m_GLWindow.setAutoSwapBufferMode(false);//timing of bufferswaps is up to me
+        m_GLWindow.getContext().makeCurrent();//Ownership of the context is given to this thread
         
         //Attach window event listeners
         m_GLWindow.addWindowListener((WindowListener)this);
         m_GLWindow.addKeyListener((KeyListener)aKeyboardInputHandler);
-        m_GLWindow.addGLEventListener(this);
         
-        ///????????????
-        final Animator animator = new Animator(m_GLWindow);
-        animator.setRunAsFastAsPossible(true);
-        animator.start();
         
+        
+        /////////INIT TSET
+        
+        GL gl = m_GLWindow.getGL();
+        gl.glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
+                
     }
     
     //*****************
     // Window interface
     //*****************
-    @Override
+    //@Override
     public void init(GLAutoDrawable drawable) 
     {
-        GL gl = drawable.getGL();
         
-        gl.glViewport(0, 0, m_GLWindow.getWidth(), m_GLWindow.getHeight());
-        gl.glDepthMask(true);
-        gl.glEnable(GL.GL_DEPTH_TEST);
-        gl.glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         
     }
     
-    @Override
-    public void display(GLAutoDrawable drawable)
+    public void draw()
     {
-        GL gl = drawable.getGL();
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        GL gl = m_GLWindow.getGL(); 
         
-        //Debug.log("drawing");
+        Debug.log("displaying");
         
-        //m_GLWindow.swapBuffers();
-        //m_GLWindow.display();
+        /*Test glr = new Test()
+        {
+            @Override
+            public boolean run(GLAutoDrawable glad)
+            {
+                //GL gl = glad.getGL();
+                //gl.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+            
+                return true;
+            
+            }
+            
+        };
+
+        drawable.invoke(false, glr);*/
         
+        //Camera1
+        {
+            //c1 init()
+            gl.glEnable(GL.GL_DEPTH_TEST);
+            gl.glEnable(GL.GL_SCISSOR_TEST);
+            
+            int vpX2 = m_GLWindow.getWidth(), vpY2 = m_GLWindow.getHeight(),
+                vpX1 = 0, vpY1 = 0;
+            
+            //c1 draw()
+            gl.glViewport(vpX1,vpY1,vpX2,vpY2);
+            gl.glScissor(vpX1,vpY1,vpX2,vpY2);
+            
+            gl.glDepthMask(true);
+            
+            //gl.glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
+            gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+            
+        }
+        
+        //123
+        {
+            
+            
+        }
+        
+        ////////TEST JUNK////////////
         if (Input.getKey(KeyCode.A))
         {
             gl.glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
@@ -113,15 +142,9 @@ public final class Window implements WindowListener, GLEventListener
             
         }
         
-    }
-    
-    public void draw()
-    {
         
-        
-        //m_GLWindow.swapBuffers();
-        //m_GLWindow.display();
-        
+        m_GLWindow.display();
+        m_GLWindow.swapBuffers();
         
     }
     
@@ -189,37 +212,6 @@ public final class Window implements WindowListener, GLEventListener
             } break;
             
         }
-        
-    }
-
-    //*******************************
-    // GLEventListener implementation
-    //*******************************
-    /*@Override
-    public void init(GLAutoDrawable glad) 
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
-    }*/
-
-    @Override
-    public void dispose(GLAutoDrawable glad) 
-    {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
-    }
-
-    /*@Override
-    public void display(GLAutoDrawable glad) 
-    {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
-    }*/
-
-    @Override
-    public void reshape(GLAutoDrawable glad, int i, int i1, int i2, int i3) 
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
     }
 
