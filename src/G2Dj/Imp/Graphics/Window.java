@@ -39,7 +39,7 @@ public final class Window implements WindowListener
         //Configure the GL
         Display display = NewtFactory.createDisplay(null);
         Screen screen = NewtFactory.createScreen(display, 0);
-        GLProfile glProfile = GLProfile.get(GLProfile.GL3);
+        GLProfile glProfile = GLProfile.get(GLProfile.GL4ES3/*GL2ES2*/);
         GLCapabilities glCapabilities = new GLCapabilities(glProfile);
         
         //Create the GL context & create the window

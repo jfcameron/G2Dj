@@ -16,9 +16,10 @@ public class Test
 {
     private static void test()
     {
-        G2Dj.Graphics.getWindow().setTitle("This is a test");
+        G2Dj.Graphics.getWindow().setTitle("AdhocTest");
         
         G2Dj.Graphics.loadShader(new TestShader());
+        
         
     }
     

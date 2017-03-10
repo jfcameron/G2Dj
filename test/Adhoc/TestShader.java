@@ -25,16 +25,17 @@ public class TestShader extends ShaderProgram
     {    
         return 
 "//VertIn\n" +
-"    attribute vec3 a_Position;\n" +
+"attribute vec3 a_Position;\n" +
+"attribute vec2 a_UV;\n" +
 "    \n" +
-"    //Uniforms\n" +
-"    uniform mat4 _MVP;\n" +
+"//Uniforms\n" +
+"uniform mat4 _MVP;\n" +
 "    \n" +
-"    void main ()                        \n" +
-"    {\n" +
-"        gl_Position = _MVP * vec4(a_Position,1.0);  \n" +
+"void main ()                        \n" +
+"{\n" +
+"    gl_Position = _MVP * vec4(a_Position,1.0);  \n" +
 "    \n" +
-"    }  ";
+"}";
     
     }
 
