@@ -76,64 +76,6 @@ public final class Window implements WindowListener
     //*****************
     public void draw()
     {
-        GL gl = m_GLWindow.getGL(); 
-        
-        /*Test glr = new Test()
-        {
-            @Override
-            public boolean run(GLAutoDrawable glad)
-            {
-                //GL gl = glad.getGL();
-                //gl.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-            
-                return true;
-            
-            }
-            
-        };
-
-        drawable.invoke(false, glr);*/
-        
-        //Camera1
-        {
-            //c1 init()
-            gl.glEnable(GL.GL_DEPTH_TEST);
-            gl.glEnable(GL.GL_SCISSOR_TEST);
-            
-            int vpX2 = m_GLWindow.getWidth(), vpY2 = m_GLWindow.getHeight(),
-                vpX1 = 0, vpY1 = 0;
-            
-            //c1 draw()
-            gl.glViewport(vpX1,vpY1,vpX2,vpY2);
-            gl.glScissor(vpX1,vpY1,vpX2,vpY2);
-            
-            gl.glDepthMask(true);
-            
-            //gl.glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
-            gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-            
-        }
-        
-        //123
-        {
-            
-            
-        }
-        
-        ////////TEST JUNK////////////
-        if (Input.getKey(KeyCode.A))
-        {
-            gl.glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
-            
-        }
-        
-        if (Input.getKey(KeyCode.S))
-        {
-            gl.glClearColor(0.0f, 0.1f, 0.7f, 1.0f);
-            
-        }
-        
-        
         m_GLWindow.display();
         m_GLWindow.swapBuffers();
         
@@ -205,6 +147,10 @@ public final class Window implements WindowListener
         }
         
     }
+    
+    public GL  getGL()    { return m_GLWindow.getGL();     }
+    public int getWidth() { return m_GLWindow.getWidth();  }
+    public int getHeight(){ return m_GLWindow.getHeight(); }
 
     //******************************
     // WindowListener implementation
