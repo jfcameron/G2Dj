@@ -98,15 +98,18 @@ public abstract class ShaderProgram extends GraphicsObject
         
     }*/
 
-    protected abstract void glDrawCalls();
+    protected abstract void   glDrawCalls();
+    protected abstract String vertexShaderGLSL();
+    protected abstract String fragmentShaderGLSL();
     
     //
     // Constructors
     //
-    protected ShaderProgram(final String aVertexGLSL, final String aFragmentGLSL)
+    public ShaderProgram()
     {
         m_Name = this.getClass().getName();
         
+        compileGraphicsProgram(vertexShaderGLSL(),fragmentShaderGLSL());
         
     }
     

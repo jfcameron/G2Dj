@@ -8,11 +8,14 @@ package G2Dj.Imp.Graphics;
 import G2Dj.Debug;
 import java.util.ArrayList;
 
+import java.lang.reflect.ParameterizedType;
+
+
 /**
  *
  * @author Joe
  */
-public class ShaderProgramCollection 
+public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProgram>
 {
     //*************
     // Data members
@@ -22,7 +25,26 @@ public class ShaderProgramCollection
     //
     //
     //
-      
+    public <T extends ShaderProgram> void loadShader(T aShaderProgram)
+    {
+        Debug.log(aShaderProgram.getName());
+        
+        //m_Vector.add(new T());
+        
+        //ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
+        //Class<T> type = (Class<T>) superClass.getActualTypeArguments()[0];
+                
+        /*try
+        {
+            return type.newInstance();
+        }
+        catch (Exception e)
+        {
+            // Oops, no default constructor
+            throw new RuntimeException(e);
+        }*/
+        
+    }
     
     //*************
     // Constructors
@@ -32,5 +54,5 @@ public class ShaderProgramCollection
         Debug.log(this.getClass());
         
     }
-    
+        
 }

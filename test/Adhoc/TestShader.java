@@ -20,13 +20,35 @@ public class TestShader extends ShaderProgram
     
     }
     
-    //protected void fragmentShadr
+    @Override
+    protected String vertexShaderGLSL() 
+    {    
+        return 
+"//VertIn\n" +
+"    attribute vec3 a_Position;\n" +
+"    \n" +
+"    //Uniforms\n" +
+"    uniform mat4 _MVP;\n" +
+"    \n" +
+"    void main ()                        \n" +
+"    {\n" +
+"        gl_Position = _MVP * vec4(a_Position,1.0);  \n" +
+"    \n" +
+"    }  ";
     
-    public TestShader()
+    }
+
+    @Override
+    protected String fragmentShaderGLSL() 
     {
-        super("Frag","Vertex");
-        
+        return 
+"    void main()                            \n" +
+"    {                                      \n" +
+"        gl_FragColor = vec4(1,0.2,0.8,1);\n" +
+"    \n" +
+"    }";
         
     }
+
     
 }

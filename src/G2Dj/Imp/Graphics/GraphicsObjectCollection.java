@@ -19,7 +19,7 @@ public abstract class GraphicsObjectCollection<T extends GraphicsObject>
     //*****************
     // Public interface
     //*****************
-    public abstract void init();
+    //public abstract void init();
     
     public T getDefault()
     {
