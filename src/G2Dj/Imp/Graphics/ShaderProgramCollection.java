@@ -25,24 +25,13 @@ public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProg
     //
     //
     //
-    public <T extends ShaderProgram> void loadShader(T aShaderProgram)
+    //public /*<T extends ShaderProgram>*/ void loadShader(ShaderProgram aShaderProgram)
+    @Override
+    public void add(final ShaderProgram aItem)
     {
-        Debug.log(aShaderProgram.getName());
+        //hmm
         
-        //m_Vector.add(new T());
-        
-        //ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
-        //Class<T> type = (Class<T>) superClass.getActualTypeArguments()[0];
-                
-        /*try
-        {
-            return type.newInstance();
-        }
-        catch (Exception e)
-        {
-            // Oops, no default constructor
-            throw new RuntimeException(e);
-        }*/
+        super.add(aItem);
         
     }
     
@@ -51,7 +40,7 @@ public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProg
     //*************
     public ShaderProgramCollection()
     {
-        Debug.log(this.getClass());
+        //Debug.log(this.getClass());
         
     }
         

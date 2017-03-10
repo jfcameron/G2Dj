@@ -7,12 +7,9 @@ package G2Dj.Imp.Graphics;
 
 import G2Dj.Debug;
 import G2Dj.Graphics;
-import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GL2ES2;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 
 /**
  *
@@ -49,24 +46,24 @@ public abstract class ShaderProgram extends GraphicsObject
         final String vertex_shader   = aVertexCode;
         final String fragment_shader = aFragmentCode;
         
-	Debug.log("Compiling "+m_Name+" GLSL code\n");
+	Debug.log("Compiling "+m_Name+" GLSL code");
         
-        Debug.log(vertex_shader);
+        //Debug.log(vertex_shader);
         
-	Debug.log("Compiling vertex stage sourcecode\n");
+	Debug.log("Compiling vertex stage sourcecode");
         //run the glsl sources through the compiler, keep handle to both compiled shaders
         int vs = gl.glCreateShader (GL2.GL_VERTEX_SHADER);
         gl.glShaderSource(vs, 1, new String[]{vertex_shader}, null);//glShaderSource (vs, 1, &vertex_shader, 0);
         gl.glCompileShader (vs);
         //GLHelp::Diagnostics::checkGLSLErrors(vs);
     
-	Debug.log("Compiling fragment stage sourcecode\n");
+	Debug.log("Compiling fragment stage sourcecode");
         int fs = gl.glCreateShader (GL2.GL_FRAGMENT_SHADER);
         gl.glShaderSource (fs, 1, new String[]{fragment_shader}, null);
         gl.glCompileShader (fs);
 	//GLHelp::Diagnostics::checkGLSLErrors(fs);
     
-	Debug.log("Linking graphics program\n");
+	Debug.log("Linking graphics program");
         //create the program with the compiled vert and frag shaders
         m_ProgramHandle = gl.glCreateProgram ();
         gl.glAttachShader (m_ProgramHandle, vs);
@@ -90,7 +87,7 @@ public abstract class ShaderProgram extends GraphicsObject
         }
         else
         {   
-            Debug.log("Shader program successfully linked\n");
+            Debug.log("Shader program successfully linked");
             
             int[] attributeCount = new int[]{-1};
             gl.glGetProgramiv(m_ProgramHandle, GL2.GL_ACTIVE_ATTRIBUTES, attributeCount,0);

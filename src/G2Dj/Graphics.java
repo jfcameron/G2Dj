@@ -14,6 +14,7 @@ import G2Dj.Math.Vector2;
 import G2Dj.Type.Graphics.Color;
 
 import com.jogamp.opengl.GL;
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -38,7 +39,14 @@ public class Graphics
     // Public interface
     //*****************
     //Shader funcs
-    public static void loadShader(ShaderProgram aShaderProgram){s_ShaderPrograms.loadShader(aShaderProgram);}
+    public static void loadShader(ShaderProgram aShaderProgram){s_ShaderPrograms.add(aShaderProgram);}
+    
+    public static WeakReference<ShaderProgram> getShaderProgram(final String aShaderName)
+    {
+        return s_ShaderPrograms.getDefault();//find(aShaderName);
+    
+    }
+            
     
     
     protected static void init(){}

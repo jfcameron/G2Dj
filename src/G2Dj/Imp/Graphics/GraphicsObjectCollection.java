@@ -5,47 +5,57 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Debug;
 import java.util.ArrayList;
 import java.lang.RuntimeException;
+import java.lang.ref.WeakReference;
 
 public abstract class GraphicsObjectCollection<T extends GraphicsObject>
 {
     //*************
     // Data members
     //*************
-    protected ArrayList<T> m_Vector;
-    protected ArrayList<String> m_FileTypes;
+    protected ArrayList<T>      m_Vector    = new ArrayList<>();
+    protected ArrayList<String> m_FileTypes = new ArrayList<>();
     
     //*****************
     // Public interface
     //*****************
     //public abstract void init();
     
-    public T getDefault()
+    public WeakReference<T> getDefault()
     {
         if (m_Vector.isEmpty())
             throw new RuntimeException("No default exists.");
         
-        return m_Vector.get(0);
+        return new WeakReference<T>(m_Vector.get(0));
         
     }
     
-    public T find(final String aItemName)
+    public WeakReference<T> find(final String aItemName)
     {
         for(int i =0, s = m_Vector.size(); i < s; i++)
             if (m_Vector.get(i).getName() == aItemName)
-                return m_Vector.get(i);
+                return new WeakReference<T>(m_Vector.get(i));
             
         return getDefault();
         
     }
     
-    public T get(final int i)
+    public WeakReference<T> get(final int i)
     {
         if (i >= m_Vector.size())
             return getDefault();
     
-        return m_Vector.get(i);
+        return new WeakReference<T>(m_Vector.get(i));
+        
+    }
+    
+    public void add(final T aItem)
+    {
+        //todo: sanitize...
+        
+        m_Vector.add(aItem);
         
     }
     

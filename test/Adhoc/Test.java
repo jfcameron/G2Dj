@@ -7,6 +7,9 @@ import G2Dj.Input;
 import G2Dj.Math.Vector2;
 
 import Adhoc.TestShader;
+import G2Dj.Graphics;
+import G2Dj.Imp.Graphics.ShaderProgram;
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -20,6 +23,9 @@ public class Test
         
         G2Dj.Graphics.loadShader(new TestShader());
         
+        WeakReference<ShaderProgram> shader = Graphics.getShaderProgram("TestShader");
+        
+        Debug.log(shader.get().getName());
         
     }
     
