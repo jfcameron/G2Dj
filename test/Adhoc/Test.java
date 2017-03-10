@@ -25,7 +25,18 @@ public class Test
         
         WeakReference<ShaderProgram> shader = Graphics.getShaderProgram("TestShader");
         
+        Graphics._TEST_FUNCTION_();
+        
+        ShaderProgram asdf = shader.get();
+        
         Debug.log(shader.get().getName());
+        
+        System.gc ();
+        
+        while(!Input.getKeyDown(KeyCode.Escape))
+        {Debug.log(shader.get().getName());
+            
+        }
         
     }
     

@@ -16,6 +16,7 @@ import G2Dj.Type.Graphics.Color;
 import com.jogamp.opengl.GL;
 import java.lang.ref.WeakReference;
 
+
 /**
  *
  * @author Joe
@@ -47,7 +48,7 @@ public class Graphics
     
     }
             
-    
+    public static void _TEST_FUNCTION_(){s_ShaderPrograms._TEST_TEST_DELETE();}
     
     protected static void init(){}
     
