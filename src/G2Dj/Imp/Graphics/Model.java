@@ -112,6 +112,7 @@ public class Model extends GraphicsObject
     //Model(const std::string &aFileName, const std::string &aMeshName = "");
     public Model(final String aName, final float[] aVertexData, final VertexFormat aVertexFormat)
     {
+        Debug.log("***************MODELTEST******************************");
         
         GL2 gl = Graphics.getGL().getGL2();
         
