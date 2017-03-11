@@ -10,11 +10,6 @@ import G2Dj.Graphics;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GL2ES2;
-import com.jogamp.opengl.GLES1;
-import com.jogamp.opengl.GLES2;
-import com.jogamp.opengl.GLES3;
-import static com.jogamp.opengl.GLProfile.GLES2;
-import static com.jogamp.opengl.GLProfile.GLES3;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -63,8 +58,11 @@ public class Model extends GraphicsObject
         int attribute = gl.glGetAttribLocation(aProgramHandle, aAttributeName); //Graphics::shader_programme, "a_Pos" );
         
         if (attribute ==-1)
+        {
+            Debug.log("unused attribute: "+aAttributeName);
             return;
-        
+        }
+            
         gl.glEnableVertexAttribArray(attribute);
     
         //Create vertex attribute pointers..
@@ -140,7 +138,7 @@ public class Model extends GraphicsObject
         
         //Pass data to the vertex buffer
         gl.glBindBuffer (GL2.GL_ARRAY_BUFFER, vbo.get(0));
-        gl.glBufferData (GL2.GL_ARRAY_BUFFER, Float.BYTES * aVertexFormat.getNumberOfAttributes() * aVertexData.length, FloatBuffer.wrap(aVertexData), GL2.GL_STATIC_DRAW);
+        gl.glBufferData (GL2.GL_ARRAY_BUFFER, Float.BYTES * aVertexData.length, FloatBuffer.wrap(aVertexData), GL2.GL_STATIC_DRAW);
         gl.glBindBuffer (GL2.GL_ARRAY_BUFFER,0);
         
     }

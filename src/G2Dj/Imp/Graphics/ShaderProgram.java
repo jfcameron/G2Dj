@@ -32,6 +32,7 @@ public abstract class ShaderProgram extends GraphicsObject
     //
     public void draw()
     {
+        Graphics.getGL().getGL2ES2().glUseProgram(m_ProgramHandle);
         glDrawCalls();
         
     }

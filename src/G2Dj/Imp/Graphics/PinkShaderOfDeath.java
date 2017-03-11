@@ -5,6 +5,10 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Debug;
+import G2Dj.Graphics;
+import com.jogamp.opengl.GL;
+
 /**
  *
  * @author Joe
@@ -13,8 +17,13 @@ public class PinkShaderOfDeath extends ShaderProgram
 {
     @Override
     protected void glDrawCalls() 
-    {
+    {        
         //put gl calls here
+        GL gl = Graphics.getGL();
+        gl.glEnable   (gl.GL_DEPTH_TEST);
+        gl.glEnable   (gl.GL_CULL_FACE);
+        gl.glDisable  (gl.GL_CULL_FACE);
+        gl.glCullFace (gl.GL_BACK);
     
     }
     
@@ -31,7 +40,7 @@ public class PinkShaderOfDeath extends ShaderProgram
 "    \n" +
 "void main ()                        \n" +
 "{\n" +
-"    gl_Position = _MVP * vec4(a_Position,1.0);  \n" +
+"    gl_Position = /*_MVP **/ vec4(a_Position,1.0);  \n" +
 "    \n" +
 "}";
     
