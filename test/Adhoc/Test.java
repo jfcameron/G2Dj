@@ -21,12 +21,12 @@ public class Test
     {
         G2Dj.Graphics.getWindow().setTitle("AdhocTest");
         
-        G2Dj.Graphics.loadShader(new TestShader());
+        /*G2Dj.Graphics.loadShader(new TestShader());
         
         WeakReference<ShaderProgram> shader = Graphics.getShaderProgram("TestShader");
         
         
-        
+        */
     }
     
     public static void main(String[] args) 

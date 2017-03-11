@@ -49,8 +49,12 @@ public class VertexFormat
         //Process attribute data
         VertexAttribute attribute = null;
         for(int i = 0, s = m_NumberOfAttributes; i < s; i++)
+        {
+            attribute = aAttributes[i];
             m_Format.put(attribute.getName(), attribute.getSize());
         
+        }
+            
     }
     
     //

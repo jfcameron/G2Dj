@@ -5,6 +5,7 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Debug;
 import G2Dj.Graphics;
 import com.jogamp.opengl.GL2;
 import java.nio.FloatBuffer;
@@ -111,6 +112,7 @@ public class Model extends GraphicsObject
     //Model(const std::string &aFileName, const std::string &aMeshName = "");
     public Model(final String aName, final float[] aVertexData, final VertexFormat aVertexFormat)
     {
+        
         GL2 gl = Graphics.getGL().getGL2();
         
         

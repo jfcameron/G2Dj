@@ -96,19 +96,19 @@ public class Graphics
         
         shader1 = new PinkShaderOfDeath();
         
-        //model1 = new Quad();
+        model1 = new Quad();
         
     }
     
     //TEST AREA
-    private static Camera camera1;// = new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color);
-    private static Camera camera2;// = new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink(),CameraClearMode.Color);
-    private static Camera camera3;// = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red(),CameraClearMode.Color);
-    private static Camera camera4;// = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green(),CameraClearMode.Color);
+    private static final Camera camera1;// = new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color);
+    private static final Camera camera2;// = new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink(),CameraClearMode.Color);
+    private static final Camera camera3;// = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red(),CameraClearMode.Color);
+    private static final Camera camera4;// = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green(),CameraClearMode.Color);
     
-    private static Model model1;
+    private static final Model model1;
     
-    private static ShaderProgram shader1;
+    private static final ShaderProgram shader1;
     
     //private static ShaderProgram shader = new TestShader();
     
