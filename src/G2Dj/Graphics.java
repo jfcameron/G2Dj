@@ -48,18 +48,27 @@ public class Graphics
     
     }
             
-    public static void _TEST_FUNCTION_(){s_ShaderPrograms._TEST_TEST_DELETE();}
+    public static void _TEST_FUNCTION_(){}
     
     protected static void init(){}
     
     protected static void draw()
     {
-        //TEST AREA
-        camera1.draw(s_GL);
-        camera2.draw(s_GL);
-        camera3.draw(s_GL);
-        camera4.draw(s_GL);
-                
+        //MODEL TEST AREA
+        {
+            
+            
+        }
+        
+        //CAMERA TEST AREA
+        {
+            camera1.draw(s_GL);
+            camera2.draw(s_GL);
+            camera3.draw(s_GL);
+            camera4.draw(s_GL);
+        
+        }
+        
         //update canvas, swap buffers
         s_Window.draw();
         
@@ -77,9 +86,9 @@ public class Graphics
         
         //TEST AREA
         camera1 = new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color);
-        camera2 = new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink(),CameraClearMode.Color);
-        camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red(),CameraClearMode.Color);
-        camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green(),CameraClearMode.Color);
+        camera2 = new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink()   ,CameraClearMode.Color);
+        camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color);
+        camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color);
         
     }
     

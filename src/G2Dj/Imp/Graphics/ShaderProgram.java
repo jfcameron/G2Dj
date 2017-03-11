@@ -95,14 +95,8 @@ public abstract class ShaderProgram extends GraphicsObject
             Debug.log("handle number: "+m_ProgramHandle);
             Debug.log("Active attributes: "+attributeCount[0]);
             
-            /*GLint attributeCount = 0;
-            glGetProgramiv(m_ProgramHandle, GL_ACTIVE_ATTRIBUTES, &attributeCount);
-        
-            Debug::log("handle number: ",(int)m_ProgramHandle, "\n");
-            Debug::log("Active attributes: ", attributeCount, "\n");*/
-	
         }
-    
+        
 	//GLHelp::Diagnostics::checkGLErrors();
         
     }

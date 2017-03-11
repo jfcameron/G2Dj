@@ -58,13 +58,7 @@ public abstract class GraphicsObjectCollection<T extends GraphicsObject>
         m_Vector.add(aItem);
         
     }
-    
-    public void _TEST_TEST_DELETE()
-    {
-        m_Vector.clear();
         
-    }
-    
     /*Boolean listOfAllDynamicTypeFilesInDir(final String dirname, std::vector<std::string>& ioListOfShaderFiles)
     {
         DIR *dir = opendir(dirname);
