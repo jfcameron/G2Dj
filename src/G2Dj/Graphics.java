@@ -60,7 +60,7 @@ public class Graphics
         //MODEL TEST AREA
         {
             shader1.draw();
-            //model1.draw(shader1.getProgramHandle());
+            model1.draw(shader1.getProgramHandle());
             
         }
         
@@ -109,7 +109,5 @@ public class Graphics
     private static final Model model1;
     
     private static final ShaderProgram shader1;
-    
-    //private static ShaderProgram shader = new TestShader();
     
 }

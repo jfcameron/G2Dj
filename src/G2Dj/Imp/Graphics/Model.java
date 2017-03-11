@@ -7,6 +7,7 @@ package G2Dj.Imp.Graphics;
 
 import G2Dj.Debug;
 import G2Dj.Graphics;
+import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -114,7 +115,7 @@ public class Model extends GraphicsObject
     {
         Debug.log("***************MODELTEST******************************");
         
-        GL2 gl = Graphics.getGL().getGL2();
+        GL gl = Graphics.getGL();
         
         
         m_Name         = aName;
