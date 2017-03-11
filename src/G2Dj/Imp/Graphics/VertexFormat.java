@@ -5,11 +5,7 @@
  */
 package G2Dj.Imp.Graphics;
 
-import java.nio.FloatBuffer;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  *
@@ -20,49 +16,37 @@ public class VertexFormat
     //
     // Data members
     //
-    private final LinkedHashMap<String,Integer>  m_Format = new LinkedHashMap<>();
-    private final int m_Stride = 0;
+    private final LinkedHashMap<String,Integer> m_Format = new LinkedHashMap<>();
+    private final int m_NumberOfAttributes;
     
     //
     // Accessors
     //
-    int getStride(){return m_Stride;}
-    
-    //
-    // private Implementation
-    //
-    private void calculateStride(LinkedHashMap<String,Integer> aFormat)
-    {
-        int stride = 0;
-        
-        for (Map.Entry<String,Integer> entry : aFormat.entrySet())
-        {
-           System.out.println(entry.getKey() + "/" + entry.getValue());
-           
-        }
-        
-    }
+    public int getNumberOfAttributes(){return m_NumberOfAttributes;}
+    //implement foreach?
     
     //
     //
     //
     public VertexFormat(VertexAttribute... aAttributes)
     {
+        m_NumberOfAttributes = aAttributes.length;
+        
         //Process attribute data
         VertexAttribute attribute = null;
-        for(int i = 0, s = aAttributes.length; i < s; i++)
-            m_Format.put(attribute.Name, attribute.Size);
+        for(int i = 0, s = m_NumberOfAttributes; i < s; i++)
+            m_Format.put(attribute.getName(), attribute.getSize());
         
-        
-        
-                
     }
     
-    //Special formats
-    /*public abstract VertexFormat v2uv2()
-    {
-        return 
-        
-    }*/
+    //
+    // Special formats
+    //
+    public static VertexFormat pos3uv2 = new VertexFormat
+    (
+        new VertexAttribute("a_Position",3),
+        new VertexAttribute("a_UV"      ,2)
+                                
+    );
     
 }

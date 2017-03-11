@@ -7,6 +7,7 @@ package G2Dj.Imp.Graphics;
 
 import G2Dj.Graphics;
 import com.jogamp.opengl.GL2;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 /**
@@ -18,13 +19,15 @@ public class Model extends GraphicsObject
     //*************
     // Data members
     //*************
-    private int m_VertexBufferHandle;
-    private int m_VertexCount;
+    private final int          m_VertexBufferHandle;
+    private final int          m_VertexCount;
+    private final VertexFormat m_VertexFormat;
     
     //**********
     // Accessors
     //**********
-    public int  getVertexCount(){return m_VertexCount;}      
+    //public int          getVertexCount (){return m_VertexCount; }
+    //public VertexFormat getVertexFormat(){return m_VertexFormat;}
     
     //*****************
     // Public interface
@@ -44,25 +47,24 @@ public class Model extends GraphicsObject
     // Constructor
     //************
     //Model(const std::string &aFileName, const std::string &aMeshName = "");
-    public Model(final String aName/*, Vertex::Data aVertexData*/)
+    public Model(final String aName, final float[] aVertexData, final VertexFormat aVertexFormat)
     {
-        //VertexBufferData test = VertexBufferData();
-        
         GL2 gl = Graphics.getGL().getGL2();
+        int byteSizeOfFloat = 4;
         
-        m_Name = aName;
+        m_Name         = aName;
+        m_VertexCount  = aVertexData.length;
+        m_VertexFormat = aVertexFormat;
         
-        //Create buffer
+        //Request a vertex buffer from the GL
         IntBuffer vbo = IntBuffer.allocate(1);
         gl.glGenBuffers(1, vbo);
         m_VertexBufferHandle = vbo.get(0);
-        
-        /*m_VertexCount = aVertexData.size();
-    
-        glBindBuffer (GL_ARRAY_BUFFER, vbo);
-        glBufferData (GL_ARRAY_BUFFER, sizeof (Vertex::Format)*aVertexData.size(), aVertexData.toArray(), GL_STATIC_DRAW);
-        glBindBuffer( GL_ARRAY_BUFFER,0);
-        */
+                
+        //Pass data to the vertex buffer
+        gl.glBindBuffer (GL2.GL_ARRAY_BUFFER, vbo.get(0));
+        gl.glBufferData (GL2.GL_ARRAY_BUFFER, byteSizeOfFloat * aVertexFormat.getNumberOfAttributes() * aVertexData.length, FloatBuffer.wrap(aVertexData), GL2.GL_STATIC_DRAW);
+        gl.glBindBuffer (GL2.GL_ARRAY_BUFFER,0);
         
     }
     

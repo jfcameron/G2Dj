@@ -1,8 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
+*/
 package G2Dj.Imp.Graphics;
 
 /**
@@ -11,9 +10,17 @@ package G2Dj.Imp.Graphics;
  */
 public class VertexAttribute 
 {
-    public String  Name;
-    public Integer Size;
+    private final String  m_Name;
+    private final Integer m_Size;
     
-    public VertexAttribute(final String aName, final Integer aSize){Name=aName;Size=aSize;}
+    public String getName(){return m_Name != null ? m_Name : "" ;}
+    public int    getSize(){return m_Size;}
+    
+    public VertexAttribute(final String aName, final Integer aSize)
+    {
+        m_Name=aName;
+        m_Size=aSize;
+    
+    }
     
 }
