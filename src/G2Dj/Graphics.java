@@ -57,13 +57,6 @@ public class Graphics
     
     protected static void draw()
     {
-        //MODEL TEST AREA
-        {
-            shader1.draw();
-            model1.draw(shader1.getProgramHandle());
-            
-        }
-        
         //CAMERA TEST AREA
         {
             camera1.draw(s_GL);
@@ -72,6 +65,15 @@ public class Graphics
             camera4.draw(s_GL);
         
         }
+        
+        //MODEL TEST AREA
+        {
+            shader1.draw();
+            model1.draw(shader1.getProgramHandle());
+            
+        }
+        
+        
         
         //update canvas, swap buffers
         s_Window.draw();

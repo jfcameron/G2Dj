@@ -9,6 +9,12 @@ import G2Dj.Debug;
 import G2Dj.Graphics;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GL2ES2;
+import com.jogamp.opengl.GLES1;
+import com.jogamp.opengl.GLES2;
+import com.jogamp.opengl.GLES3;
+import static com.jogamp.opengl.GLProfile.GLES2;
+import static com.jogamp.opengl.GLProfile.GLES3;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -38,9 +44,10 @@ public class Model extends GraphicsObject
     //*****************
     public void draw(final int programHandle)
     {   
-        GL2 gl = Graphics.getGL().getGL2();
+        GL gl = Graphics.getGL();
         
         //Vertex::EnableAttributes(programHandle, m_VertexBufferHandle);
+        enableAttributes(programHandle);
 
         gl.glDrawArrays( GL2.GL_TRIANGLES, 0, m_VertexCount );
         
@@ -51,7 +58,7 @@ public class Model extends GraphicsObject
     //****************
     private void enableAttribute(final String aAttributeName, final int aProgramHandle, final int attributeSize, final int attributeOffset)
     {
-        GL2 gl = Graphics.getGL().getGL2();
+        GL2ES2 gl = Graphics.getGL().getGL2ES2();
         
         int attribute = gl.glGetAttribLocation(aProgramHandle, aAttributeName); //Graphics::shader_programme, "a_Pos" );
         
@@ -77,7 +84,7 @@ public class Model extends GraphicsObject
     
     private void enableAttributes(final int aProgramHandle)
     {
-        GL2 gl = Graphics.getGL().getGL2();
+        GL gl = Graphics.getGL();
         
         gl.glBindBuffer( GL2.GL_ARRAY_BUFFER, m_VertexBufferHandle);
         
@@ -116,7 +123,6 @@ public class Model extends GraphicsObject
         Debug.log("***************MODELTEST******************************");
         
         GL gl = Graphics.getGL();
-        
         
         m_Name         = aName;
         m_VertexCount  = aVertexData.length;
