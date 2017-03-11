@@ -60,9 +60,9 @@ public class Graphics
         //CAMERA TEST AREA
         {
             camera1.draw(s_GL);
-            camera2.draw(s_GL);
-            camera3.draw(s_GL);
-            camera4.draw(s_GL);
+            //camera2.draw(s_GL);
+            //camera3.draw(s_GL);
+            //camera4.draw(s_GL);
         
         }
         
@@ -91,7 +91,7 @@ public class Graphics
         s_ShaderPrograms = new ShaderProgramCollection();
         
         //TEST AREA
-        camera1 = new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color);
+        camera1 = new Camera(new Vector2(0.0f,0.0f), new Vector2(1.0f,1.0f),Color.CornflowerBlue(),CameraClearMode.Color);
         camera2 = new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink()   ,CameraClearMode.Color);
         camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color);
         camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color);

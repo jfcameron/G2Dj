@@ -35,13 +35,15 @@ public class Test
         
         test();
         
-        while(!Input.getKeyDown(KeyCode.Escape))
+        //while(!Input.getKeyDown(KeyCode.Escape))
         {
             Engine.update();
             
         }
         
-        System.exit(0);
+        while(!Input.getKeyDown(KeyCode.Escape)){}
+        
+        //System.exit(0);
         
         
     }

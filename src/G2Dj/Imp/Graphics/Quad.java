@@ -27,9 +27,9 @@ public class Quad extends Model
                 0.0f -(size/2), size -(size/2), 0.0f, 0.0f, 0.0f, // | /
                 0.0f -(size/2), 0.0f -(size/2), 0.0f, 0.0f, 1.0f, // 2
 
-                size -(size/2), size -(size/2), 0.0f, 1.0f, 0.0f, //    0
-                0.0f -(size/2), 0.0f -(size/2), 0.0f, 0.0f, 1.0f, //  / |
-                size -(size/2), 0.0f -(size/2), 0.0f, 1.0f, 1.0f, // 1--2
+                //size -(size/2), size -(size/2), 0.0f, 1.0f, 0.0f, //    0
+                //0.0f -(size/2), 0.0f -(size/2), 0.0f, 0.0f, 1.0f, //  / |
+                //size -(size/2), 0.0f -(size/2), 0.0f, 1.0f, 1.0f, // 1--2
                 
             }
             , 

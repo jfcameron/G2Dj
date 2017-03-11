@@ -30,9 +30,7 @@ public class Model extends GraphicsObject
     private final int          m_VertexBufferHandle;
     private final int          m_VertexCount;
     private final VertexFormat m_VertexFormat;
-    
-    int byteSizeOfFloat = 4;
-    
+        
     //**********
     // Accessors
     //**********
@@ -60,6 +58,8 @@ public class Model extends GraphicsObject
     {
         GL2ES2 gl = Graphics.getGL().getGL2ES2();
         
+        Debug.log("attrib: "+aAttributeName+", handle: "+aProgramHandle+", attribsize: ",attributeSize+", offset:"+attributeOffset);
+        
         int attribute = gl.glGetAttribLocation(aProgramHandle, aAttributeName); //Graphics::shader_programme, "a_Pos" );
         
         if (attribute ==-1)
@@ -75,8 +75,8 @@ public class Model extends GraphicsObject
             attributeSize, //Pos size
             gl.GL_FLOAT, //data type of each member of the format (must be uniform, look at glbindbufferdata, it takes an array or ptr to an array, so no suprise)
             false/*gl.GL_FALSE*/, 
-            m_VertexFormat.getNumberOfAttributes()*byteSizeOfFloat, //stride is size of vertex format in bytes
-            byteSizeOfFloat*attributeOffset  
+            m_VertexFormat.getNumberOfAttributes()*Float.BYTES, //stride is size of vertex format in bytes
+            attributeOffset*Float.BYTES  
             
         );
         
@@ -87,13 +87,6 @@ public class Model extends GraphicsObject
         GL gl = Graphics.getGL();
         
         gl.glBindBuffer( GL2.GL_ARRAY_BUFFER, m_VertexBufferHandle);
-        
-        
-        //Map<String, String> map = ...
-        //for (Map.Entry<String, String> entry : map.entrySet())
-        //{
-        //    System.out.println(entry.getKey() + "/" + entry.getValue());
-        //}
         
         int attributeOffset = 0;//TODO CALCULATE
         String[] attributeNames = m_VertexFormat.getNames();
@@ -128,6 +121,18 @@ public class Model extends GraphicsObject
         m_VertexCount  = aVertexData.length;
         m_VertexFormat = aVertexFormat;
         
+        ////////////////////////////////////////DEBUG
+        String[] asdf = m_VertexFormat.getNames();
+        String debugdata="{";
+        for(int i = 0; i < asdf.length; i++)
+            debugdata+=asdf[i]+", ";
+        debugdata+="} {";
+        for(int i = 0; i < aVertexData.length; i++)
+            debugdata+=aVertexData[i]+", ";
+        debugdata+="}";
+        Debug.log(m_Name,m_VertexCount,debugdata);
+        /////////////////////////////////////////////////
+        
         //Request a vertex buffer from the GL
         IntBuffer vbo = IntBuffer.allocate(1);
         gl.glGenBuffers(1, vbo);
@@ -135,7 +140,7 @@ public class Model extends GraphicsObject
         
         //Pass data to the vertex buffer
         gl.glBindBuffer (GL2.GL_ARRAY_BUFFER, vbo.get(0));
-        gl.glBufferData (GL2.GL_ARRAY_BUFFER, byteSizeOfFloat * aVertexFormat.getNumberOfAttributes() * aVertexData.length, FloatBuffer.wrap(aVertexData), GL2.GL_STATIC_DRAW);
+        gl.glBufferData (GL2.GL_ARRAY_BUFFER, Float.BYTES * aVertexFormat.getNumberOfAttributes() * aVertexData.length, FloatBuffer.wrap(aVertexData), GL2.GL_STATIC_DRAW);
         gl.glBindBuffer (GL2.GL_ARRAY_BUFFER,0);
         
     }
