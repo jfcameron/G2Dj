@@ -6,6 +6,7 @@
 package G2Dj.Imp.Graphics;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  *
@@ -23,6 +24,19 @@ public class VertexFormat
     // Accessors
     //
     public int getNumberOfAttributes(){return m_NumberOfAttributes;}
+    public int getAttributeSize(final String aAttributeName){return m_Format.get(aAttributeName);}
+    public String[] getNames()
+    {
+        String[] keys = new String[m_NumberOfAttributes];
+        
+        int i = 0;
+        for (Map.Entry<String, Integer> entry : m_Format.entrySet())
+            keys[i++] = entry.getKey();
+            
+        return keys;
+        
+    }
+    
     //implement foreach?
     
     //

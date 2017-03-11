@@ -7,6 +7,9 @@ package G2Dj;
 
 import G2Dj.Imp.Graphics.Camera;
 import G2Dj.Imp.Graphics.CameraClearMode;
+import G2Dj.Imp.Graphics.Model;
+import G2Dj.Imp.Graphics.PinkShaderOfDeath;
+import G2Dj.Imp.Graphics.Quad;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.ShaderProgramCollection;
 import G2Dj.Imp.Graphics.Window;
@@ -56,7 +59,8 @@ public class Graphics
     {
         //MODEL TEST AREA
         {
-            
+            shader1.draw();
+            //model1.draw(shader1.getProgramHandle());
             
         }
         
@@ -90,6 +94,10 @@ public class Graphics
         camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color);
         camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color);
         
+        shader1 = new PinkShaderOfDeath();
+        
+        //model1 = new Quad();
+        
     }
     
     //TEST AREA
@@ -97,5 +105,11 @@ public class Graphics
     private static Camera camera2;// = new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink(),CameraClearMode.Color);
     private static Camera camera3;// = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red(),CameraClearMode.Color);
     private static Camera camera4;// = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green(),CameraClearMode.Color);
+    
+    private static Model model1;
+    
+    private static ShaderProgram shader1;
+    
+    //private static ShaderProgram shader = new TestShader();
     
 }
