@@ -35,7 +35,7 @@ public class Test
         
         test();
         
-        //while(!Input.getKeyDown(KeyCode.Escape))
+        while(!Input.getKeyDown(KeyCode.Escape))
         {
             Engine.update();
             

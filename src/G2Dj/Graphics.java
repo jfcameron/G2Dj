@@ -80,14 +80,14 @@ public class Graphics
                       
             int uniformHandle = gl.glGetUniformLocation(aShaderProgramHandle, aUniformName);
             
-            Debug.log("Programhandle: "+aShaderProgramHandle,"uniformname: "+aUniformName,"texture handle: "+aTextureHandle,"texture type: "+aTextureType,"texture unit: "+aTextureUnit,"uniform handle: "+uniformHandle);
+            //Debug.log("Programhandle: "+aShaderProgramHandle,"uniformname: "+aUniformName,"texture handle: "+aTextureHandle,"texture type: "+aTextureType,"texture unit: "+aTextureUnit,"uniform handle: "+uniformHandle);
             
                         
             gl.glActiveTexture(GL.GL_TEXTURE0);
             gl.glBindTexture(aTextureType, aTextureHandle);
             gl.glUniform1i(uniformHandle, aTextureUnit);
             
-            Debug.log("Error: "+gl.glGetError());
+            //Debug.log("Error: "+gl.glGetError());
             
             model1.draw(shader1.getProgramHandle());
             

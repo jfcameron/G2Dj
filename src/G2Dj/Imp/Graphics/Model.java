@@ -53,7 +53,7 @@ public class Model extends GraphicsObject
     {
         GL2ES2 gl = Graphics.getGL().getGL2ES2();
         
-        Debug.log("attrib: "+aAttributeName+", handle: "+aProgramHandle+", attribsize: ",attributeSize+", offset:"+attributeOffset);
+        //Debug.log("attrib: "+aAttributeName+", handle: "+aProgramHandle+", attribsize: ",attributeSize+", offset:"+attributeOffset);
         
         int attribute = gl.glGetAttribLocation(aProgramHandle, aAttributeName); //Graphics::shader_programme, "a_Pos" );
         
