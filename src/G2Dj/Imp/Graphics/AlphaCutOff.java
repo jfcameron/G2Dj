@@ -108,7 +108,7 @@ public class AlphaCutOff extends ShaderProgram
 "     vec4 rvalue = vec4(0);\n" +
 "    {\n" +
 "        rvalue = calculateTexelColor(rvalue);\n" +
-"        //rvalue = alphaCutOff(rvalue);\n" +
+"        rvalue = alphaCutOff(rvalue);\n" +
 "        \n" +
 "    }\n" +
 "\n" +

@@ -9,6 +9,8 @@ import G2Dj.Debug;
 import G2Dj.Input;
 import G2Dj.Imp.Input.KeyboardInputHandler;
 import G2Dj.Imp.Input.KeyCode;
+import com.jogamp.common.util.IOUtil;
+import com.jogamp.common.util.IOUtil.ClassResources;
 
 import com.jogamp.newt.Display;
 import com.jogamp.newt.NewtFactory;
@@ -22,6 +24,7 @@ import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -36,6 +39,11 @@ public final class Window implements WindowListener
     //***************
     public Window(KeyboardInputHandler aKeyboardInputHandler) 
     {
+        //ICON TEST
+        //IOUtil.ClassResources res = new ClassResources(new String[]{"brick.png"}, getClass().getClassLoader(), getClass());
+        System.setProperty("newt.window.icons", "G2Dj/Imp/Graphics/Icons/icon-16.png G2Dj/Imp/Graphics/Icons/icon-32.png");
+        //NewtFactory.setWindowIcons(res);
+        
         //Configure the GL
         Display display = NewtFactory.createDisplay(null);
         Screen screen = NewtFactory.createScreen(display, 0);
@@ -53,6 +61,7 @@ public final class Window implements WindowListener
         setDisplayMode(DisplayMode.Windowed);
         setPointerVisible(true);
         setPointerLockMode(PointerLockMode.Free);
+        
         
         //Bypass JOGL's multithreaded event system
         m_GLWindow.setAutoSwapBufferMode(false);//timing of bufferswaps is up to me

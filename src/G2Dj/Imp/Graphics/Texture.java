@@ -64,14 +64,7 @@ public class Texture extends GraphicsObject
             BufferedImage img = null;// new BufferedImage(w, h, BufferedImage.YTPE_4BYTE_ABGR);
             try 
             {
-                /*BufferedImage raw*/ img = ImageIO.read(new File("brick.png"));
-                //img = new BufferedImage(raw.getWidth(),raw.getHeight(),BufferedImage.)
-                
-                //BufferedImage img= new BufferedImage(src.getWidth(), src.getHeight(), bufImgType);
-                //Graphics2D g2d= img.createGraphics();
-                //g2d.drawImage(src, 0, 0, null);
-                //g2d.dispose();
-                //return img;
+                img = ImageIO.read(new File("awesome.png"));
                 
             }
             catch (IOException ex) 
@@ -94,29 +87,10 @@ public class Texture extends GraphicsObject
                 b = (pixel >> 0) & 0xff;
                 pixel = (b<<16) | (g<<8) | (r<<0) | (a<<24);
                 data[i] = pixel;
-                
-             
+                             
             }
             
-           // Debug.log(Integer.toBinaryString(data[0]));
-                
-            ////////////////////////////
-                
             IntBuffer pngbuffer = IntBuffer.wrap(data);
-                
-            //int pixel = pngbuffer.get(0);
-                
-            /*int alpha = (pixel >> 24) & 0xff;
-            int red = (pixel >> 16) & 0xff;
-            int green = (pixel >> 8) & 0xff;
-            int blue = (pixel >> 0) & 0xff;*/
-            
-            //Debug.log("THIS IS THE PIXEL DATA: "+red,green,blue,alpha);
-            
-            
-            //Debug.log("Byte array: "+pngbuffer.array().length);
-            
-            
             
             Debug.log("This is how long the intbuffer is: "+pngbuffer.array().length);
             Debug.log("This is the size of a {RGBA} in bits: "+Integer.SIZE);
@@ -136,8 +110,6 @@ public class Texture extends GraphicsObject
             //Apply parameters
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST );
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
-		    
-            //Debug.log("Error: "+gl.glGetError());
             
             m_TextureHandle = texturehandle.get(0);
                 
