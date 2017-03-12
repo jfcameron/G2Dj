@@ -23,23 +23,23 @@ public class Quad extends Model
             new float[]
             {
                 //           x,              y,    z,    u,    v,
-                size -(size/2), size -(size/2), 0.0f, 1.0f, 0.0f, // 1--0
-                0.0f -(size/2), size -(size/2), 0.0f, 0.0f, 0.0f, // | /
-                0.0f -(size/2), 0.0f -(size/2), 0.0f, 0.0f, 1.0f, // 2
+                size -(size/2), size -(size/2), 0.0f, //1.0f, 0.0f, // 1--0
+                0.0f -(size/2), size -(size/2), 0.0f, //0.0f, 0.0f, // | /
+                0.0f -(size/2), 0.0f -(size/2), 0.0f, //0.0f, 1.0f, // 2
 
-                //size -(size/2), size -(size/2), 0.0f, 1.0f, 0.0f, //    0
-                //0.0f -(size/2), 0.0f -(size/2), 0.0f, 0.0f, 1.0f, //  / |
-                //size -(size/2), 0.0f -(size/2), 0.0f, 1.0f, 1.0f, // 1--2
+                size -(size/2), size -(size/2), 0.0f, //1.0f, 0.0f, //    0
+                0.0f -(size/2), 0.0f -(size/2), 0.0f, //0.0f, 1.0f, //  / |
+                size -(size/2), 0.0f -(size/2), 0.0f, //1.0f, 1.0f, // 1--2
                 
             }
             , 
             VertexFormat.pos3uv2
-            /*new VertexFormat
+            =new VertexFormat
             (
-                new VertexAttribute("a_Position",3),
-                new VertexAttribute("a_UV"      ,2)
+                new VertexAttribute("a_Position",3)
+                //new VertexAttribute("a_UV"      ,2)
                                 
-            )*/
+            )
         
         );
     

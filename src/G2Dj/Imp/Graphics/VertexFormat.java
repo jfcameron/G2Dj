@@ -19,10 +19,12 @@ public class VertexFormat
     //
     private final LinkedHashMap<String,Integer> m_Format = new LinkedHashMap<>();
     private final int m_NumberOfAttributes;
+    private final int m_TotalNumberOfAttributeComponents;
     
     //
     // Accessors
     //
+    public int getTotalNumberOfAttributeComponents(){return m_TotalNumberOfAttributeComponents;}
     public int getNumberOfAttributes(){return m_NumberOfAttributes;}
     public int getAttributeSize(final String aAttributeName){return m_Format.get(aAttributeName);}
     public String[] getNames()
@@ -45,6 +47,8 @@ public class VertexFormat
     public VertexFormat(VertexAttribute... aAttributes)
     {
         m_NumberOfAttributes = aAttributes.length;
+        int attributeComponentCount = 0;
+        
         
         //Process attribute data
         VertexAttribute attribute = null;
@@ -52,8 +56,12 @@ public class VertexFormat
         {
             attribute = aAttributes[i];
             m_Format.put(attribute.getName(), attribute.getSize());
-        
+            
+            attributeComponentCount+= attribute.getSize();
+                    
         }
+        
+        m_TotalNumberOfAttributeComponents = attributeComponentCount;
             
     }
     

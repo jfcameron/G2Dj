@@ -45,11 +45,7 @@ public class Graphics
     //Shader funcs
     public static void loadShader(ShaderProgram aShaderProgram){s_ShaderPrograms.add(aShaderProgram);}
     
-    public static WeakReference<ShaderProgram> getShaderProgram(final String aShaderName)
-    {
-        return s_ShaderPrograms.getDefault();//find(aShaderName);
-    
-    }
+    public static WeakReference<ShaderProgram> getShaderProgram(final String aShaderName){return s_ShaderPrograms.getDefault();}
             
     public static void _TEST_FUNCTION_(){}
     
