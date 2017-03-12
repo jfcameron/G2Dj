@@ -75,18 +75,19 @@ public class Graphics
             int    aShaderProgramHandle = shader1.getProgramHandle();
             String aUniformName         = "_Texture";
             int    aTextureHandle       = texture1.getHandle();
-            int    aTextureType         = GL.GL_TEXTURE_2D;
             int    aTextureUnit         = 0;//Iterate this as you add more tex to a single draw call (diffuse map 0, uv map 1, spec 3 ...)
-                        
+            int    aTextureType         = GL.GL_TEXTURE_2D;
+                      
             int uniformHandle = gl.glGetUniformLocation(aShaderProgramHandle, aUniformName);
             
             Debug.log("Programhandle: "+aShaderProgramHandle,"uniformname: "+aUniformName,"texture handle: "+aTextureHandle,"texture type: "+aTextureType,"texture unit: "+aTextureUnit,"uniform handle: "+uniformHandle);
             
                         
             gl.glActiveTexture(GL.GL_TEXTURE0);
-            
             gl.glBindTexture(aTextureType, aTextureHandle);
             gl.glUniform1i(uniformHandle, aTextureUnit);
+            
+            Debug.log("Error: "+gl.glGetError());
             
             model1.draw(shader1.getProgramHandle());
             
