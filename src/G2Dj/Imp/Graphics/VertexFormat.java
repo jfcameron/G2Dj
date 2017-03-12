@@ -24,7 +24,7 @@ public class VertexFormat
     //
     // Accessors
     //
-    public int getTotalNumberOfAttributeComponents(){return m_TotalNumberOfAttributeComponents;}
+    public int getSumOfAttributeComponents(){return m_TotalNumberOfAttributeComponents;}
     public int getNumberOfAttributes(){return m_NumberOfAttributes;}
     public int getAttributeSize(final String aAttributeName){return m_Format.get(aAttributeName);}
     public String[] getNames()

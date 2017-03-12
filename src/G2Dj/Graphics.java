@@ -5,10 +5,10 @@
  */
 package G2Dj;
 
+import G2Dj.Imp.Graphics.AlphaCutOff;
 import G2Dj.Imp.Graphics.Camera;
 import G2Dj.Imp.Graphics.CameraClearMode;
 import G2Dj.Imp.Graphics.Model;
-import G2Dj.Imp.Graphics.PinkShaderOfDeath;
 import G2Dj.Imp.Graphics.Quad;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.ShaderProgramCollection;
@@ -92,7 +92,7 @@ public class Graphics
         camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color);
         camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color);
         
-        shader1 = new PinkShaderOfDeath();
+        shader1 = new AlphaCutOff();
         
         model1 = new Quad();
         
