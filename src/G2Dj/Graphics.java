@@ -80,7 +80,7 @@ public class Graphics
                         
             int uniformHandle = gl.glGetUniformLocation(aShaderProgramHandle, aUniformName);
             
-            Debug.log(aShaderProgramHandle,aUniformName,aTextureHandle,aTextureType,aTextureUnit,uniformHandle);
+            Debug.log("Programhandle: "+aShaderProgramHandle,"uniformname: "+aUniformName,"texture handle: "+aTextureHandle,"texture type: "+aTextureType,"texture unit: "+aTextureUnit,"uniform handle: "+uniformHandle);
             
                         
             gl.glActiveTexture(GL.GL_TEXTURE0);

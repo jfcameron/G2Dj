@@ -69,10 +69,14 @@ public class Texture extends GraphicsObject
                 
                 }
                 
-                BufferedImage img = null;
+                BufferedImage img = null;// new BufferedImage(w, h, BufferedImage.YTPE_4BYTE_ABGR);
                 try 
                 {
                     img = ImageIO.read(new File("brick.png"));
+                    //BufferedImage image = ImageIO.read(new File("brick.png"));
+                    //img = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+                    
+                    //img.setRGB(0,0,255);
                 
                 }
                 catch (IOException ex) 
@@ -80,36 +84,55 @@ public class Texture extends GraphicsObject
                     Logger.getLogger(Texture.class.getName()).log(Level.SEVERE, null, ex);
                 
                 }
-                
+               // img.getcol
                 Debug.log("Dimensons: {"+img.getWidth()+", "+img.getWidth()+"}");
                 
+                int pixel = img.getRGB(0, 0);
+
+                int[] data = img.getRGB(0, 0, img.getWidth(), img.getHeight(), (int[])null, 0, img.getWidth());
                 
-                DataBufferByte dbb = (DataBufferByte)img.getRaster().getDataBuffer();
-                byte[] data = dbb.getData();
-                //ByteBuffer pngbuffer = ByteBuffer.wrap(data); //BufferUtil.//newByteBuffer(data.length);
-                //pngbuffer.put(data);
-                //pngbuffer.flip();
+                ////////////////SET IT WHITE
+                for(int i = 0; i < data.length; i++)
+                    data[i] = 2147483647;
                 
-                //img.getRaster().
+                ////////////////////////////
                 
-                ByteBuffer pngbuffer = ByteBuffer.wrap
-                (
-                        //((DataBufferByte)img.getRaster().getDataBuffer()).getData()
-                data
-                );
+                IntBuffer pngbuffer = IntBuffer.wrap(data);
                 
-                Debug.log("Byte array: "+pngbuffer.array().length);
+                pixel = pngbuffer.get(0);
+                
+                int alpha = (pixel >> 24) & 0xff;
+                int red = (pixel >> 16) & 0xff;
+                int green = (pixel >> 8) & 0xff;
+                int blue = (pixel >> 0) & 0xff;
+                
+                Debug.log("THIS IS THE PIXEL DATA: "+red,green,blue,alpha);
+                
+                
+                //Debug.log("Byte array: "+pngbuffer.array().length);
+                
+                
+                
+                Debug.log("This is how long the intbuffer is: "+pngbuffer.array().length);
+                Debug.log("This is the size of a {RGBA} in bits: "+Integer.SIZE);
                 
 		//push texture data to video memory
-		//IntBuffer texturehandle = IntBuffer.allocate(1);//.get(0);
-		int[] texturehandle = new int[1];
+		IntBuffer texturehandle = IntBuffer.allocate(1);//.get(0);
+		//int[] texturehandle = new int[1];
                 
-		gl.glGenTextures( 1, texturehandle,0 );
+                
+                ////DOING THE WORK
+		gl.glGenTextures( 1, texturehandle );
                 gl.glActiveTexture( GL.GL_TEXTURE0 );
-		gl.glBindTexture( GL.GL_TEXTURE_2D, texturehandle[0]/*texturehandle.get(0)*/ );
-		gl.glTexImage2D( GL.GL_TEXTURE_2D, 0, GL.GL_RGB, img.getWidth(), img.getHeight(), 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, pngbuffer );
+		gl.glBindTexture( GL.GL_TEXTURE_2D, texturehandle.get(0) );
+		gl.glTexImage2D( GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, img.getWidth(), img.getHeight(), 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, pngbuffer );
 		
-		//gl.glTexParameteri( GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, repeatmode);
+
+
+
+
+
+                //gl.glTexParameteri( GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, repeatmode);
 		//glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, repeatmode);
 		    
 		//glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magfilter );
@@ -119,7 +142,7 @@ public class Texture extends GraphicsObject
 		    
 		//add_Texture(filename,texturehandle);
 		//m_Name = filename;
-		m_TextureHandle = texturehandle[0]/*.get(0)*/;
+		m_TextureHandle = texturehandle.get(0);
                 
             }
     
