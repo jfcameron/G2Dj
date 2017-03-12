@@ -12,11 +12,13 @@ import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.Quad;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.ShaderProgramCollection;
+import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.Window;
 import G2Dj.Math.Vector2;
 import G2Dj.Type.Graphics.Color;
 
 import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2ES2;
 import java.lang.ref.WeakReference;
 
 
@@ -65,6 +67,27 @@ public class Graphics
         //MODEL TEST AREA
         {
             shader1.draw();
+            
+            //do standard unifroms
+            GL2ES2 gl = s_GL.getGL2ES2();
+            
+            //parameterize me
+            int    aShaderProgramHandle = shader1.getProgramHandle();
+            String aUniformName         = "_Texture";
+            int    aTextureHandle       = texture1.getHandle();
+            int    aTextureType         = GL.GL_TEXTURE_2D;
+            int    aTextureUnit         = 0;//Iterate this as you add more tex to a single draw call (diffuse map 0, uv map 1, spec 3 ...)
+                        
+            int uniformHandle = gl.glGetUniformLocation(aShaderProgramHandle, aUniformName);
+            
+            Debug.log(aShaderProgramHandle,aUniformName,aTextureHandle,aTextureType,aTextureUnit,uniformHandle);
+            
+                        
+            gl.glActiveTexture(GL.GL_TEXTURE0);
+            
+            gl.glBindTexture(aTextureType, aTextureHandle);
+            gl.glUniform1i(uniformHandle, aTextureUnit);
+            
             model1.draw(shader1.getProgramHandle());
             
         }
@@ -92,9 +115,9 @@ public class Graphics
         camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color);
         camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color);
         
-        shader1 = new AlphaCutOff();
-        
-        model1 = new Quad();
+        shader1  = new AlphaCutOff();
+        model1   = new Quad();
+        texture1 = new Texture();
         
     }
     
@@ -105,7 +128,7 @@ public class Graphics
     private static final Camera camera4;// = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green(),CameraClearMode.Color);
     
     private static final Model model1;
-    
     private static final ShaderProgram shader1;
+    private static final Texture texture1;
     
 }

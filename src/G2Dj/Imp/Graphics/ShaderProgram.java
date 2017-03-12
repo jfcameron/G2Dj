@@ -47,7 +47,7 @@ public abstract class ShaderProgram extends GraphicsObject
         final String vertex_shader   = aVertexCode;
         final String fragment_shader = aFragmentCode;
         
-	Debug.log("Compiling "+m_Name+" GLSL code");
+	Debug.log("Compiling "+getName()+" GLSL code");
         
         //Debug.log(vertex_shader);
         
@@ -79,7 +79,7 @@ public abstract class ShaderProgram extends GraphicsObject
             int[] len = new int[1];
             gl.glGetProgramiv(m_ProgramHandle, GL2ES2.GL_INFO_LOG_LENGTH, len, 0); 
             
-            Debug.log("The shader "+m_Name+" has failed to compile!");
+            Debug.log("The shader "+getName()+" has failed to compile!");
 
             byte[] errormessage = new byte[len[0]]; 
             gl.glGetProgramInfoLog(m_ProgramHandle, len[0], len, 0, errormessage, 0); 
@@ -95,6 +95,11 @@ public abstract class ShaderProgram extends GraphicsObject
             
             Debug.log("handle number: "+m_ProgramHandle);
             Debug.log("Active attributes: "+attributeCount[0]);
+            
+            int[] uniformCount = new int[]{-1};
+            gl.glGetProgramiv(m_ProgramHandle, GL2.GL_ACTIVE_UNIFORMS, uniformCount,0);
+            
+            Debug.log("Active uniforms: "+uniformCount[0]);
             
         }
         
@@ -117,6 +122,7 @@ public abstract class ShaderProgram extends GraphicsObject
     //
     public ShaderProgram()
     {
+        //super(this.getClass().getSimpleName());
         m_Name = this.getClass().getSimpleName();
         
         compileGraphicsProgram(vertexShaderGLSL(),fragmentShaderGLSL());

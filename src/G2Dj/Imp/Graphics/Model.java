@@ -111,11 +111,14 @@ public class Model extends GraphicsObject
     //Model(const std::string &aFileName, const std::string &aMeshName = "");
     public Model(final String aName, final float[] aVertexData, final VertexFormat aVertexFormat)
     {
+        //super(aName);
+        m_Name = aName;
+        
         Debug.log("***************MODELTEST******************************");
         
         GL gl = Graphics.getGL();
         
-        m_Name         = aName;
+        //m_Name         = aName;
         m_VertexCount  = aVertexData.length;
         m_VertexFormat = aVertexFormat;
         
@@ -128,7 +131,7 @@ public class Model extends GraphicsObject
         for(int i = 0; i < aVertexData.length; i++)
             debugdata+=aVertexData[i]+", ";
         debugdata+="}";
-        Debug.log(m_Name,m_VertexCount,debugdata);
+        Debug.log(getName(),m_VertexCount,debugdata);
         /////////////////////////////////////////////////
         
         //Request a vertex buffer from the GL

@@ -14,11 +14,16 @@ public abstract class GraphicsObject extends Object
     //
     // Data members
     //
-    protected String m_Name = "Unnamed GraphicsObject";
+    protected String m_Name;// = "Unnamed GraphicsObject";
     
     //
     // Accessors
     //
     public String getName() {return m_Name;}
+    
+    //
+    // Ctor
+    //
+    //protected GraphicsObject(final String aName){m_Name = aName;}
     
 }

@@ -47,7 +47,7 @@ public final class Window implements WindowListener
         
         //Configure the window
         setTitle("A G2Dj Project");
-        setSize(1024, 768);
+        setSize(768, 768);
         setPosition(50, 50);
         setAlwaysOnTop(false);
         setDisplayMode(DisplayMode.Windowed);

@@ -42,7 +42,7 @@ public class Test
         }
         
         while(!Input.getKeyDown(KeyCode.Escape)){}
-        
+        //for(;;){}
         //System.exit(0);
         
         

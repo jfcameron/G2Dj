@@ -86,7 +86,7 @@ public class AlphaCutOff extends ShaderProgram
 "//*********\n" +
 "// Uniforms\n" +
 "//*********\n" +
-"uniform  vec4 _Color;\n" +
+"//uniform  vec4 _Color;\n" +
 "uniform sampler2D _Texture;\n" +
 "\n" +
 "//**********\n" +
@@ -107,7 +107,7 @@ public class AlphaCutOff extends ShaderProgram
 "{\n" +
 "     vec4 rvalue = vec4(0);\n" +
 "    {\n" +
-"        rvalue = vec4(v_UV,0.0,1.0); //calculateTexelColor(rvalue);\n" +
+"        rvalue = /*vec4(v_UV,0.0,1.0);*/ calculateTexelColor(rvalue);\n" +
 "        rvalue = alphaCutOff(rvalue);\n" +
 "        \n" +
 "    }\n" +

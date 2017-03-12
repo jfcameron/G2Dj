@@ -1,3 +1,9 @@
+implement standard uniforms
+    -texture
+    -time
+    -mvp
+    ...
+
 Textures
     - make barebones test case then...
     - texture loading
@@ -6,6 +12,7 @@ Textures
 
 Shader 
     -collecting & hardcoded fallback
+    -clean up the way GLSL source code is stored and loaded
 
 Vertex data
     -fallback format
