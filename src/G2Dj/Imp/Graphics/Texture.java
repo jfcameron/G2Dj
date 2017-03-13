@@ -17,7 +17,7 @@ import java.nio.IntBuffer;
  *
  * @author Joe
  */
-public class Texture extends GraphicsObject 
+public class Texture extends GraphicsResource 
 {
     //
     // Data members

@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
-public class TextureCollection extends GraphicsObjectCollection<Texture>
+public class TextureCollection extends GraphicsResourceCollection<Texture>
 {
     //*************
     // Data members

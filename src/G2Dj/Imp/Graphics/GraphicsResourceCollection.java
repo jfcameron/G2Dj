@@ -10,7 +10,7 @@ import G2Dj.Resources;
 import java.util.ArrayList;
 import java.lang.ref.WeakReference;
 
-public abstract class GraphicsObjectCollection<T extends GraphicsObject>
+public abstract class GraphicsResourceCollection<T extends GraphicsResource>
 {
     //*************
     // Data members

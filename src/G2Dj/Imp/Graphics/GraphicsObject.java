@@ -9,21 +9,27 @@ package G2Dj.Imp.Graphics;
  *
  * @author Joe
  */
-public abstract class GraphicsObject extends Object
+public class GraphicsObject 
 {
     //
     // Data members
     //
-    protected String m_Name;// = "Unnamed GraphicsObject";
+    //private Vector3 m_Position;
+    //private Vector3 m_Rotation;
+    //private Vector3 m_Scale
     
     //
-    // Accessors
+    // Getters
     //
-    public String getName() {return m_Name;}
+    //public Vector3 getPosition(){return m_Position;}
+    //public Vector3 getRotation(){return m_Rotation;}
+    //public Vector3 getScale   (){return m_Scale;   }
+    //
+    //public set...
     
     //
-    // Ctor
     //
-    //protected GraphicsObject(final String aName){m_Name = aName;}
+    //
+    
     
 }

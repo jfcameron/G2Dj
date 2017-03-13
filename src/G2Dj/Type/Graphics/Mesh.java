@@ -6,6 +6,7 @@
 package G2Dj.Type.Graphics;
 
 import G2Dj.Graphics;
+import G2Dj.Imp.Graphics.GraphicsObject;
 import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.Texture;
@@ -16,7 +17,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
-public class Mesh 
+public class Mesh extends GraphicsObject
 {
     //*************
     // Data members

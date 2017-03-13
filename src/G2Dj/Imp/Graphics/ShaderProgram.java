@@ -15,7 +15,7 @@ import com.jogamp.opengl.GL2ES2;
  *
  * @author Joe
  */
-public abstract class ShaderProgram extends GraphicsObject
+public abstract class ShaderProgram extends GraphicsResource
 {
     //
     // Data members

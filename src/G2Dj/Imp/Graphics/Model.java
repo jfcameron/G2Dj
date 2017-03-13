@@ -17,7 +17,7 @@ import java.nio.IntBuffer;
  *
  * @author Joe
  */
-public class Model extends GraphicsObject
+public class Model extends GraphicsResource
 {
     //*************
     // Data members

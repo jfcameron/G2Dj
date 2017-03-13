@@ -14,7 +14,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
-public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProgram>
+public class ShaderProgramCollection extends GraphicsResourceCollection<ShaderProgram>
 {
     //*************
     // Data members

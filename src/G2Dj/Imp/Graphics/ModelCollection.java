@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
-public class ModelCollection extends GraphicsObjectCollection<Model>
+public class ModelCollection extends GraphicsResourceCollection<Model>
 {
     //*************
     // Data members
