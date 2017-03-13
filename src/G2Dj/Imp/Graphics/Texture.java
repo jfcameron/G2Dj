@@ -7,18 +7,11 @@ package G2Dj.Imp.Graphics;
 
 import G2Dj.Debug;
 import G2Dj.Graphics;
+import G2Dj.Resources;
 import com.jogamp.opengl.GL;
-import static com.jogamp.opengl.GLProfile.GL2;
-import static com.jogamp.opengl.GLProfile.GL3;
-import static com.jogamp.opengl.GLProfile.GL4;
-import com.sun.prism.impl.BufferUtil;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,7 +36,7 @@ public class Texture extends GraphicsObject
     //
     // Constructors
     //
-    public Texture(/*final String aTextureFileName, final int aRepeatMode, final int aMagfilter*/)
+    public Texture(final String aTextureFileName/*, final int aRepeatMode, final int aMagfilter*/)
     {
 	//m_TextureHandle = 0;
         m_Name = "SomeTexture";
@@ -55,23 +48,20 @@ public class Texture extends GraphicsObject
 
         //load texture
         {
-            
-            //FLIP THE DATA: required because opengl uv space's v is upside down...
-            {
-                
-            }
                 
             BufferedImage img = null;// new BufferedImage(w, h, BufferedImage.YTPE_4BYTE_ABGR);
-            try 
+            /*try 
             {
-                img = ImageIO.read(new File("awesome.png"));
+                img = ImageIO.read(new File("awesome.png"));/////////////////THIS LOADS FROM FILE AND IT OWRKS
                 
             }
             catch (IOException ex) 
             {
                 Logger.getLogger(Texture.class.getName()).log(Level.SEVERE, null, ex);
                 
-            }
+            }*/
+            
+            img = Resources.readFileToImage("/G2Dj/Resource/Graphics/awesome.png"); ///////////THIS LOADS FROM PACKAGE AND WORKS
             
             Debug.log("Dimensons: {"+img.getWidth()+", "+img.getWidth()+"}");
 

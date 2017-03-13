@@ -5,6 +5,8 @@
  */
 package G2Dj.Resource.Graphics;
 
+import G2Dj.Imp.Graphics.ResourceShader;
+
 /**
  *
  * @author Joe

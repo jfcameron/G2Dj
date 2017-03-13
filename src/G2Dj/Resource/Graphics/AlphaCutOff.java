@@ -5,6 +5,7 @@
  */
 package G2Dj.Resource.Graphics;
 
+import G2Dj.Imp.Graphics.ResourceShader;
 import G2Dj.Graphics;
 import com.jogamp.opengl.GL;
 

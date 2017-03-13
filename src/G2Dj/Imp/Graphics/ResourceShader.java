@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package G2Dj.Resource.Graphics;
+package G2Dj.Imp.Graphics;
 
 import G2Dj.Debug;
 import G2Dj.Imp.Graphics.ShaderProgram;

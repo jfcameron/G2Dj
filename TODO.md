@@ -9,9 +9,10 @@ implement standard uniforms
     ...
 
 Textures
-    - texture loading
-    - texture collecting
-    - texture retrieval
+ - convert texture to abstract
+ - Either derive children: ResourceTexture and FileTexture OR have two constructors 1 for file loading 1 for package loading
+    
+abstract base scenegraph type (or should it be an interface?), system specific Scenegraph, make systems extendable.
 
 Vertex data
     -allow custom shapes from vert arrays, allow use of dynamic memory for faster vbo rewrites (currently hardcoded to static)
@@ -36,4 +37,3 @@ Input
 
 Tile renderer
 famicom style synth
-abstract base scenegraph type (or should it be an interface?), system specific Scenegraph, make systems extendable.

@@ -32,7 +32,7 @@ public class TextureCollection extends GraphicsObjectCollection<Texture>
     //*************
     public TextureCollection()
     {
-        add(new Texture());
+        add(new Texture("123123123"));
         
     }
         
