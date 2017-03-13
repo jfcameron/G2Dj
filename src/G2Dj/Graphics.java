@@ -9,10 +9,12 @@ import G2Dj.Imp.Graphics.AlphaCutOff;
 import G2Dj.Imp.Graphics.Camera;
 import G2Dj.Imp.Graphics.CameraClearMode;
 import G2Dj.Imp.Graphics.Model;
+import G2Dj.Imp.Graphics.ModelCollection;
 import G2Dj.Imp.Graphics.Quad;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.ShaderProgramCollection;
 import G2Dj.Imp.Graphics.Texture;
+import G2Dj.Imp.Graphics.TextureCollection;
 import G2Dj.Imp.Graphics.Window;
 import G2Dj.Math.Vector2;
 import G2Dj.Type.Graphics.Color;
@@ -33,7 +35,10 @@ public class Graphics
     //*************
     private static final Window                  s_Window;
     private static final GL                      s_GL;
+    
     private static final ShaderProgramCollection s_ShaderPrograms;
+    private static final ModelCollection         s_Models;
+    private static final TextureCollection       s_Textures;
     
     //********
     // Getters
@@ -45,11 +50,12 @@ public class Graphics
     // Public interface
     //*****************
     //Shader funcs
-    public static void loadShader(ShaderProgram aShaderProgram){s_ShaderPrograms.add(aShaderProgram);}
-    
-    public static WeakReference<ShaderProgram> getShaderProgram(final String aShaderName){return s_ShaderPrograms.getDefault();}
-            
-    public static void _TEST_FUNCTION_(){}
+    //public static void loadShader(ShaderProgram aShaderProgram){s_ShaderPrograms.add(aShaderProgram);}
+    public static WeakReference<ShaderProgram> getShaderProgram(final String aName){return s_ShaderPrograms.get(aName);}
+    //Model funcs
+    public static WeakReference<Model> getModel(final String aName){return s_Models.get(aName);}
+    //Tex func
+    public static WeakReference<Texture> getTexture(final String aName){return s_Textures.get(aName);}
     
     protected static void init(){}
     
@@ -108,7 +114,9 @@ public class Graphics
         s_Window = new Window(Input.s_KeyboardInputHandler);
         s_GL     = s_Window.getGL();
         
-        s_ShaderPrograms = new ShaderProgramCollection();
+        s_ShaderPrograms  = new ShaderProgramCollection();
+        s_Models          = new ModelCollection();
+        s_Textures        = new TextureCollection();
         
         //TEST AREA
         camera1 = new Camera(new Vector2(0.0f,0.0f), new Vector2(1.0f,1.0f),Color.CornflowerBlue(),CameraClearMode.Color);
@@ -116,9 +124,9 @@ public class Graphics
         camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color);
         camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color);
         
-        shader1  = new AlphaCutOff();
-        model1   = new Quad();
-        texture1 = new Texture();
+        shader1  = getShaderProgram("AlphaCutOff").get();
+        model1   = getModel("Quad").get();
+        texture1 = getTexture("SomeTexture").get();
         
     }
     

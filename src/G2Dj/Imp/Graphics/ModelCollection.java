@@ -5,13 +5,11 @@
  */
 package G2Dj.Imp.Graphics;
 
-import java.lang.ref.WeakReference;
-
 /**
  *
  * @author Joe
  */
-public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProgram>
+public class ModelCollection extends GraphicsObjectCollection<Model>
 {
     //*************
     // Data members
@@ -21,12 +19,9 @@ public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProg
     //
     //
     //
-    //public /*<T extends ShaderProgram>*/ void loadShader(ShaderProgram aShaderProgram)
     @Override
-    public void add(final ShaderProgram aItem)
+    public void add(final Model aItem)
     {
-        //hmm
-        
         super.add(aItem);
         
     }
@@ -35,12 +30,9 @@ public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProg
     //*************
     // Constructors
     //*************
-    public ShaderProgramCollection()
+    public ModelCollection()
     {
-        //Debug.log(this.getClass());
-        
-        add(new PinkShaderOfDeath());
-        add(new AlphaCutOff());
+        add(new Quad());
         
     }
         

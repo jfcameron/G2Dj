@@ -59,7 +59,7 @@ public class Model extends GraphicsObject
         
         if (attribute ==-1)
         {
-            Debug.log("unused attribute: "+aAttributeName);
+            //Debug.log("unused attribute: "+aAttributeName);
             return;
         }
             

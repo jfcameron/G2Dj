@@ -51,6 +51,17 @@ public abstract class GraphicsObjectCollection<T extends GraphicsObject>
         
     }
     
+    public WeakReference<T> get(final String aItemName)
+    {
+        if (aItemName != null)
+            for (int i = 0, s = m_Vector.size(); i < s; i++)
+                if (m_Vector.get(i).getName().equals(aItemName))
+                    return new WeakReference<T>(m_Vector.get(i));
+                
+        return getDefault();
+        
+    }
+    
     public void add(final T aItem)
     {
         //todo: sanitize...
