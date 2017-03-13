@@ -10,12 +10,7 @@ import G2Dj.Graphics;
 import G2Dj.Resources;
 import com.jogamp.opengl.GL;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.nio.IntBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *

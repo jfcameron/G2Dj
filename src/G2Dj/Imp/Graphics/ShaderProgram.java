@@ -10,14 +10,6 @@ import G2Dj.Graphics;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GL2ES2;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sun.misc.IOUtils;
 
 /**
  *
@@ -65,7 +57,7 @@ public abstract class ShaderProgram extends GraphicsObject
         
     }*/
     
-    protected void compileGraphicsProgram(final String aVertexCode, final String aFragmentCode)
+    protected final void compileGraphicsProgram(final String aVertexCode, final String aFragmentCode)
     {
         GL2ES2 gl = Graphics.getGL().getGL2ES2();
         

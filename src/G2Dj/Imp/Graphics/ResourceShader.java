@@ -5,8 +5,6 @@
  */
 package G2Dj.Imp.Graphics;
 
-import G2Dj.Debug;
-import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Resources;
 
 /**

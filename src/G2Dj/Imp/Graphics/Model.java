@@ -71,7 +71,7 @@ public class Model extends GraphicsObject
         (
             attribute, //Position attribute index
             attributeSize, //Pos size
-            gl.GL_FLOAT, //data type of each member of the format (must be uniform, look at glbindbufferdata, it takes an array or ptr to an array, so no suprise)
+            GL.GL_FLOAT, //data type of each member of the format (must be uniform, look at glbindbufferdata, it takes an array or ptr to an array, so no suprise)
             false/*gl.GL_FALSE*/, 
             Float.BYTES*m_VertexFormat.getSumOfAttributeComponents(), //m_VertexFormat.getNumberOfAttributes()*Float.BYTES, //stride is size of vertex format in bytes
             Float.BYTES*attributeOffset//attributeOffset*Float.BYTES  

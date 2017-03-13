@@ -5,9 +5,7 @@
  */
 package G2Dj.Imp.Graphics;
 
-import G2Dj.Debug;
 import java.util.ArrayList;
-import java.lang.RuntimeException;
 import java.lang.ref.WeakReference;
 
 public abstract class GraphicsObjectCollection<T extends GraphicsObject>
@@ -28,15 +26,15 @@ public abstract class GraphicsObjectCollection<T extends GraphicsObject>
         if (m_Vector.isEmpty())
             throw new RuntimeException("No default exists.");
         
-        return new WeakReference<T>(m_Vector.get(0));
+        return new WeakReference<>(m_Vector.get(0));
         
     }
     
     public WeakReference<T> find(final String aItemName)
     {
         for(int i =0, s = m_Vector.size(); i < s; i++)
-            if (m_Vector.get(i).getName() == aItemName)
-                return new WeakReference<T>(m_Vector.get(i));
+            if (m_Vector.get(i).getName().equals(aItemName))
+                return new WeakReference<>(m_Vector.get(i));
             
         return getDefault();
         
@@ -47,7 +45,7 @@ public abstract class GraphicsObjectCollection<T extends GraphicsObject>
         if (i >= m_Vector.size())
             return getDefault();
     
-        return new WeakReference<T>(m_Vector.get(i));
+        return new WeakReference<>(m_Vector.get(i));
         
     }
     
@@ -56,7 +54,7 @@ public abstract class GraphicsObjectCollection<T extends GraphicsObject>
         if (aItemName != null)
             for (int i = 0, s = m_Vector.size(); i < s; i++)
                 if (m_Vector.get(i).getName().equals(aItemName))
-                    return new WeakReference<T>(m_Vector.get(i));
+                    return new WeakReference<>(m_Vector.get(i));
                 
         return getDefault();
         

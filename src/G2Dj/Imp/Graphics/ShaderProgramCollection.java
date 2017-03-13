@@ -7,7 +7,6 @@ package G2Dj.Imp.Graphics;
 
 import G2Dj.Resource.Graphics.PinkShaderOfDeath;
 import G2Dj.Resource.Graphics.AlphaCutOff;
-import java.lang.ref.WeakReference;
 
 /**
  *
@@ -39,8 +38,6 @@ public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProg
     //*************
     public ShaderProgramCollection()
     {
-        //Debug.log(this.getClass());
-        
         add(new PinkShaderOfDeath());
         add(new AlphaCutOff());
         
