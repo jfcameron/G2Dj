@@ -5,12 +5,10 @@
  */
 package G2Dj;
 
-import G2Dj.Resource.Graphics.AlphaCutOff;
 import G2Dj.Imp.Graphics.Camera;
 import G2Dj.Imp.Graphics.CameraClearMode;
 import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.ModelCollection;
-import G2Dj.Resource.Graphics.Quad;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.ShaderProgramCollection;
 import G2Dj.Imp.Graphics.Texture;
@@ -21,12 +19,8 @@ import G2Dj.Type.Graphics.Color;
 
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2ES2;
-import java.io.File;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -37,8 +31,8 @@ public class Graphics
     //*************
     // Data members
     //*************
-    private static final Window                  s_Window;
-    private static final GL                      s_GL;
+    private static final Window s_Window;
+    private static final GL     s_GL;
     
     private static final ShaderProgramCollection s_ShaderPrograms;
     private static final ModelCollection         s_Models;
