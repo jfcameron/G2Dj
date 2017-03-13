@@ -27,6 +27,7 @@ public class Resources
 {
     public static Text loadTextFile(final String aFileName)
     {
+        String name = aFileName.substring(aFileName.lastIndexOf('/') + 1);
         String data = null;
         
         try 
@@ -38,7 +39,7 @@ public class Resources
                 
         return new Text
         (
-            aFileName,
+            name,
             data
                 
         );
@@ -47,6 +48,7 @@ public class Resources
     
     public static Image loadImage(final String aFileName)
     {
+        String name = aFileName.substring(aFileName.lastIndexOf('/') + 1);
         BufferedImage data = null;
         
         try 
@@ -58,7 +60,7 @@ public class Resources
         
         return new Image
         (
-            aFileName,
+            name,
             data
                 
         );

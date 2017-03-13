@@ -5,6 +5,7 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Debug;
 import G2Dj.Resources;
 import java.util.ArrayList;
 import java.lang.ref.WeakReference;
@@ -68,6 +69,8 @@ public abstract class GraphicsObjectCollection<T extends GraphicsObject>
     {
         if (m_Vector.isEmpty())
             throw new RuntimeException("No default exists.");
+        
+        Debug.log(m_Vector.get(0).getName());
         
         return new WeakReference<>(m_Vector.get(0));
         

@@ -50,6 +50,7 @@ public class TextureCollection extends GraphicsObjectCollection<Texture>
     //*************
     public TextureCollection()
     {
+        loadFromResource("/G2Dj/Resource/Graphics/default.png");
         loadFromResource("/G2Dj/Resource/Graphics/awesome.png");
         
     }

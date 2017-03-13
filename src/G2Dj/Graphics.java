@@ -124,7 +124,7 @@ public class Graphics
         
         shader1  = getShaderProgram("AlphaCutOff").get();
         model1   = getModel("Quad").get();
-        texture1 = getTexture("SomeTexture").get();
+        texture1 = getTexture("awesome.png").get();
         
        /*Debug.log
         (
