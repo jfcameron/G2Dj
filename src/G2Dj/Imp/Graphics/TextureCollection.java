@@ -26,7 +26,7 @@ public class TextureCollection extends GraphicsObjectCollection<Texture>
     @Override
     public WeakReference<Texture> loadFromResource(String aAbsoluteResourcePath) 
     {
-        Texture newTexture = new Texture(Resources.loadImage("/G2Dj/Resource/Graphics/awesome.png"));
+        Texture newTexture = new Texture(Resources.loadImage(aAbsoluteResourcePath));
         
         add(newTexture);
         
@@ -37,7 +37,7 @@ public class TextureCollection extends GraphicsObjectCollection<Texture>
     @Override
     public WeakReference<Texture> loadFromFile(String aRelativeFilePath) 
     {
-        Texture newTexture = new Texture(Files.loadImage("/G2Dj/Resource/Graphics/awesome.png"));
+        Texture newTexture = new Texture(Files.loadImage(aRelativeFilePath));
         
         add(newTexture);
         

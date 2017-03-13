@@ -1,10 +1,8 @@
 package Adhoc;
 
-import G2Dj.Debug;
 import G2Dj.Engine;
 import G2Dj.Imp.Input.KeyCode;
 import G2Dj.Input;
-import java.io.File;
 
 /**
  *

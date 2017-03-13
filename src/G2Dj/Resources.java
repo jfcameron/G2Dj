@@ -2,6 +2,8 @@ package G2Dj;
 
 
 import G2Dj.Resource.Graphics.AlphaCutOff;
+import G2Dj.Type.Resources.Image;
+import G2Dj.Type.Resources.Text;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -23,7 +25,7 @@ import javax.imageio.ImageIO;
  */
 public class Resources
 {
-    public static String loadTextFile(final String aFileName)
+    public static Text loadTextFile(final String aFileName)
     {
         String data = null;
         
@@ -33,23 +35,33 @@ public class Resources
         
         } 
         catch (URISyntaxException | IOException ex) {Logger.getLogger(AlphaCutOff.class.getName()).log(Level.SEVERE, null, ex);}
-        
-        return data;
+                
+        return new Text
+        (
+            aFileName,
+            data
+                
+        );
         
     }
     
-    public static BufferedImage loadImage(final String aFileName)
+    public static Image loadImage(final String aFileName)
     {
-        BufferedImage img = null;
+        BufferedImage data = null;
         
         try 
         {
-             img=ImageIO.read(Resources.class.getResource(aFileName));
+             data=ImageIO.read(Resources.class.getResource(aFileName));
         
         } 
         catch (IOException ex) {Logger.getLogger(Resources.class.getName()).log(Level.SEVERE, null, ex);}
         
-        return img;
+        return new Image
+        (
+            aFileName,
+            data
+                
+        );
         
     }
     

@@ -16,14 +16,14 @@ public abstract class ResourceShader extends ShaderProgram
     @Override
     protected String vertexShaderGLSL() 
     {
-        return Resources.loadTextFile(this.getClass().getName().replaceAll("\\.","/")+"_Vert.glsl");
+        return Resources.loadTextFile(this.getClass().getName().replaceAll("\\.","/")+"_Vert.glsl").getData();
     
     }
 
     @Override
     protected String fragmentShaderGLSL() 
     {
-        return Resources.loadTextFile(this.getClass().getName().replaceAll("\\.","/")+"_Frag.glsl"); 
+        return Resources.loadTextFile(this.getClass().getName().replaceAll("\\.","/")+"_Frag.glsl").getData(); 
         
     }
     

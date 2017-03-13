@@ -5,14 +5,9 @@
  */
 package G2Dj;
 
-import G2Dj.Resource.Graphics.AlphaCutOff;
+import G2Dj.Type.Resources.Image;
+import G2Dj.Type.Resources.Text;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -20,13 +15,13 @@ import javax.imageio.ImageIO;
  */
 public class Files
 {
-    public static String loadTextFile(final String aFileName)
+    public static Text loadTextFile(final String aFileName)
     {
         throw new UnsupportedOperationException("Not supported yet.");
         
     }
     
-    public static BufferedImage loadImage(final String aFileName)
+    public static Image loadImage(final String aFileName)
     {
         throw new UnsupportedOperationException("Not supported yet.");
         
