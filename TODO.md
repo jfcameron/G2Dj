@@ -1,12 +1,20 @@
-finish texture loading implementation
 
-implement standard uniforms
-    -texture
-    -time
-    -mvp
-    ...
+---
 
-do renderobject implemntation
+graphics scene
+dev scene? scene interface??
+
+camera, mesh need positions
+ - give them a common parent from which they inhert position, rotation, scale (vec3s?)
+    - find or write mat4x4 for G2Dj.Math
+
+
+implement more uniform collection types & refactor textureuniformcollection imp to abstract generic uniformCollection
+ - float uniforms
+ - float2 uniforms
+ -???
+
+clean up all public interfaces
 
 
 Textures

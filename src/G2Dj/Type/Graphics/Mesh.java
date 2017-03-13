@@ -10,7 +10,6 @@ import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureUniformCollection;
-import G2Dj.Imp.Graphics.Uniforms;
 import java.lang.ref.WeakReference;
 
 /**

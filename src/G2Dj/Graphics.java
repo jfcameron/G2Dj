@@ -5,7 +5,7 @@
  */
 package G2Dj;
 
-import G2Dj.Imp.Graphics.Camera;
+import G2Dj.Type.Graphics.Camera;
 import G2Dj.Imp.Graphics.CameraClearMode;
 import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.ModelCollection;
@@ -63,14 +63,10 @@ public class Graphics
     protected static void draw()
     {
         //CAMERA TEST AREA
-        {
-            camera1.draw(s_GL);
-            //camera2.draw(s_GL);
-            //camera3.draw(s_GL);
-            //camera4.draw(s_GL);
-        
-        }        
-        mesh1.draw();
+        camera1.draw(s_GL);mesh1.draw();
+        camera2.draw(s_GL);mesh1.draw();
+        camera3.draw(s_GL);mesh1.draw();
+        camera4.draw(s_GL);mesh1.draw();
         
         //update canvas, swap buffers
         s_Window.draw();
@@ -90,14 +86,10 @@ public class Graphics
         s_Textures        = new TextureCollection();
         
         //TEST AREA
-        camera1 = new Camera(new Vector2(0.0f,0.0f), new Vector2(1.0f,1.0f),Color.CornflowerBlue(),CameraClearMode.Color);
+        camera1 = new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color);
         camera2 = new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink()   ,CameraClearMode.Color);
         camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color);
         camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color);
-        
-        /*shader1  = getShaderProgram("AlphaCutOff").get();
-        model1   = getModel("Quad").get();
-        texture1 = getTexture("awesome.png").get();*/
         
         mesh1 = new Mesh("Quad", "AlphaCutOff");
                 

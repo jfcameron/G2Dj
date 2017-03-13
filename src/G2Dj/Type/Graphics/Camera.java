@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package G2Dj.Imp.Graphics;
+package G2Dj.Type.Graphics;
 
 import G2Dj.Graphics;
+import G2Dj.Imp.Graphics.CameraClearMode;
+import G2Dj.Imp.Graphics.Color;
 import G2Dj.Math.IntVector2;
 import G2Dj.Math.Vector2;
 import com.jogamp.opengl.GL;
