@@ -5,6 +5,8 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Resource.Graphics.PinkShaderOfDeath;
+import G2Dj.Resource.Graphics.AlphaCutOff;
 import java.lang.ref.WeakReference;
 
 /**

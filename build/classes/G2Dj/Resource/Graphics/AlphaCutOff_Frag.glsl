@@ -7,7 +7,7 @@ varying  vec2 v_UV;
 //*********
 // Uniforms
 //*********
-uniform  vec4 _Color;
+//uniform  vec4 _Color;
 uniform sampler2D _Texture;
 
 //**********

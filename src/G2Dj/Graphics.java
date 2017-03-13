@@ -5,12 +5,12 @@
  */
 package G2Dj;
 
-import G2Dj.Imp.Graphics.AlphaCutOff;
+import G2Dj.Resource.Graphics.AlphaCutOff;
 import G2Dj.Imp.Graphics.Camera;
 import G2Dj.Imp.Graphics.CameraClearMode;
 import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.ModelCollection;
-import G2Dj.Imp.Graphics.Quad;
+import G2Dj.Resource.Graphics.Quad;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.ShaderProgramCollection;
 import G2Dj.Imp.Graphics.Texture;
@@ -21,7 +21,11 @@ import G2Dj.Type.Graphics.Color;
 
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2ES2;
+import java.io.File;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -127,6 +131,19 @@ public class Graphics
         shader1  = getShaderProgram("AlphaCutOff").get();
         model1   = getModel("Quad").get();
         texture1 = getTexture("SomeTexture").get();
+        
+       /*Debug.log
+        (
+                
+        
+        );/*/
+       
+       /*String asdf = null;
+        try {
+           asdf= ClassLoader.getSystemResources("G2Dj/Resource/Graphics/AlphaCutOff_Frag.glsl").toString();
+        } catch (IOException ex) {
+            Logger.getLogger(Graphics.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
         
     }
     

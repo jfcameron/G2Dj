@@ -13,6 +13,9 @@ public class Debug
 {
     public static void log(final Object... aObjects)
     {
+        if (aObjects == null)
+            return;
+        
         String output = aObjects[0].toString(); //aObjects.toString();
         
         if (aObjects.length > 1)

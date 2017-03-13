@@ -10,6 +10,14 @@ import G2Dj.Graphics;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GL2ES2;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import sun.misc.IOUtils;
 
 /**
  *
@@ -40,6 +48,23 @@ public abstract class ShaderProgram extends GraphicsObject
     //
     // Implementation
     //
+   /* protected static String loadGLSLSourceFromAbsolutePackagePath(final String aAbsolutePackagePath)
+    {
+        String source = "";
+
+            //InputStream asdf = (ShaderProgram.class.getResourceAsStream("/../Resource/Graphics/AlphaCutOff_Frag.glsl"));
+        
+        //source = asdf.toString();
+        
+//           source = Files.readAllBytes(path);
+
+           Debug.log("========================================="+source);
+           
+        
+        return source;
+        
+    }*/
+    
     protected void compileGraphicsProgram(final String aVertexCode, final String aFragmentCode)
     {
         GL2ES2 gl = Graphics.getGL().getGL2ES2();

@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package G2Dj.Imp.Graphics;
+package G2Dj.Resource.Graphics;
+
+import G2Dj.Imp.Graphics.Model;
+import G2Dj.Imp.Graphics.VertexFormat;
 
 /**
  *

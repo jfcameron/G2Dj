@@ -41,7 +41,7 @@ public final class Window implements WindowListener
     {
         //ICON TEST
         //IOUtil.ClassResources res = new ClassResources(new String[]{"brick.png"}, getClass().getClassLoader(), getClass());
-        System.setProperty("newt.window.icons", "G2Dj/Imp/Graphics/Icons/icon-16.png G2Dj/Imp/Graphics/Icons/icon-32.png");
+        System.setProperty("newt.window.icons", "G2Dj/Resource/Graphics/icon-16.png G2Dj/Resource/Graphics/icon-32.png");
         //NewtFactory.setWindowIcons(res);
         
         //Configure the GL
