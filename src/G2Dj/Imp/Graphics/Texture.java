@@ -31,7 +31,7 @@ public class Texture extends GraphicsObject
     //
     // Constructors
     //
-    public Texture(final String aTextureFileName/*, final int aRepeatMode, final int aMagfilter*/)
+    public Texture(final BufferedImage aBGRAImage/*, final int aRepeatMode, final int aMagfilter*/)
     {
 	//m_TextureHandle = 0;
         m_Name = "SomeTexture";
@@ -56,7 +56,7 @@ public class Texture extends GraphicsObject
                 
             }*/
             
-            img = Resources.readFileToImage("/G2Dj/Resource/Graphics/awesome.png"); ///////////THIS LOADS FROM PACKAGE AND WORKS
+            img = aBGRAImage;//Resources.loadImage("/G2Dj/Resource/Graphics/awesome.png"); ///////////THIS LOADS FROM PACKAGE AND WORKS
             
             Debug.log("Dimensons: {"+img.getWidth()+", "+img.getWidth()+"}");
 

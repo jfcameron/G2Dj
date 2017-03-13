@@ -5,6 +5,10 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Files;
+import G2Dj.Resources;
+import java.lang.ref.WeakReference;
+
 /**
  *
  * @author Joe
@@ -20,20 +24,34 @@ public class TextureCollection extends GraphicsObjectCollection<Texture>
     //
     //
     @Override
-    public void add(final Texture aItem)
+    public WeakReference<Texture> loadFromResource(String aAbsoluteResourcePath) 
     {
-        super.add(aItem);
+        Texture newTexture = new Texture(Resources.loadImage("/G2Dj/Resource/Graphics/awesome.png"));
+        
+        add(newTexture);
+        
+        return new WeakReference<>(newTexture);
+    
+    }
+
+    @Override
+    public WeakReference<Texture> loadFromFile(String aRelativeFilePath) 
+    {
+        Texture newTexture = new Texture(Files.loadImage("/G2Dj/Resource/Graphics/awesome.png"));
+        
+        add(newTexture);
+        
+        return new WeakReference<>(newTexture);
         
     }
-    
-    
+        
     //*************
     // Constructors
     //*************
     public TextureCollection()
     {
-        add(new Texture("123123123"));
+        loadFromResource("/G2Dj/Resource/Graphics/awesome.png");
         
     }
-        
+    
 }

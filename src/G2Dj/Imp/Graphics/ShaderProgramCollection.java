@@ -7,6 +7,8 @@ package G2Dj.Imp.Graphics;
 
 import G2Dj.Resource.Graphics.PinkShaderOfDeath;
 import G2Dj.Resource.Graphics.AlphaCutOff;
+import G2Dj.Resources;
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -24,7 +26,7 @@ public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProg
     //
     //public /*<T extends ShaderProgram>*/ void loadShader(ShaderProgram aShaderProgram)
     @Override
-    public void add(final ShaderProgram aItem)
+    protected void add(final ShaderProgram aItem)
     {
         //hmm
         
@@ -32,6 +34,19 @@ public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProg
         
     }
     
+    @Override
+    public WeakReference<ShaderProgram> loadFromResource(String aAbsoluteResourcePath) 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    }
+
+    @Override
+    public WeakReference<ShaderProgram> loadFromFile(String aRelativeFilePath) 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    }
     
     //*************
     // Constructors
@@ -42,5 +57,5 @@ public class ShaderProgramCollection extends GraphicsObjectCollection<ShaderProg
         add(new AlphaCutOff());
         
     }
-        
+    
 }

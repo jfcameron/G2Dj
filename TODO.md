@@ -1,12 +1,13 @@
 finish texture loading implementation
 
-do renderobject implemntation
-
 implement standard uniforms
     -texture
     -time
     -mvp
     ...
+
+do renderobject implemntation
+
 
 Textures
  - convert texture to abstract

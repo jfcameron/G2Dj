@@ -6,6 +6,7 @@
 package G2Dj.Imp.Graphics;
 
 import G2Dj.Resource.Graphics.Quad;
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -28,6 +29,19 @@ public class ModelCollection extends GraphicsObjectCollection<Model>
         
     }
     
+    @Override
+    public WeakReference<Model> loadFromResource(String aAbsoluteResourcePath) 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    }
+
+    @Override
+    public WeakReference<Model> loadFromFile(String aRelativeFilePath) 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    }
     
     //*************
     // Constructors
@@ -37,5 +51,5 @@ public class ModelCollection extends GraphicsObjectCollection<Model>
         add(new Quad());
         
     }
-        
+    
 }

@@ -23,33 +23,31 @@ import javax.imageio.ImageIO;
  */
 public class Resources
 {
-    private static String s_ResourceDirectoryRoot = "/";//"/G2Dj/Resource/";
-    
-    public static String readFileToString(final String aFileName)
+    public static String loadTextFile(final String aFileName)
     {
         String data = null;
         
-        try {
-            data = new String(Files.readAllBytes(Paths.get(Resources.class.getResource(s_ResourceDirectoryRoot+aFileName).toURI())));
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(AlphaCutOff.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(AlphaCutOff.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        try 
+        {
+            data = new String(Files.readAllBytes(Paths.get(Resources.class.getResource(aFileName.startsWith("/")? aFileName : "/"+aFileName).toURI())));
+        
+        } 
+        catch (URISyntaxException | IOException ex) {Logger.getLogger(AlphaCutOff.class.getName()).log(Level.SEVERE, null, ex);}
         
         return data;
         
     }
     
-    public static BufferedImage readFileToImage(final String aFileName)
+    public static BufferedImage loadImage(final String aFileName)
     {
         BufferedImage img = null;
         
-        try {
+        try 
+        {
              img=ImageIO.read(Resources.class.getResource(aFileName));
-        } catch (IOException ex) {
-            Logger.getLogger(Resources.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        } 
+        catch (IOException ex) {Logger.getLogger(Resources.class.getName()).log(Level.SEVERE, null, ex);}
         
         return img;
         
