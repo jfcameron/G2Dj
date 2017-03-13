@@ -32,7 +32,7 @@ public class Resources
         String data = null;
         
         try {
-            data = new String(Files.readAllBytes(Paths.get(AlphaCutOff.class.getResource(s_ResourceDirectoryRoot+aFileName).toURI())));
+            data = new String(Files.readAllBytes(Paths.get(Resources.class.getResource(s_ResourceDirectoryRoot+aFileName).toURI())));
         } catch (URISyntaxException ex) {
             Logger.getLogger(AlphaCutOff.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
