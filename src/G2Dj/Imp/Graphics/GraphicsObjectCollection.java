@@ -31,6 +31,8 @@ public abstract class GraphicsObjectCollection<T extends GraphicsObject>
         
     }
     
+    public WeakReference<T> get(){return getDefault();}
+    
     public WeakReference<T> get(final int i)
     {
         if (i >= m_Vector.size())

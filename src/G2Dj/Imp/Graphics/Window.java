@@ -5,12 +5,7 @@
  */
 package G2Dj.Imp.Graphics;
 
-import G2Dj.Debug;
-import G2Dj.Input;
 import G2Dj.Imp.Input.KeyboardInputHandler;
-import G2Dj.Imp.Input.KeyCode;
-import com.jogamp.common.util.IOUtil;
-import com.jogamp.common.util.IOUtil.ClassResources;
 
 import com.jogamp.newt.Display;
 import com.jogamp.newt.NewtFactory;
@@ -21,10 +16,8 @@ import com.jogamp.newt.event.WindowUpdateEvent;
 import com.jogamp.newt.opengl.GLWindow;
 
 import com.jogamp.opengl.GL;
-import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
-import javax.swing.ImageIcon;
 
 /**
  *

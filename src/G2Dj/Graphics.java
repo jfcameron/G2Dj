@@ -13,12 +13,13 @@ import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.ShaderProgramCollection;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureCollection;
+import G2Dj.Imp.Graphics.Uniforms;
 import G2Dj.Imp.Graphics.Window;
 import G2Dj.Math.Vector2;
-import G2Dj.Type.Graphics.Color;
+import G2Dj.Imp.Graphics.Color;
+import G2Dj.Type.Graphics.Mesh;
 
 import com.jogamp.opengl.GL;
-import com.jogamp.opengl.GL2ES2;
 
 import java.lang.ref.WeakReference;
 
@@ -52,8 +53,10 @@ public class Graphics
     public static WeakReference<ShaderProgram> getShaderProgram(final String aName){return s_ShaderPrograms.get(aName);}
     //Model funcs
     public static WeakReference<Model> getModel(final String aName){return s_Models.get(aName);}
+    public static WeakReference<Model> getModel(){return s_Models.get();}
     //Tex func
     public static WeakReference<Texture> getTexture(final String aName){return s_Textures.get(aName);}
+    public static WeakReference<Texture> getTexture(){return s_Textures.get();}
     
     protected static void init(){}
     
@@ -66,38 +69,8 @@ public class Graphics
             //camera3.draw(s_GL);
             //camera4.draw(s_GL);
         
-        }
-        
-        //MODEL TEST AREA
-        {
-            shader1.draw();
-            
-            //do standard unifroms
-            GL2ES2 gl = s_GL.getGL2ES2();
-            
-            //parameterize me
-            int    aShaderProgramHandle = shader1.getProgramHandle();
-            String aUniformName         = "_Texture";
-            int    aTextureHandle       = texture1.getHandle();
-            int    aTextureUnit         = 0;//Iterate this as you add more tex to a single draw call (diffuse map 0, uv map 1, spec 3 ...)
-            int    aTextureType         = GL.GL_TEXTURE_2D;
-                      
-            int uniformHandle = gl.glGetUniformLocation(aShaderProgramHandle, aUniformName);
-            
-            //Debug.log("Programhandle: "+aShaderProgramHandle,"uniformname: "+aUniformName,"texture handle: "+aTextureHandle,"texture type: "+aTextureType,"texture unit: "+aTextureUnit,"uniform handle: "+uniformHandle);
-            
-                        
-            gl.glActiveTexture(GL.GL_TEXTURE0);
-            gl.glBindTexture(aTextureType, aTextureHandle);
-            gl.glUniform1i(uniformHandle, aTextureUnit);
-            
-            //Debug.log("Error: "+gl.glGetError());
-            
-            model1.draw(shader1.getProgramHandle());
-            
-        }
-        
-        
+        }        
+        mesh1.draw();
         
         //update canvas, swap buffers
         s_Window.draw();
@@ -122,23 +95,12 @@ public class Graphics
         camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color);
         camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color);
         
-        shader1  = getShaderProgram("AlphaCutOff").get();
+        /*shader1  = getShaderProgram("AlphaCutOff").get();
         model1   = getModel("Quad").get();
-        texture1 = getTexture("awesome.png").get();
+        texture1 = getTexture("awesome.png").get();*/
         
-       /*Debug.log
-        (
+        mesh1 = new Mesh("Quad", "AlphaCutOff");
                 
-        
-        );/*/
-       
-       /*String asdf = null;
-        try {
-           asdf= ClassLoader.getSystemResources("G2Dj/Resource/Graphics/AlphaCutOff_Frag.glsl").toString();
-        } catch (IOException ex) {
-            Logger.getLogger(Graphics.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        
     }
     
     //TEST AREA
@@ -147,8 +109,10 @@ public class Graphics
     private static final Camera camera3;// = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red(),CameraClearMode.Color);
     private static final Camera camera4;// = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green(),CameraClearMode.Color);
     
-    private static final Model model1;
+    /*private static final Model         model1;
     private static final ShaderProgram shader1;
-    private static final Texture texture1;
+    private static final Texture       texture1;*/
+    
+    private static final Mesh mesh1;
     
 }

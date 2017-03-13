@@ -8,7 +8,6 @@ package G2Dj.Imp.Graphics;
 import G2Dj.Graphics;
 import G2Dj.Math.IntVector2;
 import G2Dj.Math.Vector2;
-import G2Dj.Type.Graphics.Color;
 import com.jogamp.opengl.GL;
 
 /**
