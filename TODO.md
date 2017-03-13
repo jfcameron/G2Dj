@@ -5,27 +5,22 @@ implement standard uniforms
     ...
 
 Textures
-    - make barebones test case then...
     - texture loading
     - texture collecting
     - texture retrieval
 
-Shader 
-    -collecting & hardcoded fallback
-    -clean up the way GLSL source code is stored and loaded
-
 Vertex data
-    -fallback format
-    -custom shapes from vert arrays
+    -allow custom shapes from vert arrays
     
 2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
         
-reassess todos (continue gl? work on math lib? add openAL dep? etc...)
+reassess todos (continue gl? work on math lib? add openAL dep? shop for physics?)
 
 ==================BACKBURNER=====================
-Collections
+Collections/Resources
     -prevent duplicate names being entered
+    -prevent duplicate resources from being allocated (fail silently or throw?)
 
 Clean
     - style
