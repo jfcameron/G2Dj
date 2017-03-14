@@ -34,7 +34,8 @@ public class Scene
     
     protected void OnComponentRemoved(final Component aComponent)
     {
-       throw new java.lang.UnsupportedOperationException("Not supported yet.");
+       for(int i = 0, s = m_SceneGraphs.size(); i < s; i++)
+           m_SceneGraphs.get(i).OnComponentRemoved(aComponent);
        
     }
     

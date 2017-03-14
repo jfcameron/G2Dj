@@ -26,11 +26,16 @@ public class Test
             WeakReference<Scene> mainScene = Engine.createScene("Main");
             
             //Create a the player game object
-            WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
-            aGameObject.get().setName("Player1");
+            {
+                WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
+                aGameObject.get().setName("Player1");
             
-            Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
-            aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
+                Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
+                aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
+                
+                //aGameObject.get().removeComponent(Mesh.class);
+            
+            }
             
             //Create the camera
             {

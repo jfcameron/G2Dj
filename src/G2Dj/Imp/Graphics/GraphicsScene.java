@@ -5,9 +5,9 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Debug;
 import G2Dj.Type.Engine.SceneGraph;
 import G2Dj.Graphics;
-import G2Dj.Math.Vector2;
 import G2Dj.Type.Engine.Component;
 import G2Dj.Type.Engine.Scene;
 import G2Dj.Type.Graphics.Camera;
@@ -91,9 +91,12 @@ public class GraphicsScene extends SceneGraph
         {        
             Mesh mesh = (Mesh)aComponent;
         
+            Debug.log("MESH REMOVAL DETECTED");
+            
             for(int i = 0, s = m_Meshes.size(); i < s; i++)
                 if (m_Meshes.get(i).get() == mesh)
                 {
+                    Debug.log("hello");
                     m_Meshes.remove(i);
                     return;
                 
@@ -103,7 +106,7 @@ public class GraphicsScene extends SceneGraph
         else if (aComponent instanceof Camera)
         {
             Camera camera = (Camera)aComponent;
-        
+                    
             for(int i = 0, s = m_Meshes.size(); i < s; i++)
                 if (m_Cameras.get(i).get() == camera)
                 {

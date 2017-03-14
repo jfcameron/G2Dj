@@ -5,6 +5,7 @@
  */
 package G2Dj.Type.Engine;
 
+import G2Dj.Debug;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -16,9 +17,9 @@ import java.util.logging.Logger;
  */
 public class GameObject 
 {
-    //
-    //
-    //
+    //*************
+    // Data members
+    //*************
     private       String               m_Name;
     private final ArrayList<Component> m_Components = new ArrayList<>();
     private final WeakReference<Scene> m_MyScene;
@@ -47,6 +48,8 @@ public class GameObject
             
             if (!m_Components.contains(rValue))
                 m_Components.add(rValue);
+            else
+                Debug.log("GameObject "+m_Name+" already has a "+rValue.getClass().getSimpleName());
             
             m_MyScene.get().OnComponentAdded(rValue);
         
@@ -60,17 +63,14 @@ public class GameObject
     
     public void removeComponent(Class<? extends Component> aComponentType)
     {
-        //aComponentType.
-                
-        /*for(int i = 0, s = m_Components.size(); i < s; i++ )
-            if (m_Components.get(i).TypeRTTI() == aComponentType.TypeRTTI() )
+        for (int i=0,s=m_Components.size();i<s;i++)
+            if (m_Components.get(i).getClass() == aComponentType)
             {
-                
-                
-            }*/
+                m_MyScene.get().OnComponentRemoved(m_Components.get(i));
+                m_Components.remove(i);
         
-        throw new UnsupportedOperationException("Not supported yet.");
-       
+            }
+        
     }
     
     public Component getComponent(Class<? extends Component> aComponentType)
