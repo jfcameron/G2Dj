@@ -1,3 +1,10 @@
+Implement transform related code
+ - vec3 pos, rot, scale.
+ - who owns this data?
+ - pack transform data into mat4x4 for transport to shaders
+ - add standard mat uniforms (MVP, VP, M).
+ - should a perspective projection be possible? if so how? Camera.projectionMode(aMode) where aMode is of type enum ProjectionMode{orthographic,perspective}? OR Camera is abstract w 2 implementers: Camera2D and Camera3D?
+
 Implement GameObject.removeComponent. See LOG.MD for details
 
 AuthList in G2Dj.Memory
