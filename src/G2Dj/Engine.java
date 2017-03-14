@@ -5,6 +5,7 @@
  */
 package G2Dj;
 
+import G2Dj.Imp.Input.KeyCode;
 import G2Dj.Type.Engine.Scene;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -34,10 +35,12 @@ public class Engine
     
     public static void update()
     {
-        s_Scenes.forEach((currentScene)->{currentScene.update();});
+        do
+        {
+            s_Scenes.forEach((currentScene)->{currentScene.update();});
+            Input.update();
         
-        
-        Input.update();
+        }while(!Input.getKeyDown(KeyCode.Escape));
         
     }
     
@@ -48,6 +51,8 @@ public class Engine
     {
         Input.init();
         Graphics.init();
+        //etc
+                
         
     }
     

@@ -25,14 +25,14 @@ public class ShaderProgramCollection extends GraphicsResourceCollection<ShaderPr
     //
     //
     //public /*<T extends ShaderProgram>*/ void loadShader(ShaderProgram aShaderProgram)
-    @Override
+    /*@Override
     protected void add(final ShaderProgram aItem)
     {
         //hmm
         
         super.add(aItem);
         
-    }
+    }*/
     
     @Override
     public WeakReference<ShaderProgram> loadFromResource(String aAbsoluteResourcePath) 
@@ -53,8 +53,8 @@ public class ShaderProgramCollection extends GraphicsResourceCollection<ShaderPr
     //*************
     public ShaderProgramCollection()
     {
-        add(new PinkShaderOfDeath());
-        add(new AlphaCutOff());
+        addClass(PinkShaderOfDeath.class);
+        addClass(AlphaCutOff.class);
         
     }
     

@@ -9,6 +9,8 @@ import G2Dj.Debug;
 import G2Dj.Resources;
 import java.util.ArrayList;
 import java.lang.ref.WeakReference;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class GraphicsResourceCollection<T extends GraphicsResource>
 {
@@ -59,10 +61,26 @@ public abstract class GraphicsResourceCollection<T extends GraphicsResource>
     //
     // Implementation
     //
-    protected void add(final T aItem)
+    protected void addClass(final Class<? extends T> aItem)
     {
-        //todo: sanitize...
+        T newItem = null;
+        try {
+            newItem = aItem.newInstance();
+        } catch (InstantiationException ex) {
+            Logger.getLogger(GraphicsResourceCollection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(GraphicsResourceCollection.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        if (newItem == null)
+            return;
+        
+        addInstance(newItem);
+        
+    }
+    
+    protected void addInstance(final T aItem)
+    {
         m_Vector.add(aItem);
         
     }

@@ -11,13 +11,14 @@ import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureUniformCollection;
+import G2Dj.Type.Engine.Component;
 import java.lang.ref.WeakReference;
 
 /**
  *
  * @author Joe
  */
-public class Mesh extends GraphicsObject
+public class Mesh extends GraphicsObject implements Component
 {
     //*************
     // Data members
@@ -39,7 +40,7 @@ public class Mesh extends GraphicsObject
     public final void setShader(final String aShaderName){m_ShaderProgram = Graphics.getShaderProgram(aShaderName);}
     
     //
-    //
+    // Graphics Scene interface
     //
     public void draw()
     {
@@ -53,6 +54,16 @@ public class Mesh extends GraphicsObject
     }
     
     //
+    // Component Inteface
+    //
+    @Override
+    public void update() 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    }
+    
+    //
     // Constructors 
     //
     public Mesh(final String aModelName, final String aShaderName)
@@ -61,5 +72,7 @@ public class Mesh extends GraphicsObject
         setShader(aShaderName);
         
     }
+
+    
     
 }

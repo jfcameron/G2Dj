@@ -22,12 +22,12 @@ public class ModelCollection extends GraphicsResourceCollection<Model>
     //
     //
     //
-    @Override
+    /*@Override
     public void add(final Model aItem)
     {
         super.add(aItem);
         
-    }
+    }*/
     
     @Override
     public WeakReference<Model> loadFromResource(String aAbsoluteResourcePath) 
@@ -48,7 +48,7 @@ public class ModelCollection extends GraphicsResourceCollection<Model>
     //*************
     public ModelCollection()
     {
-        add(new Quad());
+        addClass(Quad.class);
         
     }
     

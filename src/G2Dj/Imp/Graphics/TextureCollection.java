@@ -28,7 +28,7 @@ public class TextureCollection extends GraphicsResourceCollection<Texture>
     {
         Texture newTexture = new Texture(Resources.loadImage(aAbsoluteResourcePath));
         
-        add(newTexture);
+        addInstance(newTexture);
         
         return new WeakReference<>(newTexture);
     
@@ -39,7 +39,7 @@ public class TextureCollection extends GraphicsResourceCollection<Texture>
     {
         Texture newTexture = new Texture(Files.loadImage(aRelativeFilePath));
         
-        add(newTexture);
+        addInstance(newTexture);
         
         return new WeakReference<>(newTexture);
         

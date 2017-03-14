@@ -21,12 +21,13 @@ public class Scene
     private final String m_Name;
     private final ArrayList<SceneGraph> m_SceneGraphs = new ArrayList<>();
     
+    
     //
     //
     //
     public void update()
     {
-        m_SceneGraphs.forEach((currentGraph)->{currentGraph.update();});
+        m_SceneGraphs.forEach(currentGraph->currentGraph.update());
         
     }
     
@@ -38,6 +39,7 @@ public class Scene
     {
         m_Name = aName;
         m_SceneGraphs.add(new GraphicsScene());
+        
         
     }
     
