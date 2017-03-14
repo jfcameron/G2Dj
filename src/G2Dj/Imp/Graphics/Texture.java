@@ -83,6 +83,10 @@ public class Texture extends GraphicsResource
             
         m_TextureHandle = texturehandle.get(0);
         
+        Debug.log("Handle is: "+m_TextureHandle);
+        
+        gl.glBindTexture( GL.GL_TEXTURE_2D,0);//clear the binding
+        
     }
     
 }

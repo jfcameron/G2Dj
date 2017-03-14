@@ -7,6 +7,7 @@ package G2Dj.Type.Engine;
 
 import G2Dj.Dev.SceneGraph;
 import G2Dj.Imp.Graphics.GraphicsScene;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,11 @@ public class Scene
     //
     private final String m_Name;
     private final ArrayList<SceneGraph> m_SceneGraphs = new ArrayList<>();
+    private final ArrayList<GameObject> m_GameObjects = new ArrayList<>();
     
+    //
+    //
+    //
     
     //
     //
@@ -31,6 +36,21 @@ public class Scene
         
     }
     
+    public WeakReference<GameObject> addGameObject()
+    {
+        GameObject newGameObject = new GameObject();
+        
+        m_GameObjects.add(newGameObject);
+        
+        return new WeakReference<GameObject>(newGameObject);        
+        
+    }
+    /*public void addGameObject(final GameObject aGameObject)
+    {
+        
+        
+    }*/
+    
     //
     //
     //
@@ -38,7 +58,7 @@ public class Scene
     public Scene(final String aName)
     {
         m_Name = aName;
-        m_SceneGraphs.add(new GraphicsScene());
+        m_SceneGraphs.add(new GraphicsScene(this));
         
         
     }

@@ -7,6 +7,7 @@ package G2Dj.Imp.Graphics;
 import G2Dj.Dev.SceneGraph;
 import G2Dj.Graphics;
 import G2Dj.Math.Vector2;
+import G2Dj.Type.Engine.Scene;
 import G2Dj.Type.Graphics.Camera;
 import G2Dj.Type.Graphics.Mesh;
 import java.util.ArrayList;
@@ -15,15 +16,15 @@ import java.util.ArrayList;
  *
  * @author Joe
  */
-public class GraphicsScene implements SceneGraph
+public class GraphicsScene extends SceneGraph
 {
     //*************
     // Data members
     //*************
-    private final ArrayList<Camera> m_Cameras = new ArrayList<>();
+    private final ArrayList<Camera> m_Cameras = new ArrayList<>();//make use of these
     private final ArrayList<Mesh>   m_Meshes  = new ArrayList<>();
     
-    private Window m_Window = Graphics.getWindow();
+    private final Window m_Window = Graphics.getWindow();
     
     //
     // 
@@ -46,15 +47,18 @@ public class GraphicsScene implements SceneGraph
     //
     //
     //
-    public GraphicsScene()
+    public GraphicsScene(Scene aScene)
     {
+        super(aScene);
+        
         //TEST AREA
         m_Cameras.add(new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color));
         m_Cameras.add(new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink()   ,CameraClearMode.Color));
         m_Cameras.add(new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color));
         m_Cameras.add(new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color));
         
-        m_Meshes.add(new Mesh("Quad", "AlphaCutOff"));
+        //m_Meshes.add(new Mesh("Quad", "AlphaCutOff"));
+        //m_Meshes.get(0).setTexture("_Texture","default.png");
         
         
     }

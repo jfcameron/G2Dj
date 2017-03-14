@@ -5,6 +5,7 @@
  */
 package G2Dj.Type.Graphics;
 
+import G2Dj.Debug;
 import G2Dj.Graphics;
 import G2Dj.Imp.Graphics.GraphicsObject;
 import G2Dj.Imp.Graphics.Model;
@@ -36,6 +37,12 @@ public class Mesh extends GraphicsObject implements Component
     public WeakReference<Model> getModel(){return m_Model;}
     public WeakReference<ShaderProgram> getShaderProgram(){return m_ShaderProgram;}
     //setters
+    public final void setTexture(final String aUniformName, final String aTextureResourceName)
+    {
+               
+        m_Textures.put(aUniformName, Graphics.getTexture(aTextureResourceName));
+    
+    }
     public final void setModel(final String aModelName){m_Model = Graphics.getModel(aModelName);}
     public final void setShader(final String aShaderName){m_ShaderProgram = Graphics.getShaderProgram(aShaderName);}
     
@@ -66,10 +73,10 @@ public class Mesh extends GraphicsObject implements Component
     //
     // Constructors 
     //
-    public Mesh(final String aModelName, final String aShaderName)
+    public Mesh(/*final String aModelName, final String aShaderName*/)
     {
-        setModel(aModelName);
-        setShader(aShaderName);
+        setModel("Quad");
+        setShader("AlphaCutOff");
         
     }
 

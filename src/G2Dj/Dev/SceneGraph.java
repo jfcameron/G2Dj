@@ -5,12 +5,19 @@
  */
 package G2Dj.Dev;
 
+import G2Dj.Type.Engine.Scene;
+import java.util.ArrayList;
+
 /**
  *
  * @author Joe
  */
-public interface SceneGraph 
+public abstract class SceneGraph 
 {
-    void update();
+    final Scene m_Scene;
+    
+    public abstract void update();
+    
+    protected SceneGraph(final Scene aScene){m_Scene = aScene;}
     
 }

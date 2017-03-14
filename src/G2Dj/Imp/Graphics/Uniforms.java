@@ -5,6 +5,7 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Debug;
 import G2Dj.Graphics;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2ES2;
@@ -29,7 +30,6 @@ public class Uniforms
         
         switch (aTextureUnit)
 	{
-		//case  0:gl.glActiveTexture(GL. GL_TEXTURE0);break;
 		case  1:gl.glActiveTexture(GL. GL_TEXTURE1);break;
                 case  2:gl.glActiveTexture(GL. GL_TEXTURE2);break;
 		case  3:gl.glActiveTexture(GL. GL_TEXTURE3);break;
@@ -38,8 +38,8 @@ public class Uniforms
 		case  6:gl.glActiveTexture(GL. GL_TEXTURE6);break;
 		case  7:gl.glActiveTexture(GL. GL_TEXTURE7);break;
                 
-		default:gl.glActiveTexture(GL.GL_TEXTURE0);break;
-
+                default:gl.glActiveTexture(GL. GL_TEXTURE0);break;
+		
 	}
         
         gl.glBindTexture(theTextureType, aTextureHandle);

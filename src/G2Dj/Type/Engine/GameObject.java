@@ -5,7 +5,10 @@
  */
 package G2Dj.Type.Engine;
 
+import G2Dj.Debug;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +25,23 @@ public class GameObject
     //
     //
     //
+    public Component addComponent(Class<? extends Component> aComponentType)
+    {
+        Component rValue = null;
+        
+        try 
+        {
+            rValue = aComponentType.newInstance();
+            m_Components.add(rValue);
+        
+        } 
+        
+        catch (InstantiationException | IllegalAccessException ex) {Logger.getLogger(GameObject.class.getName()).log(Level.SEVERE, null, ex);}
+        
+        return rValue;
+        
+    }
+    
     public Component getComponent(Class<? extends Component> aComponentType)
     {
         Component rValue = null;
@@ -30,6 +50,8 @@ public class GameObject
         for(int i = 0, s = m_Components.size(); i<s; i++)//m_Components
         {
             currentComponent = m_Components.get(i);
+            
+            //Debug.log("agagasdg: ",aComponentType,currentComponent.getClass());
             
             if(aComponentType.equals(currentComponent.getClass()))
             {
@@ -55,9 +77,9 @@ public class GameObject
     //
     //
     //
-    public GameObject(final String aName)
+    public GameObject()
     {
-        m_Name = aName;
+        m_Name = "Unnamed GameObject";
         
     }
     

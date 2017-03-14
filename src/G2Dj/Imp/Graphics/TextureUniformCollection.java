@@ -5,6 +5,7 @@
  */
 package G2Dj.Imp.Graphics;
 
+import G2Dj.Debug;
 import G2Dj.Graphics;
 import java.lang.ref.WeakReference;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class TextureUniformCollection extends UniformCollection<Texture>
         
         for(Map.Entry<String,WeakReference<Texture>> entry : m_HashMap.entrySet())
         { 
-            Uniforms.loadTexture(entry.getValue().get().getHandle(), entry.getKey(), aProgramHandle, i++);
+            Uniforms.loadTexture(aProgramHandle, entry.getKey(), entry.getValue().get().getHandle(), i++);
         
         }
 

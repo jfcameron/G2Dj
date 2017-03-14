@@ -90,8 +90,6 @@ public abstract class GraphicsResourceCollection<T extends GraphicsResource>
         if (m_Vector.isEmpty())
             throw new RuntimeException("No default exists.");
         
-        Debug.log(m_Vector.get(0).getName());
-        
         return new WeakReference<>(m_Vector.get(0));
         
     }

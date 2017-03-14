@@ -15,16 +15,8 @@ import java.lang.ref.WeakReference;
  */
 public class TextureCollection extends GraphicsResourceCollection<Texture>
 {
-    //*************
-    // Data members
-    //*************
-    
-    
-    //
-    //
-    //
     @Override
-    public WeakReference<Texture> loadFromResource(String aAbsoluteResourcePath) 
+    public final WeakReference<Texture> loadFromResource(String aAbsoluteResourcePath) 
     {
         Texture newTexture = new Texture(Resources.loadImage(aAbsoluteResourcePath));
         
@@ -35,7 +27,7 @@ public class TextureCollection extends GraphicsResourceCollection<Texture>
     }
 
     @Override
-    public WeakReference<Texture> loadFromFile(String aRelativeFilePath) 
+    public final WeakReference<Texture> loadFromFile(String aRelativeFilePath) 
     {
         Texture newTexture = new Texture(Files.loadImage(aRelativeFilePath));
         

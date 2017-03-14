@@ -51,6 +51,8 @@ public class Graphics
     //Tex func
     public static WeakReference<Texture> getTexture(final String aName){return s_Textures.get(aName);}
     public static WeakReference<Texture> getTexture(){return s_Textures.get();}
+    public static WeakReference<Texture> loadFromResource(String aAbsoluteResourcePath){return s_Textures.loadFromResource(aAbsoluteResourcePath);}
+    public static WeakReference<Texture> loadFromFile(String aAbsoluteResourcePath){return s_Textures.loadFromFile(aAbsoluteResourcePath);}
     
     //*******************
     // Static Constructor
