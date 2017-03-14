@@ -6,6 +6,7 @@
 package G2Dj.Type.Engine;
 
 import G2Dj.Debug;
+import G2Dj.Imp.Engine.Transform;
 import G2Dj.Math.Vector3;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -21,25 +22,18 @@ public class GameObject
     //*************
     // Data members
     //*************
-    private String  m_Name;
-    private Vector3 m_Position;
-    private Vector3 m_Rotation;
-    private Vector3 m_Scale;
-    
     private final ArrayList<Component> m_Components = new ArrayList<>();
     private final WeakReference<Scene> m_MyScene;
+    private String  m_Name;
+    private Transform m_Transform;
         
     //
     //
     //
-    public String               getName()    {return m_Name;    }
-    public Vector3              getPosition(){return m_Position;}
-    public Vector3              getRotation(){return m_Rotation;}
-    public Vector3              getScale()   {return m_Scale;   }
-    public WeakReference<Scene> getScene()   {return m_MyScene; }
+    public String               getName    (){return m_Name;    }
+    public WeakReference<Scene> getScene   (){return m_MyScene; }
     
-    public void setName(final String aName){m_Name = aName;}
-//    public void setPosition(final Vector3)
+    public void setName    (final String  aName    ){m_Name     = aName;    }
     
     //
     //
