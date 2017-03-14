@@ -5,8 +5,6 @@
  */
 package G2Dj.Type.Engine;
 
-import G2Dj.Type.Engine.Component;
-import G2Dj.Type.Engine.Scene;
 import java.lang.ref.WeakReference;
 
 /**

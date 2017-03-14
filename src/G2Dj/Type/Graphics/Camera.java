@@ -12,13 +12,14 @@ import G2Dj.Imp.Graphics.GraphicsObject;
 import G2Dj.Math.IntVector2;
 import G2Dj.Math.Vector2;
 import G2Dj.Type.Engine.Component;
+import G2Dj.Type.Engine.GameObject;
 import com.jogamp.opengl.GL;
 
 /**
  *
  * @author Joe
  */
-public class Camera extends GraphicsObject implements Component
+public class Camera extends Component
 {
     //*************
     // Data members
@@ -119,11 +120,23 @@ public class Camera extends GraphicsObject implements Component
     // Component
     //
     @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update() 
+    {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
-    //@Override
-    //public String TypeRTTI(){return getClass().getSimpleName();}
+    @Override
+    protected void OnAddedToGameObject(GameObject aGameObject) 
+    {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void OnRemovedFromGameObject() 
+    {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
     
 }

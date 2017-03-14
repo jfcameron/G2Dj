@@ -5,11 +5,13 @@
  */
 package Adhoc;
 
+import G2Dj.Type.Engine.GameObject;
+
 /**
  *
  * @author Joe
  */
-public class PlayerController implements G2Dj.Type.Engine.Component
+public class PlayerController extends G2Dj.Type.Engine.Component
 {
     //
     //
@@ -24,6 +26,16 @@ public class PlayerController implements G2Dj.Type.Engine.Component
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     
+    }
+
+    @Override
+    protected void OnAddedToGameObject(GameObject aGameObject) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void OnRemovedFromGameObject() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

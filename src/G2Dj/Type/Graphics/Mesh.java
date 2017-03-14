@@ -13,13 +13,14 @@ import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureUniformCollection;
 import G2Dj.Type.Engine.Component;
+import G2Dj.Type.Engine.GameObject;
 import java.lang.ref.WeakReference;
 
 /**
  *
  * @author Joe
  */
-public class Mesh extends GraphicsObject implements Component
+public class Mesh extends Component
 {
     //*************
     // Data members
@@ -77,10 +78,23 @@ public class Mesh extends GraphicsObject implements Component
     {
         setModel("Quad");
         setShader("AlphaCutOff");
+        setTexture("_Texture","default.png");
         
     }
 
-    //@Override
-    //public String TypeRTTI(){return getClass().getSimpleName();}
+    @Override
+    protected void OnAddedToGameObject(GameObject aGameObject) 
+    {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Debug.log("Mesh added to "+aGameObject.getName());
+        
+    }
+
+    @Override
+    protected void OnRemovedFromGameObject() 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    }
     
 }

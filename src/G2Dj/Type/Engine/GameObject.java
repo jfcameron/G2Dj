@@ -6,6 +6,7 @@
 package G2Dj.Type.Engine;
 
 import G2Dj.Debug;
+import G2Dj.Math.Vector3;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -20,20 +21,24 @@ public class GameObject
     //*************
     // Data members
     //*************
-    private       String               m_Name;
+    private String  m_Name;
+    private Vector3 m_Position;
+    private Vector3 m_Rotation;
+    private Vector3 m_Scale;
+    
     private final ArrayList<Component> m_Components = new ArrayList<>();
     private final WeakReference<Scene> m_MyScene;
-    
-    //private ArrayList<int> m_asdf = new ArrayList<int>();
-    //private final ArrayList<Consumer<Component>> m_OnComponentAttached = new ArrayList<>();
-    //private m_OnComponentRemoved;
-    
+        
     //
     //
     //
-    public String getName(){return m_Name;}
+    public String  getName()    {return m_Name;    }
+    public Vector3 getPosition(){return m_Position;}
+    public Vector3 getRotation(){return m_Rotation;}
+    public Vector3 getScale()   {return m_Scale;   }
     
     public void setName(final String aName){m_Name = aName;}
+//    public void setPosition(final Vector3)
     
     //
     //
@@ -47,7 +52,12 @@ public class GameObject
             rValue = aComponentType.newInstance();
             
             if (!m_Components.contains(rValue))
+            {
                 m_Components.add(rValue);
+                rValue.OnAddedToGameObjectSuper(this);
+                rValue.OnAddedToGameObject(this);
+                
+            }
             else
                 Debug.log("GameObject "+m_Name+" already has a "+rValue.getClass().getSimpleName());
             
@@ -67,6 +77,8 @@ public class GameObject
             if (m_Components.get(i).getClass() == aComponentType)
             {
                 m_MyScene.get().OnComponentRemoved(m_Components.get(i));
+                m_Components.get(i).OnRemovedFromGameObjectSuper();
+                m_Components.get(i).OnRemovedFromGameObject();
                 m_Components.remove(i);
         
             }

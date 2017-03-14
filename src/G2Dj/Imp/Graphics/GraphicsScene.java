@@ -5,7 +5,6 @@
  */
 package G2Dj.Imp.Graphics;
 
-import G2Dj.Debug;
 import G2Dj.Type.Engine.SceneGraph;
 import G2Dj.Graphics;
 import G2Dj.Type.Engine.Component;
@@ -39,7 +38,6 @@ public class GraphicsScene extends SceneGraph
         m_Cameras.forEach((currentCamera)->
         {
             currentCamera.get().draw();
-            
             m_Meshes.forEach((currentMesh)->currentMesh.get().draw());
                     
         });
@@ -48,21 +46,6 @@ public class GraphicsScene extends SceneGraph
         
     }
     
-    //
-    //
-    //
-    public GraphicsScene(WeakReference<Scene> aScene)
-    {
-        super(aScene);
-        
-        //TEST AREA
-        //m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color)));
-        //m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink()   ,CameraClearMode.Color)));
-        //m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color)));
-        //m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color)));
-        
-    }
-
     //
     // GameObject events
     //
@@ -91,12 +74,9 @@ public class GraphicsScene extends SceneGraph
         {        
             Mesh mesh = (Mesh)aComponent;
         
-            Debug.log("MESH REMOVAL DETECTED");
-            
             for(int i = 0, s = m_Meshes.size(); i < s; i++)
                 if (m_Meshes.get(i).get() == mesh)
                 {
-                    Debug.log("hello");
                     m_Meshes.remove(i);
                     return;
                 
@@ -118,7 +98,10 @@ public class GraphicsScene extends SceneGraph
         }
     
     }
-
     
+    //************
+    // Constructor
+    //************
+    public GraphicsScene(WeakReference<Scene> aScene){super(aScene);}
     
 }
