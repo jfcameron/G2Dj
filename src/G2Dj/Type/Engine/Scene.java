@@ -59,6 +59,8 @@ public class Scene
     //
     public void update()
     {
+        m_GameObjects.forEach((gameObject)->gameObject.update());
+        
         m_SceneGraphs.forEach(currentGraph->currentGraph.update());
         
     }

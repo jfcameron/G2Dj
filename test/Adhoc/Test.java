@@ -34,6 +34,8 @@ public class Test
                 aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
                 
                 //aGameObject.get().removeComponent(Mesh.class);
+                
+                PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
             
             }
             

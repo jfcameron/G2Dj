@@ -21,7 +21,7 @@ public abstract class Component
     //
     //
     //
-    public WeakReference<GameObject> get(){return m_GameObject;}
+    public WeakReference<GameObject> getGameObject(){return m_GameObject;}
     
     //
     //
