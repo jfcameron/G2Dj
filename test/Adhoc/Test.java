@@ -3,6 +3,8 @@ package Adhoc;
 import G2Dj.Engine;
 import G2Dj.Imp.Input.KeyCode;
 import G2Dj.Input;
+import G2Dj.Type.Engine.Scene;
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -12,7 +14,7 @@ public class Test
 {
     private static void test()
     {
-        Engine.createScene("Main");
+        WeakReference<Scene> mainScene = Engine.createScene("Main");
         
     }
     

@@ -44,7 +44,10 @@ public class Mesh extends GraphicsObject
     public void draw()
     {
         m_ShaderProgram.get().draw();
+        
         m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
+        
+        
         m_Model.get().draw(m_ShaderProgram.get().getProgramHandle());
         
     }
