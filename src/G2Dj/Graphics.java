@@ -5,8 +5,6 @@
  */
 package G2Dj;
 
-import G2Dj.Type.Graphics.Camera;
-import G2Dj.Imp.Graphics.CameraClearMode;
 import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.ModelCollection;
 import G2Dj.Imp.Graphics.ShaderProgram;
@@ -14,10 +12,6 @@ import G2Dj.Imp.Graphics.ShaderProgramCollection;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureCollection;
 import G2Dj.Imp.Graphics.Window;
-import G2Dj.Math.Vector2;
-import G2Dj.Imp.Graphics.Color;
-import G2Dj.Imp.Graphics.GraphicsScene;
-import G2Dj.Type.Graphics.Mesh;
 
 import com.jogamp.opengl.GL;
 
@@ -58,22 +52,10 @@ public class Graphics
     public static WeakReference<Texture> getTexture(final String aName){return s_Textures.get(aName);}
     public static WeakReference<Texture> getTexture(){return s_Textures.get();}
     
-    protected static void init(){}
-    
-    protected static void draw()
-    {
-        //TEST ZONE
-        s_Scene.update();
-        //update canvas, swap buffers
-        s_Window.draw();
-        
-    }
-    
     //*******************
     // Static Constructor
-    //*******************
-    static GraphicsScene s_Scene;
-    
+    //*******************    
+    protected static void init(){}
     static
     {
         s_Window = new Window(Input.s_KeyboardInputHandler);
@@ -83,10 +65,6 @@ public class Graphics
         s_Models          = new ModelCollection();
         s_Textures        = new TextureCollection();
         
-        s_Scene = new GraphicsScene();
-        
     }
-    
-    
     
 }

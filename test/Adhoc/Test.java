@@ -12,15 +12,8 @@ public class Test
 {
     private static void test()
     {
+        Engine.createScene("Main");
         
-        //G2Dj.Graphics.getWindow().setTitle("AdhocTest");
-        
-        /*G2Dj.Graphics.loadShader(new TestShader());
-        
-        WeakReference<ShaderProgram> shader = Graphics.getShaderProgram("TestShader");
-        
-        
-        */
     }
     
     public static void main(String[] args) 

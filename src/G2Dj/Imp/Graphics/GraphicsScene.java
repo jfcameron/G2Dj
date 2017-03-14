@@ -5,6 +5,7 @@
  */
 package G2Dj.Imp.Graphics;
 import G2Dj.Dev.SceneGraph;
+import G2Dj.Graphics;
 import G2Dj.Math.Vector2;
 import G2Dj.Type.Graphics.Camera;
 import G2Dj.Type.Graphics.Mesh;
@@ -22,6 +23,8 @@ public class GraphicsScene implements SceneGraph
     private final ArrayList<Camera> m_Cameras = new ArrayList<>();
     private final ArrayList<Mesh>   m_Meshes  = new ArrayList<>();
     
+    private Window m_Window = Graphics.getWindow();
+    
     //
     // 
     //
@@ -36,6 +39,7 @@ public class GraphicsScene implements SceneGraph
                     
         });
         
+        m_Window.draw();
         
     }
     

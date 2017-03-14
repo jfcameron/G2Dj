@@ -65,18 +65,20 @@ public class Camera extends GraphicsObject
     //public void setViewportPixelPosition(final IntVector2      aViewportPosition){m_ViewportPosition = aViewportPosition;}
     //public void setViewportPixelSize    (final IntVector2      aViewportSize    ){m_ViewportSize     = aViewportSize;    }
     
-    public void draw(GL aGL) //void draw(void) override;
+    public void draw() //void draw(void) override;
     {   
+        GL gl = Graphics.getGL();
+        
         //Update viewport
         IntVector2 pixPos = getViewportPixelPosition(), pixSize = getViewportPixelSize();
         //Debug.log(pixSize);
-        aGL.glViewport(pixPos.x,pixPos.y,pixSize.x,pixSize.y);
-        aGL.glScissor (pixPos.x,pixPos.y,pixSize.x,pixSize.y);
+        gl.glViewport(pixPos.x,pixPos.y,pixSize.x,pixSize.y);
+        gl.glScissor (pixPos.x,pixPos.y,pixSize.x,pixSize.y);
           
-        aGL.glDepthMask(true);  
+        gl.glDepthMask(true);  
         
-        aGL.glClearColor(m_ClearColor.r,m_ClearColor.g,m_ClearColor.b,m_ClearColor.a);
-        aGL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        gl.glClearColor(m_ClearColor.r,m_ClearColor.g,m_ClearColor.b,m_ClearColor.a);
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         
     }
     
