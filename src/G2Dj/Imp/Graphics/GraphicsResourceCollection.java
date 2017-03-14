@@ -5,8 +5,6 @@
  */
 package G2Dj.Imp.Graphics;
 
-import G2Dj.Debug;
-import G2Dj.Resources;
 import java.util.ArrayList;
 import java.lang.ref.WeakReference;
 import java.util.logging.Level;
@@ -64,13 +62,11 @@ public abstract class GraphicsResourceCollection<T extends GraphicsResource>
     protected void addClass(final Class<? extends T> aItem)
     {
         T newItem = null;
-        try {
+        try 
+        {
             newItem = aItem.newInstance();
-        } catch (InstantiationException ex) {
-            Logger.getLogger(GraphicsResourceCollection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(GraphicsResourceCollection.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (InstantiationException | IllegalAccessException ex) {Logger.getLogger(GraphicsResourceCollection.class.getName()).log(Level.SEVERE, null, ex);}
         
         if (newItem == null)
             return;

@@ -3,8 +3,10 @@ package Adhoc;
 import G2Dj.Debug;
 import G2Dj.Engine;
 import G2Dj.Graphics;
+import G2Dj.Type.Engine.Component;
 import G2Dj.Type.Engine.GameObject;
 import G2Dj.Type.Engine.Scene;
+import G2Dj.Type.Graphics.Camera;
 import G2Dj.Type.Graphics.Mesh;
 import java.lang.ref.WeakReference;
 
@@ -18,23 +20,29 @@ public class Test
     {
         Engine.init();
         {
-            WeakReference<Scene> mainScene = Engine.createScene("Main");
-            
+            //Load a texture
             Graphics.loadFromResource("/Adhoc/Water.png");
             
+            //Create a scene
+            WeakReference<Scene> mainScene = Engine.createScene("Main");
             
-            //Mesh someMesh = mainScene.
-            
+            //Create a game object
             WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
             
-            aGameObject.get().addComponent(Mesh.class);
+            Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
             
-            Mesh aMesh = (Mesh)aGameObject.get().getComponent(Mesh.class);
-                        
-            Debug.log("hi");
             
-            if (aMesh != null)
-                aMesh.setTexture("_Texture", "Water.png");
+            Camera aCamera;
+            try{
+            aCamera= (Camera)(Component)aMesh;
+            }
+            catch (java.lang.ClassCastException e) //it works!
+            {
+                
+                
+            }
+            
+            aMesh.setTexture("_Texture", "Water.png"); //give the mesh a texture
         
         }
         

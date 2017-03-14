@@ -1,5 +1,6 @@
+AuthList in G2Dj.Memory
+    - takes a class name, distributes weakreferences to its content
 
----
 
 graphics scene
 dev scene? scene interface??

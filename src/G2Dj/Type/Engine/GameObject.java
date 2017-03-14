@@ -5,7 +5,7 @@
  */
 package G2Dj.Type.Engine;
 
-import G2Dj.Debug;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +20,12 @@ public class GameObject
     //
     //
     private final String               m_Name;
-    private final ArrayList<Component> m_Components = new ArrayList<>(); 
+    private final ArrayList<Component> m_Components = new ArrayList<>();
+    private final WeakReference<Scene> m_MyScene;
+    
+    //private ArrayList<int> m_asdf = new ArrayList<int>();
+    //private final ArrayList<Consumer<Component>> m_OnComponentAttached = new ArrayList<>();
+    //private m_OnComponentRemoved;
     
     //
     //
@@ -32,7 +37,9 @@ public class GameObject
         try 
         {
             rValue = aComponentType.newInstance();
+            
             m_Components.add(rValue);
+            m_MyScene.get().OnComponentAdded(rValue);
         
         } 
         
@@ -40,6 +47,12 @@ public class GameObject
         
         return rValue;
         
+    }
+    
+    protected void removeComponent(final Component aComponent)
+    {
+       throw new java.lang.UnsupportedOperationException("Not supported yet.");
+       
     }
     
     public Component getComponent(Class<? extends Component> aComponentType)
@@ -77,10 +90,11 @@ public class GameObject
     //
     //
     //
-    public GameObject()
+    public GameObject(WeakReference<Scene> aScene)
     {
         m_Name = "Unnamed GameObject";
-        
+        m_MyScene = aScene;
+                
     }
     
 }

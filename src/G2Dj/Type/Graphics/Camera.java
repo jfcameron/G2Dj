@@ -11,13 +11,14 @@ import G2Dj.Imp.Graphics.Color;
 import G2Dj.Imp.Graphics.GraphicsObject;
 import G2Dj.Math.IntVector2;
 import G2Dj.Math.Vector2;
+import G2Dj.Type.Engine.Component;
 import com.jogamp.opengl.GL;
 
 /**
  *
  * @author Joe
  */
-public class Camera extends GraphicsObject
+public class Camera extends GraphicsObject implements Component
 {
     //*************
     // Data members
@@ -112,6 +113,14 @@ public class Camera extends GraphicsObject
         gl.glEnable(GL.GL_DEPTH_TEST);
         gl.glEnable(GL.GL_SCISSOR_TEST);
         
+    }
+    
+    //
+    // Component
+    //
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
