@@ -23,6 +23,11 @@ public class Scene
     private final ArrayList<GameObject> m_GameObjects = new ArrayList<>();
     
     //
+    //
+    //
+    public String getName(){return m_Name;}
+    
+    //
     // GameObject callbacks
     //
     protected void OnComponentAdded(final Component aComponent)

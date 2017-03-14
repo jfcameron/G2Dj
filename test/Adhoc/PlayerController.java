@@ -25,7 +25,8 @@ public class PlayerController extends G2Dj.Type.Engine.Component
     @Override
     public void update() 
     {
-        Debug.log(getGameObject().get().getName());
+        //Debug.log(getClass().getSimpleName()+" in "+getGameObject().get().getName()+" in "+getGameObject().get().getScene().get().getName());
+        
         
     }
 

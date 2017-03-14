@@ -32,10 +32,11 @@ public class GameObject
     //
     //
     //
-    public String  getName()    {return m_Name;    }
-    public Vector3 getPosition(){return m_Position;}
-    public Vector3 getRotation(){return m_Rotation;}
-    public Vector3 getScale()   {return m_Scale;   }
+    public String               getName()    {return m_Name;    }
+    public Vector3              getPosition(){return m_Position;}
+    public Vector3              getRotation(){return m_Rotation;}
+    public Vector3              getScale()   {return m_Scale;   }
+    public WeakReference<Scene> getScene()   {return m_MyScene; }
     
     public void setName(final String aName){m_Name = aName;}
 //    public void setPosition(final Vector3)
