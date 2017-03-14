@@ -13,10 +13,10 @@ import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.ShaderProgramCollection;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureCollection;
-import G2Dj.Imp.Graphics.Uniforms;
 import G2Dj.Imp.Graphics.Window;
 import G2Dj.Math.Vector2;
 import G2Dj.Imp.Graphics.Color;
+import G2Dj.Imp.Graphics.GraphicsScene;
 import G2Dj.Type.Graphics.Mesh;
 
 import com.jogamp.opengl.GL;
@@ -62,12 +62,8 @@ public class Graphics
     
     protected static void draw()
     {
-        //CAMERA TEST AREA
-        camera1.draw(s_GL);mesh1.draw();
-        camera2.draw(s_GL);mesh1.draw();
-        camera3.draw(s_GL);mesh1.draw();
-        camera4.draw(s_GL);mesh1.draw();
-        
+        //TEST ZONE
+        s_Scene.update();
         //update canvas, swap buffers
         s_Window.draw();
         
@@ -76,6 +72,8 @@ public class Graphics
     //*******************
     // Static Constructor
     //*******************
+    static GraphicsScene s_Scene;
+    
     static
     {
         s_Window = new Window(Input.s_KeyboardInputHandler);
@@ -85,26 +83,10 @@ public class Graphics
         s_Models          = new ModelCollection();
         s_Textures        = new TextureCollection();
         
-        //TEST AREA
-        camera1 = new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color);
-        camera2 = new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink()   ,CameraClearMode.Color);
-        camera3 = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color);
-        camera4 = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color);
+        s_Scene = new GraphicsScene();
         
-        mesh1 = new Mesh("Quad", "AlphaCutOff");
-                
     }
     
-    //TEST AREA
-    private static final Camera camera1;// = new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color);
-    private static final Camera camera2;// = new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink(),CameraClearMode.Color);
-    private static final Camera camera3;// = new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red(),CameraClearMode.Color);
-    private static final Camera camera4;// = new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green(),CameraClearMode.Color);
     
-    /*private static final Model         model1;
-    private static final ShaderProgram shader1;
-    private static final Texture       texture1;*/
-    
-    private static final Mesh mesh1;
     
 }
