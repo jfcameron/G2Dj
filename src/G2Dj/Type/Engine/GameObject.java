@@ -19,13 +19,20 @@ public class GameObject
     //
     //
     //
-    private final String               m_Name;
+    private       String               m_Name;
     private final ArrayList<Component> m_Components = new ArrayList<>();
     private final WeakReference<Scene> m_MyScene;
     
     //private ArrayList<int> m_asdf = new ArrayList<int>();
     //private final ArrayList<Consumer<Component>> m_OnComponentAttached = new ArrayList<>();
     //private m_OnComponentRemoved;
+    
+    //
+    //
+    //
+    public String getName(){return m_Name;}
+    
+    public void setName(final String aName){m_Name = aName;}
     
     //
     //
@@ -38,7 +45,9 @@ public class GameObject
         {
             rValue = aComponentType.newInstance();
             
-            m_Components.add(rValue);
+            if (!m_Components.contains(rValue))
+                m_Components.add(rValue);
+            
             m_MyScene.get().OnComponentAdded(rValue);
         
         } 
@@ -49,9 +58,18 @@ public class GameObject
         
     }
     
-    protected void removeComponent(final Component aComponent)
+    public void removeComponent(Class<? extends Component> aComponentType)
     {
-       throw new java.lang.UnsupportedOperationException("Not supported yet.");
+        //aComponentType.
+                
+        /*for(int i = 0, s = m_Components.size(); i < s; i++ )
+            if (m_Components.get(i).TypeRTTI() == aComponentType.TypeRTTI() )
+            {
+                
+                
+            }*/
+        
+        throw new UnsupportedOperationException("Not supported yet.");
        
     }
     

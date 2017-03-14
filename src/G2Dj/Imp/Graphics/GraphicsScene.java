@@ -56,14 +56,10 @@ public class GraphicsScene extends SceneGraph
         super(aScene);
         
         //TEST AREA
-        m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color)));
-        m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink()   ,CameraClearMode.Color)));
-        m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color)));
-        m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color)));
-        
-        //m_Meshes.add(new Mesh("Quad", "AlphaCutOff"));
-        //m_Meshes.get(0).setTexture("_Texture","default.png");
-        
+        //m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.0f,0.0f), new Vector2(0.5f,0.5f),Color.CornflowerBlue(),CameraClearMode.Color)));
+        //m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.0f,0.5f), new Vector2(0.5f,0.5f),Color.DeathlyPink()   ,CameraClearMode.Color)));
+        //m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.5f,0.0f), new Vector2(0.5f,0.5f),Color.Red()           ,CameraClearMode.Color)));
+        //m_Cameras.add(new WeakReference<>(new Camera(new Vector2(0.5f,0.5f), new Vector2(0.5f,0.5f),Color.Green()         ,CameraClearMode.Color)));
         
     }
 
@@ -73,19 +69,50 @@ public class GraphicsScene extends SceneGraph
     @Override
     protected void OnComponentAdded(Component aComponent) 
     {
-        if (!(aComponent instanceof Mesh))
-            return;
+        if (aComponent instanceof Mesh)
+        {
+            Mesh mesh = (Mesh)aComponent;
+            m_Meshes.add(new WeakReference<>(mesh));
         
-        Mesh mesh = (Mesh)aComponent;
-        
-        m_Meshes.add(new WeakReference<>(mesh));
+        }
+        else if (aComponent instanceof Camera)
+        {
+            Camera camera = (Camera)aComponent;
+            m_Cameras.add(new WeakReference<>(camera));
+            
+        }
         
     }
 
     @Override
     protected void OnComponentRemoved(Component aComponent) 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (aComponent instanceof Mesh)
+        {        
+            Mesh mesh = (Mesh)aComponent;
+        
+            for(int i = 0, s = m_Meshes.size(); i < s; i++)
+                if (m_Meshes.get(i).get() == mesh)
+                {
+                    m_Meshes.remove(i);
+                    return;
+                
+                }
+        
+        }
+        else if (aComponent instanceof Camera)
+        {
+            Camera camera = (Camera)aComponent;
+        
+            for(int i = 0, s = m_Meshes.size(); i < s; i++)
+                if (m_Cameras.get(i).get() == camera)
+                {
+                    m_Cameras.remove(i);
+                    return;
+                
+                }
+            
+        }
     
     }
 

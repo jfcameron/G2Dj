@@ -1,6 +1,9 @@
+Implement GameObject.removeComponent. See LOG.MD for details
+
 AuthList in G2Dj.Memory
     - takes a class name, distributes weakreferences to its content
 
+prevent duplicates in: all resource collections, gameobjectComponents
 
 graphics scene
 dev scene? scene interface??

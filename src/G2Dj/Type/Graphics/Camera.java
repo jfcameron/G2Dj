@@ -63,9 +63,9 @@ public class Camera extends GraphicsObject implements Component
     
     public void setClearColor           (final Color           aClearColor      ){m_ClearColor       = aClearColor;      }
     public void setClearMode            (final CameraClearMode aClearMode       ){m_ClearMode        = aClearMode;       }
-    //public void setViewportPixelPosition(final IntVector2      aViewportPosition){m_ViewportPosition = aViewportPosition;}
-    //public void setViewportPixelSize    (final IntVector2      aViewportSize    ){m_ViewportSize     = aViewportSize;    }
-    
+    public void setViewportPixelPosition(final Vector2         aViewportPosition){m_ViewportPosition = aViewportPosition;}
+    public void setViewportPixelSize    (final Vector2         aViewportSize    ){m_ViewportSize     = aViewportSize;    }
+      
     public void draw() //void draw(void) override;
     {   
         GL gl = Graphics.getGL();
@@ -88,7 +88,7 @@ public class Camera extends GraphicsObject implements Component
     //*************
     // Constructors
     //*************
-    public Camera(){this(Vector2.Zero(), new Vector2(1,1));}
+    /*public Camera(){this(Vector2.Zero(), new Vector2(1,1));}
     public Camera(Vector2 aViewportScreenPosition, Vector2 aViewportScreenSize)
     {
         this
@@ -100,13 +100,13 @@ public class Camera extends GraphicsObject implements Component
         
         );
         
-    }
-    public Camera(Vector2 aViewportScreenPosition, Vector2 aViewportScreenSize, Color aClearColor, CameraClearMode aClearMode)
+    }*/
+    public Camera(/*Vector2 aViewportScreenPosition, Vector2 aViewportScreenSize, Color aClearColor, CameraClearMode aClearMode*/)
     {
-        m_ClearColor       = aClearColor;		
-        m_ClearMode        = aClearMode;
-        m_ViewportPosition = aViewportScreenPosition;
-        m_ViewportSize     = aViewportScreenSize;
+        m_ClearColor       = Color.CornflowerBlue();		
+        m_ClearMode        = CameraClearMode.Color;
+        m_ViewportPosition = Vector2.Zero();
+        m_ViewportSize     = new Vector2(1,1);
         
         //GL init
         GL gl = Graphics.getGL();
@@ -122,5 +122,8 @@ public class Camera extends GraphicsObject implements Component
     public void update() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    //@Override
+    //public String TypeRTTI(){return getClass().getSimpleName();}
     
 }

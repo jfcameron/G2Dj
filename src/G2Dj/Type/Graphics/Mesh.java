@@ -80,6 +80,7 @@ public class Mesh extends GraphicsObject implements Component
         
     }
 
-    
+    //@Override
+    //public String TypeRTTI(){return getClass().getSimpleName();}
     
 }
