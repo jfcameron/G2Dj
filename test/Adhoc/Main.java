@@ -39,7 +39,8 @@ public class Main
                 //aGameObject.get().removeComponent(Mesh.class);
                 
                 PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
-                aPC.getTransform().get().setRotation(new Vector3(0,0,90));
+                aPC.getTransform().get().setRotation(new Vector3(0,0,45));
+                aPC.getTransform().get().setPosition(new Vector3(0,0,+0.5f));
             
             }
             
@@ -97,7 +98,7 @@ public class Main
             {
                 WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
                 theCamera.get().setName("Camera");
-                theCamera.get().getTransform().get().setPosition(new Vector3(0,0,3));
+                theCamera.get().getTransform().get().setPosition(new Vector3(-1,0,2));
                 theCamera.get().getTransform().get().setRotation(new Vector3(0,45,0));
                 theCamera.get().addComponent(CameraController.class);
                 Camera aCamera = (Camera)theCamera.get().addComponent(Camera.class);
