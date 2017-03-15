@@ -65,7 +65,8 @@ public class Mesh extends Component
             m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
             
             //CAMERA
-            Vector3 cameraPosition      = aCamera.get().getGameObject().get().getTransform().get().getPosition();
+            Vector3 cameraPosition      = aCamera.get().getTransform().get().getPosition();
+            Vector3 cameraRotation      = aCamera.get().getTransform().get().getEulers();
             float   viewportAspectRatio = aCamera.get().getViewportAspectRatio();
             
             //Debug.log(viewportAspectRatio);
@@ -74,6 +75,8 @@ public class Mesh extends Component
             Vector3 position = getTransform().get().getPosition();
             Vector3 scale    = getTransform().get().getScale   ();
             Vector3 eulers   = getTransform().get().getEulers  ();
+            
+            //Debug.log(scale);
                         
             //WORK
             glm.mat._4.Mat4 p = new glm.mat._4.Mat4().identity();
@@ -84,6 +87,11 @@ public class Mesh extends Component
             
             glm.mat._4.Mat4 v = new glm.mat._4.Mat4().identity();
             {
+                //R
+                v.rotateX(cameraRotation.x);
+                v.rotateY(cameraRotation.y);
+                v.rotateZ(cameraRotation.z);
+                //T
                 v.translate(-cameraPosition.x,-cameraPosition.y,-cameraPosition.z);
                 
             }
@@ -96,8 +104,8 @@ public class Mesh extends Component
                 m.rotateX(eulers.x);
                 m.rotateY(eulers.y);
                 m.rotateZ(eulers.z);
-                
-                //S                
+                //S
+                m.scale(scale.x,scale.y,scale.z);
                 
             }
             
