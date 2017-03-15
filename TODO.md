@@ -57,3 +57,5 @@ Input
 
 Tile renderer
 famicom style synth
+
+add meaningful ToString overrides for all types.

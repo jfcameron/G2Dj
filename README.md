@@ -10,4 +10,4 @@ Call Engine.init();
 
 ##Libraries used:
 * [JOGL](http://jogamp.org/)
-* [JGLM](https://github.com/jroyalty/jglm)
+* [GLM](https://github.com/java-graphics/glm)

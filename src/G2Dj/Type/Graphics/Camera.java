@@ -89,20 +89,7 @@ public class Camera extends Component
     //*************
     // Constructors
     //*************
-    /*public Camera(){this(Vector2.Zero(), new Vector2(1,1));}
-    public Camera(Vector2 aViewportScreenPosition, Vector2 aViewportScreenSize)
-    {
-        this
-        (
-            aViewportScreenPosition, 
-            aViewportScreenSize, 
-            Color.CornflowerBlue(), 
-            CameraClearMode.Color
-        
-        );
-        
-    }*/
-    public Camera(/*Vector2 aViewportScreenPosition, Vector2 aViewportScreenSize, Color aClearColor, CameraClearMode aClearMode*/)
+    public Camera()
     {
         m_ClearColor       = Color.CornflowerBlue();		
         m_ClearMode        = CameraClearMode.Color;
@@ -120,23 +107,12 @@ public class Camera extends Component
     // Component
     //
     @Override
-    public void update() 
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
-    }
+    public void update() {}
 
     @Override
-    protected void OnAddedToGameObject(GameObject aGameObject) 
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    protected void OnAddedToGameObject(GameObject aGameObject){}
 
     @Override
-    protected void OnRemovedFromGameObject() 
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
-    }
+    protected void OnRemovedFromGameObject(){}
     
 }

@@ -60,4 +60,5 @@ public class Vector2
     public Vector2(final float aX, final float aY){x=aX;y=aY;}
     public Vector2(final Vector2 aVector){x=aVector.x;y=aVector.y;}
     
+    
 }

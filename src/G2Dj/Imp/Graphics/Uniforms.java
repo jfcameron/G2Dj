@@ -9,6 +9,7 @@ import G2Dj.Debug;
 import G2Dj.Graphics;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2ES2;
+import java.nio.FloatBuffer;
 
 /**
  *
@@ -45,6 +46,28 @@ public class Uniforms
         gl.glBindTexture(theTextureType, aTextureHandle);
         gl.glUniform1i(uniformHandle, aTextureUnit);
         
+        
+    }
+    
+    void load1Foat(final int aShaderHandle, final String aUniformName, final float aValue)
+    {
+        GL2ES2 gl = Graphics.getGL().getGL2ES2();
+        
+	int uniformHandle = gl.glGetUniformLocation(aShaderHandle, aUniformName);
+
+	if (uniformHandle != -1)
+		gl.glUniform1f(uniformHandle, aValue);
+
+    }
+    
+    void loadMatrix4x4(final int aShaderHandle, final String aUniformName, final FloatBuffer aMatrix4x4)
+    {
+        GL2ES2 gl = Graphics.getGL().getGL2ES2();
+        
+        int uniformHandle = gl.glGetUniformLocation(aShaderHandle, aUniformName);
+
+	if (uniformHandle != -1)
+		gl.glUniformMatrix4fv(uniformHandle, 1, false, aMatrix4x4);
         
     }
     

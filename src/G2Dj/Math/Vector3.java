@@ -59,4 +59,6 @@ public class Vector3
     public Vector3(final float aX, final float aY, final float aZ){x=aX;y=aY;z=aZ;}
     //public Vector3(const btVector3 &aBulletVector);
     
+    @Override public String toString(){throw new java.lang.UnsupportedOperationException("Not supported yet.");}
+    
 }

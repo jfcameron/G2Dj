@@ -7,6 +7,7 @@ package G2Dj.Type.Graphics;
 
 import G2Dj.Debug;
 import G2Dj.Graphics;
+import G2Dj.Imp.Engine.Transform;
 import G2Dj.Imp.Graphics.GraphicsObject;
 import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.ShaderProgram;
@@ -53,9 +54,11 @@ public class Mesh extends Component
     public void draw()
     {
         m_ShaderProgram.get().draw();
+        {
+            m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
+            
         
-        m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
-        
+        }
         
         m_Model.get().draw(m_ShaderProgram.get().getProgramHandle());
         
@@ -65,11 +68,7 @@ public class Mesh extends Component
     // Component Inteface
     //
     @Override
-    public void update() 
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
-    }
+    public void update() {}
     
     //
     // Constructors 
@@ -85,16 +84,11 @@ public class Mesh extends Component
     @Override
     protected void OnAddedToGameObject(GameObject aGameObject) 
     {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         Debug.log("Mesh added to "+aGameObject.getName());
         
     }
 
     @Override
-    protected void OnRemovedFromGameObject() 
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
-    }
+    protected void OnRemovedFromGameObject(){}
     
 }

@@ -1,6 +1,5 @@
 package G2Dj.Imp.Input;
 
-import G2Dj.Imp.Input.KeyState;
 import com.jogamp.newt.event.KeyListener;
 
 import java.awt.event.KeyEvent;

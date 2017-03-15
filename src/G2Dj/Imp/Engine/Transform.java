@@ -19,7 +19,7 @@ public class Transform
     //
     private Vector3    m_Position, m_Scale;
     private Quaternion m_Rotation;
-    
+
     //
     //
     //
@@ -32,6 +32,7 @@ public class Transform
     public void setScale   (final Vector3    aScale   ){m_Scale    = aScale;   }
     public void setRotation(final Vector3    aRotation){throw new java.lang.UnsupportedOperationException("Not supported yet.");}
     public void setRotation(final Quaternion aRotation){throw new java.lang.UnsupportedOperationException("Not supported yet.");}
+    
     //
     //
     //    
@@ -40,5 +41,16 @@ public class Transform
     public void scale    (final float      aScalar     ){m_Scale.multiply(aScalar);}
     public void rotate   (final Vector3    aRotation   ){throw new java.lang.UnsupportedOperationException("Not supported yet.");}
     public void rotate   (final Quaternion aRotation   ){throw new java.lang.UnsupportedOperationException("Not supported yet.");}
+    
+    //
+    //
+    //
+    public Transform() 
+    {
+        m_Position = new Vector3();
+        m_Scale    = new Vector3(1.f);
+        m_Rotation = new Quaternion();
+        
+    }
     
 }

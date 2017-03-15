@@ -16,8 +16,10 @@ public class IntVector2
     public IntVector2(){this(0,0);}
     public IntVector2(final int aX, final int aY){x = aX; y = aY;}
     
-    @Override public String toString(){return "{"+x+", "+y+"}";}
+    
     
     //public Vector2 divideToFloatVec(final float aScalar){return new Vector2(x/aScalar,y/aScalar);}
+    
+    @Override public String toString(){return "{"+x+", "+y+"}";}
     
 }
