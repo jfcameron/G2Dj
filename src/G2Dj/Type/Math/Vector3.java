@@ -33,6 +33,7 @@ public class Vector3
     //State mutating vector operations
     //********************************
     public void addInPlace     (final Vector3 aVector){x+=aVector.x;y+=aVector.y;z+=aVector.z;}
+    public void addInPlace     (final float   aScalar){x+=aScalar  ;y+=aScalar  ;z+=aScalar  ;}
     public void subtractInPlace(final Vector3 aVector){x-=aVector.x;y-=aVector.y;z-=aVector.z;}
     public void multiplyInPlace(final float   aScalar){x*=aScalar  ;y*=aScalar  ;z*=aScalar;  }
     public void divideInPlace  (final float   aScalar){x/=aScalar  ;y/=aScalar  ;z/=aScalar;  }
@@ -59,6 +60,6 @@ public class Vector3
     public Vector3(final float aX, final float aY, final float aZ){x=aX;y=aY;z=aZ;}
     //public Vector3(const btVector3 &aBulletVector);
     
-    @Override public String toString(){throw new java.lang.UnsupportedOperationException("Not supported yet.");}
+    @Override public String toString(){return "{"+x+", "+y+", "+z+"}";}
     
 }

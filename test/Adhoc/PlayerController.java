@@ -29,31 +29,54 @@ public class PlayerController extends G2Dj.Type.Engine.Component
     @Override
     public void update() 
     {
-        Vector3 inputBuffer = new Vector3();
+        //Translation
+        {
+            Vector3 inputBuffer = new Vector3();
+            
+            if (Input.getKey(KeyCode.A))
+                inputBuffer.x-=s_Speed;
+            
+            if (Input.getKey(KeyCode.D))
+                inputBuffer.x+=s_Speed;
+            
+            if (Input.getKey(KeyCode.W))
+                inputBuffer.z-=s_Speed;
+            
+            if (Input.getKey(KeyCode.S))
+                inputBuffer.z+=s_Speed;
+            
+            getTransform().get().translate(inputBuffer);
+            
+        }
         
-        if (Input.getKey(KeyCode.A))
-            inputBuffer.x-=s_Speed;
+        //Rotation
+        {
+            Vector3 rotationBuffer = new Vector3();
+            
+            if (Input.getKey(KeyCode.Q))
+                rotationBuffer.z +=0.1f;
+            
+            if (Input.getKey(KeyCode.E))
+                rotationBuffer.z -=0.1f;
+            
+            getTransform().get().rotate(rotationBuffer);
+            
+        }
         
-        if (Input.getKey(KeyCode.D))
-            inputBuffer.x+=s_Speed;
-        
-        if (Input.getKey(KeyCode.W))
-            inputBuffer.z-=s_Speed;
-        
-        if (Input.getKey(KeyCode.S))
-            inputBuffer.z+=s_Speed;
-        
-        getTransform().get().translate(inputBuffer);
-
-        Vector3 rotationBuffer = new Vector3();
-        
-        if (Input.getKey(KeyCode.Q))
-            rotationBuffer.z +=0.1f;
-        
-        if (Input.getKey(KeyCode.E))
-            rotationBuffer.z -=0.1f;
-        
-        getTransform().get().rotate(rotationBuffer);
+        //Scale
+        {
+            Vector3 scaleBuffer = new Vector3();
+            
+            if (Input.getKey(KeyCode.R))
+                scaleBuffer.addInPlace(0.01f);
+            
+            if (Input.getKey(KeyCode.F))
+                scaleBuffer.addInPlace(-0.01f);
+            
+            getTransform().get().scale(scaleBuffer);
+            
+            
+        }
         
     }
 
