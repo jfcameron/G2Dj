@@ -12,6 +12,7 @@ import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureUniformCollection;
 import G2Dj.Imp.Graphics.Uniforms;
+import G2Dj.Math.Vector2;
 import G2Dj.Math.Vector3;
 import G2Dj.Type.Engine.Component;
 import G2Dj.Type.Engine.GameObject;
@@ -54,7 +55,7 @@ public class Mesh extends Component
     // Graphics Scene interface
     //
     float counter = 0;
-    public void draw()
+    public void draw(final WeakReference<Camera> aCamera)
     {
         counter+= 0.0001f;
         
@@ -63,10 +64,11 @@ public class Mesh extends Component
             m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
             
             //CAMERA
-            Vector3 cameraPosition    = new Vector3((float)sin(counter)*2f,1,+3 + (float)sin(counter));
-            float viewportWidth       = 1;
-            float viewportHeight      = 1;
-            float viewportAspectRatio = viewportWidth/viewportHeight;
+            Vector3 cameraPosition      = new Vector3((float)sin(counter)*2f,1,+3 + (float)sin(counter));
+            //Vector2 viewportSize        = aCamera.get().getViewportScreenSize();
+            float   viewportAspectRatio = aCamera.get().getViewportAspectRatio(); //viewportWidth/viewportHeight;
+            
+            //Debug.log(viewportAspectRatio);
             
             //ME
             Vector3 position = getGameObject().get().getTransform().getPosition();
@@ -77,7 +79,7 @@ public class Mesh extends Component
             //WORK
             glm.mat._4.Mat4 p = new glm.mat._4.Mat4().identity();
             {
-                p = new glm.mat._4.Mat4().perspective(Graphics.getWindow().getHeight(), viewportAspectRatio, 0.1f, 20f);
+                p = new glm.mat._4.Mat4().perspective(90f, viewportAspectRatio, 0.1f, 20f);
                 
             }
             

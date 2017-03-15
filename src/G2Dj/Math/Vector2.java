@@ -47,7 +47,7 @@ public class Vector2
     public Vector2 divide  (final float   aScalar){return new Vector2(x/aScalar  ,y/aScalar  );}
     
     public Vector2 unit(){float l=length(); return new Vector2(x/l,y/l);}
-    public float aspectRatio(){return x / y; }
+    public float aspectRatio(){return (x / y); }
     public float length     (){return sqrt( (x*x) + (y*y) );}
     
     @Override public String toString(){return "{"+x+", "+y+"}";}

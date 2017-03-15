@@ -37,7 +37,7 @@ public class GraphicsScene extends SceneGraph
         m_Cameras.forEach((currentCamera)->
         {
             currentCamera.get().draw();
-            m_Meshes.forEach((currentMesh)->currentMesh.get().draw());
+            m_Meshes.forEach((currentMesh)->currentMesh.get().draw(currentCamera));
                     
         });
         

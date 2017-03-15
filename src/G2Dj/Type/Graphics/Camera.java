@@ -5,6 +5,7 @@
  */
 package G2Dj.Type.Graphics;
 
+import G2Dj.Debug;
 import G2Dj.Graphics;
 import G2Dj.Imp.Graphics.CameraClearMode;
 import G2Dj.Imp.Graphics.Color;
@@ -39,6 +40,12 @@ public class Camera extends Component
     public Vector2         getViewportScreenSize    (){return m_ViewportSize;    }
     //Math::Vector3 getWorldPointFromScreenPoint(const Math::Vector2 &aScreenPoint);
     //Math::Vector3 getWorldPointFromScreenPoint(const Math::Vector2 &aScreenPoint, const float &aWorldSpaceDistance);
+    
+    public float getViewportAspectRatio()
+    {
+        return getViewportPixelSize().toVector2().aspectRatio();
+    
+    }
     
     public IntVector2 getViewportPixelPosition()
     {
