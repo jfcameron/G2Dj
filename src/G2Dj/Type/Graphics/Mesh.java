@@ -12,13 +12,14 @@ import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureUniformCollection;
 import G2Dj.Imp.Graphics.Uniforms;
-import G2Dj.Type.Math.Vector2;
 import G2Dj.Type.Math.Vector3;
 import G2Dj.Type.Engine.Component;
 import G2Dj.Type.Engine.GameObject;
-import static java.lang.Math.sin;
+import G2Dj.Type.Math.Quaternion;
+import glm.quat.Quat;
+import glm.vec._3.Vec3;
+import static java.lang.Math.cos;
 import java.lang.ref.WeakReference;
-import java.nio.FloatBuffer;
 
 /**
  *
@@ -70,9 +71,9 @@ public class Mesh extends Component
             //Debug.log(viewportAspectRatio);
             
             //ME
-            Vector3 position = getGameObject().get().getTransform().get().getPosition();
-            Vector3 scale    = getGameObject().get().getTransform().get().getScale();
-            Vector3 rotation = Vector3.Zero(); //getGameObject().get().getTransform().getEulers();
+            Vector3 position = getTransform().get().getPosition();
+            Vector3 scale    = getTransform().get().getScale   ();
+            Vector3 eulers   = getTransform().get().getEulers  ();
                         
             //WORK
             glm.mat._4.Mat4 p = new glm.mat._4.Mat4().identity();
@@ -89,18 +90,21 @@ public class Mesh extends Component
             
             glm.mat._4.Mat4 m = new glm.mat._4.Mat4().identity();
             {
+                //T
                 m.translate(position.x,position.y,position.z);
+                //R
+                m.rotateX(eulers.x);
+                m.rotateY(eulers.y);
+                m.rotateZ(eulers.z);
+                
+                //S                
                 
             }
             
             //OUTPUT
             glm.mat._4.Mat4 mvp = p.mul(v).mul(m);
             
-            
-                   
-            FloatBuffer mvpDataBuffer = mvp.toDfb_();
-            
-            Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", mvpDataBuffer);
+            Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", mvp.toDfb_());
         
         }
         

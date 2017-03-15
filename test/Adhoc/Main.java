@@ -36,6 +36,7 @@ public class Main
                 //aGameObject.get().removeComponent(Mesh.class);
                 
                 PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
+                aPC.getTransform().get().setRotation(new Vector3(0,0,90));
             
             }
             
