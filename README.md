@@ -11,6 +11,51 @@ Include JOGL as lib.
 Include G2Dj as library to your Java project.
 Call Engine.init();
 
+### Creating an example scene:
+```java
+public static void main(String[] args) 
+{
+    Engine.init();
+    
+    //Load a texture
+    Graphics.loadFromResource("/Adhoc/Cloud.png");
+    Graphics.loadFromResource("/Adhoc/brick.png");
+    
+    //Create a scene
+    WeakReference<Scene> mainScene = Engine.createScene("Main");
+    
+    //Create a the player game object
+    {
+        WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
+        aGameObject.get().setName("Player1");
+    
+        Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
+        aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
+        
+        //aGameObject.get().removeComponent(Mesh.class);
+        
+        PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
+        aPC.getTransform().get().setRotation(new Vector3(0,0,45));
+        aPC.getTransform().get().setPosition(new Vector3(0,0,+0.5f));
+    
+    }
+    
+    //Create the camera
+    {
+        WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
+        theCamera.get().setName("Camera");
+        theCamera.get().getTransform().get().setPosition(new Vector3(-1,0,2));
+        theCamera.get().getTransform().get().setRotation(new Vector3(0,45,0));
+        theCamera.get().addComponent(CameraController.class);
+        Camera aCamera = (Camera)theCamera.get().addComponent(Camera.class);
+                
+    }
+    
+    Engine.update();
+    
+}
+```
+
 ## Libraries used:
 * [JOGL](http://jogamp.org/)
 * [GLM](https://github.com/java-graphics/glm)
