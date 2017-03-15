@@ -18,13 +18,13 @@ public static void main(String[] args)
     Engine.init();
     
     //Load a texture
-    Graphics.loadFromResource("/Adhoc/Cloud.png");
-    Graphics.loadFromResource("/Adhoc/brick.png");
+    Graphics.loadFromResource("/Resources/Cloud.png");
+    Graphics.loadFromResource("/Resources/brick.png");
     
     //Create a scene
     WeakReference<Scene> mainScene = Engine.createScene("Main");
     
-    //Create a the player game object
+    //Create the player game object
     {
         WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
         aGameObject.get().setName("Player1");
@@ -46,8 +46,9 @@ public static void main(String[] args)
         theCamera.get().setName("Camera");
         theCamera.get().getTransform().get().setPosition(new Vector3(-1,0,2));
         theCamera.get().getTransform().get().setRotation(new Vector3(0,45,0));
+        
         theCamera.get().addComponent(CameraController.class);
-        Camera aCamera = (Camera)theCamera.get().addComponent(Camera.class);
+        theCamera.get().addComponent(Camera.class);
                 
     }
     
