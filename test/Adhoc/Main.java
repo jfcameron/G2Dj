@@ -24,6 +24,7 @@ public class Main
             Graphics.loadFromResource("/Adhoc/brick.png");
             Graphics.loadFromResource("/Adhoc/grass.png");
             Graphics.loadFromResource("/Adhoc/name.png");
+            Graphics.loadFromResource("/Adhoc/Sprites.png");
             
             //Create a scene
             WeakReference<Scene> mainScene = Engine.createScene("Main");
@@ -53,6 +54,30 @@ public class Main
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "brick.png"); //give the mesh a texture
+                
+            }
+            
+            //Create the wall
+            {
+                WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
+                aGameObject.get().setName("Sprites");
+                aGameObject.get().getTransform().get().setPosition(new Vector3(0,0.0f,0.1f));
+                aGameObject.get().getTransform().get().setScale   (new Vector3(10,1f,0));
+                
+                Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
+                aMesh.setTexture("_Texture", "Sprites.png"); //give the mesh a texture
+                
+            }
+            
+            //Create the wall
+            {
+                WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
+                aGameObject.get().setName("Sprites");
+                aGameObject.get().getTransform().get().setPosition(new Vector3(2,0.0f,0.75f));
+                aGameObject.get().getTransform().get().setScale   (new Vector3(10,1f,0));
+                
+                Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
+                aMesh.setTexture("_Texture", "Sprites.png"); //give the mesh a texture
                 
             }
             
