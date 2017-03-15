@@ -43,7 +43,17 @@ public class PlayerController extends G2Dj.Type.Engine.Component
         if (Input.getKey(KeyCode.S))
             inputBuffer.z+=s_Speed;
         
-        getTransform().get().translate(inputBuffer);        
+        getTransform().get().translate(inputBuffer);
+
+        Vector3 rotationBuffer = new Vector3();
+        
+        if (Input.getKey(KeyCode.Q))
+            rotationBuffer.z +=0.1f;
+        
+        if (Input.getKey(KeyCode.E))
+            rotationBuffer.z -=0.1f;
+        
+        getTransform().get().rotate(rotationBuffer);
         
     }
 

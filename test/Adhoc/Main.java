@@ -39,6 +39,16 @@ public class Main
             
             }
             
+            //Create the wall
+            {
+                WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
+                aGameObject.get().setName("Wall");
+            
+                Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
+                aMesh.setTexture("_Texture", "Water.png"); //give the mesh a texture
+                
+            }
+            
             //Create the camera
             {
                 WeakReference<GameObject> theCamera = mainScene.get().addGameObject();

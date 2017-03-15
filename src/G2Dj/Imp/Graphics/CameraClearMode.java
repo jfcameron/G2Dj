@@ -13,6 +13,6 @@ public enum CameraClearMode
 {
     Nothing,
     Color,
-    Depth,
+    DepthOnly,
         
 }

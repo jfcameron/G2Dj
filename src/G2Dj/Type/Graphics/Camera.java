@@ -5,11 +5,9 @@
  */
 package G2Dj.Type.Graphics;
 
-import G2Dj.Debug;
 import G2Dj.Graphics;
 import G2Dj.Imp.Graphics.CameraClearMode;
 import G2Dj.Imp.Graphics.Color;
-import G2Dj.Imp.Graphics.GraphicsObject;
 import G2Dj.Type.Math.IntVector2;
 import G2Dj.Type.Math.Vector2;
 import G2Dj.Type.Engine.Component;
@@ -87,8 +85,22 @@ public class Camera extends Component
           
         gl.glDepthMask(true);  
         
-        gl.glClearColor(m_ClearColor.r,m_ClearColor.g,m_ClearColor.b,m_ClearColor.a);
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        switch(m_ClearMode)
+        {
+            case Color:
+            {
+                gl.glClearColor(m_ClearColor.r,m_ClearColor.g,m_ClearColor.b,m_ClearColor.a);
+                gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+            
+            } break;
+            
+            case DepthOnly:
+            {
+                gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
+                
+            } break;
+            
+        }
         
     }
     
