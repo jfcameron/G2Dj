@@ -10,11 +10,12 @@ import G2Dj.Graphics;
 import G2Dj.Imp.Graphics.CameraClearMode;
 import G2Dj.Imp.Graphics.Color;
 import G2Dj.Imp.Graphics.GraphicsObject;
-import G2Dj.Math.IntVector2;
-import G2Dj.Math.Vector2;
+import G2Dj.Type.Math.IntVector2;
+import G2Dj.Type.Math.Vector2;
 import G2Dj.Type.Engine.Component;
 import G2Dj.Type.Engine.GameObject;
 import com.jogamp.opengl.GL;
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -117,9 +118,11 @@ public class Camera extends Component
     public void update() {}
 
     @Override
-    protected void OnAddedToGameObject(GameObject aGameObject){}
-
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
+    
     @Override
     protected void OnRemovedFromGameObject(){}
+
+    
     
 }

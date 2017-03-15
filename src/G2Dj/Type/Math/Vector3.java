@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package G2Dj.Math;
+package G2Dj.Type.Math;
 
 import static com.jogamp.opengl.math.FloatUtil.sqrt;
 

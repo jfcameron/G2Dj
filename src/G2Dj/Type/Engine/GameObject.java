@@ -30,9 +30,9 @@ public class GameObject
     //
     //
     //
-    public String               getName     (){return m_Name;}
-    public WeakReference<Scene> getScene    (){return m_MyScene;}
-    public Transform            getTransform(){return m_Transform;}
+    public String                   getName     (){return m_Name;}
+    public WeakReference<Scene>     getScene    (){return m_MyScene;}
+    public WeakReference<Transform> getTransform(){return new WeakReference<>(m_Transform);}
     
     public void setName(final String aName){m_Name = aName;}
     
@@ -50,8 +50,8 @@ public class GameObject
             if (!m_Components.contains(rValue))
             {
                 m_Components.add(rValue);
-                rValue.OnAddedToGameObjectSuper(this);
-                rValue.OnAddedToGameObject(this);
+                rValue.OnAddedToGameObjectSuper(new WeakReference<>(this));
+                rValue.OnAddedToGameObject(new WeakReference<>(this));
                 
             }
             else

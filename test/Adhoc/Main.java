@@ -6,6 +6,7 @@ import G2Dj.Type.Engine.GameObject;
 import G2Dj.Type.Engine.Scene;
 import G2Dj.Type.Graphics.Camera;
 import G2Dj.Type.Graphics.Mesh;
+import G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 
 /**
@@ -42,6 +43,7 @@ public class Main
             {
                 WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
                 theCamera.get().setName("Camera");
+                theCamera.get().getTransform().get().setPosition(new Vector3(0,0,5));
             
                 Camera aCamera = (Camera)theCamera.get().addComponent(Camera.class);
                 //aCamera.setViewportPixelSize(new Vector2(0.5f,0.5f));

@@ -5,8 +5,8 @@
  */
 package G2Dj.Imp.Engine;
 
-import G2Dj.Math.Quaternion;
-import G2Dj.Math.Vector3;
+import G2Dj.Type.Math.Quaternion;
+import G2Dj.Type.Math.Vector3;
 
 /**
  *

@@ -12,8 +12,8 @@ import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureUniformCollection;
 import G2Dj.Imp.Graphics.Uniforms;
-import G2Dj.Math.Vector2;
-import G2Dj.Math.Vector3;
+import G2Dj.Type.Math.Vector2;
+import G2Dj.Type.Math.Vector3;
 import G2Dj.Type.Engine.Component;
 import G2Dj.Type.Engine.GameObject;
 import static java.lang.Math.sin;
@@ -33,7 +33,7 @@ public class Mesh extends Component
     
     private WeakReference<Model>         m_Model;
     private WeakReference<ShaderProgram> m_ShaderProgram;
-    
+        
     //**********
     // Accessors
     //**********
@@ -64,15 +64,14 @@ public class Mesh extends Component
             m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
             
             //CAMERA
-            Vector3 cameraPosition      = new Vector3((float)sin(counter)*2f,1,+3 + (float)sin(counter));
-            //Vector2 viewportSize        = aCamera.get().getViewportScreenSize();
-            float   viewportAspectRatio = aCamera.get().getViewportAspectRatio(); //viewportWidth/viewportHeight;
+            Vector3 cameraPosition      = aCamera.get().getGameObject().get().getTransform().get().getPosition();
+            float   viewportAspectRatio = aCamera.get().getViewportAspectRatio();
             
             //Debug.log(viewportAspectRatio);
             
             //ME
-            Vector3 position = getGameObject().get().getTransform().getPosition();
-            Vector3 scale    = getGameObject().get().getTransform().getScale();
+            Vector3 position = getGameObject().get().getTransform().get().getPosition();
+            Vector3 scale    = getGameObject().get().getTransform().get().getScale();
             Vector3 rotation = Vector3.Zero(); //getGameObject().get().getTransform().getEulers();
             
             
@@ -128,9 +127,9 @@ public class Mesh extends Component
     }
 
     @Override
-    protected void OnAddedToGameObject(GameObject aGameObject) 
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject)
     {
-        Debug.log("Mesh added to "+aGameObject.getName());
+        Debug.log("Mesh added to "+aGameObject.get().getName());
         
     }
 
