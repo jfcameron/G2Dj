@@ -29,11 +29,17 @@ public class Transform
     public Quaternion getRotation(){throw new java.lang.UnsupportedOperationException("Not supported yet.");}
     public Vector3    getEulers  (){return m_Rotation;}
     
-    public void setPosition(final Vector3    aPosition){m_Position = aPosition;}
-    public void setScale   (final Vector3    aScale   ){m_Scale    = aScale;   }
+    public void setPosition(final Vector3 aPosition){m_Position = aPosition;                      }
+    public void setScale   (final Vector3 aScale   ){m_Scale    = aScale;                         }
+    public void setRotation(final Vector3 aEulers  ){m_Rotation = aEulers.multiply((float)PI/180);}
+    
+    public void setPosition(final float aX, final float aY, final float aZ){m_Position.x=aX;m_Position.y=aY;m_Position.z=aZ;}
+    public void setScale   (final float aX, final float aY, final float aZ){m_Scale   .x=aX;m_Scale   .y=aY;m_Scale   .z=aZ;}
+    public void setRotation(final float aX, final float aY, final float aZ){setRotation(new Vector3(aX,aY,aZ));}
+    
     //public void setRotation(final Quaternion aRotation){m_Rotation = aRotation;}
     //public void setRotation(final Vector3    aRotation){m_Rotation = aRotation;}
-    public void setRotation(final Vector3 aEulers)  {m_Rotation = aEulers.multiply((float)PI/180);}
+    
     //public void setRadians(final Vector3 aRadians){m_Rotation = aRadians;}
     
     //

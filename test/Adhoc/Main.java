@@ -6,6 +6,7 @@ import G2Dj.Type.Engine.GameObject;
 import G2Dj.Type.Engine.Scene;
 import G2Dj.Type.Graphics.Camera;
 import G2Dj.Type.Graphics.Mesh;
+import G2Dj.Type.Math.Vector2;
 import G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 
@@ -40,53 +41,53 @@ public class Main
                 //aGameObject.get().removeComponent(Mesh.class);
                 
                 PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
-                aPC.getTransform().get().setRotation(new Vector3(0,0,45));
-                aPC.getTransform().get().setPosition(new Vector3(0,0,+0.5f));
+                aPC.getTransform().get().setRotation(0,0,45);
+                aPC.getTransform().get().setPosition(0,0,0.5f);
             
             }
             
-            //Create the wall
+            //Create the BackWall
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
-                aGameObject.get().setName("Wall");
-                aGameObject.get().getTransform().get().setPosition(new Vector3(0,-1f,0));
-                aGameObject.get().getTransform().get().setScale   (new Vector3(10,4,0));
+                aGameObject.get().setName("BackWall");
+                aGameObject.get().getTransform().get().setPosition(0,-1f,0);
+                aGameObject.get().getTransform().get().setScale   (10,4,0);
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "brick.png"); //give the mesh a texture
                 
             }
             
-            //Create the wall
+            //Create the Sprites
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
                 aGameObject.get().setName("Sprites");
-                aGameObject.get().getTransform().get().setPosition(new Vector3(0,0.0f,0.1f));
-                aGameObject.get().getTransform().get().setScale   (new Vector3(10,1f,0));
+                aGameObject.get().getTransform().get().setPosition(0,0.0f,0.1f);
+                aGameObject.get().getTransform().get().setScale   (10,1f,0);
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "Sprites.png"); //give the mesh a texture
                 
             }
             
-            //Create the wall
+            //Create the other Sprites
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
                 aGameObject.get().setName("Sprites");
-                aGameObject.get().getTransform().get().setPosition(new Vector3(2,0.0f,0.75f));
-                aGameObject.get().getTransform().get().setScale   (new Vector3(10,1f,0));
+                aGameObject.get().getTransform().get().setPosition(2,0.0f,0.75f);
+                aGameObject.get().getTransform().get().setScale   (10,1f,0);
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "Sprites.png"); //give the mesh a texture
                 
             }
             
-            //Create the wall
+            //Create the close wall
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
-                aGameObject.get().setName("Wall");
-                aGameObject.get().getTransform().get().setPosition(new Vector3(0,-0.5f,+2.4f));
-                aGameObject.get().getTransform().get().setScale   (new Vector3(10,2,0));
+                aGameObject.get().setName("CloseWall");
+                aGameObject.get().getTransform().get().setPosition(0,-0.5f,+2.4f);
+                aGameObject.get().getTransform().get().setScale   (10,2,0);
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "brick.png"); //give the mesh a texture
@@ -97,8 +98,8 @@ public class Main
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
                 aGameObject.get().setName("Name");
-                aGameObject.get().getTransform().get().setPosition(new Vector3(0,1f,0.001f));
-                aGameObject.get().getTransform().get().setScale   (new Vector3(10,10.5f,0));
+                aGameObject.get().getTransform().get().setPosition(0,1f,0.001f);
+                aGameObject.get().getTransform().get().setScale   (10,10.5f,0);
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "name.png"); //give the mesh a texture
@@ -109,9 +110,9 @@ public class Main
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
                 aGameObject.get().setName("Floor");
-                aGameObject.get().getTransform().get().setPosition(new Vector3(0,-0.5f,0));
-                aGameObject.get().getTransform().get().setRotation(new Vector3(90,0,0));
-                aGameObject.get().getTransform().get().setScale   (new Vector3(10,5,0));
+                aGameObject.get().getTransform().get().setPosition(0,-0.5f,0);
+                aGameObject.get().getTransform().get().setRotation(90,0,0);
+                aGameObject.get().getTransform().get().setScale   (10,5,0);
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "grass.png"); //give the mesh a texture
@@ -122,9 +123,9 @@ public class Main
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
                 aGameObject.get().setName("Floor");
-                aGameObject.get().getTransform().get().setPosition(new Vector3(0,+0.5f,0));
-                aGameObject.get().getTransform().get().setRotation(new Vector3(90,0,0));
-                aGameObject.get().getTransform().get().setScale   (new Vector3(10,5,0));
+                aGameObject.get().getTransform().get().setPosition(0,+0.5f,0);
+                aGameObject.get().getTransform().get().setRotation(90,0,0);
+                aGameObject.get().getTransform().get().setScale   (10,5,0);
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "Cloud.png"); //give the mesh a texture
@@ -135,11 +136,26 @@ public class Main
             {
                 WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
                 theCamera.get().setName("Camera");
-                theCamera.get().getTransform().get().setPosition(new Vector3(-1,0,2));
-                theCamera.get().getTransform().get().setRotation(new Vector3(0,45,0));
+                theCamera.get().getTransform().get().setPosition(-1,0,2);
+                theCamera.get().getTransform().get().setRotation(0,45,0);
                 theCamera.get().addComponent(CameraController.class);
-                Camera aCamera = (Camera)theCamera.get().addComponent(Camera.class);
                 
+                Camera aCamera = (Camera)theCamera.get().addComponent(Camera.class);
+                aCamera.setViewportPixelSize(new Vector2(0.499f,1.0f));
+            
+            }
+            
+            //Create the second camera
+            {
+                WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
+                theCamera.get().setName("Camera");
+                theCamera.get().getTransform().get().setPosition(+1.5f,0,2);
+                theCamera.get().getTransform().get().setRotation(0,-45,0);
+                //theCamera.get().addComponent(CameraController.class);
+                
+                Camera aCamera = (Camera)theCamera.get().addComponent(Camera.class);
+                aCamera.setViewportPixelSize(new Vector2(0.499f,1.0f));
+                aCamera.setViewportPixelPosition(new Vector2(0.501f,0.0f));
             
             }
             
