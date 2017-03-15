@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package G2Dj.Imp.Graphics;
+package G2Dj.Type.Graphics;
 
 import G2Dj.Type.Engine.SceneGraph;
 import G2Dj.Graphics;
+import G2Dj.Imp.Graphics.Window;
 import G2Dj.Type.Engine.Component;
 import G2Dj.Type.Engine.Scene;
-import G2Dj.Type.Graphics.Camera;
-import G2Dj.Type.Graphics.Mesh;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

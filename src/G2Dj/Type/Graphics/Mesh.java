@@ -7,15 +7,17 @@ package G2Dj.Type.Graphics;
 
 import G2Dj.Debug;
 import G2Dj.Graphics;
-import G2Dj.Imp.Engine.Transform;
-import G2Dj.Imp.Graphics.GraphicsObject;
 import G2Dj.Imp.Graphics.Model;
 import G2Dj.Imp.Graphics.ShaderProgram;
 import G2Dj.Imp.Graphics.Texture;
 import G2Dj.Imp.Graphics.TextureUniformCollection;
+import G2Dj.Imp.Graphics.Uniforms;
+import G2Dj.Math.Vector3;
 import G2Dj.Type.Engine.Component;
 import G2Dj.Type.Engine.GameObject;
+import static java.lang.Math.sin;
 import java.lang.ref.WeakReference;
+import java.nio.FloatBuffer;
 
 /**
  *
@@ -51,12 +53,54 @@ public class Mesh extends Component
     //
     // Graphics Scene interface
     //
+    float counter = 0;
     public void draw()
     {
+        counter+= 0.0001f;
+        
         m_ShaderProgram.get().draw();
         {
             m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
             
+            //CAMERA
+            Vector3 cameraPosition    = new Vector3((float)sin(counter)*2f,1,+3 + (float)sin(counter));
+            float viewportWidth       = 1;
+            float viewportHeight      = 1;
+            float viewportAspectRatio = viewportWidth/viewportHeight;
+            
+            //ME
+            Vector3 position = getGameObject().get().getTransform().getPosition();
+            Vector3 scale    = getGameObject().get().getTransform().getScale();
+            Vector3 rotation = Vector3.Zero(); //getGameObject().get().getTransform().getEulers();
+            
+            
+            //WORK
+            glm.mat._4.Mat4 p = new glm.mat._4.Mat4().identity();
+            {
+                p = new glm.mat._4.Mat4().perspective(Graphics.getWindow().getHeight(), viewportAspectRatio, 0.1f, 20f);
+                
+            }
+            
+            glm.mat._4.Mat4 v = new glm.mat._4.Mat4().identity();
+            {
+                v.translate(-cameraPosition.x,-cameraPosition.y,-cameraPosition.z);
+                
+            }
+            
+            glm.mat._4.Mat4 m = new glm.mat._4.Mat4().identity();
+            {
+                
+                
+            }
+            
+            //OUTPUT
+            glm.mat._4.Mat4 mvp = p.mul(v).mul(m);
+            
+            
+                   
+            FloatBuffer mvpDataBuffer = mvp.toDfb_();
+            
+            Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", mvpDataBuffer);
         
         }
         

@@ -49,7 +49,7 @@ public class Uniforms
         
     }
     
-    void load1Foat(final int aShaderHandle, final String aUniformName, final float aValue)
+    public static final void load1Foat(final int aShaderHandle, final String aUniformName, final float aValue)
     {
         GL2ES2 gl = Graphics.getGL().getGL2ES2();
         
@@ -60,7 +60,7 @@ public class Uniforms
 
     }
     
-    void loadMatrix4x4(final int aShaderHandle, final String aUniformName, final FloatBuffer aMatrix4x4)
+    public static final void loadMatrix4x4(final int aShaderHandle, final String aUniformName, final FloatBuffer aMatrix4x4)
     {
         GL2ES2 gl = Graphics.getGL().getGL2ES2();
         

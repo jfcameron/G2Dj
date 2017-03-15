@@ -5,7 +5,7 @@
  */
 package G2Dj.Type.Engine;
 
-import G2Dj.Imp.Graphics.GraphicsScene;
+import G2Dj.Type.Graphics.GraphicsScene;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 

@@ -19,6 +19,8 @@ varying vec2 v_UV;
 //uniform mat4 _ViewMatrix;
 //uniform mat4 _ProjectionMatrix;
 
+uniform mat4 _MVP;
+
 //**************
 // Vertex shader
 //**************
@@ -27,7 +29,7 @@ void main()
     //Calculate position
      vec4 position = vec4(a_Position,1.0);
     {       
-        //position = /*_MVP **/ position;
+        position = _MVP * position;
         
     }
     
