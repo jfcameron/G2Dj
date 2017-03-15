@@ -93,6 +93,18 @@ public class Main
                 
             }
             
+            //Create the name
+            {
+                WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
+                aGameObject.get().setName("Name");
+                aGameObject.get().getTransform().get().setPosition(new Vector3(0,1f,0.001f));
+                aGameObject.get().getTransform().get().setScale   (new Vector3(10,10.5f,0));
+                
+                Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
+                aMesh.setTexture("_Texture", "name.png"); //give the mesh a texture
+                
+            }
+            
             //Create the floor
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
