@@ -73,12 +73,11 @@ public class Mesh extends Component
             Vector3 position = getGameObject().get().getTransform().get().getPosition();
             Vector3 scale    = getGameObject().get().getTransform().get().getScale();
             Vector3 rotation = Vector3.Zero(); //getGameObject().get().getTransform().getEulers();
-            
-            
+                        
             //WORK
             glm.mat._4.Mat4 p = new glm.mat._4.Mat4().identity();
             {
-                p = new glm.mat._4.Mat4().perspective(90f, viewportAspectRatio, 0.1f, 20f);
+                p.perspective(90f, viewportAspectRatio, 0.1f, 20f); //= new glm.mat._4.Mat4().perspective(90f, viewportAspectRatio, 0.1f, 20f);
                 
             }
             
@@ -90,7 +89,7 @@ public class Mesh extends Component
             
             glm.mat._4.Mat4 m = new glm.mat._4.Mat4().identity();
             {
-                
+                m.translate(position.x,position.y,position.z);
                 
             }
             

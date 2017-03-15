@@ -6,7 +6,11 @@
 package Adhoc;
 
 import G2Dj.Debug;
+import G2Dj.Imp.Input.KeyCode;
+import G2Dj.Input;
 import G2Dj.Type.Engine.GameObject;
+import G2Dj.Type.Math.Vector3;
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -17,23 +21,36 @@ public class PlayerController extends G2Dj.Type.Engine.Component
     //
     //
     //
+    private static final float s_Speed = 0.001f; 
     
-    
     //
     //
-    //
+    //    
     @Override
     public void update() 
     {
-        //Debug.log(getClass().getSimpleName()+" in "+getGameObject().get().getName()+" in "+getGameObject().get().getScene().get().getName());
+        Vector3 inputBuffer = new Vector3();
         
+        if (Input.getKey(KeyCode.A))
+            inputBuffer.x-=s_Speed;
+        
+        if (Input.getKey(KeyCode.D))
+            inputBuffer.x+=s_Speed;
+        
+        if (Input.getKey(KeyCode.W))
+            inputBuffer.z-=s_Speed;
+        
+        if (Input.getKey(KeyCode.S))
+            inputBuffer.z+=s_Speed;
+        
+        getTransform().get().translate(inputBuffer);        
         
     }
 
     @Override
-    protected void OnAddedToGameObject(GameObject aGameObject){}
+    protected void OnRemovedFromGameObject(){}
 
     @Override
-    protected void OnRemovedFromGameObject(){}
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
     
 }
