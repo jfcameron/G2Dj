@@ -104,7 +104,7 @@ public class Camera extends Component
         
     }
     
-    //void generateViewProjectionMatrix(glm::mat4x4* aViewMatrix, glm::mat4x4* aProjectionMatrix, glm::mat4x4* aVPMatrix = 0);
+    //void generateViewProjectionMatrix(mat4x4* aViewMatrix, mat4x4* aProjectionMatrix, mat4x4* aVPMatrix = 0);
     
     //*************
     // Constructors
