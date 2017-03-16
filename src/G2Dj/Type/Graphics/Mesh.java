@@ -15,10 +15,7 @@ import G2Dj.Imp.Graphics.Uniforms;
 import G2Dj.Type.Math.Vector3;
 import G2Dj.Type.Engine.Component;
 import G2Dj.Type.Engine.GameObject;
-import G2Dj.Type.Math.Quaternion;
-import glm.quat.Quat;
-import glm.vec._3.Vec3;
-import static java.lang.Math.cos;
+import G2Dj.Type.Math.Mat4x4;
 import java.lang.ref.WeakReference;
 
 /**
@@ -79,20 +76,21 @@ public class Mesh extends Component
             //Debug.log(scale);
                         
             //WORK
-            glm.mat._4.Mat4 p = new glm.mat._4.Mat4().identity();
+            //Mat4x4 test;
+            Mat4x4 p = Mat4x4.identity();
             {
                 p.perspective(90f, viewportAspectRatio, 0.1f, 20f); //= new glm.mat._4.Mat4().perspective(90f, viewportAspectRatio, 0.1f, 20f);
                 
             }
             
-            glm.mat._4.Mat4 v = new glm.mat._4.Mat4().identity();
+            Mat4x4 v = Mat4x4.identity();//glm.mat._4.Mat4 v = new glm.mat._4.Mat4().identity();
             {
                 //R
-                v.rotateX(cameraRotation.x);
-                v.rotateY(cameraRotation.y);
-                v.rotateZ(cameraRotation.z);
+                v.getMat().rotateX(cameraRotation.x);
+                v.getMat().rotateY(cameraRotation.y);
+                v.getMat().rotateZ(cameraRotation.z);
                 //T
-                v.translate(-cameraPosition.x,-cameraPosition.y,-cameraPosition.z);
+                v.getMat().translate(-cameraPosition.x,-cameraPosition.y,-cameraPosition.z);
                 
             }
             
@@ -110,7 +108,7 @@ public class Mesh extends Component
             }
             
             //OUTPUT
-            glm.mat._4.Mat4 mvp = p.mul(v).mul(m);
+            glm.mat._4.Mat4 mvp = p.getMat().mul(v.getMat()).mul(m);
             
             Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", mvp.toDfb_());
         
