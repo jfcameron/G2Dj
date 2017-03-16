@@ -27,84 +27,53 @@ public class Mesh extends Component
     // Data members
     //*************
     private final TextureUniformCollection m_Textures = new TextureUniformCollection();
-    
-    private WeakReference<Model>         m_Model;
-    private WeakReference<ShaderProgram> m_ShaderProgram;
+    private WeakReference<Model>           m_Model;
+    private WeakReference<ShaderProgram>   m_ShaderProgram;
         
     //**********
     // Accessors
     //**********
-    //getters
     public WeakReference<Texture> getTexture(final String aTextureName, final WeakReference<Texture> aTexture){return m_Textures.get(aTextureName);}
     public WeakReference<Model> getModel(){return m_Model;}
     public WeakReference<ShaderProgram> getShaderProgram(){return m_ShaderProgram;}
-    //setters
-    public final void setTexture(final String aUniformName, final String aTextureResourceName)
+    public Mat4x4 getModelMatrix()
     {
-               
-        m_Textures.put(aUniformName, Graphics.getTexture(aTextureResourceName));
-    
+        Vector3 position = getTransform().get().getPosition();
+        Vector3 scale    = getTransform().get().getScale   ();
+        Vector3 eulers   = getTransform().get().getEulers  ();
+        
+        Mat4x4 m = Mat4x4.identity();
+        
+        //T
+        m.translate(position.x,position.y,position.z);
+        //R
+        m.rotateX(eulers.x);
+        m.rotateY(eulers.y);
+        m.rotateZ(eulers.z);
+        //S
+        m.scale(scale.x,scale.y,scale.z);
+        
+        return m;
+        
     }
+    
+    public final void setTexture(final String aUniformName, final String aTextureResourceName){m_Textures.put(aUniformName, Graphics.getTexture(aTextureResourceName));}
     public final void setModel(final String aModelName){m_Model = Graphics.getModel(aModelName);}
     public final void setShader(final String aShaderName){m_ShaderProgram = Graphics.getShaderProgram(aShaderName);}
     
     //
     // Graphics Scene interface
     //
-    float counter = 0;
     public void draw(final WeakReference<Camera> aCamera)
     {
-        counter+= 0.0001f;
-        
         m_ShaderProgram.get().draw();
         {
             m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
             
-            //CAMERA
-            Vector3 cameraPosition      = aCamera.get().getTransform().get().getPosition().multiply(-1f);
-            Vector3 cameraRotation      = aCamera.get().getTransform().get().getEulers();
-            float   viewportAspectRatio = aCamera.get().getViewportAspectRatio();
-            
-            //Debug.log(viewportAspectRatio);
-            
-            //ME
-            Vector3 position = getTransform().get().getPosition();
-            Vector3 scale    = getTransform().get().getScale   ();
-            Vector3 eulers   = getTransform().get().getEulers  ();
-            
-            //Debug.log(scale);
-                        
             //WORK
-            //Mat4x4 test;
-            Mat4x4 p = Mat4x4.identity();
-            {
-                p.perspective(90f, viewportAspectRatio, 0.1f, 20f); 
-                
-            }
-            
-            Mat4x4 v = Mat4x4.identity();
-            {
-                //R
-                v.rotateX(cameraRotation.x);
-                v.rotateY(cameraRotation.y);
-                v.rotateZ(cameraRotation.z);
-                //T
-                v.translate(cameraPosition);
-                
-            }
-            
-            Mat4x4 m = Mat4x4.identity();
-            {
-                //T
-                m.translate(position.x,position.y,position.z);
-                //R
-                m.rotateX(eulers.x);
-                m.rotateY(eulers.y);
-                m.rotateZ(eulers.z);
-                //S
-                m.scale(scale.x,scale.y,scale.z);
-                
-            }
+            Mat4x4 p = aCamera.get().getProjectionMatrix();
+            Mat4x4 v = aCamera.get().getViewMatrix();
+            Mat4x4 m = getModelMatrix();
             
             //OUTPUT
             Mat4x4 mvp = p.mul(v).mul(m);
@@ -121,19 +90,8 @@ public class Mesh extends Component
     // Component Inteface
     //
     @Override
-    public void update() {}
+    public void update(){}
     
-    //
-    // Constructors 
-    //
-    public Mesh(/*final String aModelName, final String aShaderName*/)
-    {
-        setModel("Quad");
-        setShader("AlphaCutOff");
-        setTexture("_Texture","default.png");
-        
-    }
-
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject)
     {
@@ -144,4 +102,15 @@ public class Mesh extends Component
     @Override
     protected void OnRemovedFromGameObject(){}
     
+    //
+    // Constructors 
+    //
+    public Mesh()
+    {
+        setModel("Quad");
+        setShader("AlphaCutOff");
+        setTexture("_Texture","default.png");
+        
+    }
+   
 }
