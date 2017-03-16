@@ -1,7 +1,4 @@
-create System interface, parameterize systems on engine init
-parameterize scenegraphs on scene init
- 
- 2D Physics
+2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
 
 Vertex data
