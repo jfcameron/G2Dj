@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}G2Dj Game engine
+${licensePrefix}Written by Joseph Cameron
+<#if licenseLast??>
+${licenseLast}
+</#if>

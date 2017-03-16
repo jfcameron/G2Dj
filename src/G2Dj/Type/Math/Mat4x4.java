@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * G2Dj Game engine
+ *  Written by Joseph Cameron
  */
 package G2Dj.Type.Math;
 
@@ -13,19 +12,19 @@ import java.nio.FloatBuffer;
  */
 public class Mat4x4 
 {
-    //
-    //
-    //
+    //*************
+    // Data members
+    //*************
     private final glm.mat._4.Mat4 m_Mat4;
     
-    //
-    //
-    //
+    //**********
+    // Accessors
+    //**********
     protected glm.mat._4.Mat4 getMat(){return m_Mat4;}
     
-    //
-    //
-    //
+    //*****************
+    // Public interface
+    //*****************
     public void perspective(final float aFOV, final float aAspectRatio, final float aNearClippingDistance, final float aFarClippingDistance)
     {
         m_Mat4.perspective(aFOV, aAspectRatio, aNearClippingDistance, aFarClippingDistance);
@@ -51,9 +50,9 @@ public class Mat4x4
     
     public FloatBuffer toFloatBuffer(){return m_Mat4.toDfb_();}
     
-    //
-    //
-    //
+    //*************
+    // Constructors
+    //*************
     public Mat4x4(){this(new glm.mat._4.Mat4().identity());}
     public Mat4x4(glm.mat._4.Mat4 aMat4)
     {
@@ -61,9 +60,9 @@ public class Mat4x4
         
     }
     
-    //
+    //*******
     // Static
-    //
+    //*******
     public static Mat4x4 identity()
     {
         return new Mat4x4();
