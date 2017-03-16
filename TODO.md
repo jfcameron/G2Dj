@@ -1,7 +1,3 @@
-parameterize camera projection.
- - Ortho (width, height, close clipping, far clipping)
- - Perspective (fov)
-
 create System interface, parameterize systems on engine init
 parameterize scenegraphs on scene init
  

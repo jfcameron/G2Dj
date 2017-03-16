@@ -74,24 +74,22 @@ public class Scene
         GameObject newGameObject = new GameObject(new WeakReference<>(this));
         
         m_GameObjects.add(newGameObject);
-        return new WeakReference<GameObject>(newGameObject);        
+        return new WeakReference<>(newGameObject);        
         
     }
-    /*public void addGameObject(final GameObject aGameObject)
-    {
-        
-        
-    }*/
     
-    //
-    //
-    //
-    //standard scene constructor
+    //*************
+    // Constructors
+    //*************
+    public Scene(final String aName, SceneGraph[] aSceneGraphs)
+    {
+        m_Name = aName;
+        
+    }
     public Scene(final String aName)
     {
         m_Name = aName;
         m_SceneGraphs.add(new GraphicsScene(new WeakReference<>(this)));
-        
         
     }
     
