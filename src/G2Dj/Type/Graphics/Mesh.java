@@ -67,21 +67,18 @@ public class Mesh extends Component
     public void draw(final WeakReference<Camera> aCamera)
     {
         m_ShaderProgram.get().draw();
-        {
-            m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
-            
-            //WORK
-            Mat4x4 p = aCamera.get().getProjectionMatrix();
-            Mat4x4 v = aCamera.get().getViewMatrix();
-            Mat4x4 m = getModelMatrix();
-            
-            //OUTPUT
-            Mat4x4 mvp = p.mul(v).mul(m);
-            
-            Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", mvp.toFloatBuffer());
         
-        }
+        //Bind uniforms
+        m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
         
+        //mvp
+        Mat4x4 p = aCamera.get().getProjectionMatrix();
+        Mat4x4 v = aCamera.get().getViewMatrix();
+        Mat4x4 m = getModelMatrix();
+        Mat4x4 mvp = p.mul(v).mul(m);
+        
+        Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", mvp.toFloatBuffer());
+                
         m_Model.get().draw(m_ShaderProgram.get().getProgramHandle());
         
     }
