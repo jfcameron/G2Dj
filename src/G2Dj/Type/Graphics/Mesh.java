@@ -62,7 +62,7 @@ public class Mesh extends Component
             m_Textures.bind(m_ShaderProgram.get().getProgramHandle());
             
             //CAMERA
-            Vector3 cameraPosition      = aCamera.get().getTransform().get().getPosition();
+            Vector3 cameraPosition      = aCamera.get().getTransform().get().getPosition().multiply(-1f);
             Vector3 cameraRotation      = aCamera.get().getTransform().get().getEulers();
             float   viewportAspectRatio = aCamera.get().getViewportAspectRatio();
             
@@ -79,22 +79,22 @@ public class Mesh extends Component
             //Mat4x4 test;
             Mat4x4 p = Mat4x4.identity();
             {
-                p.perspective(90f, viewportAspectRatio, 0.1f, 20f); //= new glm.mat._4.Mat4().perspective(90f, viewportAspectRatio, 0.1f, 20f);
+                p.perspective(90f, viewportAspectRatio, 0.1f, 20f); 
                 
             }
             
-            Mat4x4 v = Mat4x4.identity();//glm.mat._4.Mat4 v = new glm.mat._4.Mat4().identity();
+            Mat4x4 v = Mat4x4.identity();
             {
                 //R
-                v.getMat().rotateX(cameraRotation.x);
-                v.getMat().rotateY(cameraRotation.y);
-                v.getMat().rotateZ(cameraRotation.z);
+                v.rotateX(cameraRotation.x);
+                v.rotateY(cameraRotation.y);
+                v.rotateZ(cameraRotation.z);
                 //T
-                v.getMat().translate(-cameraPosition.x,-cameraPosition.y,-cameraPosition.z);
+                v.translate(cameraPosition);
                 
             }
             
-            glm.mat._4.Mat4 m = new glm.mat._4.Mat4().identity();
+            Mat4x4 m = Mat4x4.identity();
             {
                 //T
                 m.translate(position.x,position.y,position.z);
@@ -108,9 +108,9 @@ public class Mesh extends Component
             }
             
             //OUTPUT
-            glm.mat._4.Mat4 mvp = p.getMat().mul(v.getMat()).mul(m);
+            Mat4x4 mvp = p.mul(v).mul(m);
             
-            Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", mvp.toDfb_());
+            Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", mvp.toFloatBuffer());
         
         }
         
