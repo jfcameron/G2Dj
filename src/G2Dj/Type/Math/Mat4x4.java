@@ -25,12 +25,6 @@ public class Mat4x4
     //*****************
     // Public interface
     //*****************
-    public void perspective(final float aFOV, final float aAspectRatio, final float aNearClippingDistance, final float aFarClippingDistance)
-    {
-        m_Mat4.perspective(aFOV, aAspectRatio, aNearClippingDistance, aFarClippingDistance);
-        
-    }
-    
     public void rotateX(final float aX){m_Mat4.rotateX(aX);}
     public void rotateY(final float aY){m_Mat4.rotateY(aY);}
     public void rotateZ(final float aZ){m_Mat4.rotateZ(aZ);}
@@ -54,7 +48,7 @@ public class Mat4x4
     // Constructors
     //*************
     public Mat4x4(){this(new glm.mat._4.Mat4().identity());}
-    public Mat4x4(glm.mat._4.Mat4 aMat4)
+    private Mat4x4(glm.mat._4.Mat4 aMat4)
     {
         m_Mat4 = aMat4;
         
@@ -66,6 +60,18 @@ public class Mat4x4
     public static Mat4x4 identity()
     {
         return new Mat4x4();
+    
+    }
+    
+    public static Mat4x4 perspective(final float aFOV, final float aAspectRatio, final float aNearClippingDistance, final float aFarClippingDistance)
+    {
+        return new Mat4x4(new glm.mat._4.Mat4().perspective(aFOV, aAspectRatio, aNearClippingDistance, aFarClippingDistance));
+        
+    }
+    
+    public static Mat4x4 orthographic(final float aLeft, final float aRight, final float aBottom, final float aTop, final float aNearClippingDistance, final float aFarClipppingDistance)
+    {
+        return new Mat4x4(new glm.mat._4.Mat4().ortho(aLeft, aRight, aBottom, aTop, aNearClippingDistance, aFarClipppingDistance));
         
     }
     

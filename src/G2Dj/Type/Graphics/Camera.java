@@ -35,17 +35,22 @@ public class Camera extends Component
     private float                m_FieldOfView;
     private float                m_NearClippingPlane;
     private float                m_FarClippingPlane;
+    private float                m_Size;
     
     //**********
     // Accessors
     //**********
-    public Color                getClearColor            (){return m_ClearColor;      }
-    public CameraClearMode      getClearMode             (){return m_ClearMode;       }
-    public CameraProjectionMode getProjectionMode        (){return m_ProjectionMode;  }
-    public Vector2              getViewportScreenPosition(){return m_ViewportPosition;}
-    public Vector2              getViewportScreenSize    (){return m_ViewportSize;    }
+    public Color                getClearColor            (){return m_ClearColor;       }
+    public CameraClearMode      getClearMode             (){return m_ClearMode;        }
+    public CameraProjectionMode getProjectionMode        (){return m_ProjectionMode;   }
+    public Vector2              getViewportScreenPosition(){return m_ViewportPosition; }
+    public Vector2              getViewportScreenSize    (){return m_ViewportSize;     }
     //Math::Vector3 getWorldPointFromScreenPoint(const Math::Vector2 &aScreenPoint);
     //Math::Vector3 getWorldPointFromScreenPoint(const Math::Vector2 &aScreenPoint, const float &aWorldSpaceDistance);
+    public float                getFieldOfView           (){return m_FieldOfView;      }
+    public float                getNearClippingPlane     (){return m_NearClippingPlane;}
+    public float                getFarClippingPlane      (){return m_FarClippingPlane; }
+    public float                getSize                  (){return m_Size;             }
     
     public float getViewportAspectRatio(){return getViewportPixelSize().toVector2().aspectRatio();}
     
@@ -65,7 +70,7 @@ public class Camera extends Component
         return new IntVector2
         (
             (int)(m_ViewportSize.x * Graphics.getWindow().getWidth ()),
-            (int)(m_ViewportSize.y * Graphics.getWindow().getHeight ())
+            (int)(m_ViewportSize.y * Graphics.getWindow().getHeight())
                 
         );
         
@@ -77,8 +82,11 @@ public class Camera extends Component
         
         switch(m_ProjectionMode)
         {
-            case Perspective: p.perspective(m_FieldOfView, getViewportAspectRatio(), m_NearClippingPlane, m_FarClippingPlane); break;
-            case Orthographic: break;
+            case Perspective:  p = Mat4x4.perspective(m_FieldOfView, getViewportAspectRatio(), m_NearClippingPlane, m_FarClippingPlane); break;
+            
+            case Orthographic: 
+                throw new java.lang.UnsupportedOperationException("Not supported yet.");
+                //break;
             
         }
         
@@ -103,11 +111,15 @@ public class Camera extends Component
         
     }
     
-    public void setClearColor           (final Color                aClearColor      ){m_ClearColor       = aClearColor;      }
-    public void setClearMode            (final CameraClearMode      aClearMode       ){m_ClearMode        = aClearMode;       }
-    public void setProjectionMode       (final CameraProjectionMode aProjectionMode  ){m_ProjectionMode   = aProjectionMode;  }
-    public void setViewportPixelPosition(final Vector2              aViewportPosition){m_ViewportPosition = aViewportPosition;}
-    public void setViewportPixelSize    (final Vector2              aViewportSize    ){m_ViewportSize     = aViewportSize;    }
+    public void setClearColor           (final Color                aClearColor       ){m_ClearColor        = aClearColor;       }
+    public void setClearMode            (final CameraClearMode      aClearMode        ){m_ClearMode         = aClearMode;        }
+    public void setProjectionMode       (final CameraProjectionMode aProjectionMode   ){m_ProjectionMode    = aProjectionMode;   }
+    public void setViewportPixelPosition(final Vector2              aViewportPosition ){m_ViewportPosition  = aViewportPosition; }
+    public void setViewportPixelSize    (final Vector2              aViewportSize     ){m_ViewportSize      = aViewportSize;     }
+    public void setFieldOfView          (final float                aFieldOfView      ){m_FieldOfView       = aFieldOfView;      }
+    public void setNearClippingPlane    (final float                aNearClippingPlane){m_NearClippingPlane = aNearClippingPlane;}
+    public void setFarClippingPlane     (final float                aFarClippingPlane ){m_FarClippingPlane  = aFarClippingPlane; }
+    public void setSize                 (final float                aSize             ){m_Size              = aSize;             }
       
     public void draw() //void draw(void) override;
     {   
@@ -144,15 +156,15 @@ public class Camera extends Component
     //*************
     public Camera()
     {
-        m_ClearColor       = Color.CornflowerBlue();		
-        m_ClearMode        = CameraClearMode.Color;
-        m_ProjectionMode   = CameraProjectionMode.Perspective;
-        m_ViewportPosition = Vector2.Zero();
-        m_ViewportSize     = new Vector2(1,1);
-        
-        m_FieldOfView = 90f;
+        m_ClearColor        = Color.CornflowerBlue();		
+        m_ClearMode         = CameraClearMode.Color;
+        m_ProjectionMode    = CameraProjectionMode.Perspective;
+        m_ViewportPosition  = Vector2.Zero();
+        m_ViewportSize      = new Vector2(1,1);
+        m_FieldOfView       = 90f;
         m_NearClippingPlane = 0.1f;
-        m_FarClippingPlane = 20;
+        m_FarClippingPlane  = 20;
+        m_Size              = 100;
         
         //GL init
         GL gl = Graphics.getGL();
