@@ -1,5 +1,8 @@
 2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
+    
+continue with android branch
+improve desktop input implementation (pure java isnt cutting it)
 
 Vertex data
     -allow custom shapes from vert arrays, allow use of dynamic memory for faster vbo rewrites (currently hardcoded to static)
