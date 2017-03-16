@@ -55,7 +55,7 @@ public class GraphicsScene extends SceneGraph
         {
             Mesh mesh = (Mesh)aComponent;
             m_Meshes.add(new WeakReference<>(mesh));
-        
+            
         }
         else if (aComponent instanceof Camera)
         {
@@ -72,20 +72,20 @@ public class GraphicsScene extends SceneGraph
         if (aComponent instanceof Mesh)
         {        
             Mesh mesh = (Mesh)aComponent;
-        
+            
             for(int i = 0, s = m_Meshes.size(); i < s; i++)
                 if (m_Meshes.get(i).get() == mesh)
                 {
                     m_Meshes.remove(i);
                     return;
-                
+                    
                 }
-        
+            
         }
         else if (aComponent instanceof Camera)
         {
             Camera camera = (Camera)aComponent;
-                    
+            
             for(int i = 0, s = m_Meshes.size(); i < s; i++)
                 if (m_Cameras.get(i).get() == camera)
                 {
@@ -95,7 +95,7 @@ public class GraphicsScene extends SceneGraph
                 }
             
         }
-    
+        
     }
     
     //************

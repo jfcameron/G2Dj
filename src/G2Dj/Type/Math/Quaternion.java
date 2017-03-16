@@ -5,7 +5,7 @@
  */
 package G2Dj.Type.Math;
 
-import glm.quat.Quat;
+//import glm.quat.Quat;
 
 
 /**
