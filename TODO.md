@@ -1,3 +1,4 @@
+Clean up math. I used GLM types outside of the Math package. This was a mistake.
 Get the android build path working
  - copy repo, get adnroid studio building it at sdk 24, then work my way down.
  - once it works & sdk is acceptably low, reorganize repo to accomodate NetBeans project & Android Studio project
