@@ -5,12 +5,12 @@
  */
 package Adhoc;
 
-import G2Dj.Debug;
-import G2Dj.Imp.Input.KeyCode;
-import G2Dj.Input;
-import G2Dj.Type.Engine.Component;
-import G2Dj.Type.Engine.GameObject;
-import G2Dj.Type.Math.Vector3;
+import grimhaus.com.G2Dj.Debug;
+import grimhaus.com.G2Dj.Imp.Input.KeyCode;
+import grimhaus.com.G2Dj.Input;
+import grimhaus.com.G2Dj.Type.Engine.Component;
+import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 
 /**

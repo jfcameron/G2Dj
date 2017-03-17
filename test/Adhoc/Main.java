@@ -1,13 +1,12 @@
 package Adhoc;
 
-import G2Dj.Engine;
-import G2Dj.Graphics;
-import G2Dj.Type.Engine.GameObject;
-import G2Dj.Type.Engine.Scene;
-import G2Dj.Type.Graphics.Camera;
-import G2Dj.Type.Graphics.Mesh;
-import G2Dj.Type.Math.Vector2;
-import G2Dj.Type.Math.Vector3;
+import grimhaus.com.G2Dj.Engine;
+import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Engine.Scene;
+import grimhaus.com.G2Dj.Type.Graphics.Camera;
+import grimhaus.com.G2Dj.Type.Graphics.Mesh;
+import grimhaus.com.G2Dj.Type.Math.Vector2;
 import java.lang.ref.WeakReference;
 
 /**
