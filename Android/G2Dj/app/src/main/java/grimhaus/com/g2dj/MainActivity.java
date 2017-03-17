@@ -15,6 +15,7 @@ import java.util.TimerTask;
 * */
 public class MainActivity extends Activity
 {
+    private TestGameObject m_Test = new TestGameObject();
     private final int FPS = 40;
 
     private GLSurfaceView mGLView;
@@ -28,28 +29,23 @@ public class MainActivity extends Activity
         setContentView(mGLView);
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask()
-        {
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run(){main();}
+            public void run() {
+                loop();
+            }
 
         }, 0, 1000 / FPS);
+
+        TestEngine.init();
 
 
     }
 
-    private void main()
+    private void loop()
     {
-
-
-        GLES20.glClearColor
-                (
-                        1f,
-                        0f,
-                        0f,
-                        1.0f
-
-                );
+        TestEngine.update();
+        mGLView.requestRender();
 
     }
 

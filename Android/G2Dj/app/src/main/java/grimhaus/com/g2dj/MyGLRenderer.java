@@ -12,7 +12,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MyGLRenderer implements GLSurfaceView.Renderer
 {
-    private Test m_Test = new Test();
+    static public GLES20 gl;
 
     @Override
     public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config)
@@ -26,16 +26,19 @@ public class MyGLRenderer implements GLSurfaceView.Renderer
                 1.0f
 
         );
-        Log.d("d","Hello");
+        Log.d("d","onSurfaceCreated");
+
+        //gl = GLES20.
+
     }
 
     public void onDrawFrame(GL10 unused)
     {
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+        //GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+        //Log.d("d","onDrawFrame");
+        TestEngine.draw();
 
-        m_Test.update();
 
-        Log.d("E","Hello");
 
     }
 
