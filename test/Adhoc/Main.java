@@ -157,19 +157,7 @@ public class Main
                 aCamera.setViewportPixelSize(new Vector2(0.499f,1.0f));
                 aCamera.setViewportPixelPosition(new Vector2(0.501f,0.0f));
             
-            }
-            
-            /*//Create the camera
-            {
-                WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
-                theCamera.get().setName("Camera");
-            
-                Camera aCamera = (Camera)theCamera.get().addComponent(Camera.class);
-                aCamera.setViewportPixelSize(new Vector2(0.5f,0.5f));
-                aCamera.setViewportPixelPosition(new Vector2(0.5f,0.5f));
-            
-            }*/
-            
+            }            
             
         }
         

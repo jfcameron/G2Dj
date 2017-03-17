@@ -46,15 +46,14 @@ public final class Window implements WindowListener
         m_GLWindow = GLWindow.create(screen, glCapabilities);
         
         //Configure the window
-        setTitle("A G2Dj Project");
+        setTitle("G2Dj");
         setSize(1024, 768);
         setPosition(50, 50);
         setAlwaysOnTop(false);
         setDisplayMode(DisplayMode.Windowed);
         setPointerVisible(true);
         setPointerLockMode(PointerLockMode.Free);
-        
-        
+                
         //Bypass JOGL's multithreaded event system
         m_GLWindow.setAutoSwapBufferMode(false);//timing of bufferswaps is up to me
         m_GLWindow.getContext().makeCurrent();//Ownership of the context is given to this thread
@@ -63,12 +62,8 @@ public final class Window implements WindowListener
         m_GLWindow.addWindowListener((WindowListener)this);
         m_GLWindow.addKeyListener((KeyListener)aKeyboardInputHandler);
         
-        
-        
-        /////////INIT TSET
-        
         GL gl = m_GLWindow.getGL();
-        gl.glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
+        //gl.glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
                 
     }
     
