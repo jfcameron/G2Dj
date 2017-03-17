@@ -59,13 +59,17 @@ public class Resources
 
         //.if DESKTOP
         BufferedImage data = null;
-        try{data=ImageIO.read(Resources.class.getResource(aFileName));}
+        
+        try
+        {
+          data=ImageIO.read(Resources.class.getResource(aFileName));
+        
+        }
         catch (IOException ex) {Logger.getLogger(Resources.class.getName()).log(Level.SEVERE, null, ex);}
         //.endif
 
         //.if ANDROID
         //|android.graphics.Bitmap data = null;
-        //|Debug.log("Resources.loadTextFile ANDROID UNIMPLEMENTED");
         //.endif
 
         return new Image
