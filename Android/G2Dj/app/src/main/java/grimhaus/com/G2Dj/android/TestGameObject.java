@@ -1,4 +1,4 @@
-package grimhaus.com.g2dj;
+package grimhaus.com.G2Dj.android;
 
 import android.opengl.GLES20;
 import android.util.Log;

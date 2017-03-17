@@ -1,4 +1,4 @@
-package grimhaus.com.g2dj;
+package grimhaus.com.G2Dj.android;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;

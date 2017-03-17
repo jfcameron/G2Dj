@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="grimhaus.com.g2dj">
+    package="grimhaus.com.G2Dj.android">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <uses-feature android:glEsVersion="0x00020000" android:required="true" />
-        <activity android:name=".MainActivity">
+        <activity android:name="grimhaus.com.G2Dj.android.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

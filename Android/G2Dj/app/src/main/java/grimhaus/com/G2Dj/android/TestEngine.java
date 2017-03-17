@@ -1,5 +1,6 @@
-package grimhaus.com.g2dj;
+package grimhaus.com.G2Dj.android;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +17,9 @@ public class TestEngine
     static protected void init()
     {
         s_GameObjects.add(new TestGameObject());
+
+
+        WeakReference<TestGameObject> test = new WeakReference<TestGameObject>(s_GameObjects.get(0));
 
     }
 

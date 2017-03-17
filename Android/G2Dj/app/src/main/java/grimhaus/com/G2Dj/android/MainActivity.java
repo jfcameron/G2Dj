@@ -1,7 +1,6 @@
-package grimhaus.com.g2dj;
+package grimhaus.com.G2Dj.android;
 
 import android.app.Activity;
-import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
@@ -38,7 +37,6 @@ public class MainActivity extends Activity
         }, 0, 1000 / FPS);
 
         TestEngine.init();
-
 
     }
 
