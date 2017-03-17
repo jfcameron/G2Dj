@@ -1,0 +1,2 @@
+# List of file specs for the WhizBang project
+../src/G2Dj/*.java

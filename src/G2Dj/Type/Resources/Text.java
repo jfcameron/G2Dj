@@ -17,3 +17,7 @@ public class Text extends File<String>
     }    
     
 }
+
+//.if DESKTOP
+// hello
+//.endif

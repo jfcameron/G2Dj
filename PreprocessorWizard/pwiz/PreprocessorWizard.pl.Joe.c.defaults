@@ -1,0 +1,8 @@
+# defaults for Joe running ./PreprocessorWizard.pl.  Created Fri Mar 17 01:54:38 2017
+$main::Commentizer1_default = q(//.);
+$main::Commentizer2_default = q(//|);
+$main::Decommentize_default = q(false);
+$main::StartDir_default = q();
+$main::BackupDir_default = q(MyBackupDir);
+$main::DoFile_default = q(Desktop.pl);
+$main::Files_default = q();

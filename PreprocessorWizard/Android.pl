@@ -1,0 +1,1 @@
+ $global{ANDROID} = TRUE;
