@@ -4,20 +4,26 @@
  */
 package grimhaus.com.G2Dj;
 
-import grimhaus.com.G2Dj.Imp.Input.KeyboardInputHandler;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
+
+//.if DESKTOP
+import grimhaus.com.G2Dj.Imp.Input.KeyboardInputHandler;
+//.endif
 
 /**
  *
  * @author Joe
  */
 public class Input 
-{    
+{
+    //.if DESKTOP
     //**********************
     //Implementation objects
     //**********************
+
     protected static KeyboardInputHandler s_KeyboardInputHandler = new KeyboardInputHandler();
-    
+
+
     //***********
     //Passthoughs
     //***********
@@ -31,5 +37,7 @@ public class Input
         s_KeyboardInputHandler.update();
         
     }
-    
+
+    //.endif
+
 }

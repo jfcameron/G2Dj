@@ -30,16 +30,20 @@ public class Texture extends GraphicsResource
     public Texture(/*final String aName,*/ final Image aImage/*, final int aRepeatMode, final int aMagfilter*/)
     {
         m_Name = aImage.getName();
-        
+
+        //.if ANDROID
+        //|throw new java.lang.UnsupportedOperationException("Not supported yet.");
+        //.elseif DESKTOP
         Debug.log("Texture::Texture(const std::string &aTextureFileName, GFXuint repeatmode, GFXuint magfilter)\n");
         Debug.log("Loading texture: "+m_Name);
-
+        
         //load texture      
         int width = aImage.getData().getWidth(),height = aImage.getData().getHeight();
             
         Debug.log("Dimensons: {"+width+", "+width+"}");
-
+        
         int[] data = aImage.getData().getRGB(0, 0, width, height, (int[])null, 0, width);
+        
             
         //Change from BGRA to RGBA
         for(int i = 0, pixel,r,g,b,a; i < data.length; i++)
@@ -79,6 +83,8 @@ public class Texture extends GraphicsResource
         Debug.log("Handle is: "+m_TextureHandle);
         
         GL.glBindTexture( GL.GL_TEXTURE_2D,0);//clear the binding
+        
+        //.endif
         
     }
     

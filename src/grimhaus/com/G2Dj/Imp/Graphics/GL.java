@@ -27,7 +27,7 @@ public class GL
         //.if DESKTOP
         return gl.glGetUniformLocation(aShaderHandle, aUniformName);
         //.elseif ANDROID
-        //|
+        //|return GLES20.glGetUniformLocation(aShaderHandle, aUniformName);
         //.endif
         
     }
@@ -37,7 +37,7 @@ public class GL
         //.if DESKTOP
         gl.glActiveTexture(aTextureUnit);
         //.elseif ANDROID
-        //|
+        //|GLES20.glActiveTexture(aTextureUnit);
         //.endif
         
     }
@@ -47,7 +47,7 @@ public class GL
         //.if DESKTOP
         gl.glBindTexture(aTextureType, aTextureHandle);
         //.elseif ANDROID
-        //|
+        //|GLES20.glBindTexture(aTextureType, aTextureHandle);
         //.endif
     }
     
@@ -56,7 +56,7 @@ public class GL
         //.if DESKTOP
         gl.glUniform1i(aUniformHandle, aValue);
         //.elseif ANDROID
-        //|
+        //|GLES20.glUniform1i(aUniformHandle, aValue);
         //.endif
         
     }
@@ -66,7 +66,7 @@ public class GL
         //.if DESKTOP
         gl.glUniform1f(aUniformHandle, aValue);
         //.elseif ANDROID
-        //|
+        //|GLES20.glUniform1f(aUniformHandle, aValue);
         //.endif
         
     }
@@ -76,7 +76,7 @@ public class GL
         //.if DESKTOP
         gl.glUniformMatrix4fv(aUniformHandle, aCount, aTranspose, aData);
         //.elseif ANDROID
-        //|
+        //|GLES20.glUniformMatrix4fv(aUniformHandle, aCount, aTranspose, aData);
         //.endif
         
     }
@@ -86,7 +86,7 @@ public class GL
         //.if DESKTOP
         gl.glViewport(aX,aY,aWidth,aHeight);
         //.elseif ANDROID
-        //|
+        //|GLES20.glViewport(aX,aY,aWidth,aHeight);
         //.endif
         
     }
@@ -96,7 +96,7 @@ public class GL
         //.if DESKTOP
         gl.glScissor (aX,aY,aWidth,aHeight); 
         //.elseif ANDROID
-        //|
+        //|GLES20.glScissor (aX,aY,aWidth,aHeight);
         //.endif
         
     }
@@ -106,7 +106,7 @@ public class GL
         //.if DESKTOP
         gl.glClearColor(aRed,aGreen,aBlue,aAlpha);
         //.elseif ANDROID
-        //|
+        //|GLES20.glClearColor(aRed,aGreen,aBlue,aAlpha);
         //.endif
         
     }
@@ -116,7 +116,7 @@ public class GL
         //.if DESKTOP
         gl.glClear(aClearMask);
         //.elseif ANDROID
-        //|
+        //|GLES20.glClear(aClearMask);
         //.endif
         
     }
@@ -126,7 +126,7 @@ public class GL
         //.if DESKTOP
         gl.glEnable(aCapability);
         //.elseif ANDROID
-        //|
+        //|GLES20.glEnable(aCapability);
         //.endif
         
     }
@@ -136,7 +136,7 @@ public class GL
         //.if DESKTOP
         gl.glDisable(aCapability);
         //.elseif ANDROID
-        //|
+        //|GLES20.glDisable(aCapability);
         //.endif
         
     }
@@ -146,7 +146,7 @@ public class GL
         //.if DESKTOP
         gl.glUseProgram(aProgramHandle);
         //.elseif ANDROID
-        //|
+        //|GLES20.glUseProgram(aProgramHandle);
         //.endif
         
     }
@@ -156,7 +156,7 @@ public class GL
         //.if DESKTOP
         return gl.glCreateShader(aShaderType);
         //.elseif ANDROID
-        //|
+        //|return GLES20.glCreateShader(aShaderType);
         //.endif
         
     }
@@ -166,7 +166,7 @@ public class GL
         //.if DESKTOP
         gl.glShaderSource(aShaderHandle, aCount, aStrings, aLengths);
         //.elseif ANDROID
-        //|
+        //|throw new java.lang.UnsupportedOperationException("Not supported yet.");
         //.endif
         
     }
@@ -176,7 +176,7 @@ public class GL
         //.if DESKTOP
         gl.glCompileShader(aShaderHandle);
         //.elseif ANDROID
-        //|
+        //|GLES20.glCompileShader(aShaderHandle);
         //.endif
         
     }
@@ -186,7 +186,7 @@ public class GL
         //.if DESKTOP
         return gl.glCreateProgram();
         //.elseif ANDROID
-        //|
+        //|return GLES20.glCreateProgram();
         //.endif
         
     }
@@ -196,7 +196,7 @@ public class GL
         //.if DESKTOP
         gl.glAttachShader(aProgramHandle,aShaderHandle);
         //.elseif ANDROID
-        //|
+        //|GLES20.glAttachShader(aProgramHandle,aShaderHandle);
         //.endif
         
     }
@@ -206,11 +206,9 @@ public class GL
         //.if DESKTOP
         gl.glLinkProgram(aProgramHandle);
         //.elseif ANDROID
-        //|
+        //|GLES20.glLinkProgram(aProgramHandle);
         //.endif
-        
-        
-        
+
     }
     
     public static void glGetProgramiv(final int aProgramHandle, final int aPName,int[] params, final int aOffset)
@@ -218,7 +216,7 @@ public class GL
         //.if DESKTOP
         gl.glGetProgramiv(aProgramHandle, aPName, params, aOffset);
         //.elseif ANDROID
-        //|
+        //|GLES20.glGetProgramiv(aProgramHandle, aPName, params, aOffset);
         //.endif
         
     }
@@ -242,7 +240,7 @@ public class GL
         //.if DESKTOP
         gl.glDrawArrays(aPrimitiveType, aFirst, aCount);
         //.elseif ANDROID
-        //|
+        //|GLES20.glDrawArrays(aPrimitiveType, aFirst, aCount);
         //.endif
         
     }
@@ -252,7 +250,7 @@ public class GL
         //.if DESKTOP
         return gl.glGetAttribLocation(aProgramHandle, aAttributeName);
         //.elseif ANDROID
-        //|
+        //|return GLES20.glGetAttribLocation(aProgramHandle, aAttributeName);
         //.endif
         
     }
@@ -262,7 +260,7 @@ public class GL
         //.if DESKTOP
         gl.glEnableVertexAttribArray(aAttributeIndex);
         //.elseif ANDROID
-        //|
+        //|GLES20.glEnableVertexAttribArray(aAttributeIndex);
         //.endif
         
     }
@@ -272,7 +270,7 @@ public class GL
         //.if DESKTOP
         gl.glVertexAttribPointer(aAttributeIndex,aAttributeSize,aType,aNormalized,aStride,aOffset);
         //.elseif ANDROID
-        //|
+        //|GLES20.glVertexAttribPointer(aAttributeIndex,aAttributeSize,aType,aNormalized,aStride,aOffset);
         //.endif
         
     }
@@ -282,7 +280,7 @@ public class GL
         //.if DESKTOP
         gl.glBindBuffer(aTarget,aBufferHandle);
         //.elseif ANDROID
-        //|
+        //|GLES20.glBindBuffer(aTarget,aBufferHandle);
         //.endif
         
     }
@@ -292,7 +290,7 @@ public class GL
         //.if DESKTOP
         gl.glGenBuffers(aNumber,aBufferHandle);
         //.elseif ANDROID
-        //|
+        //|GLES20.glGenBuffers(aNumber,aBufferHandle);
         //.endif
         
     }
@@ -302,7 +300,7 @@ public class GL
         //.if DESKTOP
         gl.glBufferData (aTarget, aSize, aVertexData, aUsageHint);
         //.elseif ANDROID
-        //|
+        //|GLES20.glBufferData (aTarget, aSize, aVertexData, aUsageHint);
         //.endif
         
         
@@ -313,7 +311,7 @@ public class GL
         //.if DESKTOP
         gl.glGenTextures( aNumberOfTextures, aTextureHandles );
         //.elseif ANDROID
-        //|
+        //|GLES20.glGenTextures( aNumberOfTextures, aTextureHandles );
         //.endif
         
     }
@@ -323,7 +321,7 @@ public class GL
         //.if DESKTOP
         gl.glTexImage2D( aTarget, aLevelOfDetail, aInternalFormat, aWidth, aHeight, aBorder, aFormat, aType, aData );
         //.elseif ANDROID
-        //|
+        //|GLES20.glTexImage2D( aTarget, aLevelOfDetail, aInternalFormat, aWidth, aHeight, aBorder, aFormat, aType, aData );
         //.endif
         
     }
@@ -333,7 +331,7 @@ public class GL
         //.if DESKTOP
         gl.glTexParameteri(aTarget, aPName, aParam );
         //.elseif ANDROID
-        //|
+        //|GLES20.glTexParameteri(aTarget, aPName, aParam );
         //.endif
         
     }
@@ -417,7 +415,36 @@ gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
         GL_NEAREST = com.jogamp.opengl.GL2.GL_NEAREST;
         GL_TEXTURE_MAG_FILTER = com.jogamp.opengl.GL2.GL_TEXTURE_MAG_FILTER;
         //.elseif ANDROID
-        //|
+        //|GL_TEXTURE_2D = GLES20.GL_TEXTURE_2D;
+        //|GL_TEXTURE0 = GLES20.GL_TEXTURE0;
+        //|GL_TEXTURE1 = GLES20.GL_TEXTURE1;
+        //|GL_TEXTURE2 = GLES20.GL_TEXTURE2;
+        //|GL_TEXTURE3 = GLES20.GL_TEXTURE3;
+        //|GL_TEXTURE4 = GLES20.GL_TEXTURE4;
+        //|GL_TEXTURE5 = GLES20.GL_TEXTURE5;
+        //|GL_TEXTURE6 = GLES20.GL_TEXTURE6;
+        //|GL_TEXTURE7 = GLES20.GL_TEXTURE7;
+        //|GL_COLOR_BUFFER_BIT = GLES20.GL_COLOR_BUFFER_BIT;
+        //|GL_DEPTH_BUFFER_BIT = GLES20.GL_DEPTH_BUFFER_BIT;
+        //|GL_DEPTH_TEST = GLES20.GL_DEPTH_TEST;
+        //|GL_SCISSOR_TEST = GLES20.GL_SCISSOR_TEST;
+        //|GL_CULL_FACE = GLES20.GL_CULL_FACE;
+        //|GL_FALSE = GLES20.GL_FALSE;
+        //|GL_VERTEX_SHADER = GLES20.GL_VERTEX_SHADER;
+        //|GL_FRAGMENT_SHADER = GLES20.GL_FRAGMENT_SHADER;
+        //|GL_LINK_STATUS = GLES20.GL_LINK_STATUS;
+        //|GL_INFO_LOG_LENGTH = GLES20.GL_INFO_LOG_LENGTH;
+        //|GL_ACTIVE_ATTRIBUTES = GLES20.GL_ACTIVE_ATTRIBUTES;
+        //|GL_ACTIVE_UNIFORMS = GLES20.GL_ACTIVE_UNIFORMS;
+        //|GL_TRIANGLES = GLES20.GL_TRIANGLES;
+        //|GL_FLOAT = GLES20.GL_FLOAT;
+        //|GL_ARRAY_BUFFER = GLES20.GL_ARRAY_BUFFER;
+        //|GL_STATIC_DRAW = GLES20.GL_STATIC_DRAW;
+        //|GL_RGBA = GLES20.GL_RGBA;
+        //|GL_UNSIGNED_BYTE = GLES20.GL_UNSIGNED_BYTE;
+        //|GL_TEXTURE_MIN_FILTER = GLES20.GL_TEXTURE_MIN_FILTER;
+        //|GL_NEAREST = GLES20.GL_NEAREST;
+        //|GL_TEXTURE_MAG_FILTER = GLES20.GL_TEXTURE_MAG_FILTER;
         //.endif
         
     }

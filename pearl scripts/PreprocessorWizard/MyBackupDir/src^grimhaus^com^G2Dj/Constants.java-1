@@ -15,9 +15,9 @@ public class Constants
     static
     {
         //.if DESKTOP
-        SizeOfFloat = Float.BYTES;
+        //|SizeOfFloat = Float.BYTES;
         //.elseif ANDROID
-        //|SizeOfFloat = 4;
+        SizeOfFloat = 4;
         //.endif
         
     }

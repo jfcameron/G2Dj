@@ -34,13 +34,13 @@ public class Engine
     
     public static void mainLoop()
     {
-        do
+        for(;;/*!Input.getKeyDown(KeyCode.Escape)*/)
         {
             
             update();
             draw();
         
-        }while(!Input.getKeyDown(KeyCode.Escape));
+        }
         
     }
     

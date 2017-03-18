@@ -5,7 +5,10 @@
 package grimhaus.com.G2Dj.Imp.Input;
 
 import java.util.HashMap;
-import java.util.function.BiConsumer;
+
+//.if DESKTOP
+//|import java.util.function.BiConsumer;
+//.endif
 
 /**
  *
@@ -22,18 +25,24 @@ public class KeyboardState
        // m_Keys.forEach(action);
         
     }
-    
-    public void forEach(BiConsumer<KeyCode,KeyState> action)
-    {
-        m_Keys.forEach(action);
-        
-    }
+
+    //.if DESKTOP
+    //|public void forEach(BiConsumer<KeyCode,KeyState> action)
+    //|{
+    //|    m_Keys.forEach(action);
+    //|
+    //|}
+    //.endif
     
     
     public KeyState getKey(KeyCode aKeyCode)
     {
-        return m_Keys.getOrDefault(aKeyCode, KeyState.Up);
-        
+        //.if DESKTOP
+        //|return m_Keys.getOrDefault(aKeyCode, KeyState.Up);
+        //.elseif ANDROID
+        throw new java.lang.UnsupportedOperationException("Not supported yet.");
+        //.endif
+
     }
     
     public void setKey(KeyCode aKeyCode, KeyState aValue)
