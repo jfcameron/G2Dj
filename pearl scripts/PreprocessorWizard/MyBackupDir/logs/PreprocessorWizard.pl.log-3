@@ -1,4 +1,4 @@
-RI: PreprocessorWizard.pl run by Joe at Joe-PC:C:/Users/Joe/Desktop/G2Dj/pearl scripts/PreprocessorWizard Sat Mar 18 00:24:26 2017
+RI: PreprocessorWizard.pl run by Joe at Joe-PC:C:/Users/Joe/Desktop/G2Dj/pearl scripts/PreprocessorWizard Sat Mar 18 00:38:21 2017
 RI: PreprocessorWizard.pl version is $Id: PreprocessorWizard.pl,v 1.4 2015/07/29 23:29:38 rtbailey Exp rtbailey $
 DI: option -ask_all                          = 0
 DI: option -defaults_file                    = pwiz\PreprocessorWizard.pl.Joe.c.defaults
@@ -13,22 +13,22 @@ DI: option -DoDirPtns                        =
 DI: option -SkipDirPtns                      = 
 DI: option -MaxDepth                         = 
 DI: option -BackupDir                        = MyBackupDir
-DI: option -DoFile                           = Android.pl
+DI: option -DoFile                           = Desktop.pl
 DI: option -Files                            = 
 DI: option -log_file                         = MyBackupDir\logs\PreprocessorWizard.pl.log
 DI: option -defaults_file[ 0]                = pwiz\PreprocessorWizard.pl.Joe.defaults
 DI: option -defaults_file[ 1]                = pwiz\PreprocessorWizard.pl.Joe.c.defaults
-RI: Evaluating DoFile Android.pl ...
+RI: Evaluating DoFile Desktop.pl ...
 RI: global in DoFile: ref to HASH w/ 1 members:
-RI: global in DoFile: |  {ANDROID} => TRUE
+RI: global in DoFile: |  {DESKTOP} => TRUE
 RI: global: ref to HASH w/ 1 members:
-RI: global: |  {ANDROID} => TRUE
+RI: global: |  {DESKTOP} => TRUE
 RI: Number of files to be preprocessed: 57
 RI:   2 changes: ..\..\src\grimhaus\com\G2Dj\Constants.java                    Backup: MyBackupDir\src^grimhaus^com^G2Dj\Constants.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Debug.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Engine.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Files.java
-RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Graphics.java
+RI:   5 changes: ..\..\src\grimhaus\com\G2Dj\Graphics.java                     Backup: MyBackupDir\src^grimhaus^com^G2Dj\Graphics.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Input.java
 RI:  13 changes: ..\..\src\grimhaus\com\G2Dj\Resources.java                    Backup: MyBackupDir\src^grimhaus^com^G2Dj\Resources.java
 RI:  47 changes: ..\..\src\grimhaus\com\G2Dj\android\MainActivity.java         Backup: MyBackupDir\src^grimhaus^com^G2Dj^android\MainActivity.java
@@ -81,4 +81,4 @@ RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Math\Vector3.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Resources\File.java
 RI:  32 changes: ..\..\src\grimhaus\com\G2Dj\Type\Resources\Image.java         Backup: MyBackupDir\src^grimhaus^com^G2Dj^Type^Resources\Image.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Resources\Text.java
-RI: ** 11 of 57 files were changed.  Your backups are in MyBackupDir  Run time 0 secs. **
+RI: ** 12 of 57 files were changed.  Your backups are in MyBackupDir  Run time 0 secs. **

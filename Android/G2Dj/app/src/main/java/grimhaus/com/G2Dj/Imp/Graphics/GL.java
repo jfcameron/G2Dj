@@ -6,6 +6,10 @@ package grimhaus.com.G2Dj.Imp.Graphics;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+//.if ANDROID
+import android.opengl.GLES20;
+//.endif
+
 /**
  * OpenGLES2.0 call wrapper. Wraps Android GLES2.0 and JOGLES2.0
  * @author Joseph Cameron
@@ -228,6 +232,7 @@ public class GL
     //.elseif ANDROID
     public static String glGetProgramInfoLog(final int aProgramHandle)
     {
+        return GLES20.glGetProgramInfoLog(aProgramHandle);
     
     }
     //.endif

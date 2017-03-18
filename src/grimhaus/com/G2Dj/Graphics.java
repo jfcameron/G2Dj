@@ -10,9 +10,9 @@ import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
 import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgramCollection;
 import grimhaus.com.G2Dj.Imp.Graphics.Texture;
 import grimhaus.com.G2Dj.Imp.Graphics.TextureCollection;
+//.if DESKTOP
 import grimhaus.com.G2Dj.Imp.Graphics.Window;
-
-import com.jogamp.opengl.GL;
+//.endif
 
 import java.lang.ref.WeakReference;
 
@@ -25,8 +25,9 @@ public class Graphics
     //*************
     // Data members
     //*************
+    //.if DESKTOP
     private static final Window s_Window;
-    private static final GL     s_GL;
+    //.endif
     
     private static final ShaderProgramCollection s_ShaderPrograms;
     private static final ModelCollection         s_Models;
@@ -35,8 +36,9 @@ public class Graphics
     //********
     // Getters
     //********
+    //.if DESKTOP
     public static Window getWindow(){return s_Window;}
-    public static GL     getGL    (){return s_GL;    }
+    //.endif
     
     //*****************
     // Public interface
@@ -70,9 +72,10 @@ public class Graphics
     
     static
     {
+        //.if DESKTOP
         s_Window = new Window(Input.s_KeyboardInputHandler);
-        s_GL     = s_Window.getGL();
-        
+        //.endif
+
         s_ShaderPrograms  = new ShaderProgramCollection();
         s_Models          = new ModelCollection();
         s_Textures        = new TextureCollection();

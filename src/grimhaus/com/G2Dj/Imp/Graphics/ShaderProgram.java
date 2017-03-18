@@ -67,14 +67,21 @@ public abstract class ShaderProgram extends GraphicsResource
 	GL.glGetProgramiv(m_ProgramHandle, GL.GL_LINK_STATUS, status, 0);
 	if (status[0] == GL.GL_FALSE) 
         {
-            int[] len = new int[1];
-            GL.glGetProgramiv(m_ProgramHandle, GL.GL_INFO_LOG_LENGTH, len, 0); 
-            
             Debug.log("The shader "+getName()+" has failed to compile!");
 
-            byte[] errormessage = new byte[len[0]]; 
+            String errormessageString;
+
+            //.if DESKTOP
+            int[] len = new int[1];
+            GL.glGetProgramiv(m_ProgramHandle, GL.GL_INFO_LOG_LENGTH, len, 0);
+            byte[] errormessage = new byte[len[0]];
             GL.glGetProgramInfoLog(m_ProgramHandle, len[0], len, 0, errormessage, 0);
-            Debug.log("Error: " + new String(errormessage, 0, len[0]));
+            //Debug.log("Error: " + new String(errormessage, 0, len[0]));
+            errormessageString = new String(errormessage, 0, len[0]);
+            //.elseif ANDROID
+            //|errormessageString = GL.glGetProgramInfoLog(m_ProgramHandle);
+            //.endif
+            Debug.log("Error: " +errormessageString);
             
         }
         else
