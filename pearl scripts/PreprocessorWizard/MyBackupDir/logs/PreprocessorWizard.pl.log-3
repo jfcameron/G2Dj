@@ -1,4 +1,4 @@
-RI: PreprocessorWizard.pl run by Joe at Joe-PC:C:/Users/Joe/Desktop/G2Dj/pearl scripts/PreprocessorWizard Fri Mar 17 18:20:45 2017
+RI: PreprocessorWizard.pl run by Joe at Joe-PC:C:/Users/Joe/Desktop/G2Dj/pearl scripts/PreprocessorWizard Sat Mar 18 00:15:03 2017
 RI: PreprocessorWizard.pl version is $Id: PreprocessorWizard.pl,v 1.4 2015/07/29 23:29:38 rtbailey Exp rtbailey $
 DI: option -ask_all                          = 0
 DI: option -defaults_file                    = pwiz\PreprocessorWizard.pl.Joe.c.defaults
@@ -13,17 +13,18 @@ DI: option -DoDirPtns                        =
 DI: option -SkipDirPtns                      = 
 DI: option -MaxDepth                         = 
 DI: option -BackupDir                        = MyBackupDir
-DI: option -DoFile                           = Desktop.pl
+DI: option -DoFile                           = Android.pl
 DI: option -Files                            = 
 DI: option -log_file                         = MyBackupDir\logs\PreprocessorWizard.pl.log
 DI: option -defaults_file[ 0]                = pwiz\PreprocessorWizard.pl.Joe.defaults
 DI: option -defaults_file[ 1]                = pwiz\PreprocessorWizard.pl.Joe.c.defaults
-RI: Evaluating DoFile Desktop.pl ...
+RI: Evaluating DoFile Android.pl ...
 RI: global in DoFile: ref to HASH w/ 1 members:
-RI: global in DoFile: |  {DESKTOP} => TRUE
+RI: global in DoFile: |  {ANDROID} => TRUE
 RI: global: ref to HASH w/ 1 members:
-RI: global: |  {DESKTOP} => TRUE
-RI: Number of files to be preprocessed: 14
+RI: global: |  {ANDROID} => TRUE
+RI: Number of files to be preprocessed: 57
+RI:   2 changes: ..\..\src\grimhaus\com\G2Dj\Constants.java                    Backup: MyBackupDir\src^grimhaus^com^G2Dj\Constants.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Debug.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Engine.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Files.java
@@ -35,7 +36,49 @@ RI:  69 changes: ..\..\src\grimhaus\com\G2Dj\android\MyGLRenderer.java         B
 RI:  31 changes: ..\..\src\grimhaus\com\G2Dj\android\MyGLSurfaceView.java      Backup: MyBackupDir\src^grimhaus^com^G2Dj^android\MyGLSurfaceView.java
 RI:  43 changes: ..\..\src\grimhaus\com\G2Dj\android\TestEngine.java           Backup: MyBackupDir\src^grimhaus^com^G2Dj^android\TestEngine.java
 RI:  37 changes: ..\..\src\grimhaus\com\G2Dj\android\TestGameObject.java       Backup: MyBackupDir\src^grimhaus^com^G2Dj^android\TestGameObject.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Engine\Transform.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\CameraClearMode.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\CameraProjectionMode.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\Color.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\DisplayMode.java
+RI: 103 changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\GL.java              Backup: MyBackupDir\src^grimhaus^com^G2Dj^Imp^Graphics\GL.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\GraphicsObject.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\GraphicsResource.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\GraphicsResourceCollection.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\Model.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\ModelCollection.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\PointerLockMode.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\ResourceShader.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\ShaderProgram.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\ShaderProgramCollection.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\Texture.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\TextureCollection.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\TextureUniformCollection.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\UniformCollection.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\Uniforms.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\VertexAttribute.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\VertexFormat.java
+RI: 199 changes: ..\..\src\grimhaus\com\G2Dj\Imp\Graphics\Window.java          Backup: MyBackupDir\src^grimhaus^com^G2Dj^Imp^Graphics\Window.java
+RI: 259 changes: ..\..\src\grimhaus\com\G2Dj\Imp\Input\KeyboardInputHandler.java  Backup: MyBackupDir\src^grimhaus^com^G2Dj^Imp^Input\KeyboardInputHandler.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Input\KeyboardState.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Input\KeyCode.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Imp\Input\KeyState.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Resource\Graphics\AlphaCutOff.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Resource\Graphics\PinkShaderOfDeath.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Resource\Graphics\Quad.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Engine\Component.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Engine\GameObject.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Engine\Scene.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Engine\SceneGraph.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Graphics\Camera.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Graphics\GraphicsScene.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Graphics\Mesh.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Math\IntVector2.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Math\Mat4x4.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Math\Quaternion.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Math\Vector2.java
+RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Math\Vector3.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Resources\File.java
 RI:  32 changes: ..\..\src\grimhaus\com\G2Dj\Type\Resources\Image.java         Backup: MyBackupDir\src^grimhaus^com^G2Dj^Type^Resources\Image.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Resources\Text.java
-RI: ** 7 of 14 files were changed.  Your backups are in MyBackupDir  Run time 1 secs. **
+RI: ** 11 of 57 files were changed.  Your backups are in MyBackupDir  Run time 1 secs. **

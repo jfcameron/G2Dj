@@ -32,8 +32,6 @@ public class TestGameObject
 
                 );
 
-        //glGetAttribLocation
-
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
 
