@@ -1,5 +1,10 @@
-Android port
- - wrap GL calls into Graphics.GL
+Android implementation
+ - TextureCollection constructor
+ - ShaderProgramCollection constructor
+ - ModelCollection constructor
+ - Resource.load Image and TextFile
+ - Graphics.getScreenSize() implementation (currently emits fixed {100,100})
+ - MOST IMPORTANT! Clean up G2Dj.Android package. Make the android engine present an identical public interface as the desktop one (currently it is quite the hack)
 
 2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
