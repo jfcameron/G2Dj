@@ -7,6 +7,7 @@ package grimhaus.com.G2Dj.Type.Resources;
 /**
  *
  * @author Joe
+ * @param <DataType>
  */
 public abstract class File<DataType> 
 {

@@ -1,7 +1,9 @@
+Android port
+ - Stop depending on GLM
+
 2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
     
-continue with android branch
 improve desktop input implementation (pure java isnt cutting it)
 
 Vertex data
@@ -20,10 +22,6 @@ controllers
 reassess todos ()
 
 ==================BACKBURNER=====================
-Get the android build path working
- - copy repo, get adnroid studio building it at sdk 24, then work my way down.
- - once it works & sdk is acceptably low, reorganize repo to accomodate NetBeans project & Android Studio project
-
 Collections/Resources
     -prevent duplicate names being entered
     -prevent duplicate resources from being allocated (fail silently or throw?)

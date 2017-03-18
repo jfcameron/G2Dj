@@ -1,0 +1,6 @@
+# defaults for Joe running ./PreprocessorWizard.pl.  Created Fri Mar 17 18:20:45 2017
+$main::ask_all_default = q(0);
+$main::defaults_file_default = q(pwiz\\PreprocessorWizard.pl.Joe.defaults);
+$main::List_default = q(MyFiles.txt);
+$main::Extns_default = q(c);
+# switch to pwiz\PreprocessorWizard.pl.Joe.c.defaults
