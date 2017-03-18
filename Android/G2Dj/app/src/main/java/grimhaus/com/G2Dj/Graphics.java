@@ -10,6 +10,7 @@ import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
 import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgramCollection;
 import grimhaus.com.G2Dj.Imp.Graphics.Texture;
 import grimhaus.com.G2Dj.Imp.Graphics.TextureCollection;
+import grimhaus.com.G2Dj.Type.Math.IntVector2;
 //.if DESKTOP
 //|import grimhaus.com.G2Dj.Imp.Graphics.Window;
 //.endif
@@ -37,7 +38,7 @@ public class Graphics
     // Getters
     //********
     //.if DESKTOP
-    //|public static Window getWindow(){return s_Window;}
+    //|//public static Window getWindow(){return s_Window;}
     //.endif
     
     //*****************
@@ -55,6 +56,18 @@ public class Graphics
     public static WeakReference<Texture> loadFromResource(String aAbsoluteResourcePath){return s_Textures.loadFromResource(aAbsoluteResourcePath);}
     public static WeakReference<Texture> loadFromFile(String aAbsoluteResourcePath){return s_Textures.loadFromFile(aAbsoluteResourcePath);}
     
+    public static IntVector2 getScreenSize()
+    {
+        IntVector2 rValue;
+        //.if DESKTOP
+        //|rValue = new IntVector2(s_Window.getWidth(),s_Window.getHeight());
+        //.elseif ANDROID
+        rValue = new IntVector2(100,100);
+        //.endif
+        return rValue;
+        
+    }
+    
     //*******************
     // Static Constructor
     //*******************    
@@ -65,7 +78,7 @@ public class Graphics
         //.if DESKTOP
         //|s_Window.draw();
         //.elseif ANDROID
-        
+        grimhaus.com.G2Dj.Android.MainActivity.mGLView.requestRender();
         //.endif
         
     }

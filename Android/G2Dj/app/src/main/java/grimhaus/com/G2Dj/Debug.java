@@ -4,6 +4,9 @@
  */
 package grimhaus.com.G2Dj;
 
+import android.app.Application;
+import android.util.Log;
+
 /**
  *
  * @author Joe
@@ -20,9 +23,13 @@ public class Debug
         if (aObjects.length > 1)
             for(int i = 1, s = aObjects.length; i < s; i++)
                 output += ", " + aObjects[i].toString();
-        
-        System.out.print(output+"\n");
-        
+
+        //.if DESKTOP
+        //|System.out.print(output+"\n");
+        //.elseif ANDROID
+        Log.d("G2Dj",output+"\n");
+        //.endif
+
     }
     
 }

@@ -67,6 +67,8 @@ public class Engine
     //
     public static void init()
     {
+        Debug.log("Engine init()");
+
         Input.init();
         Graphics.init();
         //etc

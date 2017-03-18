@@ -4,6 +4,8 @@ package grimhaus.com.G2Dj.Android;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 
+import grimhaus.com.G2Dj.Engine;
+
 /**
  * Created by Joe on 3/16/2017.
  */
@@ -26,6 +28,8 @@ class MyGLSurfaceView extends GLSurfaceView
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(mRenderer);
         setRenderMode(RENDERMODE_WHEN_DIRTY); //must be manually updated
+
+        Engine.init();
 
 
     }

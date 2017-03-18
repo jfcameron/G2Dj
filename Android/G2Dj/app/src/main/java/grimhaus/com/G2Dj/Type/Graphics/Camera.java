@@ -57,10 +57,12 @@ public class Camera extends Component
     
     public IntVector2 getViewportPixelPosition()
     {
+        IntVector2 screenSize = Graphics.getScreenSize();
+        
         return new IntVector2
         (
-            (int)(m_ViewportPosition.x * Graphics.getWindow().getWidth ()),
-            (int)(m_ViewportPosition.y * Graphics.getWindow().getHeight())
+            (int)(m_ViewportPosition.x * screenSize.x),
+            (int)(m_ViewportPosition.y * screenSize.y)
                 
         );
         
@@ -68,10 +70,12 @@ public class Camera extends Component
     
     public IntVector2 getViewportPixelSize()
     {
+        IntVector2 screenSize = Graphics.getScreenSize();
+        
         return new IntVector2
         (
-            (int)(m_ViewportSize.x * Graphics.getWindow().getWidth ()),
-            (int)(m_ViewportSize.y * Graphics.getWindow().getHeight())
+            (int)(m_ViewportSize.x * screenSize.x),
+            (int)(m_ViewportSize.y * screenSize.y)
                 
         );
         

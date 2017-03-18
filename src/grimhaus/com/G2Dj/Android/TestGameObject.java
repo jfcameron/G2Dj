@@ -25,9 +25,9 @@ package grimhaus.com.G2Dj.Android;
 //|
 //|        GLES20.glClearColor
 //|                (
+//|                        0f,
 //|                        1f,
-//|                        1f,
-//|                        0,
+//|                        1,
 //|                        1.0f
 //|
 //|                );

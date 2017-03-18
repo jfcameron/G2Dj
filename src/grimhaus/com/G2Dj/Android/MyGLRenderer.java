@@ -9,6 +9,7 @@ package grimhaus.com.G2Dj.Android;
 //|import javax.microedition.khronos.opengles.GL10;
 //|
 //|import grimhaus.com.G2Dj.Debug;
+//|import grimhaus.com.G2Dj.Engine;
 //|
 //|/**
 //| * Created by Joe on 3/16/2017.
@@ -64,6 +65,9 @@ package grimhaus.com.G2Dj.Android;
 //|            // Set the Renderer for drawing on the GLSurfaceView
 //|            setRenderer(mRenderer);
 //|            setRenderMode(RENDERMODE_WHEN_DIRTY); //must be manually updated
+//|
+//|
+//|
 //|
 //|        }
 //|

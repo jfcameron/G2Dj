@@ -30,14 +30,15 @@ public class Input
     public static boolean getKeyDown(KeyCode aKeyCode){return s_KeyboardInputHandler.getKeyDown(aKeyCode);}
     public static boolean getKey(KeyCode aKeyCode){return s_KeyboardInputHandler.getKey(aKeyCode);}
     
+    //.endif
     protected static void init(){}
-    
+
     protected static void update()
     {
+        //.if DESKTOP
         s_KeyboardInputHandler.update();
-        
-    }
+        //.endif
 
-    //.endif
+    }
 
 }

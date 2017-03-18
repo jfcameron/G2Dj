@@ -25,9 +25,9 @@ public class TestGameObject
 
         GLES20.glClearColor
                 (
+                        0f,
                         1f,
-                        1f,
-                        0,
+                        1,
                         1.0f
 
                 );
