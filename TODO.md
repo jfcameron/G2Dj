@@ -1,5 +1,5 @@
 Android port
- - Stop depending on GLM
+ - wrap GL calls into Graphics.GL
 
 2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
