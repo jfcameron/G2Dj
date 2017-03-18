@@ -4,14 +4,11 @@ package grimhaus.com.G2Dj.Android;
 //|import android.app.Activity;
 //|import android.opengl.GLSurfaceView;
 //|import android.os.Bundle;
-//|import android.util.Log;
 //|
 //|import java.util.Timer;
 //|import java.util.TimerTask;
 //|
 //|import grimhaus.com.G2Dj.Debug;
-//|import grimhaus.com.G2Dj.Engine;
-//|
 //|
 //|/*
 //|* Android app entry point
@@ -19,7 +16,6 @@ package grimhaus.com.G2Dj.Android;
 //|* */
 //|public class MainActivity extends Activity
 //|{
-//|    private TestGameObject m_Test = new TestGameObject();
 //|    private final int FPS = 40;
 //|
 //|    static public GLSurfaceView mGLView;
@@ -41,15 +37,13 @@ package grimhaus.com.G2Dj.Android;
 //|            public void run()
 //|            {
 //|                /*Engine.mainLoop();*/
-//|                TestEngine.update();
+//|                //TestEngine.update();
+//|                loop();
+//|                //TODO: add loop logic here
 //|
 //|            }
 //|
 //|        }, 0, 1000 / FPS);
-//|
-//|        TestEngine.init();
-//|//        Engine.init();//nogl error
-//|
 //|
 //|        //throw new java.lang.UnsupportedOperationException("Not supported yet.");
 //|
@@ -57,7 +51,7 @@ package grimhaus.com.G2Dj.Android;
 //|
 //|    private void loop()
 //|    {
-//|        TestEngine.update();
+//|        //TestEngine.update();
 //|        mGLView.requestRender();
 //|
 //|    }

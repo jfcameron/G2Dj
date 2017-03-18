@@ -44,7 +44,7 @@ public class Engine
         
     }
     
-    private static void update()
+    public static void update()
     {
         Input.update();
         
@@ -53,7 +53,7 @@ public class Engine
         
     }
     
-    private static void draw()
+    public static void draw()
     {
         for(int i = 0, s = s_Scenes.size(); i < s; i++)
             s_Scenes.get(i).draw();

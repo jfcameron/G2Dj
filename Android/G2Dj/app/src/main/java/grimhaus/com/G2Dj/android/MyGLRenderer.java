@@ -29,20 +29,26 @@ public class MyGLRenderer implements GLSurfaceView.Renderer
                 1.0f
 
         );
-        Debug.log("d","onSurfaceCreated");
+
+        Debug.log("onSurfaceCreated");
+
+
+        Engine.init();
+        AndroidTest.doTest();
 
 
     }
 
     public void onDrawFrame(GL10 unused)
     {
-        TestEngine.draw();
+        Engine.update();
+        Engine.draw();
 
     }
 
     public void onSurfaceChanged(GL10 unused, int width, int height)
     {
-        GLES20.glViewport(0, 0, width, height);
+        //GLES20.glViewport(0, 0, width, height);
 
     }
 

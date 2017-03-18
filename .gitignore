@@ -50,6 +50,7 @@ Temporary Items
 
 # Hide script outputs
 /pearl scripts/PreprocessorWizard/MyBackupDir/
+/pearl scripts/PreprocessorWizard/pwiz/MyBackupDir/
 
 # Hide temporary Android code
 /Android/G2Dj/app/src/main/java/grimhaus/com/

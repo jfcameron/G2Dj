@@ -65,8 +65,10 @@ public abstract class GraphicsResourceCollection<T extends GraphicsResource>
         {
             newItem = aItem.newInstance();
         }
-        catch (InstantiationException | IllegalAccessException ex) {Logger.getLogger(GraphicsResourceCollection.class.getName()).log(Level.SEVERE, null, ex);}
-        
+        //catch (InstantiationException | IllegalAccessException ex) {Logger.getLogger(GraphicsResourceCollection.class.getName()).log(Level.SEVERE, null, ex);}
+        catch (InstantiationException ex) {Logger.getLogger(GraphicsResourceCollection.class.getName()).log(Level.SEVERE, null, ex);}//needed for android api16
+        catch (IllegalAccessException ex) {Logger.getLogger(GraphicsResourceCollection.class.getName()).log(Level.SEVERE, null, ex);}
+
         if (newItem == null)
             return;
         

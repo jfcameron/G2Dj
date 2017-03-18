@@ -48,7 +48,7 @@ public class ModelCollection extends GraphicsResourceCollection<Model>
     public ModelCollection()
     {
         addClass(Quad.class);
-        
+
     }
     
 }

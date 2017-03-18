@@ -4,8 +4,10 @@
  */
 package grimhaus.com.G2Dj;
 
+//.if ANDROID
 import android.app.Application;
 import android.util.Log;
+//.endif
 
 /**
  *

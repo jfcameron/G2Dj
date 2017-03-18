@@ -52,9 +52,10 @@ public class ShaderProgramCollection extends GraphicsResourceCollection<ShaderPr
     //*************
     public ShaderProgramCollection()
     {
-        addClass(PinkShaderOfDeath.class);
-        addClass(AlphaCutOff.class);
-        
+        //.if DESKTOP
+        //|addClass(PinkShaderOfDeath.class);
+        //|addClass(AlphaCutOff.class);
+        //.endif
     }
     
 }
