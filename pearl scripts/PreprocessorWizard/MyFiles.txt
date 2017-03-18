@@ -1,8 +1,18 @@
-# List of file specs for the WhizBang project
-../../src/grimhaus/com/G2Dj/*.java
+# List of file specs for the G2Dj
 
+../../src/grimhaus/com/G2Dj/*.java
 
 ../../src/grimhaus/com/G2Dj/android/*.java
 
+../../src/grimhaus/com/G2Dj/Imp/Engine/*.java
+../../src/grimhaus/com/G2Dj/Imp/Graphics/*.java
+../../src/grimhaus/com/G2Dj/Imp/Input/*.java
+../../src/grimhaus/com/G2Dj/Imp/Math/*.java
 
+../../src/grimhaus/com/G2Dj/Resource/Graphics/*.java
+
+../../src/grimhaus/com/G2Dj/Type/Engine/*.java
+../../src/grimhaus/com/G2Dj/Type/Graphics/*.java
+../../src/grimhaus/com/G2Dj/Type/Math/*.java
 ../../src/grimhaus/com/G2Dj/Type/Resources/*.java
+

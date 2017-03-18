@@ -64,6 +64,8 @@ public final class Window implements WindowListener
         
         GL gl = m_GLWindow.getGL();
         //gl.glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
+        
+        grimhaus.com.G2Dj.Imp.Graphics.GL.gl = m_GLWindow.getGL().getGL2ES2();
                 
     }
     
