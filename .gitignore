@@ -47,4 +47,9 @@ Temporary Items
 .apdisk
 /_NetBeans/nbproject/private/
 /_NetBeans/build/
-/PreprocessorWizard/MyBackupDir/
+
+# Hide script outputs
+/pearl scripts/PreprocessorWizard/MyBackupDir/
+
+# Hide temporary Android code
+/Android/G2Dj/app/src/main/java/grimhaus/com/

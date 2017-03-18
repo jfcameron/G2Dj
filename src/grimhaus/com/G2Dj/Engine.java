@@ -36,7 +36,7 @@ public class Engine
     {
         do
         {
-            Input.update();
+            
             update();
             draw();
         
@@ -46,15 +46,19 @@ public class Engine
     
     private static void update()
     {
-        for(int i = 0, s = s_Scenes.size(); i < s; i++) //s_Scenes.forEach((currentScene)->{currentScene.update();});
-                s_Scenes.get(i).update();
+        Input.update();
+        
+        for(int i = 0, s = s_Scenes.size(); i < s; i++)
+            s_Scenes.get(i).update();
         
     }
     
     private static void draw()
     {
-        for(int i = 0, s = s_Scenes.size(); i < s; i++) //s_Scenes.forEach((currentScene)->{currentScene.update();});
-                s_Scenes.get(i).draw();
+        for(int i = 0, s = s_Scenes.size(); i < s; i++)
+            s_Scenes.get(i).draw();
+        
+        Graphics.draw();
         
     }
     

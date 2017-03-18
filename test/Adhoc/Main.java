@@ -160,7 +160,7 @@ public class Main
             
         }
         
-        Engine.update();
+        Engine.mainLoop();
         
     }
     

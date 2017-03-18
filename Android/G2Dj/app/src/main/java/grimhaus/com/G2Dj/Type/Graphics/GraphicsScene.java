@@ -6,7 +6,6 @@ package grimhaus.com.G2Dj.Type.Graphics;
 
 import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
 import grimhaus.com.G2Dj.Graphics;
-import grimhaus.com.G2Dj.Imp.Graphics.Window;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 
@@ -25,8 +24,6 @@ public class GraphicsScene extends SceneGraph
     private final ArrayList<WeakReference<Camera>> m_Cameras = new ArrayList<>();//make use of these
     private final ArrayList<WeakReference<Mesh>>   m_Meshes  = new ArrayList<>();
     
-    private final Window m_Window = Graphics.getWindow();
-    
     //
     // 
     //
@@ -36,13 +33,6 @@ public class GraphicsScene extends SceneGraph
     @Override
     public void draw() 
     {
-        /*m_Cameras.forEach((currentCamera)->
-        {
-            currentCamera.get().draw();
-            m_Meshes.forEach((currentMesh)->currentMesh.get().draw(currentCamera));
-                    
-        });*/
-
         for(int i=0,s=m_Cameras.size();i<s;i++)
         {
             m_Cameras.get(i).get().draw();
@@ -51,9 +41,7 @@ public class GraphicsScene extends SceneGraph
                 m_Meshes.get(j).get().draw(m_Cameras.get(i));
 
         }
-        
-        m_Window.draw();
-        
+                
     }
     
     //

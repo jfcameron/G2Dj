@@ -1,4 +1,4 @@
-RI: PreprocessorWizard.pl run by Joe at Joe-PC:C:/Users/Joe/Desktop/G2Dj/pearl scripts/PreprocessorWizard Sat Mar 18 00:15:19 2017
+RI: PreprocessorWizard.pl run by Joe at Joe-PC:C:/Users/Joe/Desktop/G2Dj/pearl scripts/PreprocessorWizard Sat Mar 18 00:24:38 2017
 RI: PreprocessorWizard.pl version is $Id: PreprocessorWizard.pl,v 1.4 2015/07/29 23:29:38 rtbailey Exp rtbailey $
 DI: option -ask_all                          = 0
 DI: option -defaults_file                    = pwiz\PreprocessorWizard.pl.Joe.c.defaults
@@ -81,4 +81,4 @@ RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Math\Vector3.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Resources\File.java
 RI:  32 changes: ..\..\src\grimhaus\com\G2Dj\Type\Resources\Image.java         Backup: MyBackupDir\src^grimhaus^com^G2Dj^Type^Resources\Image.java
 RI: No  changes: ..\..\src\grimhaus\com\G2Dj\Type\Resources\Text.java
-RI: ** 11 of 57 files were changed.  Your backups are in MyBackupDir  Run time 1 secs. **
+RI: ** 11 of 57 files were changed.  Your backups are in MyBackupDir  Run time 0 secs. **

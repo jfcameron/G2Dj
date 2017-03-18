@@ -57,6 +57,17 @@ public class Graphics
     // Static Constructor
     //*******************    
     protected static void init(){}
+    
+    protected static void draw()
+    {
+        //.if DESKTOP
+        //|s_Window.draw();
+        //.elseif ANDROID
+        
+        //.endif
+        
+    }
+    
     static
     {
         s_Window = new Window(Input.s_KeyboardInputHandler);
