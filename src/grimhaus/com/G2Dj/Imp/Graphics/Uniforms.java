@@ -3,8 +3,6 @@
  *  Written by Joseph Cameron
  */
 package grimhaus.com.G2Dj.Imp.Graphics;
-
-import grimhaus.com.G2Dj.Graphics;
 import java.nio.FloatBuffer;
 
 /**
@@ -17,8 +15,6 @@ public class Uniforms
     
     public static final void loadTexture(final int aShaderHandle, final String aUniformName, final int aTextureHandle, final int aTextureUnit/*, final GLenum &aTextureType*/)
     {
-        //GL2ES2 gl = Graphics.getGL().getGL2ES2();
-        
         int uniformHandle  = GL.glGetUniformLocation(aShaderHandle, aUniformName);
         int theTextureType = GL.GL_TEXTURE_2D;
         
@@ -47,8 +43,6 @@ public class Uniforms
     
     public static final void load1Foat(final int aShaderHandle, final String aUniformName, final float aValue)
     {
-        //GL2ES2 gl = Graphics.getGL().getGL2ES2();
-        
 	int uniformHandle = GL.glGetUniformLocation(aShaderHandle, aUniformName);
 
 	if (uniformHandle != -1)
@@ -58,8 +52,6 @@ public class Uniforms
     
     public static final void loadMatrix4x4(final int aShaderHandle, final String aUniformName, final FloatBuffer aMatrix4x4)
     {
-        //GL2ES2 gl = Graphics.getGL().getGL2ES2();
-        
         int uniformHandle = GL.glGetUniformLocation(aShaderHandle, aUniformName);
 
 	if (uniformHandle != -1)

@@ -5,8 +5,7 @@
 package grimhaus.com.G2Dj.Resource.Graphics;
 
 import grimhaus.com.G2Dj.Imp.Graphics.ResourceShader;
-import grimhaus.com.G2Dj.Graphics;
-import com.jogamp.opengl.GL;
+import grimhaus.com.G2Dj.Imp.Graphics.GL;
 
 /**
  *
@@ -18,8 +17,7 @@ public class AlphaCutOff extends ResourceShader
     protected void glDrawCalls() 
     {        
         //put gl calls here
-        GL gl = Graphics.getGL();
-        gl.glDisable  (gl.GL_CULL_FACE);
+        GL.glDisable  (GL.GL_CULL_FACE);
     
     }
     

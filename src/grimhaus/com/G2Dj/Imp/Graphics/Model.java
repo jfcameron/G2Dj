@@ -5,10 +5,6 @@
 package grimhaus.com.G2Dj.Imp.Graphics;
 
 import grimhaus.com.G2Dj.Debug;
-import grimhaus.com.G2Dj.Graphics;
-import com.jogamp.opengl.GL;
-import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.GL2ES2;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -36,12 +32,9 @@ public class Model extends GraphicsResource
     //*****************
     public void draw(final int programHandle)
     {   
-        GL gl = Graphics.getGL();
-        
-        //Vertex::EnableAttributes(programHandle, m_VertexBufferHandle);
         enableAttributes(programHandle);
 
-        gl.glDrawArrays( GL2.GL_TRIANGLES, 0, m_VertexCount );
+        GL.glDrawArrays( GL.GL_TRIANGLES, 0, m_VertexCount );
         
     }
     
@@ -50,11 +43,7 @@ public class Model extends GraphicsResource
     //****************
     private void enableAttribute(final String aAttributeName, final int aProgramHandle, final int attributeSize, final int attributeOffset)
     {
-        GL2ES2 gl = Graphics.getGL().getGL2ES2();
-        
-        //Debug.log("attrib: "+aAttributeName+", handle: "+aProgramHandle+", attribsize: ",attributeSize+", offset:"+attributeOffset);
-        
-        int attribute = gl.glGetAttribLocation(aProgramHandle, aAttributeName); //Graphics::shader_programme, "a_Pos" );
+        int attribute = GL.glGetAttribLocation(aProgramHandle, aAttributeName);
         
         if (attribute ==-1)
         {
@@ -62,11 +51,11 @@ public class Model extends GraphicsResource
             return;
         }
             
-        gl.glEnableVertexAttribArray(attribute);
+        GL.glEnableVertexAttribArray(attribute);
     
         //Create vertex attribute pointers..
         //Position attribute pointer
-        gl.glVertexAttribPointer
+        GL.glVertexAttribPointer
         (
             attribute, //Position attribute index
             attributeSize, //Pos size
@@ -81,9 +70,7 @@ public class Model extends GraphicsResource
     
     private void enableAttributes(final int aProgramHandle)
     {
-        GL gl = Graphics.getGL();
-        
-        gl.glBindBuffer( GL2.GL_ARRAY_BUFFER, m_VertexBufferHandle);
+        GL.glBindBuffer( GL.GL_ARRAY_BUFFER, m_VertexBufferHandle);
         
         int attributeOffset = 0;//TODO CALCULATE
         String[] attributeNames = m_VertexFormat.getNames();
@@ -115,8 +102,6 @@ public class Model extends GraphicsResource
         
         Debug.log("***************MODELTEST******************************");
         
-        GL gl = Graphics.getGL();
-        
         //m_Name         = aName;
         m_VertexCount  = aVertexData.length;
         m_VertexFormat = aVertexFormat;
@@ -135,13 +120,13 @@ public class Model extends GraphicsResource
         
         //Request a vertex buffer from the GL
         IntBuffer vbo = IntBuffer.allocate(1);
-        gl.glGenBuffers(1, vbo);
+        GL.glGenBuffers(1, vbo);
         m_VertexBufferHandle = vbo.get(0);
         
         //Pass data to the vertex buffer
-        gl.glBindBuffer (GL2.GL_ARRAY_BUFFER, vbo.get(0));
-        gl.glBufferData (GL2.GL_ARRAY_BUFFER, Float.BYTES * aVertexData.length, FloatBuffer.wrap(aVertexData), GL2.GL_STATIC_DRAW);
-        gl.glBindBuffer (GL2.GL_ARRAY_BUFFER,0);
+        GL.glBindBuffer (GL.GL_ARRAY_BUFFER, vbo.get(0));
+        GL.glBufferData (GL.GL_ARRAY_BUFFER, Float.BYTES * aVertexData.length, FloatBuffer.wrap(aVertexData), GL.GL_STATIC_DRAW);
+        GL.glBindBuffer (GL.GL_ARRAY_BUFFER,0);
         
     }
     

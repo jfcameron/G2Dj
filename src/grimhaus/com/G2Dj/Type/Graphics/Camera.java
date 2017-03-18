@@ -14,8 +14,9 @@ import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.Mat4x4;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
-import com.jogamp.opengl.GL;
 import java.lang.ref.WeakReference;
+import grimhaus.com.G2Dj.Imp.Graphics.GL;
+
 
 /**
  *
@@ -123,25 +124,23 @@ public class Camera extends Component
       
     public void draw() //void draw(void) override;
     {   
-        GL gl = Graphics.getGL();
-        
         //Update viewport
         IntVector2 pixPos = getViewportPixelPosition(), pixSize = getViewportPixelSize();
-        gl.glViewport(pixPos.x,pixPos.y,pixSize.x,pixSize.y);
-        gl.glScissor (pixPos.x,pixPos.y,pixSize.x,pixSize.y);        
+        GL.glViewport(pixPos.x,pixPos.y,pixSize.x,pixSize.y);
+        GL.glScissor (pixPos.x,pixPos.y,pixSize.x,pixSize.y);        
         
         switch(m_ClearMode)
         {
             case Color:
             {
-                gl.glClearColor(m_ClearColor.r,m_ClearColor.g,m_ClearColor.b,m_ClearColor.a);
-                gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+                GL.glClearColor(m_ClearColor.r,m_ClearColor.g,m_ClearColor.b,m_ClearColor.a);
+                GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
             
             } break;
             
             case DepthOnly:
             {
-                gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
+                GL.glClear(GL.GL_DEPTH_BUFFER_BIT);
                 
             } break;
             
@@ -167,9 +166,8 @@ public class Camera extends Component
         m_Size              = 100;
         
         //GL init
-        GL gl = Graphics.getGL();
-        gl.glEnable(GL.GL_DEPTH_TEST);
-        gl.glEnable(GL.GL_SCISSOR_TEST);
+        GL.glEnable(GL.GL_DEPTH_TEST);
+        GL.glEnable(GL.GL_SCISSOR_TEST);
         
     }
     

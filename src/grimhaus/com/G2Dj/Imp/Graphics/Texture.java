@@ -5,11 +5,7 @@
 package grimhaus.com.G2Dj.Imp.Graphics;
 
 import grimhaus.com.G2Dj.Debug;
-import grimhaus.com.G2Dj.Graphics;
-import grimhaus.com.G2Dj.Resources;
 import grimhaus.com.G2Dj.Type.Resources.Image;
-import com.jogamp.opengl.GL;
-import java.awt.image.BufferedImage;
 import java.nio.IntBuffer;
 
 /**
@@ -34,8 +30,6 @@ public class Texture extends GraphicsResource
     public Texture(/*final String aName,*/ final Image aImage/*, final int aRepeatMode, final int aMagfilter*/)
     {
         m_Name = aImage.getName();
-        
-        GL gl = Graphics.getGL();
         
         Debug.log("Texture::Texture(const std::string &aTextureFileName, GFXuint repeatmode, GFXuint magfilter)\n");
         Debug.log("Loading texture: "+m_Name);
@@ -71,20 +65,20 @@ public class Texture extends GraphicsResource
         int textureFormat = GL.GL_RGBA;
             
         //Put the texture data in video memory
-        gl.glGenTextures( 1, texturehandle );
-        gl.glActiveTexture( GL.GL_TEXTURE0 );
-        gl.glBindTexture( GL.GL_TEXTURE_2D, texturehandle.get(0) );
-        gl.glTexImage2D( GL.GL_TEXTURE_2D, 0, textureFormat, width, height, 0, textureFormat, GL.GL_UNSIGNED_BYTE, pngbuffer );
+        GL.glGenTextures( 1, texturehandle );
+        GL.glActiveTexture( GL.GL_TEXTURE0 );
+        GL.glBindTexture( GL.GL_TEXTURE_2D, texturehandle.get(0) );
+        GL.glTexImage2D( GL.GL_TEXTURE_2D, 0, textureFormat, width, height, 0, textureFormat, GL.GL_UNSIGNED_BYTE, pngbuffer );
             
         //Apply parameters
-        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST );
-        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
+        GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST );
+        GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
             
         m_TextureHandle = texturehandle.get(0);
         
         Debug.log("Handle is: "+m_TextureHandle);
         
-        gl.glBindTexture( GL.GL_TEXTURE_2D,0);//clear the binding
+        GL.glBindTexture( GL.GL_TEXTURE_2D,0);//clear the binding
         
     }
     

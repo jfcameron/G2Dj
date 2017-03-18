@@ -3,12 +3,7 @@
  *  Written by Joseph Cameron
  */
 package grimhaus.com.G2Dj.Imp.Graphics;
-
 import grimhaus.com.G2Dj.Debug;
-import grimhaus.com.G2Dj.Graphics;
-import com.jogamp.opengl.GL;
-import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.GL2ES2;
 
 /**
  *
@@ -31,14 +26,14 @@ public abstract class ShaderProgram extends GraphicsResource
     //
     public void draw()
     {
-        Graphics.getGL().getGL2ES2().glUseProgram(m_ProgramHandle);
+        GL.glUseProgram(m_ProgramHandle);
         glDrawCalls();
         
     }
     
     protected final void compileGraphicsProgram(final String aVertexCode, final String aFragmentCode)
     {
-        GL2ES2 gl = Graphics.getGL().getGL2ES2();
+        //GL2ES2 gl = Graphics.getGL().getGL2ES2();
         
         final String vertex_shader   = aVertexCode;
         final String fragment_shader = aFragmentCode;
@@ -49,36 +44,36 @@ public abstract class ShaderProgram extends GraphicsResource
         
 	Debug.log("Compiling vertex stage sourcecode");
         //run the glsl sources through the compiler, keep handle to both compiled shaders
-        int vs = gl.glCreateShader (GL2.GL_VERTEX_SHADER);
-        gl.glShaderSource(vs, 1, new String[]{vertex_shader}, null);//glShaderSource (vs, 1, &vertex_shader, 0);
-        gl.glCompileShader (vs);
+        int vs = GL.glCreateShader (GL.GL_VERTEX_SHADER);
+        GL.glShaderSource(vs, 1, new String[]{vertex_shader}, null);//glShaderSource (vs, 1, &vertex_shader, 0);
+        GL.glCompileShader (vs);
         //GLHelp::Diagnostics::checkGLSLErrors(vs);
     
 	Debug.log("Compiling fragment stage sourcecode");
-        int fs = gl.glCreateShader (GL2.GL_FRAGMENT_SHADER);
-        gl.glShaderSource (fs, 1, new String[]{fragment_shader}, null);
-        gl.glCompileShader (fs);
+        int fs = GL.glCreateShader (GL.GL_FRAGMENT_SHADER);
+        GL.glShaderSource (fs, 1, new String[]{fragment_shader}, null);
+        GL.glCompileShader (fs);
 	//GLHelp::Diagnostics::checkGLSLErrors(fs);
     
 	Debug.log("Linking graphics program");
         //create the program with the compiled vert and frag shaders
-        m_ProgramHandle = gl.glCreateProgram ();
-        gl.glAttachShader (m_ProgramHandle, vs);
-        gl.glAttachShader (m_ProgramHandle, fs);
-        gl.glLinkProgram (m_ProgramHandle);
+        m_ProgramHandle = GL.glCreateProgram ();
+        GL.glAttachShader (m_ProgramHandle, vs);
+        GL.glAttachShader (m_ProgramHandle, fs);
+        GL.glLinkProgram (m_ProgramHandle);
     
         int[] status = new int[]{-1};//GLint status;//
         
-	gl.glGetProgramiv(m_ProgramHandle, GL2.GL_LINK_STATUS, status, 0);
+	GL.glGetProgramiv(m_ProgramHandle, GL.GL_LINK_STATUS, status, 0);
 	if (status[0] == GL.GL_FALSE) 
         {
             int[] len = new int[1];
-            gl.glGetProgramiv(m_ProgramHandle, GL2ES2.GL_INFO_LOG_LENGTH, len, 0); 
+            GL.glGetProgramiv(m_ProgramHandle, GL.GL_INFO_LOG_LENGTH, len, 0); 
             
             Debug.log("The shader "+getName()+" has failed to compile!");
 
             byte[] errormessage = new byte[len[0]]; 
-            gl.glGetProgramInfoLog(m_ProgramHandle, len[0], len, 0, errormessage, 0); 
+            GL.glGetProgramInfoLog(m_ProgramHandle, len[0], len, 0, errormessage, 0);
             Debug.log("Error: " + new String(errormessage, 0, len[0]));
             
         }
@@ -87,13 +82,13 @@ public abstract class ShaderProgram extends GraphicsResource
             Debug.log("Shader program successfully linked");
             
             int[] attributeCount = new int[]{-1};
-            gl.glGetProgramiv(m_ProgramHandle, GL2.GL_ACTIVE_ATTRIBUTES, attributeCount,0);
+            GL.glGetProgramiv(m_ProgramHandle, GL.GL_ACTIVE_ATTRIBUTES, attributeCount,0);
             
             Debug.log("handle number: "+m_ProgramHandle);
             Debug.log("Active attributes: "+attributeCount[0]);
             
             int[] uniformCount = new int[]{-1};
-            gl.glGetProgramiv(m_ProgramHandle, GL2.GL_ACTIVE_UNIFORMS, uniformCount,0);
+            GL.glGetProgramiv(m_ProgramHandle, GL.GL_ACTIVE_UNIFORMS, uniformCount,0);
             
             Debug.log("Active uniforms: "+uniformCount[0]);
             
