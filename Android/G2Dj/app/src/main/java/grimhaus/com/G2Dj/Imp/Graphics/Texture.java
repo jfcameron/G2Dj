@@ -65,9 +65,21 @@ public class Texture extends GraphicsResource
         int[] data = new int[x * y];
         aImage.getData().getPixels(data, 0, x, 0, 0, x, y);
 
+        for(int i = 0, pixel,r,g,b,a; i < data.length; i++)
+        {
+            pixel = data[i];
+            a = (pixel >> 24) & 0xff;
+            r = (pixel >> 16) & 0xff;
+            g = (pixel >> 8) & 0xff;
+            b = (pixel >> 0) & 0xff;
+
+            pixel = (b<<16) | (g<<8) | (r<<0) | (a<<24);
+            data[i] = pixel;
+
+        }
+
         IntBuffer pngbuffer = IntBuffer.wrap(data);
 
-        //IntBuffer pngbuffer = (IntBuffer)data;
         //.endif
 
         Debug.log("This is how long the intbuffer is: "    + pngbuffer.array().length );

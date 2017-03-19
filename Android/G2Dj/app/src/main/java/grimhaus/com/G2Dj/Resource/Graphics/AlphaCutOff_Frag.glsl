@@ -30,7 +30,7 @@ void main()
      vec4 rvalue = vec4(0);
     {
         rvalue = calculateTexelColor(rvalue);
-        //rvalue = alphaCutOff(rvalue);
+        rvalue = alphaCutOff(rvalue);
 
         //rvalue = vec4(v_UV.x,v_UV.y,0.0,1.0);
 
