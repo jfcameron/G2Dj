@@ -3,6 +3,7 @@
  *  Written by Joseph Cameron
  */
 package grimhaus.com.G2Dj.Imp.Graphics;
+
 import grimhaus.com.G2Dj.Debug;
 
 /**
@@ -38,24 +39,28 @@ public abstract class ShaderProgram extends GraphicsResource
         final String vertex_shader   = aVertexCode;
         final String fragment_shader = aFragmentCode;
         
-	Debug.log("Compiling "+getName()+" GLSL code");
-        
-        //Debug.log(vertex_shader);
-        
-	Debug.log("Compiling vertex stage sourcecode");
+	    Debug.log("Compiling "+getName()+" GLSL code");
+
+	    Debug.log("Compiling vertex stage sourcecode");
         //run the glsl sources through the compiler, keep handle to both compiled shaders
         int vs = GL.glCreateShader (GL.GL_VERTEX_SHADER);
+        //.if DESKTOP
         GL.glShaderSource(vs, 1, new String[]{vertex_shader}, null);//glShaderSource (vs, 1, &vertex_shader, 0);
+        //.elseif ANDROID
+        //|GL.glShaderSource(vs,vertex_shader);
+        //.endif
         GL.glCompileShader (vs);
-        //GLHelp::Diagnostics::checkGLSLErrors(vs);
-    
-	Debug.log("Compiling fragment stage sourcecode");
+
+	    Debug.log("Compiling fragment stage sourcecode");
         int fs = GL.glCreateShader (GL.GL_FRAGMENT_SHADER);
+        //.if DESKTOP
         GL.glShaderSource (fs, 1, new String[]{fragment_shader}, null);
+        //.elseif ANDROID
+        //|GL.glShaderSource(fs,fragment_shader);
+        //.endif
         GL.glCompileShader (fs);
-	//GLHelp::Diagnostics::checkGLSLErrors(fs);
-    
-	Debug.log("Linking graphics program");
+
+	    Debug.log("Linking graphics program");
         //create the program with the compiled vert and frag shaders
         m_ProgramHandle = GL.glCreateProgram ();
         GL.glAttachShader (m_ProgramHandle, vs);
@@ -64,8 +69,8 @@ public abstract class ShaderProgram extends GraphicsResource
     
         int[] status = new int[]{-1};//GLint status;//
         
-	GL.glGetProgramiv(m_ProgramHandle, GL.GL_LINK_STATUS, status, 0);
-	if (status[0] == GL.GL_FALSE) 
+	    GL.glGetProgramiv(m_ProgramHandle, GL.GL_LINK_STATUS, status, 0);
+	    if (status[0] == GL.GL_FALSE)
         {
             Debug.log("The shader "+getName()+" has failed to compile!");
 
@@ -80,6 +85,7 @@ public abstract class ShaderProgram extends GraphicsResource
             errormessageString = new String(errormessage, 0, len[0]);
             //.elseif ANDROID
             //|errormessageString = GL.glGetProgramInfoLog(m_ProgramHandle);
+
             //.endif
             Debug.log("Error: " +errormessageString);
             
@@ -100,9 +106,7 @@ public abstract class ShaderProgram extends GraphicsResource
             Debug.log("Active uniforms: "+uniformCount[0]);
             
         }
-        
-	//GLHelp::Diagnostics::checkGLErrors();
-        
+
     }
     
     /*protected void processShaderSourceFile(final String aFileName, String ioDrawCode, String ioVertexCode, String ioFragmentCode)

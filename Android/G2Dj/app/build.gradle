@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            assets.srcDirs = ['grimhaus.com.G2Dj.Resources.Graphics', 'src/main/assets', 'src/main/java/grimhaus/com/G2Dj/Resource/']
+        }
+    }
 }
 
 dependencies {

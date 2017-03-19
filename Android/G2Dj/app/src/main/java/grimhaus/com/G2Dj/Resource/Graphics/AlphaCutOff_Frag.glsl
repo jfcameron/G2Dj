@@ -1,3 +1,4 @@
+precision mediump float;
 //*************************
 // FragmentIn vertex format
 //*************************

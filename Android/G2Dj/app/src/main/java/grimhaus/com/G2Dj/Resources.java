@@ -7,7 +7,11 @@ package grimhaus.com.G2Dj;
 //Shared imports
 import grimhaus.com.G2Dj.Type.Resources.Image;
 import grimhaus.com.G2Dj.Type.Resources.Text;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +25,7 @@ import java.util.logging.Logger;
 
 //.if ANDROID
 import android.graphics.Bitmap;
+import grimhaus.com.G2Dj.Android.MainActivity;
 //.endif
 
 /**
@@ -40,7 +45,26 @@ public class Resources
         //.endif
 
         //.if ANDROID
-        Debug.log("Resources.loadTextFile ANDROID UNIMPLEMENTED");
+        //getResources
+        Debug.log("Resources.loadTextFile*********************************");
+        Debug.log(aFileName);
+
+        InputStream dataStream = MainActivity.loadAsset("Graphics/"+name);
+
+        BufferedReader r = new BufferedReader(new InputStreamReader(dataStream));
+        StringBuilder total = new StringBuilder();
+        String line;
+        try
+        {
+            while ((line = r.readLine()) != null)
+                total.append(line).append('\n');
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        data = total.toString();
+
+        //Debug.log(name,data);
+
         //.endif
 
         return new Text

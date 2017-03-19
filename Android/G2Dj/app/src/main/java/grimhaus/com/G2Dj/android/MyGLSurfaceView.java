@@ -1,8 +1,10 @@
 package grimhaus.com.G2Dj.Android;
 
 //.if ANDROID
+import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.util.DisplayMetrics;
 
 import grimhaus.com.G2Dj.Engine;
 
@@ -17,6 +19,8 @@ class MyGLSurfaceView extends GLSurfaceView
     public MyGLSurfaceView(Context context)
     {
         super(context);
+
+
 
         // Create an OpenGL ES 2.0 context
         setEGLContextClientVersion(2);

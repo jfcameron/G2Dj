@@ -157,7 +157,7 @@ public class Main
                 aCamera.setViewportPixelPosition(new Vector2(0.501f,0.0f));
             
             }            
-            
+        
         }
         
         Engine.mainLoop();

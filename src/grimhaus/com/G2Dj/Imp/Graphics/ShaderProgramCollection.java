@@ -1,4 +1,4 @@
-/* 
+/*
  * G2Dj Game engine
  *  Written by Joseph Cameron
  */
@@ -52,10 +52,9 @@ public class ShaderProgramCollection extends GraphicsResourceCollection<ShaderPr
     //*************
     public ShaderProgramCollection()
     {
-        //.if DESKTOP
         addClass(PinkShaderOfDeath.class);
         addClass(AlphaCutOff.class);
-        //.endif
+
     }
     
 }

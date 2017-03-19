@@ -160,17 +160,22 @@ public class GL
         //.endif
         
     }
-    
+
+    //.if DESKTOP
     public static void glShaderSource(final int aShaderHandle, final int aCount, final String[] aStrings, final IntBuffer aLengths)
     {
-        //.if DESKTOP
         gl.glShaderSource(aShaderHandle, aCount, aStrings, aLengths);
-        //.elseif ANDROID
-        //|throw new java.lang.UnsupportedOperationException("Not supported yet.");
-        //.endif
-        
-    }
     
+    }
+    //.elseif ANDROID
+    //|public static void glShaderSource(final int aShaderHandle,final String aShaderSource)
+    //|{
+    //|    GLES20.glShaderSource(aShaderHandle,aShaderSource);
+
+    //|}
+    //.endif
+
+
     public static void glCompileShader(final int aShaderHandle)
     {
         //.if DESKTOP

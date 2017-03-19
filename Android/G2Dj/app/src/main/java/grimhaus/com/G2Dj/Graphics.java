@@ -11,11 +11,17 @@ import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgramCollection;
 import grimhaus.com.G2Dj.Imp.Graphics.Texture;
 import grimhaus.com.G2Dj.Imp.Graphics.TextureCollection;
 import grimhaus.com.G2Dj.Type.Math.IntVector2;
-//.if DESKTOP
-//|import grimhaus.com.G2Dj.Imp.Graphics.Window;
-//.endif
 
 import java.lang.ref.WeakReference;
+
+//.if DESKTOP
+//|import grimhaus.com.G2Dj.Imp.Graphics.Window;
+//.elseif ANDROID
+import android.app.Activity;
+import grimhaus.com.G2Dj.Android.MainActivity;
+//.endif
+
+
 
 /**
  *
@@ -27,18 +33,18 @@ public class Graphics
     // Data members
     //*************
     //.if DESKTOP
-    //|private static final Window s_Window;
+    //|private static Window s_Window;
     //.endif
     
-    private static final ShaderProgramCollection s_ShaderPrograms;
-    private static final ModelCollection         s_Models;
-    private static final TextureCollection       s_Textures;
+    private static  ShaderProgramCollection s_ShaderPrograms;
+    private static  ModelCollection         s_Models;
+    private static  TextureCollection       s_Textures;
     
     //********
     // Getters
     //********
     //.if DESKTOP
-    //|//public static Window getWindow(){return s_Window;}
+    //|public static Window getWindow(){return s_Window;}
     //.endif
     
     //*****************
@@ -62,7 +68,7 @@ public class Graphics
         //.if DESKTOP
         //|rValue = new IntVector2(s_Window.getWidth(),s_Window.getHeight());
         //.elseif ANDROID
-        rValue = new IntVector2(100,100);
+        rValue = MainActivity.getScreenSize();
         //.endif
         return rValue;
         
@@ -71,7 +77,12 @@ public class Graphics
     //*******************
     // Static Constructor
     //*******************    
-    protected static void init(){}
+    protected static void init()
+    {
+        
+
+
+    }
     
     protected static void draw()
     {
@@ -88,7 +99,6 @@ public class Graphics
         //.if DESKTOP
         //|s_Window = new Window(Input.s_KeyboardInputHandler);
         //.endif
-
         s_ShaderPrograms  = new ShaderProgramCollection();
         s_Models          = new ModelCollection();
         s_Textures        = new TextureCollection();
