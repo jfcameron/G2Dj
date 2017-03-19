@@ -21,7 +21,7 @@ package grimhaus.com.G2Dj.Android;
 //|* */
 //|public class MainActivity extends Activity
 //|{
-//|    private final int FPS = 40;
+//|    private final int FPS = 60;
 //|
 //|    private static MainActivity s_MainActivity;
 //|
@@ -41,7 +41,6 @@ package grimhaus.com.G2Dj.Android;
 //|        mGLView = new MyGLSurfaceView(this);
 //|        setContentView(mGLView);
 //|
-//|
 //|        Timer timer = new Timer();
 //|        timer.scheduleAtFixedRate(new TimerTask()
 //|        {
@@ -56,10 +55,6 @@ package grimhaus.com.G2Dj.Android;
 //|            }
 //|
 //|        }, 0, 1000 / FPS);
-//|
-//|        //throw new java.lang.UnsupportedOperationException("Not supported yet.");
-//|
-//|
 //|
 //|    }
 //|
@@ -83,10 +78,7 @@ package grimhaus.com.G2Dj.Android;
 //|    {
 //|        InputStream data = null;
 //|
-//|        try
-//|        {
-//|            data = s_MainActivity.getAssets().open(aAssetPath);//"book/contents.json"
-//|        }
+//|        try{data = s_MainActivity.getAssets().open(aAssetPath);}
 //|        catch (IOException e) {Debug.log("Not found!: "+aAssetPath);e.printStackTrace();}
 //|
 //|        return data;

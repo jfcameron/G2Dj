@@ -4,7 +4,6 @@
  */
 package grimhaus.com.G2Dj.Imp.Graphics;
 
-import grimhaus.com.G2Dj.Constants;
 import grimhaus.com.G2Dj.Debug;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -63,8 +62,8 @@ public class Model extends GraphicsResource
             attributeSize, //Pos size
             GL.GL_FLOAT, //data type of each member of the format (must be uniform, look at glbindbufferdata, it takes an array or ptr to an array, so no suprise)
             false/*gl.GL_FALSE*/, 
-            Constants.SizeOfFloat*m_VertexFormat.getSumOfAttributeComponents(), 
-            Constants.SizeOfFloat*attributeOffset
+            Constants.FloatSize*m_VertexFormat.getSumOfAttributeComponents(),
+            Constants.FloatSize*attributeOffset
             
         );
         
@@ -127,7 +126,7 @@ public class Model extends GraphicsResource
         
         //Pass data to the vertex buffer
         GL.glBindBuffer (GL.GL_ARRAY_BUFFER, vbo.get(0));
-        GL.glBufferData (GL.GL_ARRAY_BUFFER, Constants.SizeOfFloat * aVertexData.length, FloatBuffer.wrap(aVertexData), GL.GL_STATIC_DRAW);
+        GL.glBufferData (GL.GL_ARRAY_BUFFER, Constants.FloatSize * aVertexData.length, FloatBuffer.wrap(aVertexData), GL.GL_STATIC_DRAW);
         GL.glBindBuffer (GL.GL_ARRAY_BUFFER,0);
         
     }

@@ -1,7 +1,8 @@
-Android implementation
- - Rewrite math implementation in G2Dj.Math. GLM has too many issues to run on Android.
+Android touch detection to Input
 
- add meaningful ToString overrides for all types.
+Make the android engine present an identical public interface as the desktop one.
+
+add meaningful ToString overrides for all types.
  
 2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
@@ -49,4 +50,3 @@ implement more uniform collection
  - float2 uniforms
 
 clean up all public interfaces
-Clean up G2Dj.Android package. Make the android engine present an identical public interface as the desktop one (currently it is quite the hack)

@@ -91,7 +91,7 @@ public class Graphics
         //.elseif ANDROID
         //|grimhaus.com.G2Dj.Android.MainActivity.mGLView.requestRender();
         //.endif
-        
+
     }
     
     static
