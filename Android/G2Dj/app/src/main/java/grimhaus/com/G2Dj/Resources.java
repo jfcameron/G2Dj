@@ -25,6 +25,8 @@ import java.util.logging.Logger;
 
 //.if ANDROID
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import grimhaus.com.G2Dj.Android.MainActivity;
 //.endif
 
@@ -89,7 +91,15 @@ public class Resources
 
         //.if ANDROID
         android.graphics.Bitmap data = null;
-        Debug.log("Resources.loadTextFile ANDROID UNIMPLEMENTED");
+        Debug.log("Resources.loadImage*********************************");
+        Debug.log(aFileName);
+
+        InputStream dataStream = MainActivity.loadAsset("Graphics/"+name);
+
+        data = BitmapFactory.decodeStream(dataStream);
+
+        Debug.log(data.getByteCount());
+
         //.endif
 
         return new Image

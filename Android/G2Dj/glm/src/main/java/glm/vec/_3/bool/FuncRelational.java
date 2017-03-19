@@ -13,7 +13,7 @@ import glm.Glm;
  */
 abstract class FuncRelational {
 
-    public static final int SIZE = 3 * Byte.BYTES;
+    public static final int SIZE = 3 * glm.Constants.ByteBYTES;
 
     public boolean x, y, z;
 

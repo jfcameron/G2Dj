@@ -6,6 +6,8 @@ package glm;
 
 public class Constants
 {
-    public static final int FloatBYTES = 4;
+    public static final int FloatBYTES  = 4;
+    public static final int DoubleBYTES = 8;
+    public static final int ByteBYTES   = 1;
 
 }

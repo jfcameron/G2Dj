@@ -29,9 +29,9 @@ public class Vertex_v2fc4ub {
         bb
                 .putFloat(index * SIZE + 0 * glm.Constants.FloatBYTES, position.x)
                 .putFloat(index * SIZE + 1 * glm.Constants.FloatBYTES, position.y)
-                .put(index * SIZE + 2 * glm.Constants.FloatBYTES + 0 * Byte.BYTES, color.x)
-                .put(index * SIZE + 2 * glm.Constants.FloatBYTES + 1 * Byte.BYTES, color.y)
-                .put(index * SIZE + 2 * glm.Constants.FloatBYTES + 2 * Byte.BYTES, color.z)
-                .put(index * SIZE + 2 * glm.Constants.FloatBYTES + 3 * Byte.BYTES, color.w);
+                .put(index * SIZE + 2 * glm.Constants.FloatBYTES + 0 * glm.Constants.ByteBYTES, color.x)
+                .put(index * SIZE + 2 * glm.Constants.FloatBYTES + 1 * glm.Constants.ByteBYTES, color.y)
+                .put(index * SIZE + 2 * glm.Constants.FloatBYTES + 2 * glm.Constants.ByteBYTES, color.z)
+                .put(index * SIZE + 2 * glm.Constants.FloatBYTES + 3 * glm.Constants.ByteBYTES, color.w);
     }
 }

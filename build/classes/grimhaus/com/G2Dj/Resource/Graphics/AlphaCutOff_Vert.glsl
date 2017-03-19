@@ -30,7 +30,8 @@ void main()
      vec4 position = vec4(a_Position,1.0);
     {       
         position = _MVP * position;
-        
+        //position = vec4(a_Position,1.0);
+
     }
     
     gl_Position = position;

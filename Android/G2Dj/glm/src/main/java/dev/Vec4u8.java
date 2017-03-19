@@ -6,6 +6,7 @@
 package dev;
 
 import glm.vec._4.Vec4;
+import glm.Constants;
 
 /**
  *
@@ -13,7 +14,7 @@ import glm.vec._4.Vec4;
  */
 public class Vec4u8 {
 
-    public static final int SIZE = 4 * Byte.BYTES;
+    public static final int SIZE = 4 * Constants.FloatBYTES;
 
     public byte x, y, z, w;
 

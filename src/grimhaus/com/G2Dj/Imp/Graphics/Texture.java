@@ -31,9 +31,6 @@ public class Texture extends GraphicsResource
     {
         m_Name = aImage.getName();
 
-        //.if ANDROID
-        //|throw new java.lang.UnsupportedOperationException("Not supported yet.");
-        //.elseif DESKTOP
         Debug.log("Texture::Texture(const std::string &aTextureFileName, GFXuint repeatmode, GFXuint magfilter)\n");
         Debug.log("Loading texture: "+m_Name);
         
@@ -41,13 +38,14 @@ public class Texture extends GraphicsResource
         int width = aImage.getData().getWidth(),height = aImage.getData().getHeight();
             
         Debug.log("Dimensons: {"+width+", "+width+"}");
+
+        //.if DESKTOP
+        int[] data;
+        data = aImage.getData().getRGB(0, 0, width, height, (int[])null, 0, width);
         
-        int[] data = aImage.getData().getRGB(0, 0, width, height, (int[])null, 0, width);
-        
-            
         //Change from BGRA to RGBA
         for(int i = 0, pixel,r,g,b,a; i < data.length; i++)
-        {             
+        {
             pixel = data[i];
             a = (pixel >> 24) & 0xff;
             r = (pixel >> 16) & 0xff;
@@ -55,11 +53,15 @@ public class Texture extends GraphicsResource
                b = (pixel >> 0) & 0xff;
             pixel = (b<<16) | (g<<8) | (r<<0) | (a<<24);
             data[i] = pixel;
-                             
+        
         }
-            
         IntBuffer pngbuffer = IntBuffer.wrap(data);
-            
+        //.elseif ANDROID
+        //|IntBuffer data = IntBuffer.allocate(aImage.getData().getHeight()*aImage.getData().getRowBytes());
+        //|aImage.getData().copyPixelsToBuffer(data);
+        //|IntBuffer pngbuffer = (IntBuffer)data;
+        //.endif
+
         Debug.log("This is how long the intbuffer is: "    + pngbuffer.array().length );
         Debug.log("This is the size of a {RGBA} in bits: " + Integer.SIZE             );
             
@@ -83,9 +85,7 @@ public class Texture extends GraphicsResource
         Debug.log("Handle is: "+m_TextureHandle);
         
         GL.glBindTexture( GL.GL_TEXTURE_2D,0);//clear the binding
-        
-        //.endif
-        
+
     }
     
 }

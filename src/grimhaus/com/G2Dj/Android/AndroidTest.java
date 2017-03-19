@@ -29,16 +29,34 @@ package grimhaus.com.G2Dj.Android;
 //|        {
 //|            WeakReference<GameObject> gameObject = mainScene.get().addGameObject();
 //|            gameObject.get().setName("Player");
-//|            //gameObject.get().addComponent(Mesh.class);
+//|            gameObject.get().getTransform().get().setPosition(0,0,2);
+//|
+//|            Mesh aMesh = (Mesh)gameObject.get().addComponent(Mesh.class); //add a mesh
+//|            //aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
+//|
+//|            Debug.log("******************************\n"+aMesh);
 //|
 //|        }
+//|
+//|        /*//Create the BackWall
+//|        {
+//|            WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
+//|            aGameObject.get().setName("BackWall");
+//|            aGameObject.get().getTransform().get().setPosition(0,-1f,0);
+//|            aGameObject.get().getTransform().get().setScale   (10,4,0);
+//|
+//|            Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
+//|            aMesh.setTexture("_Texture", "default.png"); //give the mesh a texture
+//|            //aMesh.setShader("123123123123");
+//|
+//|        }*/
 //|
 //|        //camera1
 //|        {
 //|            WeakReference<GameObject> gameObject = mainScene.get().addGameObject();
 //|            gameObject.get().setName("Player Camera");
 //|            Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
-//|            camera.setViewportPixelSize(new Vector2(0.5f,1.0f));
+//|            camera.setViewportPixelSize(new Vector2(0.5f,0.5f));
 //|            camera.setClearColor(Color.DeathlyPink());
 //|
 //|        }
@@ -48,9 +66,31 @@ package grimhaus.com.G2Dj.Android;
 //|            WeakReference<GameObject> gameObject = mainScene.get().addGameObject();
 //|            gameObject.get().setName("Player Camera");
 //|            Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
-//|            camera.setViewportPixelSize(new Vector2(0.5f,1.0f));
-//|            camera.setViewportPixelPosition(new Vector2(0.5f,0.0f));
+//|            camera.setViewportPixelSize(new Vector2(0.5f,0.5f));
+//|            camera.setViewportPixelPosition(new Vector2(0.0f,0.5f));
 //|            camera.setClearColor(Color.CornflowerBlue());
+//|
+//|        }
+//|
+//|        //camera3
+//|        {
+//|            WeakReference<GameObject> gameObject = mainScene.get().addGameObject();
+//|            gameObject.get().setName("Player Camera");
+//|            Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
+//|            camera.setViewportPixelSize(new Vector2(0.5f,0.5f));
+//|            camera.setViewportPixelPosition(new Vector2(0.5f,0.0f));
+//|            camera.setClearColor(Color.Red());
+//|
+//|        }
+//|
+//|        //camera4
+//|        {
+//|            WeakReference<GameObject> gameObject = mainScene.get().addGameObject();
+//|            gameObject.get().setName("Player Camera");
+//|            Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
+//|            camera.setViewportPixelSize(new Vector2(0.5f,0.5f));
+//|            camera.setViewportPixelPosition(new Vector2(0.5f,0.5f));
+//|            camera.setClearColor(Color.Green());
 //|
 //|        }
 //|

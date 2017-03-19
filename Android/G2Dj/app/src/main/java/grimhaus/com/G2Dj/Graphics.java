@@ -102,6 +102,7 @@ public class Graphics
         s_ShaderPrograms  = new ShaderProgramCollection();
         s_Models          = new ModelCollection();
         s_Textures        = new TextureCollection();
+
         
     }
     

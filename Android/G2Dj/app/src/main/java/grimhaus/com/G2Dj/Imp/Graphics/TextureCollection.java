@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Imp.Graphics;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Files;
 import grimhaus.com.G2Dj.Resources;
 import java.lang.ref.WeakReference;
@@ -41,12 +42,10 @@ public class TextureCollection extends GraphicsResourceCollection<Texture>
     //*************
     public TextureCollection()
     {
-        //.if DESKTOP
-        //|loadFromResource("/grimhaus/com/G2Dj/Resource/Graphics/default.png");
-        //|loadFromResource("/grimhaus/com/G2Dj/Resource/Graphics/awesome.png");
-        //.elseif ANDROID
-        //loadFromResource("/grimhaus/com/G2Dj/Resource/Graphics/awesome.png");
-        //.endif
+        loadFromResource("/grimhaus/com/G2Dj/Resource/Graphics/default.png");
+        loadFromResource("/grimhaus/com/G2Dj/Resource/Graphics/awesome.png");
+
+        Debug.log("TextureCollection default: "+get().get().getName(),get().get().getHandle());
 
     }
     

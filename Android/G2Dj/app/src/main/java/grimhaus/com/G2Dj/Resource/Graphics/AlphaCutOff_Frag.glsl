@@ -30,8 +30,10 @@ void main()
      vec4 rvalue = vec4(0);
     {
         rvalue = calculateTexelColor(rvalue);
-        rvalue = alphaCutOff(rvalue);
-        
+        //rvalue = alphaCutOff(rvalue);
+
+        //rvalue = vec4(v_UV.x,v_UV.y,0.0,1.0);
+
     }
 
     gl_FragColor = rvalue;
@@ -45,6 +47,7 @@ vec4 calculateTexelColor(const vec4 aFrag)
     vec4 rvalue = aFrag;
     {
         rvalue = texture2D(_Texture, v_UV);
+        //rvalue = vec4(1.0,0.0,0.0,1.0);
         
     }
     
@@ -57,7 +60,7 @@ vec4 alphaCutOff(const vec4 aFrag)
     vec4 rvalue = aFrag;
     {
         if (rvalue[3] < c_AlphaCutOff)
-            discard;  
+            discard;
                     
     }
     

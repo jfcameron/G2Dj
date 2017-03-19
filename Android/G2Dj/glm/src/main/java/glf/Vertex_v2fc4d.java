@@ -5,6 +5,7 @@
  */
 package glf;
 
+import glm.Constants;
 import glm.vec._2.Vec2;
 import glm.vec._4.d.Vec4d;
 import java.nio.ByteBuffer;
@@ -29,9 +30,9 @@ public class Vertex_v2fc4d {
         return bb
                 .putFloat(index * SIZE + 0 * glm.Constants.FloatBYTES, position.x)
                 .putFloat(index * SIZE + 1 * glm.Constants.FloatBYTES, position.y)
-                .putDouble(index * SIZE + 2 * glm.Constants.FloatBYTES + 0 * Double.BYTES, color.x)
-                .putDouble(index * SIZE + 2 * glm.Constants.FloatBYTES + 1 * Double.BYTES, color.y)
-                .putDouble(index * SIZE + 2 * glm.Constants.FloatBYTES + 2 * Double.BYTES, color.z)
-                .putDouble(index * SIZE + 2 * glm.Constants.FloatBYTES + 3 * Double.BYTES, color.w);
+                .putDouble(index * SIZE + 2 * glm.Constants.FloatBYTES + 0 * Constants.DoubleBYTES, color.x)
+                .putDouble(index * SIZE + 2 * glm.Constants.FloatBYTES + 1 * Constants.DoubleBYTES, color.y)
+                .putDouble(index * SIZE + 2 * glm.Constants.FloatBYTES + 2 * Constants.DoubleBYTES, color.z)
+                .putDouble(index * SIZE + 2 * glm.Constants.FloatBYTES + 3 * Constants.DoubleBYTES, color.w);
     }
 }

@@ -13,7 +13,7 @@ import glm.Glm;
  */
 abstract class ArithmeticOperators {
 
-    public static final int SIZE = 3 * Byte.BYTES;
+    public static final int SIZE = 3 * glm.Constants.ByteBYTES;
 
     public byte x, y, z;
 

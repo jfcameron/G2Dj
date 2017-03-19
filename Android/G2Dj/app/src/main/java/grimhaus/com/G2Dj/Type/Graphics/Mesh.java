@@ -109,5 +109,7 @@ public class Mesh extends Component
         setTexture("_Texture","default.png");
         
     }
+
+    //@Override public String toString(){return ;}
    
 }

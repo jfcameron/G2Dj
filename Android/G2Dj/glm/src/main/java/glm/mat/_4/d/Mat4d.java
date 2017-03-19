@@ -22,7 +22,7 @@ public class Mat4d {
     public double m02, m12, m22, m32;
     public double m03, m13, m23, m33;
 
-    public static final int SIZE = 4 * 4 * Double.BYTES;
+    public static final int SIZE = 4 * 4 * glm.Constants.DoubleBYTES;
 
     public Mat4d() {
         m00 = 1.0;
@@ -748,7 +748,7 @@ public class Mat4d {
     }
 
     public ByteBuffer toDbb_() {
-        return toDbb(ByteBuffer.allocate(16 * Double.BYTES));
+        return toDbb(ByteBuffer.allocate(16 * glm.Constants.DoubleBYTES));
     }
 
     public ByteBuffer toDbb(ByteBuffer res) {

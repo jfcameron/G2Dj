@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Imp.Graphics;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Resource.Graphics.Quad;
 import java.lang.ref.WeakReference;
 
@@ -48,6 +49,8 @@ public class ModelCollection extends GraphicsResourceCollection<Model>
     public ModelCollection()
     {
         addClass(Quad.class);
+
+        Debug.log("ModelCollection default: "+get().get().getName(),get().get().getHandle());
 
     }
     

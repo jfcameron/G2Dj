@@ -14,7 +14,7 @@ import glm.Glm;
  */
 abstract class BasicOperators {
 
-    public static final int SIZE = 2 * Byte.BYTES;
+    public static final int SIZE = 2 * glm.Constants.ByteBYTES;
 
     public byte x, y;
 

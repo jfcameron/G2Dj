@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package glm.mat._3;
+//package glm;
 
 /**
  *

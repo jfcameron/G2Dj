@@ -14,7 +14,7 @@ import joou.UByte;
  */
 abstract class ArithmeticOperators {
 
-    public static final int SIZE = 2 * Byte.BYTES;
+    public static final int SIZE = 2 * glm.Constants.ByteBYTES;
 
     public UByte x = new UByte(), y = new UByte();
 

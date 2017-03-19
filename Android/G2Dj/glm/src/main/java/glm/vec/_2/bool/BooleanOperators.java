@@ -11,7 +11,7 @@ package glm.vec._2.bool;
  */
 abstract class BooleanOperators {
 
-    public static final int SIZE = 2 * Byte.BYTES;
+    public static final int SIZE = 2 * glm.Constants.ByteBYTES;
 
     public boolean x, y;
 

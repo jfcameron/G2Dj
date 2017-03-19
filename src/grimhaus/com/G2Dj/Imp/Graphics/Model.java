@@ -27,6 +27,7 @@ public class Model extends GraphicsResource
     //**********
     //public int          getVertexCount (){return m_VertexCount; }
     //public VertexFormat getVertexFormat(){return m_VertexFormat;}
+    public int getHandle(){return m_VertexBufferHandle;}
     
     //*****************
     // Public interface
