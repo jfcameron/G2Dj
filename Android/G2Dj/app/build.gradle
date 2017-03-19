@@ -19,7 +19,7 @@ android {
     }
     sourceSets {
         main {
-            assets.srcDirs = ['grimhaus.com.G2Dj.Resources.Graphics', 'src/main/assets', 'src/main/java/grimhaus/com/G2Dj/Resource/']
+            assets.srcDirs = ['src/main/java/','src/main/assets']
         }
     }
 }
@@ -32,5 +32,4 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile project(path: ':glm')
 }

@@ -1,6 +1,8 @@
 Android implementation
  - Rewrite math implementation in G2Dj.Math. GLM has too many issues to run on Android.
 
+ add meaningful ToString overrides for all types.
+ 
 2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
     
@@ -37,7 +39,6 @@ Input
 Tile renderer
 famicom style synth
 
-add meaningful ToString overrides for all types.
 
 AuthList in G2Dj.Memory
     - takes a class name, distributes weakreferences to its content

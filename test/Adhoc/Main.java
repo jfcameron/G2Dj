@@ -41,7 +41,7 @@ public class Main
                 
                 PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
                 aPC.getTransform().get().setRotation(0,0,45);
-                aPC.getTransform().get().setPosition(0,0,0.5f);
+                aPC.getTransform().get().setPosition(0,0,1f);
             
             }
             

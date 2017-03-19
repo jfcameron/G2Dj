@@ -34,24 +34,25 @@ import grimhaus.com.G2Dj.Android.MainActivity;
  *
  * @author Joe
  */
-public class Resources
+public final class Resources
 {
-    public static Text loadTextFile(final String aFileName)
+    public static final Text loadTextFile(final String aFileName)
     {
         String name = aFileName.substring(aFileName.lastIndexOf('/') + 1);
+        String path = sanitizeFilePath(aFileName);
         String data = null;
 
         //.if DESKTOP
-        //|try {data = new String(Files.readAllBytes(Paths.get(Resources.class.getResource(aFileName.startsWith("/")? aFileName : "/"+aFileName).toURI())));}
+        //|try {data = new String(Files.readAllBytes(Paths.get(Resources.class.getResource(path).toURI())));}
         //|catch (URISyntaxException | IOException ex) {Logger.getLogger(Resources.class.getName()).log(Level.SEVERE, null, ex);}
         //.endif
 
         //.if ANDROID
         //getResources
         Debug.log("Resources.loadTextFile*********************************");
-        Debug.log(aFileName);
+        Debug.log(path);
 
-        InputStream dataStream = MainActivity.loadAsset("Graphics/"+name);
+        InputStream dataStream = MainActivity.loadAsset(path);
 
         BufferedReader r = new BufferedReader(new InputStreamReader(dataStream));
         StringBuilder total = new StringBuilder();
@@ -78,23 +79,22 @@ public class Resources
         
     }
     
-    public static Image loadImage(final String aFileName)
+    public static final Image loadImage(final String aFileName)
     {
         Debug.log(aFileName);
         String name = aFileName.substring(aFileName.lastIndexOf('/') + 1);
-
+        String path = sanitizeFilePath(aFileName);
+        
         //.if DESKTOP
         //|BufferedImage data = null;
-        //|try{data=ImageIO.read(Resources.class.getResource(aFileName));}
+        //|try{data=ImageIO.read(Resources.class.getResource(path));}
         //|catch (IOException ex) {Logger.getLogger(Resources.class.getName()).log(Level.SEVERE, null, ex);}
-        //.endif
-
-        //.if ANDROID
+        //.elseif ANDROID
         android.graphics.Bitmap data = null;
         Debug.log("Resources.loadImage*********************************");
-        Debug.log(aFileName);
+        Debug.log(path);
 
-        InputStream dataStream = MainActivity.loadAsset("Graphics/"+name);
+        InputStream dataStream = MainActivity.loadAsset(path);
 
         data = BitmapFactory.decodeStream(dataStream);
 
@@ -102,12 +102,17 @@ public class Resources
 
         //.endif
 
-        return new Image
-        (
-            name,
-            data
-                
-        );
+        return new Image(name,data);
+        
+    }
+    
+    private static String sanitizeFilePath(final String aFileName)
+    {
+        //.if DESKTOP
+        //|return aFileName.startsWith("/") ? aFileName : "/"+aFileName;
+        //.elseif ANDROID
+        return aFileName.startsWith("/") ? "/"+aFileName : aFileName;
+        //.endif
         
     }
     

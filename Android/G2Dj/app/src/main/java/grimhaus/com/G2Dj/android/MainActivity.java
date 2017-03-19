@@ -87,7 +87,7 @@ public class MainActivity extends Activity
         {
             data = s_MainActivity.getAssets().open(aAssetPath);//"book/contents.json"
         }
-        catch (IOException e) {e.printStackTrace();}
+        catch (IOException e) {Debug.log("Not found!: "+aAssetPath);e.printStackTrace();}
 
         return data;
 
