@@ -1,10 +1,5 @@
 Android implementation
- - TextureCollection constructor
- - ShaderProgramCollection constructor
- - ModelCollection constructor
- - Resource.load Image and TextFile
- - Graphics.getScreenSize() implementation (currently emits fixed {100,100})
- - MOST IMPORTANT! Clean up G2Dj.Android package. Make the android engine present an identical public interface as the desktop one (currently it is quite the hack)
+ - Rewrite math implementation in G2Dj.Math. GLM has too many issues to run on Android.
 
 2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
@@ -53,3 +48,4 @@ implement more uniform collection
  - float2 uniforms
 
 clean up all public interfaces
+Clean up G2Dj.Android package. Make the android engine present an identical public interface as the desktop one (currently it is quite the hack)
