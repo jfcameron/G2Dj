@@ -18,7 +18,7 @@ package grimhaus.com.G2Dj;
 //|
 //|import javax.microedition.khronos.opengles.GL10;
 //|
-//|import Adhoc.AndroidTest;
+//|import Adhoc.Main;
 //|import grimhaus.com.G2Dj.Imp.Graphics.Color;
 //|import grimhaus.com.G2Dj.Type.Math.IntVector2;
 //|
@@ -101,11 +101,7 @@ package grimhaus.com.G2Dj;
 //|        @Override
 //|        public boolean onTouchEvent(MotionEvent e)
 //|        {
-//|            IntBuffer pointerCount = IntBuffer.allocate(e.getPointerCount());
-//|            Debug.log(pointerCount);
-//|
-//|            Input.S_TouchHandler.update();
-//|
+//|            Input.S_TouchHandler.update(e);
 //|            return true;
 //|
 //|        }
@@ -133,7 +129,7 @@ package grimhaus.com.G2Dj;
 //|            public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config)
 //|            {
 //|                Engine.init();
-//|                AndroidTest.doTest();
+//|                Adhoc.Main.main(null);
 //|
 //|            }
 //|

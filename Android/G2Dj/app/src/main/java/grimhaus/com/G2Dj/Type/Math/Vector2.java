@@ -27,6 +27,7 @@ public class Vector2
     //********************************
     //State mutating vector operations
     //********************************
+    public void setInPlace     (final float aX, final float aY){x=aX;y=aY;}
     public void addInPlace     (final Vector2 aVector){x += aVector.x; y += aVector.y;}
     public void subtractInPlace(final Vector2 aVector){x -= aVector.x; y -= aVector.y;}
     public void multiplyInPlace(final float   aScalar){x *= aScalar  ; y *= aScalar  ;}

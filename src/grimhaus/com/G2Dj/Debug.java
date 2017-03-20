@@ -7,6 +7,9 @@ package grimhaus.com.G2Dj;
 //.if ANDROID
 //|import android.app.Application;
 //|import android.util.Log;
+//|
+//|import java.lang.reflect.Field;
+//|import java.lang.reflect.Type;
 //.endif
 
 /**
@@ -33,5 +36,5 @@ public class Debug
         //.endif
 
     }
-    
+
 }

@@ -58,14 +58,29 @@ public class Input
         //.if DESKTOP
         //|return s_KeyboardInputHandler.getKey(aKeyCode);
         //.elseif ANDROID
-        throw new java.lang.UnsupportedOperationException("Not supported yet.");
+        //throw new java.lang.UnsupportedOperationException("Not supported yet.");
+        return false;
         //.endif
 
     }
 
-    public static ArrayList<Touch> getTouches()
+    public static Touch[] getTouches()
     {
-        throw new java.lang.UnsupportedOperationException("Not supported yet.");
+        //.if DESKTOP
+        //|throw new java.lang.UnsupportedOperationException("Not supported yet.");
+        //.elseif ANDROID
+        return S_TouchHandler.getTouches();
+        //.endif
+
+    }
+
+    public static int getTouchCount()
+    {
+        //.if DESKTOP
+        //|return 0;
+        //.elseif ANDROID
+        return S_TouchHandler.getTouchCount();
+        //.endif
 
     }
 

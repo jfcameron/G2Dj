@@ -108,7 +108,7 @@ public final class Resources
         //.if DESKTOP
         return aFileName.startsWith("/") ? aFileName : "/"+aFileName;
         //.elseif ANDROID
-        //|return aFileName.startsWith("/") ? "/"+aFileName : aFileName;
+        //|return aFileName.startsWith("/") ? aFileName.replaceFirst("/","") : aFileName;
         //.endif
         
     }

@@ -147,7 +147,7 @@ public class Main
         }
 
         //.if DESKTOP
-        Engine.mainLoop();//TODO: this should not exist.
+        //|Engine.mainLoop();//TODO: this should not exist.
         //.endif
 
     }
