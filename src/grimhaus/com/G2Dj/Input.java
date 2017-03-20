@@ -5,16 +5,14 @@
 package grimhaus.com.G2Dj;
 
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
-import grimhaus.com.G2Dj.Imp.Input.TouchHandler;
 import grimhaus.com.G2Dj.Type.Input.Touch;
+import grimhaus.com.G2Dj.Imp.Input.TouchHandler;
 
 import java.util.ArrayList;
 
 //.if DESKTOP
 import grimhaus.com.G2Dj.Imp.Input.KeyboardInputHandler;
 //.endif
-
-
 
 /**
  *
@@ -27,8 +25,6 @@ public class Input
     //**************
     //.if DESKTOP
     protected static final KeyboardInputHandler s_KeyboardInputHandler = new KeyboardInputHandler();
-    //.elseif ANDROID
-    //|protected static final TouchHandler S_TouchHandler = new TouchHandler();
     //.endif
     protected static final TouchHandler S_TouchHandler = new TouchHandler();
 
@@ -68,12 +64,7 @@ public class Input
 
     public static Touch[] getTouches()
     {
-        //.if DESKTOP
-        //throw new java.lang.UnsupportedOperationException("Not supported yet.");
         return S_TouchHandler.getTouches();
-        //.elseif ANDROID
-        //|return S_TouchHandler.getTouches();
-        //.endif
 
     }
 

@@ -23,10 +23,10 @@ public class Transform
     //
     //
     //
-    public Vector3    getPosition(){return m_Position;}
-    public Vector3    getScale   (){return m_Scale;   }
-    public Quaternion getRotation(){throw new java.lang.UnsupportedOperationException("Not supported yet.");}
-    public Vector3    getEulers  (){return m_Rotation;}
+    public Vector3 getPosition(){return m_Position;}
+    public Vector3 getScale   (){return m_Scale;   }
+    public Vector3 getRotation(){return m_Rotation;}
+    public Vector3 getEulers  (){return m_Rotation;}
     
     public void setPosition(final Vector3 aPosition){m_Position = aPosition;                      }
     public void setScale   (final Vector3 aScale   ){m_Scale    = aScale;                         }

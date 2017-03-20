@@ -36,16 +36,16 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
             Vector3 inputBuffer = new Vector3();
 
             //Keyboard input
-            if (Input.getKey(KeyCode.A))
+            if (Input.getKey(KeyCode.J))
                 inputBuffer.x-=s_Speed;
 
-            if (Input.getKey(KeyCode.D))
+            if (Input.getKey(KeyCode.L))
                 inputBuffer.x+=s_Speed;
 
-            if (Input.getKey(KeyCode.W))
+            if (Input.getKey(KeyCode.I))
                 inputBuffer.z-=s_Speed;
 
-            if (Input.getKey(KeyCode.S))
+            if (Input.getKey(KeyCode.K))
                 inputBuffer.z+=s_Speed;
 
             getTransform().get().translate(inputBuffer);
@@ -57,11 +57,11 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
             Vector3 rotationBuffer = new Vector3();
 
             //Keyboard input
-            if (Input.getKey(KeyCode.Q))
-                rotationBuffer.z +=0.1f;
+            if (Input.getKey(KeyCode.U))
+                rotationBuffer.y +=0.1f;
 
-            if (Input.getKey(KeyCode.E))
-                rotationBuffer.z -=0.1f;
+            if (Input.getKey(KeyCode.O))
+                rotationBuffer.y -=0.1f;
             
             getTransform().get().rotate(rotationBuffer);
             

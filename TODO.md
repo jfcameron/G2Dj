@@ -1,7 +1,3 @@
-Android touch detection to Input
-
-Make the android engine present an identical public interface as the desktop one.
-
 add meaningful ToString overrides for all types.
  
 2D Physics
@@ -25,6 +21,8 @@ controllers
 reassess todos ()
 
 ==================BACKBURNER=====================
+Make the android engine present an identical public interface as the desktop one.
+
 Collections/Resources
     -prevent duplicate names being entered
     -prevent duplicate resources from being allocated (fail silently or throw?)
@@ -50,3 +48,5 @@ implement more uniform collection
  - float2 uniforms
 
 clean up all public interfaces
+
+Improve mobile Touch API

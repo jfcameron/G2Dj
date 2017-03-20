@@ -165,7 +165,7 @@ public class Camera extends Component
         m_ViewportPosition  = Vector2.Zero();
         m_ViewportSize      = new Vector2(1,1);
         m_FieldOfView       = 90f;
-        m_NearClippingPlane = 0.1f;
+        m_NearClippingPlane = 0.001f;
         m_FarClippingPlane  = 20;
         m_Size              = 100;
         

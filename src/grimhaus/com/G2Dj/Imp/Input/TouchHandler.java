@@ -1,12 +1,10 @@
 package grimhaus.com.G2Dj.Imp.Input;
 
-//Project
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 
-//Implementation
 import java.util.ArrayList;
 
 //.if ANDROID
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 //|import android.opengl.GLSurfaceView;
 //|import android.view.MotionEvent;
 //.endif
-
 
 /**
  * Created by Joe on 3/19/2017.
@@ -30,9 +27,13 @@ public class TouchHandler
     private int m_TouchCount = 0;
 
     //
-    // Accessors
     //
-    public final Touch[] getTouches(){return m_Touches;}
+    //
+    public final Touch[] getTouches()
+    {
+       return m_Touches;
+
+    }
 
     public final int getTouchCount(){return m_TouchCount;}
 
@@ -43,17 +44,18 @@ public class TouchHandler
     //|public void update(final MotionEvent aAndroidTouchEvent)
     //|{
     //|    m_TouchCount = aAndroidTouchEvent.getPointerCount();
-    //|    
+    //|
     //|    for (int i=0,s=aAndroidTouchEvent.getPointerCount();i<s;i++)
     //|        if (i > m_Touches.length)
     //|            break;
     //|        else
     //|            processAndroidTouchEvent(aAndroidTouchEvent, i);
-    //|    
+    //|
     //|}
-    //|
-    //|private Vector2 screenPositionBuffer = new Vector2();
-    //|
+
+    private Vector2 screenPositionBuffer = new Vector2();
+
+    //.if ANDROID
     //|private void processAndroidTouchEvent(final MotionEvent aAndroidTouchEvent, final int aIndex)
     //|{
     //|    Touch currentTouch = m_Touches[aIndex];
@@ -113,12 +115,10 @@ public class TouchHandler
     //|        } break;
     //|
     //|    }
-    //|
-    //|
-    //|
+    //|    
     //|}
     //.endif
-    
+
     public TouchHandler()
     {
         for(int i=0,s=m_Touches.length;i<s;i++)
