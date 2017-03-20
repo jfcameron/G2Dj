@@ -1,6 +1,4 @@
-add meaningful ToString overrides for all types.
- 
-2D Physics
+ 2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
     
 improve desktop input implementation (pure java isnt cutting it)
@@ -21,6 +19,8 @@ controllers
 reassess todos ()
 
 ==================BACKBURNER=====================
+add meaningful ToString overrides for all types.
+
 Make the android engine present an identical public interface as the desktop one.
 
 Collections/Resources
