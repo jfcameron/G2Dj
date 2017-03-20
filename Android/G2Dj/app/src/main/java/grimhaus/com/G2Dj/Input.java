@@ -4,14 +4,15 @@
  */
 package grimhaus.com.G2Dj;
 
-import java.util.ArrayList;
-
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
-import grimhaus.com.G2Dj.Imp.Input.TouchHandler;
 import grimhaus.com.G2Dj.Type.Input.Touch;
+
+import java.util.ArrayList;
 
 //.if DESKTOP
 //|import grimhaus.com.G2Dj.Imp.Input.KeyboardInputHandler;
+//.elseif ANDROID
+import grimhaus.com.G2Dj.Imp.Input.TouchHandler;
 //.endif
 
 /**
@@ -64,8 +65,6 @@ public class Input
 
     public static ArrayList<Touch> getTouches()
     {
-
-
         throw new java.lang.UnsupportedOperationException("Not supported yet.");
 
     }
