@@ -3,6 +3,7 @@ package Adhoc;
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
@@ -141,10 +142,14 @@ public class Main
                 theCamera.get().addComponent(CameraController.class);
                 
                 theCamera.get().addComponent(Camera.class);
+                
+                Debug.log(theCamera.get());
 
             }
         
         }
+        
+        
 
         //.if DESKTOP
         Engine.mainLoop();//TODO: this should not exist.

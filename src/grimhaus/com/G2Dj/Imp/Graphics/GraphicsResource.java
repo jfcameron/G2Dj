@@ -25,4 +25,6 @@ public abstract class GraphicsResource extends Object
     //
     //protected GraphicsObject(final String aName){m_Name = aName;}
     
+    @Override public String toString(){return "GraphicsResource: { m_Name: "+m_Name+" }";}
+    
 }

@@ -61,4 +61,6 @@ public class Transform
         
     }
     
+    @Override public String toString(){return "Transform: { Position: "+m_Position+", m_Scale: "+m_Scale+", m_Rotation: "+m_Rotation+" }";}
+    
 }

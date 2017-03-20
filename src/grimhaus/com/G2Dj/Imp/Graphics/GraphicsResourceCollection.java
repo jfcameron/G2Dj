@@ -89,5 +89,7 @@ public abstract class GraphicsResourceCollection<T extends GraphicsResource>
         return new WeakReference<>(m_Vector.get(0));
         
     }
+    
+    @Override public String toString(){return "GraphicsResourceCollection: { m_Vector: "+m_Vector+", m_FileTypes"+m_FileTypes+" }";}
         
 }

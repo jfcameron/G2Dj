@@ -59,7 +59,7 @@ public class CameraController extends Component
             inputBuffer.z += (float)cos(getTransform().get().getRotation().y);
             
         }
-            
+        
         if (Input.getKey(KeyCode.W))
         {
             //inputBuffer.z+=s_Speed;
