@@ -7,9 +7,11 @@
 ## Description:
 Crossplatform game engine in Java & OpenGLES.
 Designed for 2D, low-fi graphics, but is capable of perspective rendering for "2.5D" projects. Uses the [JOGL](http://jogamp.org/) project (version 2.3) to access OpenGL.
+Makes use of [PreprocessorWizard.pl](http://www.rtbaileyphd.com/preprocessorwizard/) to split implementation between desktop and mobile code.
 
 ## Setup:
 Include JOGL as lib.
+Run PreprocessorWizard.pl with either define ANDROID or DESKTOP and build the G2Dj project.
 Include G2Dj as library to your Java project.
 Call Engine.init();
 
