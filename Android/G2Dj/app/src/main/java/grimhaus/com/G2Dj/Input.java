@@ -7,6 +7,7 @@ package grimhaus.com.G2Dj;
 import java.util.ArrayList;
 
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
+import grimhaus.com.G2Dj.Imp.Input.TouchHandler;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 
 //.if DESKTOP
@@ -19,6 +20,25 @@ import grimhaus.com.G2Dj.Type.Input.Touch;
  */
 public class Input 
 {
+    //**************
+    //Implementation
+    //**************
+    //.if DESKTOP
+    //|protected static final KeyboardInputHandler s_KeyboardInputHandler = new KeyboardInputHandler();
+    //.elseif ANDROID
+    protected static final TouchHandler S_TouchHandler = new TouchHandler();
+    //.endif
+
+    protected static void init(){}
+
+    protected static void update()
+    {
+        //.if DESKTOP
+        //|s_KeyboardInputHandler.update();
+        //.endif
+
+    }
+
     //****************
     //Public interface
     //****************
@@ -49,25 +69,5 @@ public class Input
         throw new java.lang.UnsupportedOperationException("Not supported yet.");
 
     }
-
-    //**************
-    //Implementation
-    //**************
-    //.if DESKTOP
-    //|protected static final KeyboardInputHandler s_KeyboardInputHandler = new KeyboardInputHandler();
-    //.elseif ANDROID
-    protected static final ArrayList<Touch> s_Touches = new ArrayList<>();
-    //.endif
-
-    protected static void init(){}
-
-    protected static void update()
-    {
-        //.if DESKTOP
-        //|s_KeyboardInputHandler.update();
-        //.endif
-
-    }
-
 
 }

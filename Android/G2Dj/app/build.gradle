@@ -5,8 +5,8 @@ android {
     buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "grimhaus.com.g2dj"
-        minSdkVersion 18
-        targetSdkVersion 22
+        minSdkVersion 9
+        targetSdkVersion 9
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
