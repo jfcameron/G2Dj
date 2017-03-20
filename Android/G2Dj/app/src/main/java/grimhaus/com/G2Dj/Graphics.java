@@ -17,8 +17,7 @@ import java.lang.ref.WeakReference;
 //.if DESKTOP
 //|import grimhaus.com.G2Dj.Imp.Graphics.Window;
 //.elseif ANDROID
-import android.app.Activity;
-import grimhaus.com.G2Dj.Android.MainActivity;
+
 //.endif
 
 
@@ -68,7 +67,7 @@ public class Graphics
         //.if DESKTOP
         //|rValue = new IntVector2(s_Window.getWidth(),s_Window.getHeight());
         //.elseif ANDROID
-        rValue = MainActivity.getScreenSize();
+        rValue = Mobile.getScreenSize();
         //.endif
         return rValue;
         
@@ -89,7 +88,7 @@ public class Graphics
         //.if DESKTOP
         //|s_Window.draw();
         //.elseif ANDROID
-        grimhaus.com.G2Dj.Android.MainActivity.mGLView.requestRender();
+        Mobile.mGLView.requestRender();
         //.endif
 
     }

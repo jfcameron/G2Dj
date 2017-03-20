@@ -12,22 +12,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 //.if DESKTOP
 //|import javax.imageio.ImageIO;
 //|import java.nio.file.Files;
 //|import java.nio.file.Paths;
 //|import java.awt.image.BufferedImage;
+//|import java.net.URISyntaxException;
+//|import java.util.logging.Level;
+//|import java.util.logging.Logger;
 //.endif
 
 //.if ANDROID
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
-import grimhaus.com.G2Dj.Android.MainActivity;
 //.endif
 
 /**
@@ -52,7 +49,7 @@ public final class Resources
         Debug.log("Resources.loadTextFile*********************************");
         Debug.log(path);
 
-        InputStream dataStream = MainActivity.loadAsset(path);
+        InputStream dataStream = Mobile.loadAsset(path);
 
         BufferedReader r = new BufferedReader(new InputStreamReader(dataStream));
         StringBuilder total = new StringBuilder();
@@ -94,7 +91,7 @@ public final class Resources
         Debug.log("Resources.loadImage*********************************");
         Debug.log(path);
 
-        InputStream dataStream = MainActivity.loadAsset(path);
+        InputStream dataStream = Mobile.loadAsset(path);
 
         data = BitmapFactory.decodeStream(dataStream);
 
