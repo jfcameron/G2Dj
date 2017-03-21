@@ -89,11 +89,11 @@ public class GameObject
         {
             currentComponent = m_Components.get(i);
             
-            //Debug.log("agagasdg: ",aComponentType,currentComponent.getClass());
+            Debug.log(m_Name+": "+aComponentType,currentComponent.getClass());
             
-            if(aComponentType.equals(currentComponent.getClass()))
+            if(currentComponent.getClass().equals(aComponentType))
             {
-                rValue = currentComponent;
+                rValue = currentComponent;Debug.log("SUCCESS");
                 
             }
             

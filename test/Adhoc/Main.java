@@ -9,6 +9,7 @@ import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
+import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import java.lang.ref.WeakReference;
 
 /**
@@ -44,6 +45,8 @@ public class Main
                 PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
                 aPC.getTransform().get().setRotation(0,0,45);
                 aPC.getTransform().get().setPosition(0,0,1f);
+                
+                aGameObject.get().addComponent(BoxCollider.class);
             
             }
             
@@ -139,9 +142,11 @@ public class Main
                 theCamera.get().setName("Camera");
                 theCamera.get().getTransform().get().setPosition(-1,0,2);
                 theCamera.get().getTransform().get().setRotation(0,0,0);
+                theCamera.get().addComponent(BoxCollider.class);
                 theCamera.get().addComponent(CameraController.class);
-                
                 theCamera.get().addComponent(Camera.class);
+                
+                
                 
                 Debug.log(theCamera.get());
 

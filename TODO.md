@@ -1,3 +1,4 @@
+Gameobject needs callbacks for onScale
 
  2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project

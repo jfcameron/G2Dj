@@ -14,6 +14,7 @@ import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
+import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import java.lang.ref.WeakReference;
@@ -31,10 +32,13 @@ public class CameraController extends Component
     //|0.001f*1000;
     //.endif
     
+    private BoxCollider m_Rigidbody;
+    
     @Override
     public void update() 
     {
         Vector3 inputBuffer = new Vector3();
+        
             
         if (Input.getKey(KeyCode.D))
         {
@@ -91,10 +95,11 @@ public class CameraController extends Component
 
         }
         
-        inputBuffer.multiplyInPlace(s_Speed);
+        inputBuffer.multiplyInPlace(s_Speed*1000);
             
-        getTransform().get().translate(inputBuffer);
-            
+        //getTransform().get().translate(inputBuffer);
+        m_Rigidbody.setVelocity(inputBuffer.x,inputBuffer.z);  
+        
         Vector3 rotationBuffer = new Vector3();
             
         if (Input.getKey(KeyCode.E))
@@ -119,7 +124,13 @@ public class CameraController extends Component
     }
 
     @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
+    {
+        Debug.log("Try to get the collider");
+        m_Rigidbody = (BoxCollider)getGameObject().get().getComponent(BoxCollider.class);
+        Debug.log("The rigidbody: "+m_Rigidbody);
+        
+    }
 
     @Override
     protected void OnRemovedFromGameObject() {}
