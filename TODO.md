@@ -1,3 +1,5 @@
+Pool shortlived and frequently used objects (Mat4x4 & Vec2/3 looking at you).
+
  2D Physics
     -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
     
