@@ -32,7 +32,7 @@ public class Mesh extends Component
     
     //buffers & pools
     private final Mat4x4 b_ModelMatrixBuffer = new Mat4x4();//reduce heap abuse in getModelMatrix()
-    private final Mat4x4 b_MVPMatrixBuffer = new Mat4x4();
+    private final Mat4x4 b_MVPMatrixBuffer   = new Mat4x4();
         
     //**********
     // Accessors

@@ -54,3 +54,6 @@ Temporary Items
 
 # Hide temporary Android code
 /Android/G2Dj/app/src/main/java/grimhaus/com/
+/Libraries/jbox2d/build/
+/Libraries/jbox2d/dist/
+/Libraries/jbox2d/nbproject/private/
