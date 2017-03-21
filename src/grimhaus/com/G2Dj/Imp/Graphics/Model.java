@@ -27,6 +27,7 @@ public class Model extends GraphicsResource
     //public int          getVertexCount (){return m_VertexCount; }
     //public VertexFormat getVertexFormat(){return m_VertexFormat;}
     public int getHandle(){return m_VertexBufferHandle;}
+    public int getVertexCount(){return m_VertexCount;}
     
     //*****************
     // Public interface
@@ -35,8 +36,6 @@ public class Model extends GraphicsResource
     {   
         enableAttributes(programHandle);
 
-        GL.glDrawArrays( GL.GL_TRIANGLES, 0, m_VertexCount );
-        
     }
     
     //****************

@@ -6,6 +6,7 @@ package grimhaus.com.G2Dj.Type.Graphics;
 
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Graphics.GL;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
 import grimhaus.com.G2Dj.Imp.Graphics.Texture;
@@ -84,6 +85,8 @@ public class Mesh extends Component
         Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", b_MVPMatrixBuffer.toFloatBuffer());
                 
         m_Model.get().draw(m_ShaderProgram.get().getProgramHandle());
+        
+        GL.glDrawArrays( GL.GL_TRIANGLES, 0, m_Model.get().getVertexCount() );
         
     }
     

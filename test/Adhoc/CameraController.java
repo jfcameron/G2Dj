@@ -14,7 +14,7 @@ import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
-import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
+import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import java.lang.ref.WeakReference;
@@ -32,7 +32,7 @@ public class CameraController extends Component
     //|0.001f*1000;
     //.endif
     
-    private BoxCollider m_Rigidbody;
+    private Rigidbody m_Rigidbody;
     
     @Override
     public void update() 
@@ -127,7 +127,7 @@ public class CameraController extends Component
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
         Debug.log("Try to get the collider");
-        m_Rigidbody = (BoxCollider)getGameObject().get().getComponent(BoxCollider.class);
+        m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
         Debug.log("The rigidbody: "+m_Rigidbody);
         
     }
