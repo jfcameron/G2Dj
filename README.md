@@ -64,3 +64,4 @@ public static void main(String[] args)
 ## Libraries used:
 * [JOGL](http://jogamp.org/)
 * [GLM](https://github.com/java-graphics/glm)
+* [jbox2D](https://github.com/jbox2d/jbox2d)
