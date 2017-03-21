@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Graphics;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
@@ -55,8 +56,8 @@ public class GraphicsScene extends SceneGraph
     @Override
     protected void OnComponentAdded(Component aComponent) 
     {
-        if (aComponent instanceof Mesh)
-            m_Meshes.add(new WeakReference<>((Mesh)aComponent));
+        if (aComponent instanceof Drawable)
+            m_Meshes.add(new WeakReference<>((Drawable)aComponent));
 
         else if (aComponent instanceof Camera)
             m_Cameras.add(new WeakReference<>((Camera)aComponent));
@@ -66,12 +67,12 @@ public class GraphicsScene extends SceneGraph
     @Override
     protected void OnComponentRemoved(Component aComponent) 
     {
-        if (aComponent instanceof Mesh)
-        {        
-            Mesh mesh = (Mesh)aComponent;
+        if (aComponent instanceof Drawable  /*instanceof Mesh*/)
+        {
+            Drawable drawable = (Drawable)aComponent;
             
             for(int i = 0, s = m_Meshes.size(); i < s; i++)
-                if (m_Meshes.get(i).get() == mesh)
+                if (m_Meshes.get(i).get() == drawable)
                 {
                     m_Meshes.remove(i);
                     return;

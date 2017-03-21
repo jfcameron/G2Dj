@@ -40,35 +40,31 @@ public class CameraController extends Component
         Vector3 inputBuffer = new Vector3();
         
             
-        if (Input.getKey(KeyCode.D))
+        if (Input.getKey(KeyCode.W))
         {
-            //inputBuffer.x-=s_Speed;
-            inputBuffer.x += (float)sin(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
-            inputBuffer.z -= (float)cos(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
+            inputBuffer.z += (float)sin(getTransform().get().getRotation().y - (90.0f * Math.PI / 180));
+            inputBuffer.x -= (float)cos(getTransform().get().getRotation().y - (90.0f * Math.PI / 180));
             
         }
         
-        if (Input.getKey(KeyCode.A))
+        if (Input.getKey(KeyCode.S))
         {
-            //inputBuffer.x+=s_Speed;
-            inputBuffer.x -= (float)sin(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
-            inputBuffer.z += (float)cos(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
+            inputBuffer.z -= (float)sin(getTransform().get().getRotation().y - (90.0f * Math.PI / 180));
+            inputBuffer.x += (float)cos(getTransform().get().getRotation().y - (90.0f * Math.PI / 180));
          
         }
             
-        if (Input.getKey(KeyCode.S))
+        if (Input.getKey(KeyCode.A))
         {
-            //inputBuffer.z-=s_Speed;
-            inputBuffer.x -= (float)sin(getTransform().get().getRotation().y);
-            inputBuffer.z += (float)cos(getTransform().get().getRotation().y);
+            inputBuffer.z += (float)sin(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
+            inputBuffer.x -= (float)cos(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
             
         }
         
-        if (Input.getKey(KeyCode.W))
+        if (Input.getKey(KeyCode.D))
         {
-            //inputBuffer.z+=s_Speed;
-            inputBuffer.x += sin(getTransform().get().getRotation().y);
-            inputBuffer.z -= cos(getTransform().get().getRotation().y);
+            inputBuffer.z -= (float)sin(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
+            inputBuffer.x += (float)cos(getTransform().get().getRotation().y);
 
         }
             
@@ -102,10 +98,10 @@ public class CameraController extends Component
         
         Vector3 rotationBuffer = new Vector3();
             
-        if (Input.getKey(KeyCode.E))
+        if (Input.getKey(KeyCode.Q))
             rotationBuffer.y +=0.1f;
             
-        if (Input.getKey(KeyCode.Q))
+        if (Input.getKey(KeyCode.E))
             rotationBuffer.y -=0.1f;
 
         //Touchscreen input

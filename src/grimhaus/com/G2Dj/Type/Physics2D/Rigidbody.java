@@ -6,6 +6,7 @@ package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 
@@ -93,6 +94,11 @@ public class Rigidbody extends Component
         m_Body = m_Physics2DScene.getB2DWorld().createBody(myBodyDef);
         m_Body.createFixture(fixtureDef);
         
+        getGameObject().get().addComponent(LineVisualizer.class);
+        
+        ///Visualizer test
+        //ColliderVisualizer test = new ColliderVisualizer();
+        //((SceneGraph)getGameObject().get().getScene().get().getSceneGraph(GraphicsScene.class)).;
         
     }
     

@@ -10,6 +10,7 @@ import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
+import grimhaus.com.G2Dj.Type.Physics2D.LineVisualizer;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 
@@ -49,6 +50,9 @@ public class Main
                 aPC.getTransform().get().setPosition(0,0,1f);
                 
                 Rigidbody bc = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
+                
+                
+                
                 //bc.setType(BodyType.Static);
             
             }
@@ -74,6 +78,7 @@ public class Main
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "Sprites.png"); //give the mesh a texture
+                
                 
             }
             

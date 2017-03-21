@@ -108,7 +108,7 @@ public class Camera extends Component
     public Mat4x4 getViewMatrix()
     {
         Vector3 cameraPosition = getTransform().get().getPosition().multiply(-1f);
-        Vector3 cameraRotation = getTransform().get().getEulers();
+        Vector3 cameraRotation = getTransform().get().getEulers().multiply(-1f);;
         Mat4x4 v = Mat4x4.identity();
         
         //R

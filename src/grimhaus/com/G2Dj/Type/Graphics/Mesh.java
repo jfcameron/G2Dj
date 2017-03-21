@@ -87,8 +87,6 @@ public class Mesh extends Component implements Drawable
                 
         m_Model.get().draw(m_ShaderProgram.get().getProgramHandle());
         
-        GL.glLineWidth(5);
-        
         GL.glDrawArrays( GL.GL_TRIANGLES, 0, m_Model.get().getVertexCount() );
         
     }

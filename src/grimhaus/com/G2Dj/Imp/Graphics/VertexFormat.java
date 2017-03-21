@@ -74,4 +74,10 @@ public class VertexFormat
                                 
     );
     
+    public static VertexFormat pos3 = new VertexFormat
+    (
+        new VertexAttribute("a_Position",3)
+                                
+    );
+    
 }
