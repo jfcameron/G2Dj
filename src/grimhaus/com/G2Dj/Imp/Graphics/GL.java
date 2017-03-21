@@ -371,6 +371,16 @@ public class GL
         
     }
     
+    public static void glLineWidth(final float width)
+    {
+        //.if DESKTOP
+        gl.glLineWidth(width);
+        //.elseif ANDROID
+        //|GLES20.glLineWidth(width);
+        //.endif
+        
+    }
+    
 //.if DESKTOP
         
 //.elseif ANDROID

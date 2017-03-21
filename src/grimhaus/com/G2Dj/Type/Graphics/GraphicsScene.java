@@ -5,7 +5,6 @@
 package grimhaus.com.G2Dj.Type.Graphics;
 
 import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
-import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 
@@ -22,7 +21,7 @@ public class GraphicsScene extends SceneGraph
     // Data members
     //*************
     private final ArrayList<WeakReference<Camera>> m_Cameras = new ArrayList<>();//make use of these
-    private final ArrayList<WeakReference<Mesh>>   m_Meshes  = new ArrayList<>();
+    private final ArrayList<WeakReference<Drawable>>   m_Meshes  = new ArrayList<>();
     
     //
     // 
@@ -35,10 +34,16 @@ public class GraphicsScene extends SceneGraph
     {
         for(int i=0,s=m_Cameras.size();i<s;i++)
         {
-            m_Cameras.get(i).get().draw();
-
+            if (m_Cameras.get(i) != null)
+                m_Cameras.get(i).get().draw();
+            else
+                m_Cameras.remove(i);
+            
             for(int j=0,t=m_Meshes.size();j<t;j++)
-                m_Meshes.get(j).get().draw(m_Cameras.get(i));
+                if (m_Meshes.get(j) != null)
+                    m_Meshes.get(j).get().draw(m_Cameras.get(i));
+                else
+                    m_Meshes.remove(j);
 
         }
                 
@@ -51,17 +56,10 @@ public class GraphicsScene extends SceneGraph
     protected void OnComponentAdded(Component aComponent) 
     {
         if (aComponent instanceof Mesh)
-        {
-            Mesh mesh = (Mesh)aComponent;
-            m_Meshes.add(new WeakReference<>(mesh));
-            
-        }
+            m_Meshes.add(new WeakReference<>((Mesh)aComponent));
+
         else if (aComponent instanceof Camera)
-        {
-            Camera camera = (Camera)aComponent;
-            m_Cameras.add(new WeakReference<>(camera));
-            
-        }
+            m_Cameras.add(new WeakReference<>((Camera)aComponent));
         
     }
 
@@ -96,9 +94,7 @@ public class GraphicsScene extends SceneGraph
         }
         
     }
-    
-    
-    
+
     //************
     // Constructor
     //************

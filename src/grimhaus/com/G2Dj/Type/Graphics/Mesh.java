@@ -22,7 +22,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
-public class Mesh extends Component
+public class Mesh extends Component implements Drawable
 {
     //*************
     // Data members
@@ -67,8 +67,9 @@ public class Mesh extends Component
     public final void setShader(final String aShaderName){m_ShaderProgram = Graphics.getShaderProgram(aShaderName);}
     
     //
-    // Graphics Scene interface
+    // Drawable interface
     //
+    @Override
     public void draw(final WeakReference<Camera> aCamera)
     {
         m_ShaderProgram.get().draw();
@@ -85,6 +86,8 @@ public class Mesh extends Component
         Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", b_MVPMatrixBuffer.toFloatBuffer());
                 
         m_Model.get().draw(m_ShaderProgram.get().getProgramHandle());
+        
+        GL.glLineWidth(5);
         
         GL.glDrawArrays( GL.GL_TRIANGLES, 0, m_Model.get().getVertexCount() );
         
