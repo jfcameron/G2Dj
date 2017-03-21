@@ -131,6 +131,15 @@ public class Model extends GraphicsResource
         
     }
     
+    @Override
+    protected void finalize() throws Throwable
+    {
+        GL.glDeleteBuffers(1, IntBuffer.wrap(new int[]{m_VertexBufferHandle}));
+        
+        super.finalize();
+        
+    }
+    
     
     
 }

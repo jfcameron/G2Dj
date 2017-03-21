@@ -341,6 +341,36 @@ public class GL
         
     }
     
+    public static void glDeleteBuffers(final int aNumberOfBuffers, final IntBuffer aBufferHandles)
+    {
+        //.if DESKTOP
+        gl.glDeleteBuffers(aNumberOfBuffers, aBufferHandles);
+        //.elseif ANDROID
+        //|GLES20.glDeleteBuffers(aNumberOfBuffers, aBufferHandles);
+        //.endif
+        
+    }
+    
+    public static void glDeleteTextures(final int aNumberOfTextures, final IntBuffer aTextureHandles)
+    {
+        //.if DESKTOP
+        gl.glDeleteTextures(aNumberOfTextures, aTextureHandles);
+        //.elseif ANDROID
+        //|GLES20.glDeleteTextures(aNumberOfTextures, aTextureHandles);
+        //.endif
+        
+    }
+    
+    public static void glDeleteProgram(final int aProgramHandle)
+    {
+        //.if DESKTOP
+        gl.glDeleteProgram(aProgramHandle);
+        //.elseif ANDROID
+        //|GLES20.glDeleteProgram(aProgramHandle);
+        //.endif
+        
+    }
+    
 //.if DESKTOP
         
 //.elseif ANDROID
