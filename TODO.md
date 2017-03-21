@@ -1,3 +1,5 @@
+Update Android path to support Physics2D
+Decide on the Physics2D API
 Gameobject needs callbacks for onScale
 
  2D Physics
