@@ -108,4 +108,13 @@ public class Texture extends GraphicsResource
 
     }
     
+    @Override
+    protected void finalize() throws Throwable
+    {
+        GL.glDeleteTextures(1, IntBuffer.wrap(new int[]{m_TextureHandle}));
+        
+        super.finalize();
+        
+    }
+    
 }

@@ -5,6 +5,7 @@
 package grimhaus.com.G2Dj.Imp.Graphics;
 
 import grimhaus.com.G2Dj.Debug;
+import java.nio.IntBuffer;
 
 /**
  *
@@ -128,6 +129,15 @@ public abstract class ShaderProgram extends GraphicsResource
         m_Name = this.getClass().getSimpleName();
         
         compileGraphicsProgram(vertexShaderGLSL(),fragmentShaderGLSL());
+        
+    }
+    
+    @Override
+    protected void finalize() throws Throwable
+    {
+        GL.glDeleteProgram(m_ProgramHandle);
+        
+        super.finalize();
         
     }
     

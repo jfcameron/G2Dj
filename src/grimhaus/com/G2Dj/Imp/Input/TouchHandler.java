@@ -44,14 +44,15 @@ public class TouchHandler
     //|public void update(final MotionEvent aAndroidTouchEvent)
     //|{
     //|    m_TouchCount = aAndroidTouchEvent.getPointerCount();
-    //|
+
     //|    for (int i=0,s=aAndroidTouchEvent.getPointerCount();i<s;i++)
     //|        if (i > m_Touches.length)
     //|            break;
     //|        else
     //|            processAndroidTouchEvent(aAndroidTouchEvent, i);
-    //|
+
     //|}
+    //.endif
 
     private Vector2 screenPositionBuffer = new Vector2();
 
@@ -59,9 +60,9 @@ public class TouchHandler
     //|private void processAndroidTouchEvent(final MotionEvent aAndroidTouchEvent, final int aIndex)
     //|{
     //|    Touch currentTouch = m_Touches[aIndex];
-    //|
+
     //|    screenPositionBuffer.setInPlace(aAndroidTouchEvent.getX(),aAndroidTouchEvent.getY());
-    //|
+
     //|    //Set ID
     //|    currentTouch.id = aIndex;
     //|    //Set delta
@@ -69,53 +70,53 @@ public class TouchHandler
     //|    {
     //|        currentTouch.deltaPosition.setInPlace(screenPositionBuffer.x - currentTouch.position.x, screenPositionBuffer.y - currentTouch.position.y);
     //|        Debug.log("HELLO: "+currentTouch.deltaPosition);
-    //|
+
     //|    }
     //|    //Set position
     //|    currentTouch.position.setInPlace(aAndroidTouchEvent.getX(),aAndroidTouchEvent.getY());
     //|    //Set time
     //|    currentTouch.time = (int)aAndroidTouchEvent.getDownTime();
     //|    //...
-    //|
-    //|
+
+
     //|    //Set state
     //|    switch (aAndroidTouchEvent.getAction())
     //|    {
     //|        case (MotionEvent.ACTION_DOWN) :
     //|        {
     //|            currentTouch.state = TouchState.Began;
-    //|
+
     //|        } break;
-    //|
+
     //|        case (MotionEvent.ACTION_MOVE) :
     //|        {
     //|            currentTouch.state = TouchState.Moved;
-    //|
-    //|
-    //|
+
+
+
     //|        } break;
-    //|
+
     //|        case (MotionEvent.ACTION_UP) :
     //|        {
     //|            currentTouch.state = TouchState.Ended;//Debug.log("**ACTION_UP**");
     //|            //m_TouchCount--;
-    //|
+
     //|        } break;
-    //|
+
     //|        case (MotionEvent.ACTION_CANCEL) :
     //|        {
     //|            currentTouch.state = TouchState.Canceled;//Debug.log("**ACTION_CANCEL**");
     //|            //m_TouchCount--;
     //|        } break;
-    //|
+
     //|        case (MotionEvent.ACTION_OUTSIDE) : //This shouldnt happen
     //|        {
     //|            currentTouch.state = TouchState.NULL;//Debug.log("**ACTION_OUTSIDE**");
     //|            //m_TouchCount--;
     //|        } break;
-    //|
+
     //|    }
-    //|    
+
     //|}
     //.endif
 

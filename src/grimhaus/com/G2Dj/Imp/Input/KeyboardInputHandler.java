@@ -135,7 +135,7 @@ public class KeyboardInputHandler implements KeyListener
 
     }
     
-    Debug.log(keyCode);
+    //Debug.log(keyCode);
 
   }
   

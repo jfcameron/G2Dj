@@ -48,8 +48,6 @@ public class Vector2
     public float aspectRatio(){return (x / y); }
     public float length     (){return (float)java.lang.Math.sqrt((x*x) + (y*y));}
     
-    @Override public String toString(){return "{"+x+", "+y+"}";}
-    
     //************
     //Constructors
     //************
@@ -58,5 +56,6 @@ public class Vector2
     public Vector2(final float aX, final float aY){x=aX;y=aY;}
     public Vector2(final Vector2 aVector){x=aVector.x;y=aVector.y;}
     
+    @Override public String toString(){return "{"+x+", "+y+"}";}
     
 }

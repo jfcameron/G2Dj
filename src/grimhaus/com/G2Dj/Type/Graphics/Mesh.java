@@ -29,6 +29,10 @@ public class Mesh extends Component
     private final TextureUniformCollection m_Textures = new TextureUniformCollection();
     private WeakReference<Model>           m_Model;
     private WeakReference<ShaderProgram>   m_ShaderProgram;
+    
+    //buffers & pools
+    private final Mat4x4 b_ModelMatrixBuffer = new Mat4x4();//reduce heap abuse in getModelMatrix()
+    private final Mat4x4 b_MVPMatrixBuffer = new Mat4x4();
         
     //**********
     // Accessors
@@ -42,18 +46,18 @@ public class Mesh extends Component
         Vector3 scale    = getTransform().get().getScale   ();
         Vector3 eulers   = getTransform().get().getEulers  ();
         
-        Mat4x4 m = Mat4x4.identity();
+        b_ModelMatrixBuffer.identityInPlace();//Mat4x4 m = Mat4x4.identity();
         
         //T
-        m.translate(position.x,position.y,position.z);
+        b_ModelMatrixBuffer.translate(position.x,position.y,position.z);//m.translate(position.x,position.y,position.z);
         //R
-        m.rotateX(eulers.x);
-        m.rotateY(eulers.y);
-        m.rotateZ(eulers.z);
+        b_ModelMatrixBuffer.rotateX(eulers.x);//m.rotateX(eulers.x);
+        b_ModelMatrixBuffer.rotateY(eulers.y);//m.rotateY(eulers.y);
+        b_ModelMatrixBuffer.rotateZ(eulers.z);//m.rotateZ(eulers.z);
         //S
-        m.scale(scale.x,scale.y,scale.z);
+        b_ModelMatrixBuffer.scale(scale);//m.scale(scale.x,scale.y,scale.z);
         
-        return m;
+        return b_ModelMatrixBuffer;//m;
         
     }
     
@@ -75,9 +79,9 @@ public class Mesh extends Component
         Mat4x4 p = aCamera.get().getProjectionMatrix();
         Mat4x4 v = aCamera.get().getViewMatrix();
         Mat4x4 m = getModelMatrix();
-        Mat4x4 mvp = p.mul(v).mul(m);
+        b_MVPMatrixBuffer.set(p.mul(v).mul(m));
         
-        Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", mvp.toFloatBuffer());
+        Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", b_MVPMatrixBuffer.toFloatBuffer());
                 
         m_Model.get().draw(m_ShaderProgram.get().getProgramHandle());
         

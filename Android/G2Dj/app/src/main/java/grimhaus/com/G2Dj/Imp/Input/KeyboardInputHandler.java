@@ -7,6 +7,7 @@ package grimhaus.com.G2Dj.Imp.Input;
 //.if DESKTOP
 //|
 //|import com.jogamp.newt.event.KeyListener;
+//|import grimhaus.com.G2Dj.Debug;
 //|
 //|import java.awt.event.KeyEvent;
 //|//import java.awt.event.KeyListener;
@@ -133,6 +134,8 @@ package grimhaus.com.G2Dj.Imp.Input;
 //|      currentKeys[ keyCode ] = false;
 //|
 //|    }
+//|    
+//|    //Debug.log(keyCode);
 //|
 //|  }
 //|  

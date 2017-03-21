@@ -5,6 +5,12 @@
 package grimhaus.com.G2Dj;
 
 //.if ANDROID
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import android.app.Application;
 import android.util.Log;
 
@@ -36,5 +42,34 @@ public class Debug
         //.endif
 
     }
-
+    
+    /*public static String getFormattedInspectionString(Class<?> type) 
+    {
+        String rValue =type.getSimpleName()+"{ ";
+        Field[] fields = type.getDeclaredFields();
+        
+        Field currentField = null;
+        for (int i=0,s=fields.length;i<s;i++) 
+        {
+            currentField = fields[i];
+            
+            try 
+            {
+                rValue+=currentField.getName()+": "+currentField.get(type);
+            
+            } 
+            catch (IllegalArgumentException ex){Logger.getLogger(Debug.class.getName()).log(Level.SEVERE, null, ex);} 
+            catch (IllegalAccessException ex){Logger.getLogger(Debug.class.getName()).log(Level.SEVERE, null, ex);}
+        
+            if (i < s-1)
+                rValue+=", ";
+            
+        }
+        
+        rValue +=" }";
+        
+        return rValue;
+        
+    }*/
+    
 }

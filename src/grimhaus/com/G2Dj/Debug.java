@@ -5,12 +5,12 @@
 package grimhaus.com.G2Dj;
 
 //.if ANDROID
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+//|
+//|import java.lang.reflect.Field;
+//|import java.lang.reflect.Modifier;
+//|import java.util.logging.Level;
+//|import java.util.logging.Logger;
+//|
 //|import android.app.Application;
 //|import android.util.Log;
 //|

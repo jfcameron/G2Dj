@@ -115,6 +115,18 @@ public class Mat4x4
         return new Mat4x4().set(1.0f);
     }
     
+    public void identityInPlace()
+    {
+        set(1.0f);
+        
+    }
+    
+    public void perspectiveInPlace(final float aFOV, final float aAspectRatio, final float aNearClippingDistance, final float aFarClippingDistance)
+    {
+        perspectiveRH(aFOV, aAspectRatio, aNearClippingDistance, aFarClippingDistance,this);
+        
+    }
+    
     public final Mat4x4 set(float f) {
         return set(
                 f, 0, 0, 0,
@@ -142,6 +154,27 @@ public class Mat4x4
         this.m31 = m31;
         this.m32 = m32;
         this.m33 = m33;
+        return this;
+    }
+    
+    public final Mat4x4 set(final Mat4x4 aMat) 
+    {
+        this.m00 = aMat.m00;
+        this.m01 = aMat.m01;
+        this.m02 = aMat.m02;
+        this.m03 = aMat.m03;
+        this.m10 = aMat.m10;
+        this.m11 = aMat.m11;
+        this.m12 = aMat.m12;
+        this.m13 = aMat.m13;
+        this.m20 = aMat.m20;
+        this.m21 = aMat.m21;
+        this.m22 = aMat.m22;
+        this.m23 = aMat.m23;
+        this.m30 = aMat.m30;
+        this.m31 = aMat.m31;
+        this.m32 = aMat.m32;
+        this.m33 = aMat.m33;
         return this;
     }
     
@@ -362,7 +395,7 @@ public class Mat4x4
         return dest;
     }
     
-    private static Mat4x4 perspectiveLH(float fovy, float aspect, float zNear, float zFar, Mat4x4 res) 
+    /*private static Mat4x4 perspectiveLH(float fovy, float aspect, float zNear, float zFar, Mat4x4 res) 
     {
         float tanHalfFovy = (float) Math.tan(fovy * 0.5f);
         res.m00 = 1.0f / (aspect * tanHalfFovy);
@@ -382,7 +415,7 @@ public class Mat4x4
         res.m32 = -2.0f * zFar * zNear / (zFar - zNear);
         res.m33 = 0.0f;
         return res;
-    }
+    }*/
     
     private static Mat4x4 perspectiveRH(float fovy, float aspect, float zNear, float zFar, Mat4x4 res) {
         float tanHalfFovy = (float)Math.tan(fovy * 0.5f);

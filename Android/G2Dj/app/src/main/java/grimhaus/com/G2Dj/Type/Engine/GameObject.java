@@ -123,4 +123,6 @@ public class GameObject
                 
     }
     
+    //@Override public String toString(){return Debug.getFormattedInspectionString(this.getClass());}
+    
 }

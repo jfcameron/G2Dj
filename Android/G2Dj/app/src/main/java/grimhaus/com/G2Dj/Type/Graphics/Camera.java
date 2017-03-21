@@ -38,6 +38,10 @@ public class Camera extends Component
     private float                m_FarClippingPlane;
     private float                m_Size;
     
+    //buffers & pools
+    private final Mat4x4 b_ProjectionMatrixBuffer = new Mat4x4();//reduce heap abuse in getProjectionMatrix()
+    private final Mat4x4 b_ViewMatrixBuffer       = new Mat4x4();
+    
     //**********
     // Accessors
     //**********
@@ -83,19 +87,21 @@ public class Camera extends Component
     
     public Mat4x4 getProjectionMatrix()
     {
-        Mat4x4 p = Mat4x4.identity();
+        //b_ProjectionMatrixBuffer.identityInPlace();//Mat4x4 p = Mat4x4.identity();
         
         switch(m_ProjectionMode)
         {
-            case Perspective:  p = Mat4x4.perspective(m_FieldOfView, getViewportAspectRatio(), m_NearClippingPlane, m_FarClippingPlane); break;
-            
+            case Perspective:  
+                b_ProjectionMatrixBuffer.perspectiveInPlace(m_FieldOfView, getViewportAspectRatio(), m_NearClippingPlane, m_FarClippingPlane);//p = Mat4x4.perspective(m_FieldOfView, getViewportAspectRatio(), m_NearClippingPlane, m_FarClippingPlane); break;
+            break;
+                
             case Orthographic: 
                 throw new java.lang.UnsupportedOperationException("Not supported yet.");
                 //break;
             
         }
         
-        return p;
+        return b_ProjectionMatrixBuffer;
         
     }
     
