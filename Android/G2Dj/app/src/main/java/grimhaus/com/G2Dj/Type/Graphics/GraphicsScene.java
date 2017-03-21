@@ -4,8 +4,8 @@
  */
 package grimhaus.com.G2Dj.Type.Graphics;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
-import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 
@@ -22,7 +22,7 @@ public class GraphicsScene extends SceneGraph
     // Data members
     //*************
     private final ArrayList<WeakReference<Camera>> m_Cameras = new ArrayList<>();//make use of these
-    private final ArrayList<WeakReference<Mesh>>   m_Meshes  = new ArrayList<>();
+    private final ArrayList<WeakReference<Drawable>>   m_Meshes  = new ArrayList<>();
     
     //
     // 
@@ -35,10 +35,16 @@ public class GraphicsScene extends SceneGraph
     {
         for(int i=0,s=m_Cameras.size();i<s;i++)
         {
-            m_Cameras.get(i).get().draw();
-
+            if (m_Cameras.get(i) != null)
+                m_Cameras.get(i).get().draw();
+            else
+                m_Cameras.remove(i);
+            
             for(int j=0,t=m_Meshes.size();j<t;j++)
-                m_Meshes.get(j).get().draw(m_Cameras.get(i));
+                if (m_Meshes.get(j) != null)
+                    m_Meshes.get(j).get().draw(m_Cameras.get(i));
+                else
+                    m_Meshes.remove(j);
 
         }
                 
@@ -50,30 +56,23 @@ public class GraphicsScene extends SceneGraph
     @Override
     protected void OnComponentAdded(Component aComponent) 
     {
-        if (aComponent instanceof Mesh)
-        {
-            Mesh mesh = (Mesh)aComponent;
-            m_Meshes.add(new WeakReference<>(mesh));
-            
-        }
+        if (aComponent instanceof Drawable)
+            m_Meshes.add(new WeakReference<>((Drawable)aComponent));
+
         else if (aComponent instanceof Camera)
-        {
-            Camera camera = (Camera)aComponent;
-            m_Cameras.add(new WeakReference<>(camera));
-            
-        }
+            m_Cameras.add(new WeakReference<>((Camera)aComponent));
         
     }
 
     @Override
     protected void OnComponentRemoved(Component aComponent) 
     {
-        if (aComponent instanceof Mesh)
-        {        
-            Mesh mesh = (Mesh)aComponent;
+        if (aComponent instanceof Drawable  /*instanceof Mesh*/)
+        {
+            Drawable drawable = (Drawable)aComponent;
             
             for(int i = 0, s = m_Meshes.size(); i < s; i++)
-                if (m_Meshes.get(i).get() == mesh)
+                if (m_Meshes.get(i).get() == drawable)
                 {
                     m_Meshes.remove(i);
                     return;
@@ -96,7 +95,7 @@ public class GraphicsScene extends SceneGraph
         }
         
     }
-    
+
     //************
     // Constructor
     //************

@@ -5,6 +5,7 @@
 package grimhaus.com.G2Dj.Type.Engine;
 
 import grimhaus.com.G2Dj.Type.Graphics.GraphicsScene;
+import grimhaus.com.G2Dj.Type.Physics2D.Physics2DScene;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -25,6 +26,22 @@ public class Scene
     //
     //
     public String getName(){return m_Name;}
+
+    public SceneGraph getSceneGraph(Class<? extends SceneGraph> aSceneGraphType)
+    {
+        SceneGraph rValue = null;
+        
+        for(int i=0,s=m_SceneGraphs.size();i<s;i++)
+            if(m_SceneGraphs.get(i).getClass() == aSceneGraphType)
+            {
+                rValue = m_SceneGraphs.get(i);
+                break;
+                
+            }
+        
+        return rValue;
+        
+    }
     
     //
     // GameObject callbacks
@@ -98,7 +115,8 @@ public class Scene
     public Scene(final String aName)
     {
         m_Name = aName;
-        m_SceneGraphs.add(new GraphicsScene(new WeakReference<>(this)));
+        m_SceneGraphs.add(new GraphicsScene (new WeakReference<>(this)));
+        m_SceneGraphs.add(new Physics2DScene(new WeakReference<>(this)));
         
     }
     

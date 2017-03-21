@@ -17,9 +17,9 @@ public class Model extends GraphicsResource
     //*************
     // Data members
     //*************
-    private final int          m_VertexBufferHandle;
-    private final int          m_VertexCount;
-    private final VertexFormat m_VertexFormat;
+    private final int    m_VertexBufferHandle;
+    private int          m_VertexCount;
+    private VertexFormat m_VertexFormat;
         
     //**********
     // Accessors
@@ -27,6 +27,7 @@ public class Model extends GraphicsResource
     //public int          getVertexCount (){return m_VertexCount; }
     //public VertexFormat getVertexFormat(){return m_VertexFormat;}
     public int getHandle(){return m_VertexBufferHandle;}
+    public int getVertexCount(){return m_VertexCount;}
     
     //*****************
     // Public interface
@@ -35,8 +36,6 @@ public class Model extends GraphicsResource
     {   
         enableAttributes(programHandle);
 
-        GL.glDrawArrays( GL.GL_TRIANGLES, 0, m_VertexCount );
-        
     }
     
     //****************
@@ -92,19 +91,33 @@ public class Model extends GraphicsResource
     
     //private void loadMeshFromFile(final String aFileName, final String aMeshName){}
     
+    public void updateVertexData(final float[] aNewVertexData){updateVertexData(aNewVertexData,m_VertexFormat,ModelType.Dynamic);}
+    public void updateVertexData(final float[] aNewVertexData, final VertexFormat aVertexFormat, final ModelType aType)
+    {
+        m_VertexFormat = aVertexFormat;
+        m_VertexCount  = (aNewVertexData.length/aVertexFormat.getSumOfAttributeComponents());
+        int type = GL.GL_DYNAMIC_DRAW;//= aType == ModelType.Static ? GL.GL_STATIC_DRAW : GL.GL_DYNAMIC_DRAW;
+        
+        GL.glBindBuffer (GL.GL_ARRAY_BUFFER, m_VertexBufferHandle);
+        GL.glBufferData (GL.GL_ARRAY_BUFFER, Constants.FloatSize * aNewVertexData.length, FloatBuffer.wrap(aNewVertexData), type);
+        GL.glBindBuffer (GL.GL_ARRAY_BUFFER,0);
+        
+    }
+    
     //************
     // Constructor
     //************
     //Model(const std::string &aFileName, const std::string &aMeshName = "");
-    public Model(final String aName, final float[] aVertexData, final VertexFormat aVertexFormat)
+    public Model(final String aName, final float[] aVertexData, final VertexFormat aVertexFormat, final ModelType aType)
     {
         //super(aName);
         m_Name = aName;
+        int type = aType == ModelType.Static ? GL.GL_STATIC_DRAW : GL.GL_DYNAMIC_DRAW;
         
         Debug.log("***************MODELTEST******************************");
         
         //m_Name         = aName;
-        m_VertexCount  = aVertexData.length;
+        m_VertexCount  = (aVertexData.length/aVertexFormat.getSumOfAttributeComponents());
         m_VertexFormat = aVertexFormat;
         
         ////////////////////////////////////////DEBUG
@@ -126,7 +139,7 @@ public class Model extends GraphicsResource
         
         //Pass data to the vertex buffer
         GL.glBindBuffer (GL.GL_ARRAY_BUFFER, vbo.get(0));
-        GL.glBufferData (GL.GL_ARRAY_BUFFER, Constants.FloatSize * aVertexData.length, FloatBuffer.wrap(aVertexData), GL.GL_STATIC_DRAW);
+        GL.glBufferData (GL.GL_ARRAY_BUFFER, Constants.FloatSize * aVertexData.length, FloatBuffer.wrap(aVertexData), type);
         GL.glBindBuffer (GL.GL_ARRAY_BUFFER,0);
         
     }

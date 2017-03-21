@@ -9,9 +9,11 @@ import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Imp.Input.TouchState;
 import grimhaus.com.G2Dj.Input;
+import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
+import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 
 /**
@@ -24,6 +26,8 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
     //
     //
     private static final float s_Speed = 0.001f; 
+    
+    
     
     //
     //
@@ -49,6 +53,7 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
                 inputBuffer.z+=s_Speed;
 
             getTransform().get().translate(inputBuffer);
+            
             
         }
         
@@ -88,6 +93,22 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
     protected void OnRemovedFromGameObject(){}
 
     @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
+    {
+        
+    
+    }
+
+    @Override
+    protected void OnComponentAdded(Component aComponent) {
+    }
+
+    @Override
+    protected void OnComponentRemoved(Component aComponent) {
+    }
+
+    @Override
+    protected void OnScaleChanged() {
+    }
     
 }

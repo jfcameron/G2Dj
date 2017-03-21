@@ -371,6 +371,16 @@ public class GL
         
     }
     
+    public static void glLineWidth(final float width)
+    {
+        //.if DESKTOP
+        //|gl.glLineWidth(width);
+        //.elseif ANDROID
+        GLES20.glLineWidth(width);
+        //.endif
+        
+    }
+    
 //.if DESKTOP
 //|        
 //.elseif ANDROID
@@ -406,10 +416,17 @@ gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
     public static final int GL_INFO_LOG_LENGTH;
     public static final int GL_ACTIVE_ATTRIBUTES;
     public static final int GL_ACTIVE_UNIFORMS;
+    public static final int GL_POINTS;
+    public static final int GL_LINES;
+    public static final int GL_LINE_STRIP;
+    public static final int GL_LINE_LOOP;
     public static final int GL_TRIANGLES;
+    public static final int GL_TRIANGLE_STRIP;
+    public static final int GL_TRIANGLE_FAN;
     public static final int GL_FLOAT;
     public static final int GL_ARRAY_BUFFER;
     public static final int GL_STATIC_DRAW;
+    public static final int GL_DYNAMIC_DRAW;
     public static final int GL_RGBA;
     public static final int GL_UNSIGNED_BYTE;
     public static final int GL_TEXTURE_MIN_FILTER;
@@ -440,10 +457,17 @@ gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
         //|GL_INFO_LOG_LENGTH = com.jogamp.opengl.GL2.GL_INFO_LOG_LENGTH;
         //|GL_ACTIVE_ATTRIBUTES = com.jogamp.opengl.GL2.GL_ACTIVE_ATTRIBUTES;
         //|GL_ACTIVE_UNIFORMS = com.jogamp.opengl.GL2.GL_ACTIVE_UNIFORMS;
+        //|GL_POINTS = com.jogamp.opengl.GL2.GL_POINTS;
+        //|GL_LINES = com.jogamp.opengl.GL2.GL_LINES;
+        //|GL_LINE_STRIP = com.jogamp.opengl.GL2.GL_LINE_STRIP;
+        //|GL_LINE_LOOP = com.jogamp.opengl.GL2.GL_LINE_LOOP;
         //|GL_TRIANGLES = com.jogamp.opengl.GL2.GL_TRIANGLES;
+        //|GL_TRIANGLE_STRIP = com.jogamp.opengl.GL2.GL_TRIANGLE_STRIP;
+        //|GL_TRIANGLE_FAN = com.jogamp.opengl.GL2.GL_TRIANGLE_FAN;
         //|GL_FLOAT = com.jogamp.opengl.GL2.GL_FLOAT;
         //|GL_ARRAY_BUFFER = com.jogamp.opengl.GL2.GL_ARRAY_BUFFER;
         //|GL_STATIC_DRAW = com.jogamp.opengl.GL2.GL_STATIC_DRAW;
+        //|GL_DYNAMIC_DRAW = com.jogamp.opengl.GL2.GL_DYNAMIC_DRAW;
         //|GL_RGBA = com.jogamp.opengl.GL2.GL_RGBA;
         //|GL_UNSIGNED_BYTE = com.jogamp.opengl.GL2.GL_UNSIGNED_BYTE;
         //|GL_TEXTURE_MIN_FILTER = com.jogamp.opengl.GL2.GL_TEXTURE_MIN_FILTER;
@@ -471,10 +495,17 @@ gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
         GL_INFO_LOG_LENGTH = GLES20.GL_INFO_LOG_LENGTH;
         GL_ACTIVE_ATTRIBUTES = GLES20.GL_ACTIVE_ATTRIBUTES;
         GL_ACTIVE_UNIFORMS = GLES20.GL_ACTIVE_UNIFORMS;
+        GL_POINTS = GLES20.GL_POINTS;
+        GL_LINES = GLES20.GL_LINES;
+        GL_LINE_STRIP = GLES20.GL_LINE_STRIP;
+        GL_LINE_LOOP = GLES20.GL_LINE_LOOP;
         GL_TRIANGLES = GLES20.GL_TRIANGLES;
+        GL_TRIANGLE_STRIP = GLES20.GL_TRIANGLE_STRIP;
+        GL_TRIANGLE_FAN = GLES20.GL_TRIANGLE_FAN;
         GL_FLOAT = GLES20.GL_FLOAT;
         GL_ARRAY_BUFFER = GLES20.GL_ARRAY_BUFFER;
         GL_STATIC_DRAW = GLES20.GL_STATIC_DRAW;
+        GL_DYNAMIC_DRAW = GLES20.GL_DYNAMIC_DRAW;
         GL_RGBA = GLES20.GL_RGBA;
         GL_UNSIGNED_BYTE = GLES20.GL_UNSIGNED_BYTE;
         GL_TEXTURE_MIN_FILTER = GLES20.GL_TEXTURE_MIN_FILTER;

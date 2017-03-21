@@ -3,11 +3,17 @@ package Adhoc;
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
+import grimhaus.com.G2Dj.Imp.Graphics.Model;
+import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
+import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
+import grimhaus.com.G2Dj.Type.Physics2D.LineVisualizer;
+import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 
 /**
@@ -38,11 +44,21 @@ public class Main
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
                 
+                
                 //aGameObject.get().removeComponent(Mesh.class);
                 
                 PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
-                aPC.getTransform().get().setRotation(0,0,45);
+                //aPC.getTransform().get().setRotation(0,0,45);
                 aPC.getTransform().get().setPosition(0,0,1f);
+                aPC.getTransform().get().setScale(3,1,3);
+                
+                aGameObject.get().addComponent(BoxCollider.class);
+                
+                Rigidbody bc = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
+                
+                
+                
+                //bc.setType(BodyType.Static);
             
             }
             
@@ -67,6 +83,7 @@ public class Main
                 
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "Sprites.png"); //give the mesh a texture
+                
                 
             }
             
@@ -138,16 +155,38 @@ public class Main
                 theCamera.get().setName("Camera");
                 theCamera.get().getTransform().get().setPosition(-1,0,2);
                 theCamera.get().getTransform().get().setRotation(0,0,0);
+                theCamera.get().addComponent(BoxCollider.class);
+                theCamera.get().addComponent(Rigidbody.class);
                 theCamera.get().addComponent(CameraController.class);
-                
                 theCamera.get().addComponent(Camera.class);
+                
+                
+                
+                Debug.log(theCamera.get());
+
+            }
+            
+            //Create the camera
+            {
+                WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
+                theCamera.get().setName("Camera");
+                theCamera.get().getTransform().get().setPosition(-1,5,2);
+                theCamera.get().getTransform().get().setRotation(-90,0,0);
+                Camera camera = (Camera)theCamera.get().addComponent(Camera.class);
+                camera.setViewportPixelSize(new Vector2(0.5f,0.5f));
+                camera.setClearMode(CameraClearMode.DepthOnly);
+                
+                
+                Debug.log(theCamera.get());
 
             }
         
         }
+        
+        
 
         //.if DESKTOP
-        //|Engine.mainLoop();//TODO: this should not exist.
+        Engine.mainLoop();//TODO: this should not exist.
         //.endif
 
     }

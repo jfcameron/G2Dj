@@ -4,19 +4,22 @@
  */
 package grimhaus.com.G2Dj.Imp.Engine;
 
+import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.Quaternion;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import static java.lang.Math.PI;
+import java.lang.ref.WeakReference;
 
 /**
  *
  * @author Joe
- */
+ *//*
 public class Transform 
 {
     //
     //
     //
+    private final WeakReference<GameObject> m_GameObject;
     private Vector3 m_Position, m_Scale, m_Rotation;
     //private Quaternion m_Rotation;
 
@@ -28,9 +31,9 @@ public class Transform
     public Vector3 getRotation(){return m_Rotation;}
     public Vector3 getEulers  (){return m_Rotation;}
     
-    public void setPosition(final Vector3 aPosition){m_Position = aPosition;                      }
-    public void setScale   (final Vector3 aScale   ){m_Scale    = aScale;                         }
-    public void setRotation(final Vector3 aEulers  ){m_Rotation = aEulers.multiply((float)PI/180);}
+    public void setPosition(final Vector3 aPosition){m_Position = aPosition;                           }
+    public void setScale   (final Vector3 aScale   ){m_Scale    = aScale;m_GameObject.OnScaleChanged();}
+    public void setRotation(final Vector3 aEulers  ){m_Rotation = aEulers.multiply((float)PI/180);     }
     
     public void setPosition(final float aX, final float aY, final float aZ){m_Position.x=aX;m_Position.y=aY;m_Position.z=aZ;}
     public void setScale   (final float aX, final float aY, final float aZ){m_Scale   .x=aX;m_Scale   .y=aY;m_Scale   .z=aZ;}
@@ -53,7 +56,7 @@ public class Transform
     //
     //
     //
-    public Transform() 
+    public Transform(WeakReference<GameObject> aMyGameObject) 
     {
         m_Position = new Vector3();
         m_Scale    = new Vector3(1.f);
@@ -64,3 +67,4 @@ public class Transform
     @Override public String toString(){return "Transform: { Position: "+m_Position+", m_Scale: "+m_Scale+", m_Rotation: "+m_Rotation+" }";}
     
 }
+*/

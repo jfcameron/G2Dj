@@ -29,7 +29,7 @@ public class LineVisualizer extends Component implements Drawable
     private static final float h = 0.5f;
     private static final float y = -0.2f;
     
-    private static final float[] boxData = new float[]
+    public static final float[] lineBox(){return new float[]
     {
         +h,y,+h,
         -h,y,+h,
@@ -37,9 +37,9 @@ public class LineVisualizer extends Component implements Drawable
         +h,y,-h,
         +h,y,+h,
                 
-    };
+    };}
     
-    private static final float[] circleData = new float[]
+    public static final float[] lineCircle(){return new float[]
     {
         -h/3,y,+h,      +h/3,y,+h,
         +h,y,+h/3,      +h,y,-h/3,
@@ -47,20 +47,26 @@ public class LineVisualizer extends Component implements Drawable
         -h,y,-h/3,      -h,y,+h/3,
         -h/3,y,+h,      +h/3,y,+h,
                 
-    };
+    };}
     
-    
+    private float[] m_VertexData = lineCircle();
     
     private final Model                         m_Model;
     private final WeakReference<ShaderProgram>  m_ShaderProgram;
     
     
-    private Vector3 m_OldScale;
+    private final Vector3 m_OldScale = new Vector3();
     
     //buffers & pools
     private final Mat4x4 b_ModelMatrixBuffer = new Mat4x4();//reduce heap abuse in getModelMatrix()
     private final Mat4x4 b_MVPMatrixBuffer   = new Mat4x4();
     
+    public void setVertexData(final float[] aVertexData)
+    {
+        m_VertexData = aVertexData;
+        m_Model.updateVertexData(m_VertexData);
+    
+    }
     
     public Mat4x4 getModelMatrix()
     {
@@ -120,7 +126,7 @@ public class LineVisualizer extends Component implements Drawable
         (
             "LineVisualizer"
             , 
-            circleData
+            m_VertexData
             , 
             VertexFormat.pos3
             ,
@@ -139,11 +145,10 @@ public class LineVisualizer extends Component implements Drawable
     {
         Vector3 scale = getGameObject().get().getTransform().get().getScale();
                 
-        
         if (scale.x != m_OldScale.x || scale.y != m_OldScale.y || scale.z != m_OldScale.z)
         {
             Debug.log("Hello!");
-            m_Model.updateVertexData(boxData);
+           // m_Model.updateVertexData(m_VertexData);
          
         }
             
@@ -154,7 +159,7 @@ public class LineVisualizer extends Component implements Drawable
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
-        m_OldScale = aGameObject.get().getTransform().get().getScale();
+        m_OldScale.copy(aGameObject.get().getTransform().get().getScale());
 
     }
 

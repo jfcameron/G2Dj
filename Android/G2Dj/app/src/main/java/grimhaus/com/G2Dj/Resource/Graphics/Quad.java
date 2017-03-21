@@ -5,6 +5,7 @@
 package grimhaus.com.G2Dj.Resource.Graphics;
 
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
+import grimhaus.com.G2Dj.Imp.Graphics.ModelType;
 import grimhaus.com.G2Dj.Imp.Graphics.VertexFormat;
 
 /**
@@ -36,6 +37,8 @@ public class Quad extends Model
             }
             , 
             VertexFormat.pos3uv2
+            ,
+            ModelType.Static
         
         );
     

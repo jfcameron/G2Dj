@@ -81,7 +81,7 @@ public class GameObject
         
     }
     
-    public void removeComponent(Class<? extends Component> aComponentType)
+    public void removeComponent(Class<? /*extends Component*/> aComponentType)
     {
         for (int i=0,s=m_Components.size();i<s;i++)
             if (m_Components.get(i).getClass() == aComponentType)
@@ -99,7 +99,7 @@ public class GameObject
         
     }
     
-    public Component getComponent(Class<? extends Component> aComponentType)
+    public Component getComponent(Class<? /*extends Component*/> aComponentType)
     {
         Component rValue = null;
         
@@ -110,15 +110,33 @@ public class GameObject
             
             Debug.log(m_Name+": "+aComponentType,currentComponent.getClass());
             
-            if(currentComponent.getClass().equals(aComponentType))
+            if(aComponentType.isAssignableFrom(currentComponent.getClass()))
             {
-                rValue = currentComponent;Debug.log("SUCCESS");
+                rValue = currentComponent;//Debug.log("SUCCESS");
                 
             }
             
         }
         
         return rValue; //aComponentType.cast(rValue)
+        
+    }
+    
+    public ArrayList<Component> getComponents(Class<?> aComponentType)
+    {
+        ArrayList<Component> rValue = new ArrayList<>();
+        
+        Component currentComponent;
+        for(int i = 0, s = m_Components.size(); i<s; i++)//m_Components
+        {
+            currentComponent = m_Components.get(i);
+            
+            if(aComponentType.isAssignableFrom(currentComponent.getClass()))
+                rValue.add(currentComponent);
+                
+        }
+        
+        return rValue;
         
     }
     

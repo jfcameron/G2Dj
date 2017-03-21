@@ -4,7 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Engine;
 
-import grimhaus.com.G2Dj.Imp.Engine.Transform;
+import grimhaus.com.G2Dj.Type.Engine.GameObject.Transform;
 import java.lang.ref.WeakReference;
 
 /**
@@ -42,7 +42,15 @@ public abstract class Component
     
     protected final void OnRemovedFromGameObjectSuper(){m_GameObject = null;}
     
+    //Whenever I am added or removed
     protected abstract void OnAddedToGameObject    (final WeakReference<GameObject> aGameObject);
     protected abstract void OnRemovedFromGameObject();
+    
+    //Whenever any component is added or removed
+    protected abstract void OnComponentAdded(final Component aComponent);
+    protected abstract void OnComponentRemoved(final Component aComponent);
+    
+    //Scaling of gameobject transform chagned
+    protected abstract void OnScaleChanged();
     
 }

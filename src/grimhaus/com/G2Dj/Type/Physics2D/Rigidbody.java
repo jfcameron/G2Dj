@@ -4,12 +4,14 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.dynamics.BodyDef;
@@ -51,7 +53,19 @@ public class Rigidbody extends Component
     public void setVelocity(final Vector2 aVelocity){setVelocity(aVelocity.x,aVelocity.y);}
     public void setVelocity(final float aX,final float aY){m_Body.setLinearVelocity(new Vec2(aX,aY));}
     
-    private void createBody()
+    @Override
+    protected void finalize()
+    {
+        if (m_Body != null && m_Physics2DScene != null)
+            m_Physics2DScene.getB2DWorld().destroyBody(m_Body);
+        
+    }
+    
+    //
+    // Component
+    //
+    @Override
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
         m_Physics2DScene = (Physics2DScene)getGameObject().get().getScene().get().getSceneGraph(Physics2DScene.class);
         
@@ -69,48 +83,28 @@ public class Rigidbody extends Component
             
         }
         
-        //Create the fixture data...
-        FixtureDef fixtureDef = new FixtureDef();
-        {
-            //the box shape
-            //PolygonShape shape = new PolygonShape();
-            //shape.setAsBox(scale.x,scale.y);
-            CircleShape shape = new CircleShape();
-            shape.setRadius(scale.x/2);
-            
-            
-            
-            //etc..
-            fixtureDef.shape = shape;
-            fixtureDef.density = 1;
-            
-        }
-        
         //Create the body in the world
-        if (m_Body != null)
+        if (m_Body != null && m_Physics2DScene != null)
             m_Physics2DScene.getB2DWorld().destroyBody(m_Body);
         
         m_Body = m_Physics2DScene.getB2DWorld().createBody(myBodyDef);
-        m_Body.createFixture(fixtureDef);
         
-        getGameObject().get().addComponent(LineVisualizer.class);
+        buildFixtures();
         
-        ///Visualizer test
-        //ColliderVisualizer test = new ColliderVisualizer();
-        //((SceneGraph)getGameObject().get().getScene().get().getSceneGraph(GraphicsScene.class)).;
-        
-    }
-    
-    //
-    // Component
-    //
-    @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
-    {
-        createBody();
-    
     }
 
+    void buildFixtures()
+    {
+        ArrayList<Component> colliders = getGameObject().get().getComponents(Collider.class);
+        
+        for(int i=0,s=colliders.size();i<s;i++)
+        {
+            m_Body.createFixture(((Collider)colliders.get(i)).getB2DFixture());
+        
+        }
+            
+    }
+    
     @Override
     protected void OnRemovedFromGameObject() 
     {
@@ -146,7 +140,9 @@ public class Rigidbody extends Component
     }
 
     @Override
-    protected void OnComponentAdded(Component aComponent) {
+    protected void OnComponentAdded(Component aComponent) 
+    {
+        
     }
 
     @Override

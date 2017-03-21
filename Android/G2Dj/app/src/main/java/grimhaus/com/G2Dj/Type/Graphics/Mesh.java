@@ -6,6 +6,7 @@ package grimhaus.com.G2Dj.Type.Graphics;
 
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Graphics.GL;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
 import grimhaus.com.G2Dj.Imp.Graphics.Texture;
@@ -21,7 +22,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
-public class Mesh extends Component
+public class Mesh extends Component implements Drawable
 {
     //*************
     // Data members
@@ -32,7 +33,7 @@ public class Mesh extends Component
     
     //buffers & pools
     private final Mat4x4 b_ModelMatrixBuffer = new Mat4x4();//reduce heap abuse in getModelMatrix()
-    private final Mat4x4 b_MVPMatrixBuffer = new Mat4x4();
+    private final Mat4x4 b_MVPMatrixBuffer   = new Mat4x4();
         
     //**********
     // Accessors
@@ -66,8 +67,9 @@ public class Mesh extends Component
     public final void setShader(final String aShaderName){m_ShaderProgram = Graphics.getShaderProgram(aShaderName);}
     
     //
-    // Graphics Scene interface
+    // Drawable interface
     //
+    @Override
     public void draw(final WeakReference<Camera> aCamera)
     {
         m_ShaderProgram.get().draw();
@@ -84,6 +86,8 @@ public class Mesh extends Component
         Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", b_MVPMatrixBuffer.toFloatBuffer());
                 
         m_Model.get().draw(m_ShaderProgram.get().getProgramHandle());
+        
+        GL.glDrawArrays( GL.GL_TRIANGLES, 0, m_Model.get().getVertexCount() );
         
     }
     
@@ -115,5 +119,17 @@ public class Mesh extends Component
     }
 
     //@Override public String toString(){return ;}
+
+    @Override
+    protected void OnComponentAdded(Component aComponent) {
+    }
+
+    @Override
+    protected void OnComponentRemoved(Component aComponent) {
+    }
+
+    @Override
+    protected void OnScaleChanged() {
+    }
    
 }

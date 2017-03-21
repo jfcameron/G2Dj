@@ -32,12 +32,12 @@ public class Graphics
     // Data members
     //*************
     //.if DESKTOP
-    //|private static Window s_Window;
+    //|private static final Window s_Window;
     //.endif
     
-    private static  ShaderProgramCollection s_ShaderPrograms;
-    private static  ModelCollection         s_Models;
-    private static  TextureCollection       s_Textures;
+    private static final ShaderProgramCollection s_ShaderPrograms;
+    private static final ModelCollection         s_Models;
+    private static final TextureCollection       s_Textures;
     
     //********
     // Getters
@@ -52,6 +52,7 @@ public class Graphics
     //Shader funcs
     //public static void loadShader(ShaderProgram aShaderProgram){s_ShaderPrograms.add(aShaderProgram);}
     public static WeakReference<ShaderProgram> getShaderProgram(final String aName){return s_ShaderPrograms.get(aName);}
+    public static WeakReference<ShaderProgram> getShaderProgram(){return s_ShaderPrograms.get();}
     //Model funcs
     public static WeakReference<Model> getModel(final String aName){return s_Models.get(aName);}
     public static WeakReference<Model> getModel(){return s_Models.get();}

@@ -14,6 +14,7 @@ import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
+import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import java.lang.ref.WeakReference;
@@ -31,40 +32,39 @@ public class CameraController extends Component
     0.001f*1000;
     //.endif
     
+    private Rigidbody m_Rigidbody;
+    
     @Override
     public void update() 
     {
         Vector3 inputBuffer = new Vector3();
-            
-        if (Input.getKey(KeyCode.D))
-        {
-            //inputBuffer.x-=s_Speed;
-            inputBuffer.x += (float)sin(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
-            inputBuffer.z -= (float)cos(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
-            
-        }
         
-        if (Input.getKey(KeyCode.A))
-        {
-            //inputBuffer.x+=s_Speed;
-            inputBuffer.x -= (float)sin(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
-            inputBuffer.z += (float)cos(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
-         
-        }
-            
-        if (Input.getKey(KeyCode.S))
-        {
-            //inputBuffer.z-=s_Speed;
-            inputBuffer.x -= (float)sin(getTransform().get().getRotation().y);
-            inputBuffer.z += (float)cos(getTransform().get().getRotation().y);
-            
-        }
             
         if (Input.getKey(KeyCode.W))
         {
-            //inputBuffer.z+=s_Speed;
-            inputBuffer.x += sin(getTransform().get().getRotation().y);
-            inputBuffer.z -= cos(getTransform().get().getRotation().y);
+            inputBuffer.z += (float)sin(getTransform().get().getRotation().y - (90.0f * Math.PI / 180));
+            inputBuffer.x -= (float)cos(getTransform().get().getRotation().y - (90.0f * Math.PI / 180));
+            
+        }
+        
+        if (Input.getKey(KeyCode.S))
+        {
+            inputBuffer.z -= (float)sin(getTransform().get().getRotation().y - (90.0f * Math.PI / 180));
+            inputBuffer.x += (float)cos(getTransform().get().getRotation().y - (90.0f * Math.PI / 180));
+         
+        }
+            
+        if (Input.getKey(KeyCode.A))
+        {
+            inputBuffer.z += (float)sin(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
+            inputBuffer.x -= (float)cos(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
+            
+        }
+        
+        if (Input.getKey(KeyCode.D))
+        {
+            inputBuffer.z -= (float)sin(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
+            inputBuffer.x += (float)cos(getTransform().get().getRotation().y);
 
         }
             
@@ -91,16 +91,17 @@ public class CameraController extends Component
 
         }
         
-        inputBuffer.multiplyInPlace(s_Speed);
+        inputBuffer.multiplyInPlace(s_Speed*1000);
             
-        getTransform().get().translate(inputBuffer);
-            
+        //getTransform().get().translate(inputBuffer);
+        m_Rigidbody.setVelocity(inputBuffer.x,inputBuffer.z);  
+        
         Vector3 rotationBuffer = new Vector3();
             
-        if (Input.getKey(KeyCode.E))
+        if (Input.getKey(KeyCode.Q))
             rotationBuffer.y +=0.1f;
             
-        if (Input.getKey(KeyCode.Q))
+        if (Input.getKey(KeyCode.E))
             rotationBuffer.y -=0.1f;
 
         //Touchscreen input
@@ -119,9 +120,27 @@ public class CameraController extends Component
     }
 
     @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
+    {
+        Debug.log("Try to get the collider");
+        m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
+        Debug.log("The rigidbody: "+m_Rigidbody);
+        
+    }
 
     @Override
     protected void OnRemovedFromGameObject() {}
+
+    @Override
+    protected void OnComponentAdded(Component aComponent) {
+    }
+
+    @Override
+    protected void OnComponentRemoved(Component aComponent) {
+    }
+
+    @Override
+    protected void OnScaleChanged() {
+    }
     
 }
