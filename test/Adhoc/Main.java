@@ -3,6 +3,7 @@ package Adhoc;
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
@@ -154,6 +155,21 @@ public class Main
                 theCamera.get().addComponent(CameraController.class);
                 theCamera.get().addComponent(Camera.class);
                 
+                
+                
+                Debug.log(theCamera.get());
+
+            }
+            
+            //Create the camera
+            {
+                WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
+                theCamera.get().setName("Camera");
+                theCamera.get().getTransform().get().setPosition(-1,5,2);
+                theCamera.get().getTransform().get().setRotation(-90,0,0);
+                Camera camera = (Camera)theCamera.get().addComponent(Camera.class);
+                camera.setViewportPixelSize(new Vector2(0.5f,0.5f));
+                camera.setClearMode(CameraClearMode.DepthOnly);
                 
                 
                 Debug.log(theCamera.get());

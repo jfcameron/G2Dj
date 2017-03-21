@@ -6,7 +6,6 @@ package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
-import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 
@@ -77,7 +76,7 @@ public class Rigidbody extends Component
             //PolygonShape shape = new PolygonShape();
             //shape.setAsBox(scale.x,scale.y);
             CircleShape shape = new CircleShape();
-            shape.setRadius(0.5f);
+            shape.setRadius(scale.x*2);
             
             
             
@@ -144,6 +143,14 @@ public class Rigidbody extends Component
         
         }
     
+    }
+
+    @Override
+    protected void OnComponentAdded(Component aComponent) {
+    }
+
+    @Override
+    protected void OnComponentRemoved(Component aComponent) {
     }
     
 }

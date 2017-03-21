@@ -34,4 +34,12 @@ public class Spinner extends Component
     @Override
     protected void OnRemovedFromGameObject() {}
 
+    @Override
+    protected void OnComponentAdded(Component aComponent) {
+    }
+
+    @Override
+    protected void OnComponentRemoved(Component aComponent) {
+    }
+
 }

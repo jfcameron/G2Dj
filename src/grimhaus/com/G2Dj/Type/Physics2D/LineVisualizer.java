@@ -31,14 +31,25 @@ public class LineVisualizer extends Component implements Drawable
     private static final float y = -0.2f;
     
     private static final float[] boxData = new float[]
-            {
-                h,y, h,
-               -h,y, h,
-               -h,y,-h,
-               +h,y,-h,
-                h,y, h,
+    {
+        +h,y,+h,
+        -h,y,+h,
+        -h,y,-h,
+        +h,y,-h,
+        +h,y,+h,
                 
-            };
+    };
+    
+    private static final float[] circleData = new float[]
+    {
+        -h/3,y,+h,      +h/3,y,+h,
+        +h,y,+h/3,      +h,y,-h/3,
+        +h/3,y,-h,      -h/3,y,-h,
+        -h,y,-h/3,      -h,y,+h/3,
+        -h/3,y,+h,      +h/3,y,+h,
+                
+    };
+    
     
     
     private final Model                         m_Model;
@@ -108,7 +119,7 @@ public class LineVisualizer extends Component implements Drawable
         (
                 "Test"
             , 
-            boxData
+            circleData
             , 
             VertexFormat.pos3
             ,
@@ -134,5 +145,13 @@ public class LineVisualizer extends Component implements Drawable
 
     @Override
     protected void OnRemovedFromGameObject() {}
+
+    @Override
+    protected void OnComponentAdded(Component aComponent) {
+    }
+
+    @Override
+    protected void OnComponentRemoved(Component aComponent) {
+    }
     
 }

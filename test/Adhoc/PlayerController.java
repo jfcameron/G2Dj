@@ -9,6 +9,7 @@ import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Imp.Input.TouchState;
 import grimhaus.com.G2Dj.Input;
+import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
@@ -96,6 +97,14 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
     {
         
     
+    }
+
+    @Override
+    protected void OnComponentAdded(Component aComponent) {
+    }
+
+    @Override
+    protected void OnComponentRemoved(Component aComponent) {
     }
     
 }

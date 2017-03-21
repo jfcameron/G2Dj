@@ -119,5 +119,13 @@ public class Mesh extends Component implements Drawable
     }
 
     //@Override public String toString(){return ;}
+
+    @Override
+    protected void OnComponentAdded(Component aComponent) {
+    }
+
+    @Override
+    protected void OnComponentRemoved(Component aComponent) {
+    }
    
 }

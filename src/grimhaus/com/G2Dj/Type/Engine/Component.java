@@ -42,7 +42,12 @@ public abstract class Component
     
     protected final void OnRemovedFromGameObjectSuper(){m_GameObject = null;}
     
+    //Whenever I am added or removed
     protected abstract void OnAddedToGameObject    (final WeakReference<GameObject> aGameObject);
     protected abstract void OnRemovedFromGameObject();
+    
+    //Whenever any component is added or removed
+    protected abstract void OnComponentAdded(final Component aComponent);
+    protected abstract void OnComponentRemoved(final Component aComponent);
     
 }

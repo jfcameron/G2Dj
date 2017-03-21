@@ -46,17 +46,20 @@ public class GameObject
         {
             rValue = aComponentType.newInstance();
             
-            if (!m_Components.contains(rValue))
+            //if (!m_Components.contains(rValue))
             {
                 m_Components.add(rValue);
                 rValue.OnAddedToGameObjectSuper(new WeakReference<>(this));
                 rValue.OnAddedToGameObject(new WeakReference<>(this));
                 
             }
-            else
-                Debug.log("GameObject "+m_Name+" already has a "+rValue.getClass().getSimpleName());
+            //else
+            //    Debug.log("GameObject "+m_Name+" already has a "+rValue.getClass().getSimpleName());
             
             m_MyScene.get().OnComponentAdded(rValue);
+            
+            for(int i=0,s=m_Components.size();i<s;i++)
+                m_Components.get(i).OnComponentAdded(rValue);
         
         } 
         
@@ -72,6 +75,10 @@ public class GameObject
             if (m_Components.get(i).getClass() == aComponentType)
             {
                 m_MyScene.get().OnComponentRemoved(m_Components.get(i));
+                
+                for(int j=0,t=m_Components.size();j<t;j++)
+                    m_Components.get(j).OnComponentRemoved(m_Components.get(i));
+                
                 m_Components.get(i).OnRemovedFromGameObjectSuper();
                 m_Components.get(i).OnRemovedFromGameObject();
                 m_Components.remove(i);
