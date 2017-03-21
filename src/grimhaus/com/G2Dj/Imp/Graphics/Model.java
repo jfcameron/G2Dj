@@ -96,9 +96,8 @@ public class Model extends GraphicsResource
     {
         m_VertexFormat = aVertexFormat;
         m_VertexCount  = (aNewVertexData.length/aVertexFormat.getSumOfAttributeComponents());
-        int type = aType == ModelType.Static ? GL.GL_STATIC_DRAW : GL.GL_DYNAMIC_DRAW;
+        int type = GL.GL_DYNAMIC_DRAW;//= aType == ModelType.Static ? GL.GL_STATIC_DRAW : GL.GL_DYNAMIC_DRAW;
         
-        GL.glDeleteBuffers(1, IntBuffer.wrap(new int[]{m_VertexBufferHandle}));
         GL.glBindBuffer (GL.GL_ARRAY_BUFFER, m_VertexBufferHandle);
         GL.glBufferData (GL.GL_ARRAY_BUFFER, Constants.FloatSize * aNewVertexData.length, FloatBuffer.wrap(aNewVertexData), type);
         GL.glBindBuffer (GL.GL_ARRAY_BUFFER,0);

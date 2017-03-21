@@ -47,8 +47,9 @@ public class Main
                 //aGameObject.get().removeComponent(Mesh.class);
                 
                 PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
-                aPC.getTransform().get().setRotation(0,0,45);
+                //aPC.getTransform().get().setRotation(0,0,45);
                 aPC.getTransform().get().setPosition(0,0,1f);
+                aPC.getTransform().get().setScale(3,1,3);
                 
                 Rigidbody bc = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
                 

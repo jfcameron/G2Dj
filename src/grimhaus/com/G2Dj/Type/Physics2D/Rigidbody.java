@@ -56,7 +56,7 @@ public class Rigidbody extends Component
         m_Physics2DScene = (Physics2DScene)getGameObject().get().getScene().get().getSceneGraph(Physics2DScene.class);
         
         Vector3 position = getTransform().get().getPosition();
-        Vector3 scale    = new Vector3(0.25f,1f,0.25f);//getTransform().get().getScale();
+        Vector3 scale    = getTransform().get().getScale();
         Vector3 rotation = getTransform().get().getRotation();
         
         //Create body data...
@@ -76,7 +76,7 @@ public class Rigidbody extends Component
             //PolygonShape shape = new PolygonShape();
             //shape.setAsBox(scale.x,scale.y);
             CircleShape shape = new CircleShape();
-            shape.setRadius(scale.x*2);
+            shape.setRadius(scale.x/2);
             
             
             
@@ -151,6 +151,10 @@ public class Rigidbody extends Component
 
     @Override
     protected void OnComponentRemoved(Component aComponent) {
+    }
+
+    @Override
+    protected void OnScaleChanged() {
     }
     
 }

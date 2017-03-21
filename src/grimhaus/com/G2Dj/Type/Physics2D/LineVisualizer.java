@@ -11,7 +11,6 @@ import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Imp.Graphics.ModelType;
 import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
 import grimhaus.com.G2Dj.Imp.Graphics.Uniforms;
-import grimhaus.com.G2Dj.Imp.Graphics.VertexAttribute;
 import grimhaus.com.G2Dj.Imp.Graphics.VertexFormat;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
@@ -54,6 +53,9 @@ public class LineVisualizer extends Component implements Drawable
     
     private final Model                         m_Model;
     private final WeakReference<ShaderProgram>  m_ShaderProgram;
+    
+    
+    private Vector3 m_OldScale;
     
     //buffers & pools
     private final Mat4x4 b_ModelMatrixBuffer = new Mat4x4();//reduce heap abuse in getModelMatrix()
@@ -113,17 +115,16 @@ public class LineVisualizer extends Component implements Drawable
     public LineVisualizer()
     {
         
-        
         m_ShaderProgram = Graphics.getShaderProgram();
         m_Model = new Model
         (
-                "Test"
+            "LineVisualizer"
             , 
             circleData
             , 
             VertexFormat.pos3
             ,
-            ModelType.Static
+            ModelType.Dynamic
                 
                 
         );
@@ -136,12 +137,26 @@ public class LineVisualizer extends Component implements Drawable
     @Override
     public void update() 
     {
+        Vector3 scale = getGameObject().get().getTransform().get().getScale();
+                
         
-    
+        if (scale.x != m_OldScale.x || scale.y != m_OldScale.y || scale.z != m_OldScale.z)
+        {
+            Debug.log("Hello!");
+            m_Model.updateVertexData(boxData);
+         
+        }
+            
+        m_OldScale.copy(scale);
+        
     }
 
     @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
+    {
+        m_OldScale = aGameObject.get().getTransform().get().getScale();
+
+    }
 
     @Override
     protected void OnRemovedFromGameObject() {}
@@ -152,6 +167,13 @@ public class LineVisualizer extends Component implements Drawable
 
     @Override
     protected void OnComponentRemoved(Component aComponent) {
+    }
+
+    @Override
+    protected void OnScaleChanged() 
+    {
+        //????
+        
     }
     
 }

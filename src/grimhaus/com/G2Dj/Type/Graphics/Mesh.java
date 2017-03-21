@@ -127,5 +127,9 @@ public class Mesh extends Component implements Drawable
     @Override
     protected void OnComponentRemoved(Component aComponent) {
     }
+
+    @Override
+    protected void OnScaleChanged() {
+    }
    
 }

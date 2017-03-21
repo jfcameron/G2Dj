@@ -2,9 +2,9 @@ package Adhoc;
 
 import java.lang.ref.WeakReference;
 
-import grimhaus.com.G2Dj.Imp.Engine.Transform;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Engine.GameObject.Transform;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 
 /**
@@ -40,6 +40,10 @@ public class Spinner extends Component
 
     @Override
     protected void OnComponentRemoved(Component aComponent) {
+    }
+
+    @Override
+    protected void OnScaleChanged() {
     }
 
 }

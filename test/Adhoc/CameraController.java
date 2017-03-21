@@ -138,5 +138,9 @@ public class CameraController extends Component
     @Override
     protected void OnComponentRemoved(Component aComponent) {
     }
+
+    @Override
+    protected void OnScaleChanged() {
+    }
     
 }

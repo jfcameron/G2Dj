@@ -37,6 +37,8 @@ public class Vector3
     
     public void normalize(){float l=length(); x/=l; y/=l; z/=l;}
     //public void normalizeAndScale(const float &aScalar);
+    
+    public void copy(final Vector3 aVector3){x=aVector3.x;y=aVector3.y;z=aVector3.z;}
 
     //******************************
     //Non mutating vector operations
@@ -49,6 +51,8 @@ public class Vector3
     public Vector3 unit(){float l=length(); return new Vector3(x/l,y/l,z/l);}
     public float length(){return (float)java.lang.Math.sqrt((x*x)+(y*y)+(z*z));}
         
+    public boolean equals(final Vector3 aVector3){return aVector3.x == x && aVector3.y == y ? true : false;}
+    
     //************
     //Constructors
     //************
