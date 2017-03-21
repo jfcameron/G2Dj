@@ -27,6 +27,7 @@ public class Vector2
     //********************************
     //State mutating vector operations
     //********************************
+    public Vector2 setFromB2DVec2 (final org.jbox2d.common.Vec2 aB2Vec2){x=aB2Vec2.x;y=aB2Vec2.y;return this;}
     public void setInPlace     (final float aX, final float aY){x=aX;y=aY;}
     public void addInPlace     (final Vector2 aVector){x += aVector.x; y += aVector.y;}
     public void subtractInPlace(final Vector2 aVector){x -= aVector.x; y -= aVector.y;}
@@ -47,7 +48,7 @@ public class Vector2
     public Vector2 unit(){float l=length(); return new Vector2(x/l,y/l);}
     public float aspectRatio(){return (x / y); }
     public float length     (){return (float)java.lang.Math.sqrt((x*x) + (y*y));}
-    
+            
     //************
     //Constructors
     //************
