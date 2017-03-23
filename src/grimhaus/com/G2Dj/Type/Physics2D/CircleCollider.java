@@ -10,6 +10,8 @@ import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 
 /**
@@ -18,38 +20,37 @@ import org.jbox2d.dynamics.FixtureDef;
  */
 public class CircleCollider extends Component implements Collider
 {
-    //
-    //
-    //
+    //*************
+    // Data members
+    //*************
     private       LineVisualizer m_LineVisualizer;
     private final FixtureDef     m_FixtureDefinition = new FixtureDef();
-    private final CircleShape    m_Shape = new CircleShape();
-    private final Vector2        m_Offset = new Vector2();
+    private final CircleShape    m_Shape             = new CircleShape();
+    private final Vector2        m_Offset            = new Vector2();
+    
+    //buffers
+    private Vector3 b_ScaleBuffer;
+    private final Vec2 b_Vec2Buffer = new Vec2();
     
     //
+    // Accessors
     //
-    //
-    @Override public FixtureDef getB2DFixture(){return m_FixtureDefinition;}
     
     //
-    //
-    //
-    public CircleCollider(){m_FixtureDefinition.shape = m_Shape;}
-    
+    // Implementation
+    //    
     private void buildShape()
     {
         Vector3 scale = getGameObject().get().getTransform().get().getScale();
         m_Shape.setRadius(scale.x/2);
         m_FixtureDefinition.density = 1;
-        
-        m_Shape.m_p.set(10, 0);
-        
-        
+        m_LineVisualizer.setVertexData(LineVisualizer.lineCircle(m_Offset.x/scale.x,m_Offset.y/scale.x,1));
         
     }
-
-    Vector3 b_ScaleBuffer;
     
+    //
+    // Component interface
+    //
     @Override
     public void update() 
     {
@@ -61,7 +62,7 @@ public class CircleCollider extends Component implements Collider
             b_ScaleBuffer.copy(scale);
         
         }
-            
+                    
         if (!b_ScaleBuffer.equals(scale))
             buildShape();
         
@@ -72,28 +73,34 @@ public class CircleCollider extends Component implements Collider
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
-        buildShape();
-        
         m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
-        m_LineVisualizer.setVertexData(LineVisualizer.lineCircle());
-        
+        buildShape();
         
     }
 
-    @Override
+    @Override 
     protected void OnRemovedFromGameObject() {}
 
-    @Override
+    @Override 
     protected void OnComponentAdded(Component aComponent) {}
 
-    @Override
+    @Override 
     protected void OnComponentRemoved(Component aComponent) {}
-
+    
+    @Override 
+    public FixtureDef getB2DFixture(){return m_FixtureDefinition;}
+    
     @Override
     public void setOffset(final float aX, final float aY)
     {
-        m_Offset.setInPlace(aX,aY);
-    
+        m_Offset.setInPlace(aX, aY);
+        buildShape();
+        
     }
+    
+    //
+    // Constructors
+    //
+    public CircleCollider(){m_FixtureDefinition.shape = m_Shape;}
     
 }

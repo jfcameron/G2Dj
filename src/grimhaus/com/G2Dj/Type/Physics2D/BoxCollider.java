@@ -6,9 +6,11 @@ package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 
 /**
@@ -23,9 +25,15 @@ public class BoxCollider extends Component implements Collider
     private       LineVisualizer m_LineVisualizer;
     private final FixtureDef     m_FixtureDefinition = new FixtureDef();
     private final PolygonShape   m_Shape             = new PolygonShape();
+    private final Vector2        m_Offset            = new Vector2();
     
     //buffers
     private Vector3 b_ScaleBuffer;
+    private final Vec2 b_Vec2Buffer = new Vec2();
+    
+    //
+    // Accessors
+    //
     
     //
     // Implementation
@@ -33,8 +41,9 @@ public class BoxCollider extends Component implements Collider
     private void buildShape()
     {
         Vector3 scale = getGameObject().get().getTransform().get().getScale();
-        m_Shape.setAsBox(scale.x/2,scale.z/2);
+        m_Shape.setAsBox(scale.x/2,scale.z/2,b_Vec2Buffer.set(m_Offset.x,m_Offset.y),0);
         m_FixtureDefinition.density = 1;
+        m_LineVisualizer.setVertexData(LineVisualizer.lineBox(m_Offset.x/scale.x,m_Offset.y/scale.z,1));
         
     }
     
@@ -63,10 +72,8 @@ public class BoxCollider extends Component implements Collider
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
-        buildShape();
-        
         m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
-        m_LineVisualizer.setVertexData(LineVisualizer.lineBox());
+        buildShape();
         
     }
 
@@ -83,16 +90,16 @@ public class BoxCollider extends Component implements Collider
     public FixtureDef getB2DFixture(){return m_FixtureDefinition;}
     
     @Override
-    public void setOffset(final float aX, final float aY) 
+    public void setOffset(final float aX, final float aY)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        m_Offset.setInPlace(aX, aY);
+        buildShape();
+        
     }
     
     //
     // Constructors
     //
     public BoxCollider(){m_FixtureDefinition.shape = m_Shape;}
-
-    
     
 }

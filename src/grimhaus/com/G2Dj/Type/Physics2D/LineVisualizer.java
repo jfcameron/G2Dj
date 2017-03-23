@@ -29,27 +29,27 @@ public class LineVisualizer extends Component implements Drawable
     private static final float h = 0.5f;
     private static final float y = -0.1f;
     
-    public static final float[] lineBox(){return new float[]
+    public static final float[] lineBox(final float aOffsetX, final float aOffsetY, final float aOffsetScale){return new float[]
     {
-        +h,y,+h,
-        -h,y,+h,
-        -h,y,-h,
-        +h,y,-h,
-        +h,y,+h,
+        (+h*aOffsetScale)+aOffsetX,y,(+h*aOffsetScale)+aOffsetY,
+        (-h*aOffsetScale)+aOffsetX,y,(+h*aOffsetScale)+aOffsetY,
+        (-h*aOffsetScale)+aOffsetX,y,(-h*aOffsetScale)+aOffsetY,
+        (+h*aOffsetScale)+aOffsetX,y,(-h*aOffsetScale)+aOffsetY,
+        (+h*aOffsetScale)+aOffsetX,y,(+h*aOffsetScale)+aOffsetY,
                 
     };}
     
-    public static final float[] lineCircle(){return new float[]
+    public static final float[] lineCircle(final float aOffsetX, final float aOffsetY, final float aScale){return new float[]
     {
-        -h/3,y,+h,      +h/3,y,+h,
-        +h,y,+h/3,      +h,y,-h/3,
-        +h/3,y,-h,      -h/3,y,-h,
-        -h,y,-h/3,      -h,y,+h/3,
-        -h/3,y,+h,      +h/3,y,+h,
+        (-h/3*aScale)+aOffsetX,y,(+h  *aScale)+aOffsetY,    (+h/3*aScale)+aOffsetX,y,(+h  *aScale)+aOffsetY,
+        (+h  *aScale)+aOffsetX,y,(+h/3*aScale)+aOffsetY,    (+h  *aScale)+aOffsetX,y,(-h/3*aScale)+aOffsetY,
+        (+h/3*aScale)+aOffsetX,y,(-h  *aScale)+aOffsetY,    (-h/3*aScale)+aOffsetX,y,(-h  *aScale)+aOffsetY,
+        (-h  *aScale)+aOffsetX,y,(-h/3*aScale)+aOffsetY,    (-h  *aScale)+aOffsetX,y,(+h/3*aScale)+aOffsetY,
+        (-h/3*aScale)+aOffsetX,y,(+h  *aScale)+aOffsetY,    (+h/3*aScale)+aOffsetX,y,(+h  *aScale)+aOffsetY, 
                 
     };}
     
-    private float[] m_VertexData = lineCircle();
+    private float[] m_VertexData = lineCircle(0,0,1);
     
     private final Model                         m_Model;
     private final WeakReference<ShaderProgram>  m_ShaderProgram;
