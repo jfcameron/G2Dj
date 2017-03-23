@@ -36,19 +36,46 @@ public class BoxCollider extends Component implements Collider
     {
         m_FixtureDefinition.shape = m_Shape;
         
+        
+        
     }
-
-    @Override
-    public void update() {}
-
-    @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
+    
+    private void buildShape()
     {
         Vector3 scale = getGameObject().get().getTransform().get().getScale();
         
         m_Shape.setAsBox(scale.x/2,scale.z/2);
         m_FixtureDefinition.density = 1;
         
+        
+        
+    }
+
+    Vector3 b_ScaleBuffer;
+    
+    @Override
+    public void update() 
+    {
+        Vector3 scale = getTransform().get().getScale();
+        
+        if (b_ScaleBuffer == null)
+        {
+            b_ScaleBuffer = new Vector3();
+            b_ScaleBuffer.copy(scale);
+        
+        }
+            
+        if (!b_ScaleBuffer.equals(scale))
+            buildShape();
+        
+        b_ScaleBuffer.copy(scale);
+    
+    }
+
+    @Override
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
+    {
+        buildShape();
         m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
         m_LineVisualizer.setVertexData(LineVisualizer.lineBox());
         
@@ -64,6 +91,10 @@ public class BoxCollider extends Component implements Collider
     protected void OnComponentRemoved(Component aComponent) {}
 
     @Override
-    protected void OnScaleChanged() {}
+    protected void OnScaleChanged() 
+    {
+        buildShape();
+        
+    }
     
 }

@@ -147,7 +147,7 @@ public class LineVisualizer extends Component implements Drawable
                 
         if (scale.x != m_OldScale.x || scale.y != m_OldScale.y || scale.z != m_OldScale.z)
         {
-            Debug.log("Hello!");
+            //Debug.log("Hello!");
            // m_Model.updateVertexData(m_VertexData);
          
         }

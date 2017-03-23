@@ -18,6 +18,7 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
 /**
@@ -93,14 +94,28 @@ public class Rigidbody extends Component
         
     }
 
-    void buildFixtures()
+    private ArrayList<Fixture> m_Fixtures = new ArrayList<>();
+    
+    private void buildFixtures()
     {
         ArrayList<Component> colliders = getGameObject().get().getComponents(Collider.class);
         
+        Debug.log("**************BUILDING FXITURES****",m_Body);
+        
+        //Destroy the fixtures
+        for(int i=0,s=m_Fixtures.size();i<s;i++)
+        {
+            m_Body.destroyFixture(m_Fixtures.get(i));
+         
+        }
+            
+        m_Fixtures.clear();
+        
+        //Build / Rebuild the fixtures
         for(int i=0,s=colliders.size();i<s;i++)
         {
-            m_Body.createFixture(((Collider)colliders.get(i)).getB2DFixture());
-        
+            m_Fixtures.add(m_Body.createFixture(((Collider)colliders.get(i)).getB2DFixture()));
+            Debug.log("yaa");
         }
             
     }
@@ -110,6 +125,8 @@ public class Rigidbody extends Component
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    Vector3 b_ScaleBuffer;
     
     @Override
     public void update() 
@@ -136,12 +153,27 @@ public class Rigidbody extends Component
             break;
         
         }
+        
+        Vector3 scale = getTransform().get().getScale();
+        
+        if (b_ScaleBuffer == null)
+        {
+            b_ScaleBuffer = new Vector3();
+            b_ScaleBuffer.copy(scale);
+        
+        }
+            
+        if (!b_ScaleBuffer.equals(scale))
+            buildFixtures();
+        
+        b_ScaleBuffer.copy(scale);
     
     }
 
     @Override
     protected void OnComponentAdded(Component aComponent) 
     {
+        //buildFixtures();
         
     }
 
@@ -150,7 +182,11 @@ public class Rigidbody extends Component
     }
 
     @Override
-    protected void OnScaleChanged() {
+    protected void OnScaleChanged() 
+    {
+        Debug.log("haaah");
+        //buildFixtures();
+        
     }
     
 }
