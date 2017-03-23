@@ -51,5 +51,10 @@ public class PolygonCollider extends Component implements Collider
     public void setOffset(final float aX, final float aY) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    protected void initialize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

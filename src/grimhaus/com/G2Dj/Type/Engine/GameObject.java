@@ -137,9 +137,22 @@ public class GameObject
     //
     public void update()
     {
-        for(int i = 0, s = m_Components.size(); i<s; i++ )//m_Components.forEach(currentComponent->currentComponent.update());
+        Component c = null;
+        for(int i = 0, s = m_Components.size(); i<s; i++ )
+        {
+            c = m_Components.get(i);
+            
+            if (!c.getDidInit())
+            {
+                c.initialize();
+                c.setDidinitFalse();
+                
+            }
+            
             m_Components.get(i).update();
 
+        }
+            
     }
     
     //

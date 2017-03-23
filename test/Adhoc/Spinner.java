@@ -42,4 +42,9 @@ public class Spinner extends Component
     protected void OnComponentRemoved(Component aComponent) {
     }
 
+    @Override
+    protected void initialize() {
+
+    }
+
 }

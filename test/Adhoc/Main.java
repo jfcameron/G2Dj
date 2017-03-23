@@ -49,17 +49,21 @@ public class Main
                 PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
                 //aPC.getTransform().get().setRotation(0,0,45);
                 aPC.getTransform().get().setPosition(0,0,1f);
-                aPC.getTransform().get().setScale(7,1,7);
+                
                 
                 //aGameObject.get().addComponent(CircleCollider.class);
                 
                 Rigidbody rb = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
                 rb.setType(BodyType.Static);
                 
-                BoxCollider bc = (BoxCollider)aGameObject.get().addComponent(BoxCollider.class);
-                bc.setOffset(5, 0);
+
+                 BoxCollider bc = (BoxCollider)aGameObject.get().addComponent(BoxCollider.class);
+                 bc.setOffset(1, 0);
+                 
+                 aPC.getTransform().get().setScale(7,1,7);
+
                 
-                aGameObject.get().addComponent(CircleCollider.class);
+                //aGameObject.get().addComponent(CircleCollider.class);
                 
                 
                 //bc.setType(BodyType.Static);
@@ -159,7 +163,7 @@ public class Main
                 theCamera.get().setName("PlayerCamera");
                 theCamera.get().getTransform().get().setPosition(-1,0,2);
                 theCamera.get().getTransform().get().setRotation(0,45,0);
-                theCamera.get().addComponent(BoxCollider.class);
+                theCamera.get().addComponent(CircleCollider.class);
                 theCamera.get().addComponent(Camera.class);
                 Rigidbody rb = (Rigidbody)theCamera.get().addComponent(Rigidbody.class);
                                 

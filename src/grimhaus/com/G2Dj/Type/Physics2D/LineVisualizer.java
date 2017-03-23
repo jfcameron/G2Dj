@@ -31,21 +31,21 @@ public class LineVisualizer extends Component implements Drawable
     
     public static final float[] lineBox(final float aOffsetX, final float aOffsetY, final float aOffsetScale){return new float[]
     {
-        (+h*aOffsetScale)+aOffsetX,y,(+h*aOffsetScale)+aOffsetY,
-        (-h*aOffsetScale)+aOffsetX,y,(+h*aOffsetScale)+aOffsetY,
-        (-h*aOffsetScale)+aOffsetX,y,(-h*aOffsetScale)+aOffsetY,
-        (+h*aOffsetScale)+aOffsetX,y,(-h*aOffsetScale)+aOffsetY,
-        (+h*aOffsetScale)+aOffsetX,y,(+h*aOffsetScale)+aOffsetY,
+        (+h+aOffsetX)*aOffsetScale,y,(+h+aOffsetY)*aOffsetScale,
+        (-h+aOffsetX)*aOffsetScale,y,(+h+aOffsetY)*aOffsetScale,
+        (-h+aOffsetX)*aOffsetScale,y,(-h+aOffsetY)*aOffsetScale,
+        (+h+aOffsetX)*aOffsetScale,y,(-h+aOffsetY)*aOffsetScale,
+        (+h+aOffsetX)*aOffsetScale,y,(+h+aOffsetY)*aOffsetScale,
                 
     };}
     
     public static final float[] lineCircle(final float aOffsetX, final float aOffsetY, final float aScale){return new float[]
     {
-        (-h/3*aScale)+aOffsetX,y,(+h  *aScale)+aOffsetY,    (+h/3*aScale)+aOffsetX,y,(+h  *aScale)+aOffsetY,
-        (+h  *aScale)+aOffsetX,y,(+h/3*aScale)+aOffsetY,    (+h  *aScale)+aOffsetX,y,(-h/3*aScale)+aOffsetY,
-        (+h/3*aScale)+aOffsetX,y,(-h  *aScale)+aOffsetY,    (-h/3*aScale)+aOffsetX,y,(-h  *aScale)+aOffsetY,
-        (-h  *aScale)+aOffsetX,y,(-h/3*aScale)+aOffsetY,    (-h  *aScale)+aOffsetX,y,(+h/3*aScale)+aOffsetY,
-        (-h/3*aScale)+aOffsetX,y,(+h  *aScale)+aOffsetY,    (+h/3*aScale)+aOffsetX,y,(+h  *aScale)+aOffsetY, 
+        (-h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale,    (+h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale,
+        (+h  +aOffsetX)*aScale,y,(+h/3+aOffsetY)*aScale,    (+h  +aOffsetX)*aScale,y,(-h/3+aOffsetY)*aScale,
+        (+h/3+aOffsetX)*aScale,y,(-h  +aOffsetY)*aScale,    (-h/3+aOffsetX)*aScale,y,(-h  +aOffsetY)*aScale,
+        (-h  +aOffsetX)*aScale,y,(-h/3+aOffsetY)*aScale,    (-h  +aOffsetX)*aScale,y,(+h/3+aOffsetY)*aScale,
+        (-h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale,    (+h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale, 
                 
     };}
     
@@ -159,6 +159,10 @@ public class LineVisualizer extends Component implements Drawable
 
     @Override
     protected void OnComponentRemoved(Component aComponent) {
+    }
+
+    @Override
+    protected void initialize() {
     }
     
 }

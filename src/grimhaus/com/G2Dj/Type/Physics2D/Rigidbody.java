@@ -188,5 +188,9 @@ public class Rigidbody extends Component
         m_BodyDef.userData = new WeakReference<>(this);
         
     }
+
+    @Override
+    protected void initialize() {
+    }
     
 }

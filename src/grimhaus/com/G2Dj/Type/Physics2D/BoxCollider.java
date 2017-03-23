@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
@@ -27,6 +28,8 @@ public class BoxCollider extends Component implements Collider
     private final PolygonShape   m_Shape             = new PolygonShape();
     private final Vector2        m_Offset            = new Vector2();
     
+    private boolean m_RebuildShape = false;
+    
     //buffers
     private Vector3 b_ScaleBuffer;
     private final Vec2 b_Vec2Buffer = new Vec2();
@@ -41,9 +44,54 @@ public class BoxCollider extends Component implements Collider
     private void buildShape()
     {
         Vector3 scale = getGameObject().get().getTransform().get().getScale();
-        m_Shape.setAsBox(scale.x/2,scale.z/2,b_Vec2Buffer.set(m_Offset.x,m_Offset.y),0);
+        /*m_Shape.setAsBox
+        (
+            scale.x/2,scale.z/2,
+            b_Vec2Buffer.set((m_Offset.x),(m_Offset.y)),
+            0
+        );
+        
+        for(int i=0,s=m_Shape.m_vertices.length;i<s;i++)
+        {
+            Debug.log(m_Offset.x,scale.x);
+            m_Shape.m_vertices[i].addLocal(m_Offset.x*scale.x,m_Offset.y*scale.z);
+         
+        }*/
+        
+        final float hx = 0.5f;
+        final float hy = 0.5f;
+        final int m_count = 4;
+        
+        Vec2[] m_vertices = new Vec2[m_count];
+        
+        for(int i=0,s=m_count;i<s;i++)
+            m_vertices[i] = new Vec2();
+        
+        float xOffset = m_Offset.x;
+        float yOffset;
+        
+        Debug.log("hello: ",m_Offset.x);
+        
+        m_vertices[0].set(-hx +xOffset, -hy);
+        m_vertices[1].set( hx +xOffset, -hy);
+        m_vertices[2].set( hx +xOffset,  hy);
+        m_vertices[3].set(-hx +xOffset,  hy);
+        
+        for(int i=0,s=m_count;i<s;i++)
+        {
+            m_vertices[i].x*=scale.x;
+            m_vertices[i].y*=scale.z;
+            
+           // m_vertices[i].x += (m_Offset.x*scale.x);
+         //   m_vertices[i].y += (m_Offset.y*scale.z);
+        }
+        
+        m_Shape.set(m_vertices, m_count);
+                
+       // m_Shape.m_centroid.set(b_Vec2Buffer.set(/*(m_Offset.x),(m_Offset.y)*/0,0));
+
+        m_LineVisualizer.setVertexData(LineVisualizer.lineBox((m_Offset.x*scale.x)/scale.x,(m_Offset.y*scale.z)/scale.z,1));
         m_FixtureDefinition.density = 1;
-        m_LineVisualizer.setVertexData(LineVisualizer.lineBox(m_Offset.x/scale.x,m_Offset.y/scale.z,1));
         
     }
     
@@ -52,6 +100,18 @@ public class BoxCollider extends Component implements Collider
     //
     @Override
     public void update() 
+    {
+        checkForTransformScaleChange();
+        
+        if (!m_RebuildShape)
+            return;
+        
+        buildShape();
+        m_RebuildShape = false; 
+    
+    }
+    
+    private void checkForTransformScaleChange()
     {
         Vector3 scale = getTransform().get().getScale();
         
@@ -63,17 +123,17 @@ public class BoxCollider extends Component implements Collider
         }
                     
         if (!b_ScaleBuffer.equals(scale))
-            buildShape();
+            m_RebuildShape = true;
         
         b_ScaleBuffer.copy(scale);
-    
+        
     }
 
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
         m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
-        buildShape();
+        m_RebuildShape = true;
         
     }
 
@@ -93,7 +153,7 @@ public class BoxCollider extends Component implements Collider
     public void setOffset(final float aX, final float aY)
     {
         m_Offset.setInPlace(aX, aY);
-        buildShape();
+        m_RebuildShape = true;
         
     }
     
@@ -101,5 +161,11 @@ public class BoxCollider extends Component implements Collider
     // Constructors
     //
     public BoxCollider(){m_FixtureDefinition.shape = m_Shape;}
+
+    @Override
+    protected void initialize() 
+    {
+        m_RebuildShape = true;
+    }
     
 }

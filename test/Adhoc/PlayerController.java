@@ -107,5 +107,9 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
     protected void OnComponentRemoved(Component aComponent) {
     }
 
+    @Override
+    protected void initialize() {
+    }
+
     
 }

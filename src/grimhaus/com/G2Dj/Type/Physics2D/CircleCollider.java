@@ -102,5 +102,9 @@ public class CircleCollider extends Component implements Collider
     // Constructors
     //
     public CircleCollider(){m_FixtureDefinition.shape = m_Shape;}
+
+    @Override
+    protected void initialize() {
+    }
     
 }
