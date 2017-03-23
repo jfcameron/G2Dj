@@ -1,9 +1,5 @@
-Update Android path to support Physics2D
-Decide on the Physics2D API
-Gameobject needs callbacks for onScale
-
- 2D Physics
-    -Integrate jBox2D (https://github.com/jbox2d/jbox2d) into project
+fix init bug in boxcollider (needs scale cahnge to rebuild shape currently.)
+check boxcol & rigibody for clues. maybe when rigidbody is firing.
     
 improve desktop input implementation (pure java isnt cutting it)
 
