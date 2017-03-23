@@ -55,7 +55,6 @@ public class LineVisualizer extends Component implements Drawable
     private final WeakReference<ShaderProgram>  m_ShaderProgram;
     
     
-    private final Vector3 m_OldScale = new Vector3();
     
     //buffers & pools
     private final Mat4x4 b_ModelMatrixBuffer = new Mat4x4();//reduce heap abuse in getModelMatrix()
@@ -120,7 +119,6 @@ public class LineVisualizer extends Component implements Drawable
     
     public LineVisualizer()
     {
-        
         m_ShaderProgram = Graphics.getShaderProgram();
         m_Model = new Model
         (
@@ -143,24 +141,13 @@ public class LineVisualizer extends Component implements Drawable
     @Override
     public void update() 
     {
-        Vector3 scale = getGameObject().get().getTransform().get().getScale();
-                
-        if (scale.x != m_OldScale.x || scale.y != m_OldScale.y || scale.z != m_OldScale.z)
-        {
-            //Debug.log("Hello!");
-           // m_Model.updateVertexData(m_VertexData);
-         
-        }
-            
-        m_OldScale.copy(scale);
         
     }
 
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
-        m_OldScale.copy(aGameObject.get().getTransform().get().getScale());
-
+        
     }
 
     @Override

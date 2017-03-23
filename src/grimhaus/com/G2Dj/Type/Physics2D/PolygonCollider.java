@@ -6,6 +6,7 @@ package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Math.Vector2;
 import java.lang.ref.WeakReference;
 import org.jbox2d.dynamics.FixtureDef;
 
@@ -43,6 +44,11 @@ public class PolygonCollider extends Component implements Collider
 
     @Override
     public FixtureDef getB2DFixture() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setOffset(final float aX, final float aY) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

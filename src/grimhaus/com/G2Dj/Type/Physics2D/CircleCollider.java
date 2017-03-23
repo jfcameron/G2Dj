@@ -6,10 +6,10 @@ package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 import org.jbox2d.collision.shapes.CircleShape;
-import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.FixtureDef;
 
 /**
@@ -24,6 +24,7 @@ public class CircleCollider extends Component implements Collider
     private       LineVisualizer m_LineVisualizer;
     private final FixtureDef     m_FixtureDefinition = new FixtureDef();
     private final CircleShape    m_Shape = new CircleShape();
+    private final Vector2        m_Offset = new Vector2();
     
     //
     //
@@ -40,6 +41,8 @@ public class CircleCollider extends Component implements Collider
         Vector3 scale = getGameObject().get().getTransform().get().getScale();
         m_Shape.setRadius(scale.x/2);
         m_FixtureDefinition.density = 1;
+        
+        m_Shape.m_p.set(10, 0);
         
         
         
@@ -74,6 +77,7 @@ public class CircleCollider extends Component implements Collider
         m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
         m_LineVisualizer.setVertexData(LineVisualizer.lineCircle());
         
+        
     }
 
     @Override
@@ -84,5 +88,12 @@ public class CircleCollider extends Component implements Collider
 
     @Override
     protected void OnComponentRemoved(Component aComponent) {}
+
+    @Override
+    public void setOffset(final float aX, final float aY)
+    {
+        m_Offset.setInPlace(aX,aY);
+    
+    }
     
 }
