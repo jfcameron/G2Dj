@@ -42,11 +42,6 @@ public class PolygonCollider extends Component implements Collider
     }
 
     @Override
-    protected void OnScaleChanged() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public FixtureDef getB2DFixture() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

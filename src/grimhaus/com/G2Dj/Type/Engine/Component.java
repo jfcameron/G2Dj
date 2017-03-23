@@ -51,6 +51,6 @@ public abstract class Component
     protected abstract void OnComponentRemoved(final Component aComponent);
     
     //Scaling of gameobject transform chagned
-    protected abstract void OnScaleChanged();
+    //protected abstract void OnScaleChanged();
     
 }

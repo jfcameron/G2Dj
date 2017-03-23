@@ -104,19 +104,13 @@ public class Rigidbody extends Component
         
         //Destroy the fixtures
         for(int i=0,s=m_Fixtures.size();i<s;i++)
-        {
             m_Body.destroyFixture(m_Fixtures.get(i));
-         
-        }
             
         m_Fixtures.clear();
         
         //Build / Rebuild the fixtures
         for(int i=0,s=colliders.size();i<s;i++)
-        {
             m_Fixtures.add(m_Body.createFixture(((Collider)colliders.get(i)).getB2DFixture()));
-            Debug.log("yaa");
-        }
             
     }
     
@@ -179,14 +173,6 @@ public class Rigidbody extends Component
 
     @Override
     protected void OnComponentRemoved(Component aComponent) {
-    }
-
-    @Override
-    protected void OnScaleChanged() 
-    {
-        Debug.log("haaah");
-        //buildFixtures();
-        
     }
     
 }

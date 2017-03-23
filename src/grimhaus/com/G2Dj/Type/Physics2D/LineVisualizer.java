@@ -27,7 +27,7 @@ import java.lang.ref.WeakReference;
 public class LineVisualizer extends Component implements Drawable
 {
     private static final float h = 0.5f;
-    private static final float y = -0.2f;
+    private static final float y = -0.1f;
     
     public static final float[] lineBox(){return new float[]
     {
@@ -172,13 +172,6 @@ public class LineVisualizer extends Component implements Drawable
 
     @Override
     protected void OnComponentRemoved(Component aComponent) {
-    }
-
-    @Override
-    protected void OnScaleChanged() 
-    {
-        //????
-        
     }
     
 }

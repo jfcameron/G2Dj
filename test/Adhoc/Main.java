@@ -12,6 +12,7 @@ import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
+import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.LineVisualizer;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
@@ -50,9 +51,9 @@ public class Main
                 PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
                 //aPC.getTransform().get().setRotation(0,0,45);
                 aPC.getTransform().get().setPosition(0,0,1f);
-                aPC.getTransform().get().setScale(3,1,3);
+                aPC.getTransform().get().setScale(7,1,7);
                 
-                aGameObject.get().addComponent(BoxCollider.class);
+                aGameObject.get().addComponent(CircleCollider.class);
                 
                 Rigidbody bc = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
                 
