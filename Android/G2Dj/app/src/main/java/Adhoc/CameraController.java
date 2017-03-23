@@ -78,11 +78,11 @@ public class CameraController extends Component
                 float forward =  touch.deltaPosition.y/ Graphics.getScreenSize().y ;
                 float side    = touch.deltaPosition.x/ Graphics.getScreenSize().x ;
 
-                inputBuffer.x -= forward * sin(getTransform().get().getRotation().y);
-                inputBuffer.z += forward * cos(getTransform().get().getRotation().y);
+                inputBuffer.z -= forward * sin(getTransform().get().getRotation().y);
+                inputBuffer.x += forward * cos(getTransform().get().getRotation().y);
 
-                inputBuffer.x += side * sin(getTransform().get().getRotation().y + (90.0f * Math.PI / 180))  *2; //Mul by 2 because the screen is bisected
-                inputBuffer.z -= side * cos(getTransform().get().getRotation().y + (90.0f * Math.PI / 180))  *2;
+                inputBuffer.z += side * sin(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180))  *2; //Mul by 2 because the screen is bisected
+                inputBuffer.x -= side * cos(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180))  *2;
 
 
 
@@ -110,7 +110,7 @@ public class CameraController extends Component
             Touch touch = Input.getTouches()[0];
 
             if (touch.state == TouchState.Began || touch.state == TouchState.Moved)
-                rotationBuffer.y += touch.deltaPosition.x/Graphics.getScreenSize().x * 200;
+                rotationBuffer.y -= touch.deltaPosition.x/Graphics.getScreenSize().x * 200;
 
 
         }

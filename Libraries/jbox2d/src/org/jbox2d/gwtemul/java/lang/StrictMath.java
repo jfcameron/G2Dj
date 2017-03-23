@@ -21,11 +21,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-package java.lang;
+//package java.lang;
 
 /**
  * GWT doesn't support strict math, so we "emulate" it with non-strict math.
- */
+ *//*
 public class StrictMath {
 
   public static double atan2(double y, double x) {
@@ -71,3 +71,4 @@ public class StrictMath {
   }
   
 }
+*/
