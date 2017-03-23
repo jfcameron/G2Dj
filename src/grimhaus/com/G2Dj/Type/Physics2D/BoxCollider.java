@@ -37,26 +37,16 @@ public class BoxCollider extends Component implements Collider
     //
     // Accessors
     //
+    //public void rebuildShape(){}
     
     //
     // Implementation
     //    
     private void buildShape()
     {
-        Vector3 scale = getGameObject().get().getTransform().get().getScale();
-        /*m_Shape.setAsBox
-        (
-            scale.x/2,scale.z/2,
-            b_Vec2Buffer.set((m_Offset.x),(m_Offset.y)),
-            0
-        );
+        m_RebuildShape = false; 
         
-        for(int i=0,s=m_Shape.m_vertices.length;i<s;i++)
-        {
-            Debug.log(m_Offset.x,scale.x);
-            m_Shape.m_vertices[i].addLocal(m_Offset.x*scale.x,m_Offset.y*scale.z);
-         
-        }*/
+        Vector3 scale = getGameObject().get().getTransform().get().getScale();
         
         final float hx = 0.5f;
         final float hy = 0.5f;
@@ -67,28 +57,14 @@ public class BoxCollider extends Component implements Collider
         for(int i=0,s=m_count;i<s;i++)
             m_vertices[i] = new Vec2();
         
-        float xOffset = m_Offset.x;
-        float yOffset;
-        
-        Debug.log("hello: ",m_Offset.x);
-        
-        m_vertices[0].set(-hx +xOffset, -hy);
-        m_vertices[1].set( hx +xOffset, -hy);
-        m_vertices[2].set( hx +xOffset,  hy);
-        m_vertices[3].set(-hx +xOffset,  hy);
-        
-        for(int i=0,s=m_count;i<s;i++)
-        {
-            m_vertices[i].x*=scale.x;
-            m_vertices[i].y*=scale.z;
-            
-           // m_vertices[i].x += (m_Offset.x*scale.x);
-         //   m_vertices[i].y += (m_Offset.y*scale.z);
-        }
+        m_vertices[0].set((-hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
+        m_vertices[1].set(( hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
+        m_vertices[2].set(( hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
+        m_vertices[3].set((-hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
         
         m_Shape.set(m_vertices, m_count);
                 
-       // m_Shape.m_centroid.set(b_Vec2Buffer.set(/*(m_Offset.x),(m_Offset.y)*/0,0));
+        m_Shape.m_centroid.set(b_Vec2Buffer.set((m_Offset.x),(m_Offset.y)));
 
         m_LineVisualizer.setVertexData(LineVisualizer.lineBox((m_Offset.x*scale.x)/scale.x,(m_Offset.y*scale.z)/scale.z,1));
         m_FixtureDefinition.density = 1;
@@ -103,12 +79,9 @@ public class BoxCollider extends Component implements Collider
     {
         checkForTransformScaleChange();
         
-        if (!m_RebuildShape)
-            return;
+        if (m_RebuildShape)
+            buildShape();
         
-        buildShape();
-        m_RebuildShape = false; 
-    
     }
     
     private void checkForTransformScaleChange()
@@ -166,6 +139,7 @@ public class BoxCollider extends Component implements Collider
     protected void initialize() 
     {
         m_RebuildShape = true;
+        
     }
     
 }

@@ -12,6 +12,7 @@ import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
+import grimhaus.com.G2Dj.Type.Physics2D.Collider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 
@@ -53,14 +54,27 @@ public class Main
                 
                 //aGameObject.get().addComponent(CircleCollider.class);
                 
+                Collider c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
+                c.setOffset(1, 0);
+                
+                c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
+                c.setOffset(1, 1);
+                
+                c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
+                c.setOffset(0, 1);
+                
+                c = (Collider)aGameObject.get().addComponent(CircleCollider.class);
+                c.setOffset(0, -1);
+                
                 Rigidbody rb = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
                 rb.setType(BodyType.Static);
                 
-
-                 BoxCollider bc = (BoxCollider)aGameObject.get().addComponent(BoxCollider.class);
-                 bc.setOffset(1, 0);
+                
                  
-                 aPC.getTransform().get().setScale(7,1,7);
+                 
+                
+                 
+                aPC.getTransform().get().setScale(7,1,7);
 
                 
                 //aGameObject.get().addComponent(CircleCollider.class);

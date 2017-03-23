@@ -89,7 +89,7 @@ public class Rigidbody extends Component
             
             case KINEMATIC:
             {
-                Vector3 tPos = getTransform().get().getPosition();
+                Vector3 tPos = getTransform().get().getPosition();buildBody();
                 Vector3 tRot = getTransform().get().getRotation();
             
                 m_Body.m_xf.set(b_B2VecBuffer.set(tPos.x,tPos.y), 0);
@@ -168,6 +168,8 @@ public class Rigidbody extends Component
     {
         ArrayList<Component> colliders = getGameObject().get().getComponents(Collider.class);
         
+        
+        
         //Destroy the fixtures
         for(int i=0,s=m_Fixtures.size();i<s;i++)
             m_Body.destroyFixture(m_Fixtures.get(i));
@@ -190,7 +192,10 @@ public class Rigidbody extends Component
     }
 
     @Override
-    protected void initialize() {
+    protected void initialize() 
+    {
+        buildFixtures();
+        
     }
     
 }
