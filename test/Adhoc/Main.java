@@ -67,8 +67,17 @@ public class Main
                 c = (Collider)aGameObject.get().addComponent(CircleCollider.class);
                 c.setOffset(0, -1);*/
                 
-                Collider c = (Collider)aGameObject.get().addComponent(PolygonCollider.class);
+                PolygonCollider c = (PolygonCollider)aGameObject.get().addComponent(PolygonCollider.class);
                 c.setOffset(0, 0);
+                c.setVerticies(new Vector2[]
+                {
+                    new Vector2(0,0),
+                    new Vector2(1,0),
+                    new Vector2(1,1),
+                    new Vector2(0,1),                    
+                
+                });
+                
                 
                 Rigidbody rb = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
                 rb.setType(BodyType.Static);

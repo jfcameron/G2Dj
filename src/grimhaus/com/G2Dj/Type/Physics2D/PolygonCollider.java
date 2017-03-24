@@ -40,21 +40,13 @@ public class PolygonCollider extends Component implements Collider
     // Accessors
     //
     //public void rebuildShape(){}
-    public void setVerticies(final Vector2[] aVerticies){m_Vertices = aVerticies;}
+    public void setVerticies(final Vector2[] aCounterClockwiseVerticies){m_Vertices = aCounterClockwiseVerticies;m_RebuildShape=true;}
     
     //
     // Implementation
     //    
-    private void buildShape()
+    private Vec2[] generateDefaultVertexData()
     {
-        m_RebuildShape = false; 
-        
-        /*if (m_Vertices == null || m_Vertices.length == 0)
-        {
-            m_LineVisualizer.setVertexData(null);
-            return;
-        }*/
-        
         Vector3 scale = getGameObject().get().getTransform().get().getScale();
         
         final float hx = 0.5f;
@@ -71,7 +63,31 @@ public class PolygonCollider extends Component implements Collider
         b2verts[2].set(( hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
         b2verts[3].set((-hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
         
-        m_Shape.set(b2verts, m_count);
+        return b2verts;
+        
+    }
+    
+    private void buildShape()
+    {
+        m_RebuildShape = false; 
+        
+        Vector3 scale = getGameObject().get().getTransform().get().getScale();
+        
+        Vec2[] b2verts;
+        
+        if (m_Vertices == null || m_Vertices.length == 0)
+            b2verts = generateDefaultVertexData();
+        else
+        {
+            b2verts = new Vec2[m_Vertices.length];
+            
+            for(int i=0,s=m_Vertices.length;i<s;i++)
+                b2verts[i] = new Vec2((m_Vertices[i].x+m_Offset.x)*scale.x,(m_Vertices[i].y+m_Offset.y)*scale.z);
+            
+        }
+        
+        
+        m_Shape.set(b2verts, b2verts.length);
                 
         m_Shape.m_centroid.set(b_Vec2Buffer.set((m_Offset.x),(m_Offset.y)));
 
@@ -86,7 +102,7 @@ public class PolygonCollider extends Component implements Collider
             Debug.log(visualVerts[i],visualVerts[i+1],visualVerts[i+2]);
             
         }
-        //The first vert has to be repeated due to GL_LINE_STRIP
+        //The first vert has to be repeated due to visualizer using GL_LINE_STRIP not "_LOOP
         visualVerts[visualVerts.length-3] = b2verts[0].x/scale.x; 
         visualVerts[visualVerts.length-2] = 0.0f; 
         visualVerts[visualVerts.length-1] = b2verts[0].y/scale.z;
