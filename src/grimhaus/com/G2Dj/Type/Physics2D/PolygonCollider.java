@@ -4,42 +4,27 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Imp.Physics2D.SimpleCollider;
 import grimhaus.com.G2Dj.Debug;
-import grimhaus.com.G2Dj.Type.Engine.Component;
-import grimhaus.com.G2Dj.Type.Engine.GameObject;
-import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
-import java.lang.ref.WeakReference;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.FixtureDef;
 
 /**
  *
  * @author Joseph Cameron
  */
-public class PolygonCollider extends Component implements Collider
+public class PolygonCollider extends SimpleCollider<PolygonShape>  
 {
     //*************
     // Data members
     //*************
-    private       LineVisualizer m_LineVisualizer;
-    private final FixtureDef     m_FixtureDefinition = new FixtureDef();
-    private final PolygonShape   m_Shape             = new PolygonShape();
-    private final Vector2        m_Offset            = new Vector2();
-    private       Vector2[]      m_Vertices = new Vector2[]{};
-    
-    private boolean m_RebuildShape = false;
-    
-    //buffers
-    private Vector3 b_ScaleBuffer;
-    private final Vec2 b_Vec2Buffer = new Vec2();
+    private Vector2[] m_Vertices = new Vector2[]{};
     
     //
     // Accessors
     //
-    //public void rebuildShape(){}
     public void setVerticies(final Vector2[] aCounterClockwiseVerticies){m_Vertices = aCounterClockwiseVerticies;m_RebuildShape=true;}
     
     //
@@ -67,7 +52,8 @@ public class PolygonCollider extends Component implements Collider
         
     }
     
-    private void buildShape()
+    @Override
+    protected void buildShape()
     {
         m_RebuildShape = false; 
         
@@ -114,74 +100,8 @@ public class PolygonCollider extends Component implements Collider
     }
     
     //
-    // Component interface
-    //
-    @Override
-    public void update() 
-    {
-        checkForTransformScaleChange();
-        
-        if (m_RebuildShape)
-            buildShape();
-        
-    }
-    
-    private void checkForTransformScaleChange()
-    {
-        Vector3 scale = getTransform().get().getScale();
-        
-        if (b_ScaleBuffer == null)
-        {
-            b_ScaleBuffer = new Vector3();
-            b_ScaleBuffer.copy(scale);
-        
-        }
-                    
-        if (!b_ScaleBuffer.equals(scale))
-            m_RebuildShape = true;
-        
-        b_ScaleBuffer.copy(scale);
-        
-    }
-
-    @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
-    {
-        m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
-        m_RebuildShape = true;
-        
-    }
-
-    @Override 
-    protected void OnRemovedFromGameObject() {}
-
-    @Override 
-    protected void OnComponentAdded(Component aComponent) {}
-
-    @Override 
-    protected void OnComponentRemoved(Component aComponent) {}
-    
-    @Override 
-    public FixtureDef getB2DFixture(){return m_FixtureDefinition;}
-    
-    @Override
-    public void setOffset(final float aX, final float aY)
-    {
-        m_Offset.setInPlace(aX, aY);
-        m_RebuildShape = true;
-        
-    }
-    
-    //
     // Constructors
     //
-    public PolygonCollider(){m_FixtureDefinition.shape = m_Shape;}
-
-    @Override
-    protected void initialize() 
-    {
-        m_RebuildShape = true;
-        
-    }
+    public PolygonCollider(){super(new PolygonShape());}
     
 }

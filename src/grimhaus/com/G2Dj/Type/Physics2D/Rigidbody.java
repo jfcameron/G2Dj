@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
@@ -17,6 +18,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
+import org.jbox2d.dynamics.FixtureDef;
 
 /**
  *
@@ -168,8 +170,6 @@ public class Rigidbody extends Component
     {
         ArrayList<Component> colliders = getGameObject().get().getComponents(Collider.class);
         
-        
-        
         //Destroy the fixtures
         for(int i=0,s=m_Fixtures.size();i<s;i++)
             m_Body.destroyFixture(m_Fixtures.get(i));
@@ -178,8 +178,14 @@ public class Rigidbody extends Component
         
         //Build / Rebuild the fixtures
         for(int i=0,s=colliders.size();i<s;i++)
-            m_Fixtures.add(m_Body.createFixture(((Collider)colliders.get(i)).getB2DFixture()));
+        {
+            FixtureDef[] fixtures = ((Collider)colliders.get(i)).getB2DFixtures();
+            
+            for(int j=0,t=fixtures.length;j<s;j++)
+                m_Fixtures.add(m_Body.createFixture(fixtures[j]));
         
+        }
+            
     }
     
     //
