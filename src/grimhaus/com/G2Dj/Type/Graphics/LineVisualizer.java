@@ -2,9 +2,8 @@
  * G2Dj Game engine
  * Written by Joseph Cameron
  */
-package grimhaus.com.G2Dj.Type.Physics2D;
+package grimhaus.com.G2Dj.Type.Graphics;
 
-import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.GL;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
@@ -14,8 +13,6 @@ import grimhaus.com.G2Dj.Imp.Graphics.Uniforms;
 import grimhaus.com.G2Dj.Imp.Graphics.VertexFormat;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
-import grimhaus.com.G2Dj.Type.Graphics.Camera;
-import grimhaus.com.G2Dj.Type.Graphics.Drawable;
 import grimhaus.com.G2Dj.Type.Math.Mat4x4;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;

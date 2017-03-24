@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;

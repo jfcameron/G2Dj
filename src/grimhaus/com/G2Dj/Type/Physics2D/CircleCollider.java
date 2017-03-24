@@ -4,15 +4,13 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
-import grimhaus.com.G2Dj.Debug;
+import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 import org.jbox2d.collision.shapes.CircleShape;
-import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 
 /**
@@ -33,7 +31,6 @@ public class CircleCollider extends Component implements Collider
     
     //buffers
     private Vector3 b_ScaleBuffer;
-    private final Vec2 b_Vec2Buffer = new Vec2();
     
     //
     // Accessors
