@@ -5,11 +5,13 @@ import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
+import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
-import grimhaus.com.G2Dj.Type.Math.Vector2; 
+import grimhaus.com.G2Dj.Type.Math.Vector2;
+import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.PolygonCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
@@ -65,17 +67,22 @@ public class Main
                 c = (Collider)aGameObject.get().addComponent(CircleCollider.class);
                 c.setOffset(0, -1);*/
                 
-                PolygonCollider c = (PolygonCollider)aGameObject.get().addComponent(PolygonCollider.class);
+                /*PolygonCollider c = (PolygonCollider)aGameObject.get().addComponent(PolygonCollider.class);
                 c.setOffset(0, 0);
                 c.setVerticies(new Vector2[]
                 {
                     new Vector2(0,0),
                     new Vector2(1,0),
-                    new Vector2(1,1),
+                    new Vector2(1,2),
                     new Vector2(0,1),                    
                 
-                });
+                });*/
                 
+                CircleCollider cc = (CircleCollider)aGameObject.get().addComponent(CircleCollider.class);
+                cc.setOffset(1, 0);
+                
+                Collider c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
+                c.setOffset(-1, 0);
                 
                 Rigidbody rb = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
                 rb.setType(BodyType.Static);
