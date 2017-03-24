@@ -182,8 +182,9 @@ public class Rigidbody extends Component
         {
             FixtureDef[] fixtures = ((Collider)colliders.get(i)).getB2DFixtures();
             
-            for(int j=0,t=fixtures.length;j<t;j++)
-                m_Fixtures.add(m_Body.createFixture(fixtures[j]));
+            if (fixtures != null)
+                for(int j=0,t=fixtures.length;j<t;j++)
+                    m_Fixtures.add(m_Body.createFixture(fixtures[j]));
             
         }
             

@@ -23,7 +23,6 @@ public abstract class Collider extends Component
     // Data members
     //
     protected final Vector2 m_Offset = new Vector2();
-    protected LineVisualizer m_LineVisualizer;    
     protected boolean m_RebuildShape = false;
     
     //buffers
@@ -82,7 +81,6 @@ public abstract class Collider extends Component
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
-        m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
         m_RebuildShape = true;
         
     }
