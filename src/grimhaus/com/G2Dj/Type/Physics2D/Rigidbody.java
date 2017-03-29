@@ -48,6 +48,25 @@ public class Rigidbody extends Component
     public void setType(final grimhaus.com.G2Dj.Imp.Physics2D.BodyType aType){m_Body.m_type = aType.toB2BodyType();}
     
     
+    public void setPosition(final float aX,final float aY,final float aZ)
+    {
+        float angle = m_Body.getAngle();
+        m_Body.m_xf.set(b_B2VecBuffer.set(aX,aZ), angle);
+        
+        getTransform().get().setPosition(aX,aY,aZ);
+        
+    }
+    
+    public void setRotation(final float aX,final float aY,final float aZ)
+    {
+        Vec2 pos = m_Body.getPosition();
+        m_Body.m_xf.set(pos, 0);
+        
+        getTransform().get().setRotation(aX,aY,aZ);
+                
+    }
+    
+    
     //m_BodyDef.type = BodyType.DYNAMIC;
     //m_BodyDef.linearDamping = 1.0f;
     //m_BodyDef.angularDamping = 1.0f;

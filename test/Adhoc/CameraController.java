@@ -17,6 +17,7 @@ import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
+import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -26,8 +27,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
-//@RequireComponent(Camera.class)
-@RequireComponents({Camera.class,Rigidbody.class})
+@RequireComponents({Camera.class,Rigidbody.class,CircleCollider.class})
 public class CameraController extends Component
 {
     private static final float s_Speed =
@@ -127,9 +127,11 @@ public class CameraController extends Component
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
-        Debug.log("Try to get the collider");
+        getGameObject().get().setName("PlayerCamera");
+        
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
-        Debug.log("The rigidbody: "+m_Rigidbody);
+        m_Rigidbody.setPosition(-1,0,2);
+        m_Rigidbody.setRotation(0,45,0);
         
     }
 
