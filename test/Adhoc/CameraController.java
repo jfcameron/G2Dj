@@ -7,11 +7,14 @@ package Adhoc;
 
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Engine.RequireComponent;
+import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Imp.Input.TouchState;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
@@ -23,6 +26,8 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
+//@RequireComponent(Camera.class)
+@RequireComponents({Camera.class,Rigidbody.class})
 public class CameraController extends Component
 {
     private static final float s_Speed =

@@ -43,6 +43,16 @@ public class Scene
         
     }
     
+    public WeakReference<GameObject> getGameObject(final String aGameObjectName)
+    {
+        for(int i=0,s=m_GameObjects.size();i<s;i++)
+            if (m_GameObjects.get(i).getName().equals(aGameObjectName))
+                return new WeakReference<>(m_GameObjects.get(i));
+        
+        return new WeakReference<>(null);
+        
+    }
+    
     //
     // GameObject callbacks
     //

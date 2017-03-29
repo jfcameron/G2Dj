@@ -129,7 +129,8 @@ public class Mesh extends Component implements Drawable
     }
 
     @Override
-    protected void OnScaleChanged() {
+    protected void initialize() {
     }
+
    
 }

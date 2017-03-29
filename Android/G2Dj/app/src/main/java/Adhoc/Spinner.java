@@ -43,7 +43,8 @@ public class Spinner extends Component
     }
 
     @Override
-    protected void OnScaleChanged() {
+    protected void initialize() {
+
     }
 
 }

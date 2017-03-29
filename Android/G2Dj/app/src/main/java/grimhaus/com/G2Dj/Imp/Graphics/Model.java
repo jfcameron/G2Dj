@@ -114,7 +114,7 @@ public class Model extends GraphicsResource
         m_Name = aName;
         int type = aType == ModelType.Static ? GL.GL_STATIC_DRAW : GL.GL_DYNAMIC_DRAW;
         
-        Debug.log("***************MODELTEST******************************");
+        Debug.log("***************MODEL CTOR******************************");
         
         //m_Name         = aName;
         m_VertexCount  = (aVertexData.length/aVertexFormat.getSumOfAttributeComponents());

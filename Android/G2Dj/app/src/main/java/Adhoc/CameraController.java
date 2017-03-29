@@ -7,11 +7,13 @@ package Adhoc;
 
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Engine.RequireComponent;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Imp.Input.TouchState;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
@@ -23,13 +25,15 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
+//@RequireComponent(Camera.class)
+//@RequireComponent(Rigidbody.class)
 public class CameraController extends Component
 {
     private static final float s_Speed =
     //.if DESKTOP
-    //|0.001f;
+    0.001f;
     //.elseif ANDROID
-    0.001f*1000;
+    //|0.001f*1000;
     //.endif
     
     private Rigidbody m_Rigidbody;
@@ -78,11 +82,11 @@ public class CameraController extends Component
                 float forward =  touch.deltaPosition.y/ Graphics.getScreenSize().y ;
                 float side    = touch.deltaPosition.x/ Graphics.getScreenSize().x ;
 
-                inputBuffer.z -= forward * sin(getTransform().get().getRotation().y);
-                inputBuffer.x += forward * cos(getTransform().get().getRotation().y);
+                inputBuffer.x -= forward * sin(getTransform().get().getRotation().y);
+                inputBuffer.z += forward * cos(getTransform().get().getRotation().y);
 
-                inputBuffer.z += side * sin(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180))  *2; //Mul by 2 because the screen is bisected
-                inputBuffer.x -= side * cos(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180))  *2;
+                inputBuffer.x += side * sin(getTransform().get().getRotation().y + (90.0f * Math.PI / 180))  *2; //Mul by 2 because the screen is bisected
+                inputBuffer.z -= side * cos(getTransform().get().getRotation().y + (90.0f * Math.PI / 180))  *2;
 
 
 
@@ -110,7 +114,7 @@ public class CameraController extends Component
             Touch touch = Input.getTouches()[0];
 
             if (touch.state == TouchState.Began || touch.state == TouchState.Moved)
-                rotationBuffer.y -= touch.deltaPosition.x/Graphics.getScreenSize().x * 200;
+                rotationBuffer.y += touch.deltaPosition.x/Graphics.getScreenSize().x * 200;
 
 
         }
@@ -140,7 +144,8 @@ public class CameraController extends Component
     }
 
     @Override
-    protected void OnScaleChanged() {
+    protected void initialize() {
     }
+
     
 }

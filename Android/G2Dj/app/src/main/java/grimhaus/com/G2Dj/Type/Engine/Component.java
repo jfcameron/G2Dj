@@ -19,6 +19,10 @@ public abstract class Component
     private WeakReference<GameObject> m_GameObject;
     private WeakReference<Transform>  m_Transform;
     
+    private boolean m_DidInit = false;
+    
+    public boolean getDidInit(){return m_DidInit;}
+    
     //
     //
     //
@@ -28,7 +32,10 @@ public abstract class Component
     //
     //
     //
-    public abstract void update();
+    protected abstract void initialize();
+    protected abstract void update();
+    
+    protected void setDidinitFalse(){m_DidInit = true;}
     
     //
     // GameObject events
@@ -51,6 +58,6 @@ public abstract class Component
     protected abstract void OnComponentRemoved(final Component aComponent);
     
     //Scaling of gameobject transform chagned
-    protected abstract void OnScaleChanged();
+    //protected abstract void OnScaleChanged();
     
 }

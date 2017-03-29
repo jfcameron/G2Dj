@@ -3,6 +3,8 @@ package Adhoc;
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Engine.RequireComponent;
+import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
 import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
@@ -16,6 +18,7 @@ import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CompositeCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.PolygonCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
+import java.lang.annotation.Annotation;
 import java.lang.ref.WeakReference;
 
 /**
@@ -200,14 +203,9 @@ public class Main
                 theCamera.get().getTransform().get().setPosition(-1,0,2);
                 theCamera.get().getTransform().get().setRotation(0,45,0);
                 theCamera.get().addComponent(CircleCollider.class);
-                theCamera.get().addComponent(Camera.class);
-                Rigidbody rb = (Rigidbody)theCamera.get().addComponent(Rigidbody.class);
-                                
-                
-                
-                theCamera.get().addComponent(CameraController.class);
-                
-                Debug.log(theCamera.get());
+                //theCamera.get().addComponent(Camera.class);
+                //Rigidbody rb = (Rigidbody)theCamera.get().addComponent(Rigidbody.class);
+                CameraController cc = (CameraController)theCamera.get().addComponent(CameraController.class);
 
             }
             
@@ -226,6 +224,8 @@ public class Main
             }
         
         }
+        
+        
         
         
 

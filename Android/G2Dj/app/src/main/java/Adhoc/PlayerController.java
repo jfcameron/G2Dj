@@ -108,7 +108,8 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
     }
 
     @Override
-    protected void OnScaleChanged() {
+    protected void initialize() {
     }
+
     
 }

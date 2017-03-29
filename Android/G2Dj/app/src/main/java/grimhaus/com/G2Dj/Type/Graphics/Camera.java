@@ -199,12 +199,10 @@ public class Camera extends Component
 
     @Override
     protected void OnComponentRemoved(Component aComponent) {
-    }
+    }    
 
     @Override
-    protected void OnScaleChanged() {
+    protected void initialize() {
     }
-
-    
     
 }
