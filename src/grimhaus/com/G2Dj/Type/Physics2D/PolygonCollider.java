@@ -5,7 +5,6 @@
 package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Imp.Physics2D.SimpleCollider;
-import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -88,7 +87,6 @@ public class PolygonCollider extends SimpleCollider<PolygonShape>
         visualVerts[visualVerts.length-2] = 0.0f; 
         visualVerts[visualVerts.length-1] = b2verts[0].y/scale.z;
                 
-        //m_LineVisualizer.setVertexData(LineVisualizer.lineBox((m_Offset.x*scale.x)/scale.x,(m_Offset.y*scale.z)/scale.z,1));
         m_LineVisualizer.setVertexData(visualVerts);
         m_FixtureDefinition.density = 1;
         

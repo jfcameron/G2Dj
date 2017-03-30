@@ -5,9 +5,7 @@
  */
 package Adhoc;
 
-import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
-import grimhaus.com.G2Dj.Imp.Engine.RequireComponent;
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Imp.Input.TouchState;

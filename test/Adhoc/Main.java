@@ -69,8 +69,18 @@ public class Main
                 Collider c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
                 c.setOffset(-2, 0);
                 
-                c = (Collider)aGameObject.get().addComponent(CompositeCollider.class);
-                c.setOffset(0, +2);
+                
+                /*CompositeCollider compositeCollider = (CompositeCollider)aGameObject.get().addComponent(CompositeCollider.class);
+                compositeCollider.setVertexArrays(new Vector2[]
+                {
+                    new Vector2(0,0),
+                    new Vector2(1,0),
+                    new Vector2(1,2),
+                    new Vector2(0,1),                    
+                
+                });*/
+                
+               // compositeCollider.setOffset(-3,-1);
                 
                 Rigidbody rb = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
                 rb.setType(BodyType.Static);

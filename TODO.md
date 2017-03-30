@@ -1,6 +1,4 @@
-fix init bug in boxcollider (needs scale cahnge to rebuild shape currently.)
-check boxcol & rigibody for clues. maybe when rigidbody is firing.
-    
+composite collider    
 improve desktop input implementation (pure java isnt cutting it)
 
 Vertex data
@@ -38,6 +36,7 @@ Input
 
 Tile renderer
 famicom style synth
+    - jfugue + Gervill
 
 
 AuthList in G2Dj.Memory

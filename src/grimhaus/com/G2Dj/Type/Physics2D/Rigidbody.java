@@ -80,7 +80,7 @@ public class Rigidbody extends Component
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
         m_Physics2DScene = (Physics2DScene)getGameObject().get().getScene().get().getSceneGraph(Physics2DScene.class);
-        buildBody();
+        buildBody();//m_RebuildRequired = true;
         
     }
 
@@ -201,9 +201,10 @@ public class Rigidbody extends Component
         {
             FixtureDef[] fixtures = ((Collider)colliders.get(i)).getB2DFixtures();
             
-            if (fixtures != null)
+            if (fixtures != null && m_Fixtures != null && m_Body != null)
                 for(int j=0,t=fixtures.length;j<t;j++)
-                    m_Fixtures.add(m_Body.createFixture(fixtures[j]));
+                    if (fixtures[j] != null)
+                        m_Fixtures.add(m_Body.createFixture(fixtures[j]));
             
         }
             

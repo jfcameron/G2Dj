@@ -6,7 +6,10 @@ package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
+import grimhaus.com.G2Dj.Type.Math.Vector2;
+import grimhaus.com.G2Dj.Type.Math.Vector3;
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 
 /**
@@ -15,41 +18,117 @@ import org.jbox2d.dynamics.FixtureDef;
  */
 public class CompositeCollider extends Collider
 {
-    protected FixtureDef[]     m_FixtureDefinition;
-    protected LineVisualizer[] m_LineVisualizer;    
+    //*************
+    // Data members
+    //*************
+    protected FixtureDef[]     m_FixtureDefinitions;//b2d pod
+    protected LineVisualizer[] m_LineVisualizers;   //for visualizing colliders
+    private   Vector2[]        m_Vertices;          //vertex data for colliders
+    
+    //**********
+    // Accessors
+    //**********
+    
+    //
+    // Implementation
+    //    
+    private Vec2[] generateDefaultVertexData()
+    {
+        Vector3 scale = getGameObject().get().getTransform().get().getScale();
+        
+        final float hx = 0.5f;
+        final float hy = 0.5f;
+        final int m_count = 4;
+        
+        Vec2[] b2verts = new Vec2[m_count];
+        
+        for(int i=0,s=m_count;i<s;i++)
+            b2verts[i] = new Vec2();
+        
+        b2verts[0].set((-hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
+        b2verts[1].set(( hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
+        b2verts[2].set(( hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
+        b2verts[3].set((-hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
+        
+        return b2verts;
+        
+    }
+    
+    public void setVertexArrays(final Vector2[]aSetOfCounterClockwiseVertexArrays){m_Vertices = aSetOfCounterClockwiseVertexArrays;m_RebuildShape=true;}    
     
     @Override
     public FixtureDef[] getB2DFixtures()
     {
-        if (m_FixtureDefinition == null)
+        if (m_FixtureDefinitions == null)
             return null;
         
-        return m_FixtureDefinition;        
+        return m_FixtureDefinitions;        
         
     }
-
+    
     @Override
-    protected void buildShape() 
+    protected void buildShape()
     {
-        //TEST AREA
-        int len = 3;
-        m_FixtureDefinition = new FixtureDef    [len];
-        m_LineVisualizer    = new LineVisualizer[len]; 
+        int len = 1;
+        
+        m_FixtureDefinitions = new FixtureDef    [len];
+        m_LineVisualizers    = new LineVisualizer[len];
         
         for(int i=0,s=len;i<s;i++)
         {
-            //m_LineVisualizer[i] = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
-            
-            m_FixtureDefinition[i] = new FixtureDef();
-            
-            m_FixtureDefinition[i].setShape(new PolygonShape());
-            
-            
-            m_FixtureDefinition[i].density = 1;
-            
+            m_FixtureDefinitions[i] = new FixtureDef();
+           // m_LineVisualizers[i] = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
         }
+        
+                
+        buildShapeImp(0);
         
     }
     
-    
+    private void buildShapeImp(final int aIndex)
+    {
+        FixtureDef     m_FixtureDefinition = m_FixtureDefinitions[aIndex];
+        LineVisualizer m_LineVisualizer    = m_LineVisualizers   [aIndex];
+        PolygonShape   m_Shape             = new PolygonShape();
+        
+        Vector3 scale = getGameObject().get().getTransform().get().getScale();
+        
+        Vec2[] b2verts;
+        
+        /*if (m_Vertices == null || m_Vertices.length == 0)
+            b2verts = generateDefaultVertexData();
+        else*/
+        {
+            b2verts = new Vec2[m_Vertices.length];
+            
+            for(int i=0,s=m_Vertices.length;i<s;i++)
+                b2verts[i] = new Vec2((m_Vertices[i].x+m_Offset.x)*scale.x,(m_Vertices[i].y+m_Offset.y)*scale.z);
+            
+        }
+        
+        m_Shape.set(b2verts, b2verts.length);
+                
+        m_Shape.m_centroid.set(b_Vec2Buffer.set((m_Offset.x),(m_Offset.y)));
+
+        //Generate the line mesh
+        float[] visualVerts = new float[(b2verts.length*3)+3];
+        for(int i=0,s=b2verts.length,j=0;i<s;++i,j=i*3)
+        {
+            visualVerts[j+0] = b2verts[i].x/scale.x; 
+            visualVerts[j+1] = 0.0f; 
+            visualVerts[j+2] = b2verts[i].y/scale.z;
+            
+        }
+        //The first vert has to be repeated due to visualizer using GL_LINE_STRIP not "_LOOP
+        visualVerts[visualVerts.length-3] = b2verts[0].x/scale.x; 
+        visualVerts[visualVerts.length-2] = 0.0f; 
+        visualVerts[visualVerts.length-1] = b2verts[0].y/scale.z;
+                
+        //m_LineVisualizer.setVertexData(visualVerts);
+        
+        //m_FixtureDefinition.density = 1;
+        //m_FixtureDefinition.shape = m_Shape;
+        
+    }
+        
 }
