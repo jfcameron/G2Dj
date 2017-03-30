@@ -60,6 +60,78 @@ public static void main(String[] args)
     
 }
 ```
+### Creating a custom component
+```java
+public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
+{
+    private static final float s_Speed = 0.1f; 
+    private final Vector3 inputBuffer = new Vector3();
+    private final Vector3 rotationBuffer = new Vector3();
+    private final Vector3 scaleBuffer = new Vector3();
+
+    @Override
+    protected void initialize() {}
+    
+    @Override
+    protected void update() 
+    {
+        //Translation
+        {
+            inputBuffer.setInPlace(0);
+
+            //Keyboard input
+            if (Input.getKey(KeyCode.J))
+                inputBuffer.x-=s_Speed;
+
+            if (Input.getKey(KeyCode.L))
+                inputBuffer.x+=s_Speed;
+
+            if (Input.getKey(KeyCode.I))
+                inputBuffer.z-=s_Speed;
+
+            if (Input.getKey(KeyCode.K))
+                inputBuffer.z+=s_Speed;
+
+            getTransform().get().translate(inputBuffer);
+            
+        }
+        
+        //Rotation
+        {
+            rotationBuffer.setInPlace(0);
+
+            //Keyboard input
+            if (Input.getKey(KeyCode.U))
+                rotationBuffer.y +=0.1f;
+
+            if (Input.getKey(KeyCode.O))
+                rotationBuffer.y -=0.1f;
+            
+            getTransform().get().rotate(rotationBuffer);
+            
+        }
+        
+        //Scale
+        {
+            scaleBuffer.setInPlace(0);
+            
+            if (Input.getKey(KeyCode.R))
+                scaleBuffer.addInPlace(0.01f);
+            
+            if (Input.getKey(KeyCode.F))
+                scaleBuffer.addInPlace(-0.01f);
+            
+            getTransform().get().scale(scaleBuffer);
+            
+        }
+        
+    }
+
+    @Override protected void OnComponentAdded(Component aComponent) {}
+    @Override protected void OnComponentRemoved(Component aComponent) {}
+
+}
+```
 
 ## Libraries used:
 * [JOGL](http://jogamp.org/)
