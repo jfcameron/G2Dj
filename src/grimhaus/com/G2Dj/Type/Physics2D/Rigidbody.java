@@ -36,9 +36,12 @@ public class Rigidbody extends Component
     private final BodyDef m_BodyDef = new BodyDef();
     private boolean m_RebuildRequired = true;
     //buffers
-    private Vector3 b_ScaleBuffer;
     private final Vec2 b_B2VecBuffer = new Vec2();
-        
+    private Vector3 b_ScaleBuffer;
+    private Vector3 b_RotationBuffer = new Vector3();
+    private Vector3 b_TranslationBuffer = new Vector3();
+    
+    
     //
     // Accessors
     //
@@ -110,11 +113,21 @@ public class Rigidbody extends Component
                 Vector3 tPos = getTransform().get().getPosition();
                 Vector3 tRot = getTransform().get().getRotation();
             
-                m_Body.m_xf.set(b_B2VecBuffer.set(tPos.x,tPos.y), -tRot.y);
+                //Check for rotation changes
+                if (!getTransform().get().getRotation().equals(b_RotationBuffer))
+                    m_Body.setTransform(b_B2VecBuffer.set(tPos.x,tPos.z), -tRot.y);
+                
+                b_RotationBuffer.setInPlace(getTransform().get().getRotation());
+                
+                //Check for translation changes
+                if (!getTransform().get().getPosition().equals(b_TranslationBuffer))
+                    m_Body.setTransform(b_B2VecBuffer.set(tPos.x,tPos.z), -tRot.y);
+                
+                b_TranslationBuffer.setInPlace(getTransform().get().getPosition());
+                              
                               
             } break;
-            
-            
+                        
             default:
             break;
         
@@ -224,6 +237,9 @@ public class Rigidbody extends Component
     @Override
     protected void initialize() 
     {
+        b_RotationBuffer.copy(getTransform().get().getRotation());
+        b_TranslationBuffer.copy(getTransform().get().getPosition());
+        
         buildFixtures();
         
     }

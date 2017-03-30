@@ -119,7 +119,7 @@ public class CameraController extends Component
         rotationBuffer.multiplyInPlace((float)Time.getDeltaTime());
 
         m_Rigidbody.applyTorque(rotationBuffer.y);
-        
+                
     }
     
     @Override
