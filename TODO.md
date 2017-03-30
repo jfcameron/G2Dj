@@ -1,5 +1,8 @@
 improve desktop input implementation (pure java isnt cutting it)
 
+android
+ - maintain gl context when minimizing app
+
 Vertex data
     -allow custom shapes from vert arrays, allow use of dynamic memory for faster vbo rewrites (currently hardcoded to static)
     
