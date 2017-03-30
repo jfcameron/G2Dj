@@ -79,6 +79,9 @@ public abstract class Collider extends Component
     }
     
     @Override
+    public void fixedUpdate() {}
+    
+    @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
         m_RebuildShape = true;

@@ -29,6 +29,9 @@ public class TopCamera extends Component
         m_Tranform.get().setPosition(m_Position.x,m_Position.y+10,m_Position.z);
     
     }
+    
+    @Override
+    public void fixedUpdate() {}
 
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 

@@ -31,6 +31,9 @@ public class GraphicsScene extends SceneGraph
     public void update(){}
     
     @Override
+    public void fixedUpdate() {}
+    
+    @Override
     public void draw() 
     {
         for(int i=0,s=m_Cameras.size();i<s;i++)

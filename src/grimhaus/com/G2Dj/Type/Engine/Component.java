@@ -34,6 +34,7 @@ public abstract class Component
     //
     protected abstract void initialize();
     protected abstract void update();
+    protected abstract void fixedUpdate();
     
     protected void setDidinitFalse(){m_DidInit = true;}
     

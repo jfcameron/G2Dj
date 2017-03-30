@@ -121,6 +121,9 @@ public class CameraController extends Component
         getTransform().get().rotate(rotationBuffer);
     
     }
+    
+    @Override
+    public void fixedUpdate() {}
 
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 

@@ -100,7 +100,11 @@ public class Scene
     
     public void fixedUpdate()
     {
-        
+        for(int i=0,s=m_GameObjects.size();i<s;i++)//m_GameObjects.forEach(i->i.update());
+            m_GameObjects.get(i).fixedUpdate();
+
+        for(int i=0,s=m_SceneGraphs.size();i<s;i++)//m_SceneGraphs.forEach(i->i.update());
+            m_SceneGraphs.get(i).fixedUpdate();
         
     }
     

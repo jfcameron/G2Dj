@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
@@ -18,23 +19,20 @@ import org.jbox2d.dynamics.World;
 public class Physics2DScene extends SceneGraph 
 {
     private final World m_B2DWorld = new World(new Vec2(0,0));
+    private final float c_UpdateInterval = (float)Time.getFixedUpdateTargetInterval();
     
     public World getB2DWorld(){return m_B2DWorld;}
     
     
     @Override
-    public void update() 
+    public void fixedUpdate() 
     {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        m_B2DWorld.step(0.001f, 1, 1);
+        m_B2DWorld.step(c_UpdateInterval, 1, 1);
     }
-
-    @Override
-    public void draw() 
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     
-    }
+    @Override public void update(){}
+    @Override public void draw(){}
 
     @Override
     protected void OnComponentAdded(Component aComponent) 

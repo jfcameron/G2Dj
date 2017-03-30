@@ -20,6 +20,8 @@ public class Engine
     //
     private static final ArrayList<Scene> s_Scenes = new ArrayList<>();
     
+    private static double s_FixedUpdateTimer = 0;
+    
     //
     // Accessors
     //
@@ -49,7 +51,18 @@ public class Engine
     {
         for(;;)
         {
-            fixedUpdate();   
+            //Call fixedUpdate only if the timer is > than interval and then call it as many times as it has been exceeded
+            if ((s_FixedUpdateTimer += Time.getDeltaTime()) > Time.getFixedUpdateTargetInterval())
+            {
+                int timesToEvokeFixedUpdate = (int)Math.floor(((s_FixedUpdateTimer += Time.getDeltaTime()) > Time.getFixedUpdateTargetInterval())? (s_FixedUpdateTimer/Time.getFixedUpdateTargetInterval()) : 0);
+                
+                for(int i=0,s=timesToEvokeFixedUpdate;i<s;i++)
+                    fixedUpdate(); 
+                
+                s_FixedUpdateTimer = 0;
+                
+            }
+            
             update();
             draw();
         
@@ -58,7 +71,7 @@ public class Engine
     }
     
     private static void update()
-    {
+    {        
         Time.update();
         Input.update();
         

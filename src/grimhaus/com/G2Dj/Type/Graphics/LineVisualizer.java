@@ -140,6 +140,9 @@ public class LineVisualizer extends Component implements Drawable
     {
         
     }
+    
+    @Override
+    public void fixedUpdate() {}
 
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 

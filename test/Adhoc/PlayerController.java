@@ -84,6 +84,9 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
         }
         
     }
+    
+    @Override
+    public void fixedUpdate() {}
 
     @Override
     protected void OnRemovedFromGameObject(){}

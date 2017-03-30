@@ -139,6 +139,9 @@ public class Rigidbody extends Component
         b_ScaleBuffer.copy(scale);
     
     }
+    
+    @Override
+    public void fixedUpdate() {}
 
     @Override
     protected void OnComponentAdded(Component aComponent) 
