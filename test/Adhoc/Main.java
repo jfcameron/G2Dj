@@ -5,6 +5,7 @@ import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
 import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
+import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
@@ -215,7 +216,8 @@ public class Main
                 
                 //theCamera.get().getTransform().get().getRotation().y = 45f;
                 
-                theCamera.get().addComponent(BoxCollider.class);
+                Collider c = (Collider)theCamera.get().addComponent(BoxCollider.class);
+                c.setType(ColliderType.Collidable);
                 //theCamera.get().addComponent(CircleCollider.class);
                 CameraController cc = (CameraController)theCamera.get().addComponent(CameraController.class);
                 

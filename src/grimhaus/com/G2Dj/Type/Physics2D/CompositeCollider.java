@@ -5,11 +5,10 @@
 package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
-import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
 import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
-import java.lang.ref.WeakReference;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
@@ -23,8 +22,6 @@ public class CompositeCollider extends Collider
     //*************
     // Data members
     //*************
-    //protected final FixtureDef m_FixtureDefinition = new FixtureDef();
-    
     private   Vector2[][]      m_VertexArrays = new Vector2[][]{};//good
     protected FixtureDef[]     m_FixtureDefinitions;
     protected LineVisualizer[] m_LineVisualizers; 
@@ -32,9 +29,14 @@ public class CompositeCollider extends Collider
     //
     // Accessors
     //
+    @Override public void setType(final ColliderType aColliderType){for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)m_FixtureDefinitions[i].setSensor(aColliderType.toB2TriggerBool());}
+    @Override public void setDensity(final float aDensity){for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)m_FixtureDefinitions[i].setDensity(aDensity);}
+    @Override public void setFriction(final float aFriction){for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)m_FixtureDefinitions[i].setFriction(aFriction);}
+    @Override public void setRestitution(final float aRestitution){for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)m_FixtureDefinitions[i].setRestitution(aRestitution);}
+    
     public void setVerticies(final Vector2[][] aCounterClockwiseVerticies)
     {
-        m_RebuildShape=true;
+        requestShapeRebuildOnNextTick();
         m_VertexArrays = aCounterClockwiseVerticies;
         
         //Init/Reinit Fixtures
@@ -65,6 +67,25 @@ public class CompositeCollider extends Collider
     
     }
     
+    @Override public FixtureDef[] getB2DFixtures(){return m_FixtureDefinitions;}
+    @Override public ColliderType getType(){return ColliderType.fromB2TriggerBool(m_FixtureDefinitions[0].isSensor);}
+    @Override public float getDensity(){return m_FixtureDefinitions[0].getDensity();}
+    @Override public float getFriction(){return m_FixtureDefinitions[0].getFriction();}
+    @Override public float getRestitution(){return m_FixtureDefinitions[0].getRestitution();}
+    
+    //
+    // Collider implementation
+    //
+    @Override
+    protected void buildShape()
+    {
+        if (m_VertexArrays != null)
+            for(int i=0,s=m_VertexArrays.length;i<s;i++)
+                if (m_VertexArrays[i] != null)
+                    buildAFixture(m_VertexArrays[i],m_LineVisualizers[i],m_FixtureDefinitions[i]);        
+        
+    }
+    
     //
     // Implementation
     //    
@@ -90,17 +111,7 @@ public class CompositeCollider extends Collider
         
     }
     
-    @Override
-    protected void buildShape()
-    {
-        if (m_VertexArrays != null)
-            for(int i=0,s=m_VertexArrays.length;i<s;i++)
-                if (m_VertexArrays[i] != null)
-                    buildShapeImp(m_VertexArrays[i],m_LineVisualizers[i],m_FixtureDefinitions[i]);        
-        
-    }
-    
-    private void buildShapeImp(Vector2[] m_Vertices, LineVisualizer m_LineVisualizer, FixtureDef m_FixtureDefinition)
+    private void buildAFixture(Vector2[] m_Vertices, LineVisualizer m_LineVisualizer, FixtureDef m_FixtureDefinition)
     {
         Vec2[] b2verts;
         PolygonShape m_Shape = (PolygonShape)m_FixtureDefinition.shape;
@@ -139,19 +150,6 @@ public class CompositeCollider extends Collider
         m_LineVisualizer.setVertexData(visualVerts);
         m_FixtureDefinition.density = 1;
         
-        
     }
-    
-    @Override
-    public FixtureDef[] getB2DFixtures(){return m_FixtureDefinitions;}
-    
-    /*@Override
-    protected void initialize()
-    {
-        super.initialize();
-        
-        //m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
-        
-    }*/
     
 }

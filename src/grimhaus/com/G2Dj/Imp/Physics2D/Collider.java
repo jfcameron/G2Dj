@@ -6,7 +6,6 @@ package grimhaus.com.G2Dj.Imp.Physics2D;
 
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
-import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
@@ -19,30 +18,41 @@ import org.jbox2d.dynamics.FixtureDef;
  */
 public abstract class Collider extends Component 
 {
-    //
+    //*************
     // Data members
-    //
+    //*************
     protected final Vector2 m_Offset = new Vector2();
-    protected boolean m_RebuildShape = false;
+    private boolean m_RebuildShape = false;
     
     //buffers
     protected Vector3 b_ScaleBuffer;
     protected final Vec2 b_Vec2Buffer = new Vec2();
     
-    public void setOffset(final float aX, final float aY)
-    {
-        m_Offset.setInPlace(aX, aY);
-        m_RebuildShape = true;
-        
-    }
+    //**********
+    // Accessors
+    //**********
+    public void setOffset(final float aX, final float aY){m_Offset.setInPlace(aX, aY);requestShapeRebuildOnNextTick();}
+    protected void requestShapeRebuildOnNextTick(){m_RebuildShape = true;}
+    
+    //*******************
+    // Collider interface
+    //*******************
+    public abstract void setType(final ColliderType aColliderType);
+    public abstract void setDensity(final float aDensity);
+    public abstract void setFriction(final float aFriction);
+    public abstract void setRestitution(final float aRestitution);
+    
+    public abstract ColliderType getType();
+    public abstract float getDensity();
+    public abstract float getFriction();
+    public abstract float getRestitution();
     
     public abstract FixtureDef[] getB2DFixtures();
-    
-    //
-    //
-    //
     protected abstract void buildShape();
     
+    //***************
+    // Implementation
+    //***************
     private void checkForTransformScaleChange()
     {
         Vector3 scale = getTransform().get().getScale();
@@ -55,15 +65,14 @@ public abstract class Collider extends Component
         }
                     
         if (!b_ScaleBuffer.equals(scale))
-            m_RebuildShape = true;
+            requestShapeRebuildOnNextTick();
         
         b_ScaleBuffer.copy(scale);
         
     }
-    
-    //
+    //********************
     // Component interface
-    //
+    //********************
     @Override
     public void update() 
     {
@@ -82,11 +91,10 @@ public abstract class Collider extends Component
     public void fixedUpdate() {}
     
     @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
-    {
-        m_RebuildShape = true;
-        
-    }
+    protected void initialize(){requestShapeRebuildOnNextTick();}
+    
+    @Override
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject){requestShapeRebuildOnNextTick();}
 
     @Override 
     protected void OnRemovedFromGameObject() {}
@@ -96,12 +104,5 @@ public abstract class Collider extends Component
 
     @Override 
     protected void OnComponentRemoved(Component aComponent) {}
-    
-    @Override
-    protected void initialize() 
-    {
-        m_RebuildShape = true;
-        
-    }
     
 }

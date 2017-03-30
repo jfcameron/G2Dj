@@ -24,7 +24,7 @@ public class PolygonCollider extends SimpleCollider<PolygonShape>
     //
     // Accessors
     //
-    public void setVerticies(final Vector2[] aCounterClockwiseVerticies){m_Vertices = aCounterClockwiseVerticies;m_RebuildShape=true;}
+    public void setVerticies(final Vector2[] aCounterClockwiseVerticies){m_Vertices = aCounterClockwiseVerticies;requestShapeRebuildOnNextTick();}
     
     //
     // Implementation
