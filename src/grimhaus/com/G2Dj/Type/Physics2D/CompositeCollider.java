@@ -23,16 +23,47 @@ public class CompositeCollider extends Collider
     //*************
     // Data members
     //*************
-    protected final FixtureDef m_FixtureDefinition = new FixtureDef();
-    protected final PolygonShape          m_Shape = new PolygonShape();
-    protected LineVisualizer m_LineVisualizer;    
+    //protected final FixtureDef m_FixtureDefinition = new FixtureDef();
     
-    private Vector2[] m_Vertices = new Vector2[]{};
-    
+    private   Vector2[][]      m_VertexArrays = new Vector2[][]{};//good
+    protected FixtureDef[]     m_FixtureDefinitions;
+    protected LineVisualizer[] m_LineVisualizers; 
+        
     //
     // Accessors
     //
-    public void setVerticies(final Vector2[] aCounterClockwiseVerticies){m_Vertices = aCounterClockwiseVerticies;m_RebuildShape=true;}
+    public void setVerticies(final Vector2[][] aCounterClockwiseVerticies)
+    {
+        m_RebuildShape=true;
+        m_VertexArrays = aCounterClockwiseVerticies;
+        
+        //Init/Reinit Fixtures
+        {
+            m_FixtureDefinitions = new FixtureDef[m_VertexArrays.length];
+            for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)
+            {
+                m_FixtureDefinitions[i] = new FixtureDef();
+                m_FixtureDefinitions[i].shape =  new PolygonShape();
+        
+            }
+                
+        }
+        
+        //Init/Reinit Visualizers
+        {
+            //destroy visualizers
+            if (m_LineVisualizers!=null)
+                for(int i=0,s=m_LineVisualizers.length;i<s;i++)
+                    getGameObject().get().removeComponent(m_LineVisualizers[i]);
+            
+            //create visualizers
+            m_LineVisualizers = new LineVisualizer[m_VertexArrays.length];
+            for(int i=0,s=m_VertexArrays.length;i<s;i++)
+                m_LineVisualizers[i] = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
+        
+        }
+    
+    }
     
     //
     // Implementation
@@ -62,9 +93,19 @@ public class CompositeCollider extends Collider
     @Override
     protected void buildShape()
     {
-        Vector3 scale = getGameObject().get().getTransform().get().getScale();
+        if (m_VertexArrays != null)
+            for(int i=0,s=m_VertexArrays.length;i<s;i++)
+                if (m_VertexArrays[i] != null)
+                    buildShapeImp(m_VertexArrays[i],m_LineVisualizers[i],m_FixtureDefinitions[i]);        
         
+    }
+    
+    private void buildShapeImp(Vector2[] m_Vertices, LineVisualizer m_LineVisualizer, FixtureDef m_FixtureDefinition)
+    {
         Vec2[] b2verts;
+        PolygonShape m_Shape = (PolygonShape)m_FixtureDefinition.shape;
+                
+        Vector3 scale = getGameObject().get().getTransform().get().getScale();
         
         if (m_Vertices == null || m_Vertices.length == 0)
             b2verts = generateDefaultVertexData();
@@ -98,24 +139,19 @@ public class CompositeCollider extends Collider
         m_LineVisualizer.setVertexData(visualVerts);
         m_FixtureDefinition.density = 1;
         
-    }
-    
-    @Override
-    public FixtureDef[] getB2DFixtures(){return new FixtureDef[]{m_FixtureDefinition};}
-    
-    @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
-    {
-        super.OnAddedToGameObject(aGameObject);
-        
-        m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
         
     }
     
-    public CompositeCollider()
-    {
-        m_FixtureDefinition.shape = m_Shape;
+    @Override
+    public FixtureDef[] getB2DFixtures(){return m_FixtureDefinitions;}
     
-    }
+    /*@Override
+    protected void initialize()
+    {
+        super.initialize();
+        
+        //m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
+        
+    }*/
     
 }

@@ -4,7 +4,7 @@
  */
 package grimhaus.com.G2Dj;
 
-import grimhaus.com.G2Dj.Imp.Input.KeyCode;
+import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -16,12 +16,12 @@ import java.util.ArrayList;
 public class Engine 
 {    
     //
-    //
+    // Data members
     //
     private static final ArrayList<Scene> s_Scenes = new ArrayList<>();
     
     //
-    //
+    // Accessors
     //
     public static WeakReference<Scene> createScene(final String aSceneName)
     {
@@ -32,11 +32,24 @@ public class Engine
         
     }
     
-    public static void mainLoop()
+    //
+    // Public interface
+    //
+    public static void init(final Game aGame)
     {
-        for(;;/*!Input.getKeyDown(KeyCode.Escape)*/)
+        aGame.init();
+        mainLoop();
+    
+    }
+    
+    //
+    // Implementation
+    //
+    private static void mainLoop()
+    {
+        for(;;)
         {
-            
+            fixedUpdate();   
             update();
             draw();
         
@@ -44,8 +57,9 @@ public class Engine
         
     }
     
-    public static void update()
+    private static void update()
     {
+        Time.update();
         Input.update();
         
         for(int i = 0, s = s_Scenes.size(); i < s; i++)
@@ -53,7 +67,14 @@ public class Engine
         
     }
     
-    public static void draw()
+    private static void fixedUpdate()
+    {
+        for(int i = 0, s = s_Scenes.size(); i < s; i++)
+            s_Scenes.get(i).fixedUpdate();
+        
+    }
+    
+    private static void draw()
     {
         for(int i = 0, s = s_Scenes.size(); i < s; i++)
             s_Scenes.get(i).draw();
@@ -61,19 +82,5 @@ public class Engine
         Graphics.draw();
         
     }
-    
-    //
-    //
-    //
-    public static void init()
-    {
-        Debug.log("Engine init()");
-
-        Input.init();
-        Graphics.init();
-        //etc
-                
         
-    }
-    
 }

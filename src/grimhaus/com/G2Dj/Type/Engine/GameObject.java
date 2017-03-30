@@ -96,10 +96,28 @@ public class GameObject
         
     }
     
-    public void removeComponent(Class<? /*extends Component*/> aComponentType)
+    public void removeComponent(Class<?> aComponentType)
     {
         for (int i=0,s=m_Components.size();i<s;i++)
             if (m_Components.get(i).getClass() == aComponentType)
+            {
+                m_MyScene.get().OnComponentRemoved(m_Components.get(i));
+                
+                for(int j=0,t=m_Components.size();j<t;j++)
+                    m_Components.get(j).OnComponentRemoved(m_Components.get(i));
+                
+                m_Components.get(i).OnRemovedFromGameObjectSuper();
+                m_Components.get(i).OnRemovedFromGameObject();
+                m_Components.remove(i);
+        
+            }
+        
+    }
+    
+    public void removeComponent(final Component aComponentInstance)
+    {
+        for (int i=0,s=m_Components.size();i<s;i++)
+            if (m_Components.get(i) == aComponentInstance)
             {
                 m_MyScene.get().OnComponentRemoved(m_Components.get(i));
                 

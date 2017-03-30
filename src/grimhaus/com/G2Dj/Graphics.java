@@ -74,16 +74,6 @@ public class Graphics
         
     }
     
-    //*******************
-    // Static Constructor
-    //*******************    
-    protected static void init()
-    {
-        
-
-
-    }
-    
     protected static void draw()
     {
         //.if DESKTOP

@@ -98,6 +98,12 @@ public class Scene
 
     }
     
+    public void fixedUpdate()
+    {
+        
+        
+    }
+    
     public void draw()
     {
         for(int i=0,s=m_SceneGraphs.size();i<s;i++)//m_SceneGraphs.forEach(i->i.update());

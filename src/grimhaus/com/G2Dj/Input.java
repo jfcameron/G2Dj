@@ -28,8 +28,6 @@ public class Input
     //.endif
     protected static final TouchHandler S_TouchHandler = new TouchHandler();
 
-    protected static void init(){}
-
     protected static void update()
     {
         //.if DESKTOP
