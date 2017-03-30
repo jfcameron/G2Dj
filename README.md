@@ -62,6 +62,7 @@ public static void main(String[] args)
 ```
 ### Creating a custom component
 ```java
+@RequireComponents({Camera.class,Rigidbody.class,CircleCollider.class})
 public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
 {
     private static final float s_Speed = 0.1f; 
