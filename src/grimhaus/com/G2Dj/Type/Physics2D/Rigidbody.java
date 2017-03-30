@@ -43,11 +43,12 @@ public class Rigidbody extends Component
     // Accessors
     //
     public void setVelocity(final Vector2 aVelocity){setVelocity(aVelocity.x,aVelocity.y);}
-    public void setVelocity(final float aX,final float aY){m_Body.setLinearVelocity(new Vec2(aX,aY));}
+    public void setVelocity(final float aX,final float aY){m_Body.setLinearVelocity(b_B2VecBuffer.set(aX,aY));}
 
-    public void applyImpulse(final float aX,final float aY){m_Body.applyLinearImpulse(b_B2VecBuffer.set(0,0),b_B2VecBuffer.set(aX,aY),true);}
-
+    public void applyImpulse(final float aX,final float aY){m_Body.applyLinearImpulse(b_B2VecBuffer.set(aX,aY),b_B2VecBuffer.set(0,0),true);}
     public void applyForce(final float aX,final float aY){m_Body.applyForceToCenter(b_B2VecBuffer.set(aX,aY));}
+    
+    public void applyTorque(final float aTorque){m_Body.applyTorque(-aTorque);}
     
     public void setType(final grimhaus.com.G2Dj.Imp.Physics2D.BodyType aType){m_Body.m_type = aType.toB2BodyType();}
     
@@ -61,21 +62,14 @@ public class Rigidbody extends Component
         
     }
     
-    public void setRotation(final float aX,final float aY,final float aZ)
+    public void setRotation(final float aRotation)
     {
         Vec2 pos = m_Body.getPosition();
-        m_Body.m_xf.set(pos, 0);
+        m_Body.m_xf.set(pos, -aRotation);
         
-        getTransform().get().setRotation(aX,aY,aZ);
-                
+        //getTransform().get().getRotation().y = aRotation;
+        
     }
-    
-    
-    //m_BodyDef.type = BodyType.DYNAMIC;
-    //m_BodyDef.linearDamping = 1.0f;
-    //m_BodyDef.angularDamping = 1.0f;
-    //m_BodyDef.fixedRotation = true;
-    
     
     //
     // Component interface
@@ -97,7 +91,7 @@ public class Rigidbody extends Component
     }
         
     @Override
-    public void update() 
+    public void fixedUpdate() 
     {
         if (m_RebuildRequired)
             buildBody();
@@ -107,19 +101,22 @@ public class Rigidbody extends Component
             case DYNAMIC:
             {
                 Vec2  b2Pos = m_Body.getPosition();
-                float b2Rot = m_Body.getAngle();
+                float b2Rot = -m_Body.getAngle();
             
                 getTransform().get().setPosition(b2Pos.x,0,b2Pos.y);
+                getTransform().get().getRotation().y = b2Rot;
             
             } break;
             
             case KINEMATIC:
             {
-                Vector3 tPos = getTransform().get().getPosition();buildBody();
+                Vector3 tPos = getTransform().get().getPosition();
                 Vector3 tRot = getTransform().get().getRotation();
             
-                m_Body.m_xf.set(b_B2VecBuffer.set(tPos.x,tPos.y), 0);
-            
+                m_Body.m_xf.set(b_B2VecBuffer.set(tPos.x,tPos.y), -tRot.y);
+                
+                //buildBody();
+                
             } break;
             
             case STATIC:
@@ -145,7 +142,7 @@ public class Rigidbody extends Component
     }
     
     @Override
-    public void fixedUpdate() {}
+    public void update() {}
 
     @Override
     protected void OnComponentAdded(Component aComponent) 
@@ -176,10 +173,12 @@ public class Rigidbody extends Component
             m_BodyDef.type = BodyType.DYNAMIC;
             m_BodyDef.linearDamping = 1.0f;
             m_BodyDef.angularDamping = 1.0f;
-            m_BodyDef.fixedRotation = true;
+            m_BodyDef.fixedRotation = false;
                         
             m_BodyDef.position = new Vec2(position.x,position.z);
-            m_BodyDef.angle = rotation.y*0.0174532925199432957f; //TODO: implement
+            m_BodyDef.angle = -rotation.y; //TODO: implement
+            Debug.log(getGameObject().get().getName(),rotation.y);
+            
             
         }
         

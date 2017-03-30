@@ -4,13 +4,17 @@ import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
+import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
+import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
+import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CompositeCollider;
+import grimhaus.com.G2Dj.Type.Physics2D.PolygonCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 
@@ -50,7 +54,8 @@ public class Main
             //Create a the player game object
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
-                aGameObject.get().setName("Player1");
+                aGameObject.get().setName("Colliders");
+                //aGameObject.get().getTransform().get().getRotation().y = 45f;
             
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
@@ -62,14 +67,14 @@ public class Main
                 //aPC.getTransform().get().setRotation(0,0,45);
                 aPC.getTransform().get().setPosition(0,0,1f);
                 
-                /*PolygonCollider pc = (PolygonCollider)aGameObject.get().addComponent(PolygonCollider.class);
+                PolygonCollider pc = (PolygonCollider)aGameObject.get().addComponent(PolygonCollider.class);
                 pc.setOffset(0, 0);
                 pc.setVerticies(new Vector2[]
                 {
-                    new Vector2(0,0),
-                    new Vector2(1,0),
-                    new Vector2(1,2),
-                    new Vector2(0,1),                    
+                    new Vector2(2,2),
+                    new Vector2(4,2),
+                    new Vector2(3,4),
+                    new Vector2(2,3),                    
                 
                 });
                 
@@ -77,7 +82,7 @@ public class Main
                 cc.setOffset(2, 0);
                 
                 Collider c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
-                c.setOffset(-2, 0);*/
+                c.setOffset(-2, 0);
                 
                 
                 CompositeCollider compositeCollider = (CompositeCollider)aGameObject.get().addComponent(CompositeCollider.class);
@@ -107,10 +112,15 @@ public class Main
                 
                 });
                 
+                
                 Rigidbody rb = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
-                rb.setType(BodyType.Static);
-                 
+                rb.setType(BodyType.Kinematic);
+                rb.setRotation(45);
+                
+                
                 aPC.getTransform().get().setScale(7,1,7);
+                //aPC.getTransform().get().setRotation(0,45,0);
+                
             
             }
             
@@ -204,7 +214,15 @@ public class Main
             //Create the camera
             {
                 WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
+                
+                theCamera.get().getTransform().get().getRotation().y = 45f;
+                
+                theCamera.get().addComponent(BoxCollider.class);
+                //theCamera.get().addComponent(CircleCollider.class);
                 CameraController cc = (CameraController)theCamera.get().addComponent(CameraController.class);
+                
+                
+                
                 
             }
             

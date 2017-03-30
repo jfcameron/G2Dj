@@ -5,16 +5,19 @@
  */
 package Adhoc;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Imp.Input.TouchState;
 import grimhaus.com.G2Dj.Input;
+import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
+import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import static java.lang.Math.cos;
@@ -25,15 +28,11 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
-@RequireComponents({Camera.class,Rigidbody.class,CircleCollider.class})
+@RequireComponents({Camera.class,Rigidbody.class/*,CircleCollider.class*/})
 public class CameraController extends Component
 {
-    private static final float s_Speed =
-    //.if DESKTOP
-    0.001f;
-    //.elseif ANDROID
-    //|0.001f*1000;
-    //.endif
+    private static final float s_TranslationSpeed = (float)2E3;
+    private static final float s_RotationSpeed = (float)2E4;
     
     private Rigidbody m_Rigidbody;
     
@@ -78,26 +77,24 @@ public class CameraController extends Component
 
             if (touch.state == TouchState.Began || touch.state == TouchState.Moved)
             {
-                float forward =  touch.deltaPosition.y/ Graphics.getScreenSize().y ;
+                float forward = touch.deltaPosition.y/ Graphics.getScreenSize().y ;
                 float side    = touch.deltaPosition.x/ Graphics.getScreenSize().x ;
 
-                inputBuffer.x -= forward * sin(getTransform().get().getRotation().y);
-                inputBuffer.z += forward * cos(getTransform().get().getRotation().y);
+                inputBuffer.z += forward * (float)sin(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
+                inputBuffer.x -= forward * (float)cos(getTransform().get().getRotation().y + (90.0f * Math.PI / 180));
 
-                inputBuffer.x += side * sin(getTransform().get().getRotation().y + (90.0f * Math.PI / 180))  *2; //Mul by 2 because the screen is bisected
-                inputBuffer.z -= side * cos(getTransform().get().getRotation().y + (90.0f * Math.PI / 180))  *2;
-
-
+                inputBuffer.z -= side * 2 * (float)sin(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
+                inputBuffer.x += side * 2 * (float)cos(getTransform().get().getRotation().y);
 
             }
 
 
         }
-        
-        inputBuffer.multiplyInPlace(s_Speed*1000);
-            
-        //getTransform().get().translate(inputBuffer);
-        m_Rigidbody.applyForce(inputBuffer.x,inputBuffer.z);  
+
+        inputBuffer.multiplyInPlace(s_TranslationSpeed);
+        inputBuffer.multiplyInPlace((float)Time.getDeltaTime());
+
+        m_Rigidbody.applyForce(inputBuffer.x,inputBuffer.z);
         
         Vector3 rotationBuffer = new Vector3();
             
@@ -113,13 +110,18 @@ public class CameraController extends Component
             Touch touch = Input.getTouches()[0];
 
             if (touch.state == TouchState.Began || touch.state == TouchState.Moved)
-                rotationBuffer.y += touch.deltaPosition.x/Graphics.getScreenSize().x * 200;
+                rotationBuffer.y -= touch.deltaPosition.x/Graphics.getScreenSize().x * 2;
 
 
         }
-            
-        getTransform().get().rotate(rotationBuffer);
+
+        rotationBuffer.multiplyInPlace(s_RotationSpeed);
+        rotationBuffer.multiplyInPlace((float)Time.getDeltaTime());
+
+        m_Rigidbody.applyTorque(rotationBuffer.y);
     
+        //m_Rigidbody.setRotation(80);
+        
     }
     
     @Override
@@ -129,10 +131,10 @@ public class CameraController extends Component
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
         getGameObject().get().setName("PlayerCamera");
-        
+        getTransform().get().setScale(3,3,3);
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
-        m_Rigidbody.setPosition(-1,0,2);
-        m_Rigidbody.setRotation(0,45,0);
+        m_Rigidbody.setPosition(-3,0,+5);
+        //m_Rigidbody.setRotation(0,45,0);
         
     }
 
