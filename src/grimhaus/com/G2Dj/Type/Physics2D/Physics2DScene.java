@@ -23,6 +23,14 @@ public class Physics2DScene extends SceneGraph
     
     public World getB2DWorld(){return m_B2DWorld;}
     
+    //buffers
+    private Vec2 b_B2Vec2 = new Vec2();
+    
+    //
+    // Accessors
+    //
+    public void setGravity(final float aX, final float aY){m_B2DWorld.setGravity(b_B2Vec2.set(aX,aY));}
+    
     
     @Override
     public void fixedUpdate() 

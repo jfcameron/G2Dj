@@ -55,19 +55,15 @@ public class Rigidbody extends Component
     
     public void setPosition(final float aX,final float aY,final float aZ)
     {
-        float angle = m_Body.getAngle();
-        m_Body.m_xf.set(b_B2VecBuffer.set(aX,aZ), angle);
-        
+        m_Body.setTransform(b_B2VecBuffer.set(aX,aZ), m_Body.getAngle());
         getTransform().get().setPosition(aX,aY,aZ);
         
     }
     
     public void setRotation(final float aRotation)
     {
-        Vec2 pos = m_Body.getPosition();
-        m_Body.m_xf.set(pos, -aRotation);
-        
-        //getTransform().get().getRotation().y = aRotation;
+        m_Body.setTransform(m_Body.getPosition(), -aRotation);
+        getTransform().get().getRotation().y = aRotation;
         
     }
     
@@ -102,24 +98,23 @@ public class Rigidbody extends Component
             {
                 Vec2  b2Pos = m_Body.getPosition();
                 float b2Rot = -m_Body.getAngle();
-            
+                
                 getTransform().get().setPosition(b2Pos.x,0,b2Pos.y);
                 getTransform().get().getRotation().y = b2Rot;
             
             } break;
             
             case KINEMATIC:
+            case STATIC:
             {
                 Vector3 tPos = getTransform().get().getPosition();
                 Vector3 tRot = getTransform().get().getRotation();
             
                 m_Body.m_xf.set(b_B2VecBuffer.set(tPos.x,tPos.y), -tRot.y);
-                
-                //buildBody();
-                
+                              
             } break;
             
-            case STATIC:
+            
             default:
             break;
         
@@ -174,7 +169,7 @@ public class Rigidbody extends Component
             m_BodyDef.linearDamping = 1.0f;
             m_BodyDef.angularDamping = 1.0f;
             m_BodyDef.fixedRotation = false;
-                        
+                                    
             m_BodyDef.position = new Vec2(position.x,position.z);
             m_BodyDef.angle = -rotation.y; //TODO: implement
             Debug.log(getGameObject().get().getName(),rotation.y);
@@ -187,6 +182,7 @@ public class Rigidbody extends Component
             m_Physics2DScene.getB2DWorld().destroyBody(m_Body);
         
         m_Body = m_Physics2DScene.getB2DWorld().createBody(m_BodyDef);
+        
         
         buildFixtures();
                 

@@ -14,6 +14,7 @@ import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CompositeCollider;
+import grimhaus.com.G2Dj.Type.Physics2D.Physics2DScene;
 import grimhaus.com.G2Dj.Type.Physics2D.PolygonCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
@@ -51,6 +52,8 @@ public class Main
             //Create a scene
             WeakReference<Scene> mainScene = Engine.createScene("Main");
 
+            //((Physics2DScene)mainScene.get().getSceneGraph(Physics2DScene.class)).setGravity(0, -2);
+            
             //Create a the player game object
             {
                 WeakReference<GameObject> aGameObject = mainScene.get().addGameObject();
@@ -112,16 +115,11 @@ public class Main
                 
                 });
                 
-                
                 Rigidbody rb = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
                 rb.setType(BodyType.Kinematic);
-                rb.setRotation(45);
-                
                 
                 aPC.getTransform().get().setScale(7,1,7);
-                //aPC.getTransform().get().setRotation(0,45,0);
-                
-            
+                            
             }
             
             //Create the BackWall
@@ -215,14 +213,11 @@ public class Main
             {
                 WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
                 
-                theCamera.get().getTransform().get().getRotation().y = 45f;
+                //theCamera.get().getTransform().get().getRotation().y = 45f;
                 
                 theCamera.get().addComponent(BoxCollider.class);
                 //theCamera.get().addComponent(CircleCollider.class);
                 CameraController cc = (CameraController)theCamera.get().addComponent(CameraController.class);
-                
-                
-                
                 
             }
             
