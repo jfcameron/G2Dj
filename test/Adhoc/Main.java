@@ -52,7 +52,7 @@ public class Main
                 //aPC.getTransform().get().setRotation(0,0,45);
                 aPC.getTransform().get().setPosition(0,0,1f);
                 
-                PolygonCollider pc = (PolygonCollider)aGameObject.get().addComponent(PolygonCollider.class);
+                /*PolygonCollider pc = (PolygonCollider)aGameObject.get().addComponent(PolygonCollider.class);
                 pc.setOffset(0, 0);
                 pc.setVerticies(new Vector2[]
                 {
@@ -67,18 +67,18 @@ public class Main
                 cc.setOffset(2, 0);
                 
                 Collider c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
-                c.setOffset(-2, 0);
+                c.setOffset(-2, 0);*/
                 
                 
-                /*CompositeCollider compositeCollider = (CompositeCollider)aGameObject.get().addComponent(CompositeCollider.class);
-                compositeCollider.setVertexArrays(new Vector2[]
+                CompositeCollider compositeCollider = (CompositeCollider)aGameObject.get().addComponent(CompositeCollider.class);
+                compositeCollider.setVerticies(new Vector2[]
                 {
                     new Vector2(0,0),
                     new Vector2(1,0),
                     new Vector2(1,2),
                     new Vector2(0,1),                    
                 
-                });*/
+                });
                 
                // compositeCollider.setOffset(-3,-1);
                 
