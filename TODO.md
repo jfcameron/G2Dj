@@ -1,4 +1,3 @@
-composite collider    
 improve desktop input implementation (pure java isnt cutting it)
 
 Vertex data
