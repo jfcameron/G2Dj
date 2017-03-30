@@ -97,7 +97,7 @@ public class CameraController extends Component
         inputBuffer.multiplyInPlace(s_Speed*1000);
             
         //getTransform().get().translate(inputBuffer);
-        m_Rigidbody.setVelocity(inputBuffer.x,inputBuffer.z);  
+        m_Rigidbody.applyForce(inputBuffer.x,inputBuffer.z);  
         
         Vector3 rotationBuffer = new Vector3();
             

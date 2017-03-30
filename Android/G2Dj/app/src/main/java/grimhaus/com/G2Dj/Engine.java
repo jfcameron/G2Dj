@@ -4,7 +4,7 @@
  */
 package grimhaus.com.G2Dj;
 
-import grimhaus.com.G2Dj.Imp.Input.KeyCode;
+import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -16,12 +16,14 @@ import java.util.ArrayList;
 public class Engine 
 {    
     //
-    //
+    // Data members
     //
     private static final ArrayList<Scene> s_Scenes = new ArrayList<>();
     
+    private static double s_FixedUpdateTimer = 0;
+    
     //
-    //
+    // Accessors
     //
     public static WeakReference<Scene> createScene(final String aSceneName)
     {
@@ -32,10 +34,36 @@ public class Engine
         
     }
     
-    public static void mainLoop()
+    //
+    // Public interface
+    //
+    public static void init(final Game aGame)
     {
-        for(;;/*!Input.getKeyDown(KeyCode.Escape)*/)
+        aGame.init();
+        mainLoop();
+    
+    }
+    
+    //
+    // Implementation
+    //
+    protected static void mainLoop()
+    {
+        //.if DESKTOP
+        //|for(;;)
+        //.endif
         {
+            //Call fixedUpdate only if the timer is > than interval and then call it as many times as it has been exceeded
+            if ((s_FixedUpdateTimer += Time.getDeltaTime()) > Time.getFixedUpdateTargetInterval())
+            {
+                int timesToEvokeFixedUpdate = (int)Math.floor(((s_FixedUpdateTimer += Time.getDeltaTime()) > Time.getFixedUpdateTargetInterval())? (s_FixedUpdateTimer/Time.getFixedUpdateTargetInterval()) : 0);
+                
+                for(int i=0,s=timesToEvokeFixedUpdate;i<s;i++)
+                    fixedUpdate(); 
+                
+                s_FixedUpdateTimer = 0;
+                
+            }
             
             update();
             draw();
@@ -44,8 +72,9 @@ public class Engine
         
     }
     
-    public static void update()
-    {
+    private static void update()
+    {        
+        Time.update();
         Input.update();
         
         for(int i = 0, s = s_Scenes.size(); i < s; i++)
@@ -53,7 +82,14 @@ public class Engine
         
     }
     
-    public static void draw()
+    private static void fixedUpdate()
+    {
+        for(int i = 0, s = s_Scenes.size(); i < s; i++)
+            s_Scenes.get(i).fixedUpdate();
+        
+    }
+    
+    private static void draw()
     {
         for(int i = 0, s = s_Scenes.size(); i < s; i++)
             s_Scenes.get(i).draw();
@@ -61,19 +97,5 @@ public class Engine
         Graphics.draw();
         
     }
-    
-    //
-    //
-    //
-    public static void init()
-    {
-        Debug.log("Engine init()");
-
-        Input.init();
-        Graphics.init();
-        //etc
-                
         
-    }
-    
 }

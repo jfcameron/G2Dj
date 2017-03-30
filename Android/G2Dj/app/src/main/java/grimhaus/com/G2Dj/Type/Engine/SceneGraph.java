@@ -13,7 +13,8 @@ import java.lang.ref.WeakReference;
 public abstract class SceneGraph
 {
     final WeakReference<Scene> m_Scene;
-    
+            
+    public abstract void fixedUpdate();
     public abstract void update();
     public abstract void draw();
     

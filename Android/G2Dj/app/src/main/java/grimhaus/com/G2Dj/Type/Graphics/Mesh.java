@@ -98,6 +98,9 @@ public class Mesh extends Component implements Drawable
     public void update(){}
     
     @Override
+    public void fixedUpdate() {}
+    
+    @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject)
     {
         Debug.log("Mesh added to "+aGameObject.get().getName());

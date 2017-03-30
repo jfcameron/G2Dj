@@ -69,7 +69,7 @@ public class TouchHandler
     //|    if (aAndroidTouchEvent.getAction() == MotionEvent.ACTION_MOVE)
     //|    {
     //|        currentTouch.deltaPosition.setInPlace(screenPositionBuffer.x - currentTouch.position.x, screenPositionBuffer.y - currentTouch.position.y);
-    //|        Debug.log("HELLO: "+currentTouch.deltaPosition);
+    //|        //Debug.log("HELLO: "+currentTouch.deltaPosition);
 
     //|    }
     //|    //Set position

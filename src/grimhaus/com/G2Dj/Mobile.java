@@ -20,6 +20,7 @@ package grimhaus.com.G2Dj;
 //|
 //|import Adhoc.Main;
 //|import grimhaus.com.G2Dj.Imp.Graphics.Color;
+//|import grimhaus.com.G2Dj.Type.Engine.Game;
 //|import grimhaus.com.G2Dj.Type.Math.IntVector2;
 //|
 //|/*
@@ -43,7 +44,7 @@ package grimhaus.com.G2Dj;
 //|
 //|        s_MainActivity = this;
 //|
-//|        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//|        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
 //|
 //|        mGLView = new MyGLSurfaceView(this);
 //|        setContentView(mGLView);
@@ -128,16 +129,23 @@ package grimhaus.com.G2Dj;
 //|            @Override
 //|            public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config)
 //|            {
-//|                Engine.init();
-//|                Adhoc.Main.main(null);
+//|                Engine.init(new Game()
+//|                {
+//|                    @Override
+//|                    public void init()
+//|                    {
+//|                        Adhoc.Main.main(null);
+//|
+//|                    }
+//|
+//|                });
 //|
 //|            }
 //|
 //|            @Override
 //|            public void onDrawFrame(GL10 unused)
 //|            {
-//|                Engine.update();
-//|                Engine.draw();
+//|                Engine.mainLoop();
 //|
 //|            }
 //|

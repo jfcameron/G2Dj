@@ -1,20 +1,16 @@
 package Adhoc;
 
-import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
-import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
+import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
-import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
-import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CompositeCollider;
-import grimhaus.com.G2Dj.Type.Physics2D.PolygonCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 
@@ -26,7 +22,20 @@ public class Main
 {    
     public static void main(String[] args) 
     {
-        Engine.init();
+        Engine.init(new Game()
+        {
+            @Override
+            public void init()
+            {
+                Main.init();
+                
+            }
+        
+        });
+    }
+    
+    private static void init()
+    {
         {
             //Load a texture
             Graphics.loadFromResource("/Adhoc/Cloud.png");
@@ -53,22 +62,7 @@ public class Main
                 //aPC.getTransform().get().setRotation(0,0,45);
                 aPC.getTransform().get().setPosition(0,0,1f);
                 
-                
-                //aGameObject.get().addComponent(CircleCollider.class);
-                
-                /*Collider c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
-                c.setOffset(1, 0);
-                
-                c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
-                c.setOffset(1, 1);
-                
-                c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
-                c.setOffset(0, 1);
-                
-                c = (Collider)aGameObject.get().addComponent(CircleCollider.class);
-                c.setOffset(0, -1);*/
-                
-                PolygonCollider pc = (PolygonCollider)aGameObject.get().addComponent(PolygonCollider.class);
+                /*PolygonCollider pc = (PolygonCollider)aGameObject.get().addComponent(PolygonCollider.class);
                 pc.setOffset(0, 0);
                 pc.setVerticies(new Vector2[]
                 {
@@ -83,26 +77,40 @@ public class Main
                 cc.setOffset(2, 0);
                 
                 Collider c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
-                c.setOffset(-2, 0);
+                c.setOffset(-2, 0);*/
                 
-                c = (Collider)aGameObject.get().addComponent(CompositeCollider.class);
-                c.setOffset(0, +2);
+                
+                CompositeCollider compositeCollider = (CompositeCollider)aGameObject.get().addComponent(CompositeCollider.class);
+                compositeCollider.setVerticies(new Vector2[][]
+                { 
+                    new Vector2[]
+                    {
+                        new Vector2(0,0),
+                        new Vector2(1,0),
+                        new Vector2(1,2),
+                        new Vector2(0,1),
+                    },    
+                    new Vector2[]
+                    {
+                        new Vector2(1,1),
+                        new Vector2(2,1),
+                        new Vector2(2,3),
+                        new Vector2(1,2),
+                    },
+                    new Vector2[]
+                    {
+                        new Vector2(0,0),
+                        new Vector2(-1,0),
+                        new Vector2(-1,-2),
+                        new Vector2(0,-1),
+                    }, 
+                
+                });
                 
                 Rigidbody rb = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
                 rb.setType(BodyType.Static);
-                
-                
-                 
-                 
-                
                  
                 aPC.getTransform().get().setScale(7,1,7);
-
-                
-                //aGameObject.get().addComponent(CircleCollider.class);
-                
-                
-                //bc.setType(BodyType.Static);
             
             }
             
@@ -196,19 +204,8 @@ public class Main
             //Create the camera
             {
                 WeakReference<GameObject> theCamera = mainScene.get().addGameObject();
-                theCamera.get().setName("PlayerCamera");
-                theCamera.get().getTransform().get().setPosition(-1,0,2);
-                theCamera.get().getTransform().get().setRotation(0,45,0);
-                theCamera.get().addComponent(CircleCollider.class);
-                theCamera.get().addComponent(Camera.class);
-                Rigidbody rb = (Rigidbody)theCamera.get().addComponent(Rigidbody.class);
-                                
+                CameraController cc = (CameraController)theCamera.get().addComponent(CameraController.class);
                 
-                
-                theCamera.get().addComponent(CameraController.class);
-                
-                Debug.log(theCamera.get());
-
             }
             
             //Create the TopCamera
@@ -226,12 +223,6 @@ public class Main
             }
         
         }
-        
-        
-
-        //.if DESKTOP
-        //|Engine.mainLoop();//TODO: this should not exist.
-        //.endif
 
     }
     

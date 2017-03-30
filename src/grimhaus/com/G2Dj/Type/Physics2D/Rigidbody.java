@@ -44,6 +44,10 @@ public class Rigidbody extends Component
     //
     public void setVelocity(final Vector2 aVelocity){setVelocity(aVelocity.x,aVelocity.y);}
     public void setVelocity(final float aX,final float aY){m_Body.setLinearVelocity(new Vec2(aX,aY));}
+
+    public void applyImpulse(final float aX,final float aY){m_Body.applyLinearImpulse(b_B2VecBuffer.set(0,0),b_B2VecBuffer.set(aX,aY),true);}
+
+    public void applyForce(final float aX,final float aY){m_Body.applyForceToCenter(b_B2VecBuffer.set(aX,aY));}
     
     public void setType(final grimhaus.com.G2Dj.Imp.Physics2D.BodyType aType){m_Body.m_type = aType.toB2BodyType();}
     

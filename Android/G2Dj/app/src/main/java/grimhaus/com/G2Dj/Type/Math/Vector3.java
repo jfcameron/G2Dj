@@ -37,6 +37,7 @@ public class Vector3
     public void multiplyInPlace(final float   aScalar){x*=aScalar  ;y*=aScalar  ;z*=aScalar;  }
     public void divideInPlace  (final float   aScalar){x/=aScalar  ;y/=aScalar  ;z/=aScalar;  }
     
+    public void zero(){x=0;y=0;z=0;}
     public void normalize(){float l=length(); x/=l; y/=l; z/=l;}
     //public void normalizeAndScale(const float &aScalar);
     

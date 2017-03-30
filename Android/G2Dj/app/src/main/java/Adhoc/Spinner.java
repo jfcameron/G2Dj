@@ -23,6 +23,9 @@ public class Spinner extends Component
 
 
     }
+    
+    @Override
+    public void fixedUpdate() {}
 
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject)

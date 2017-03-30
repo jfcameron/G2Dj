@@ -5,10 +5,13 @@
 package grimhaus.com.G2Dj.Type.Engine;
 
 import grimhaus.com.G2Dj.Debug;
+import grimhaus.com.G2Dj.Imp.Engine.RequireComponent;
+import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Type.Engine.GameObject.Transform;
 import grimhaus.com.G2Dj.Type.Math.Quaternion;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import static java.lang.Math.PI;
+import java.lang.annotation.Annotation;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -44,21 +47,41 @@ public class GameObject
     
     public Component addComponent(Class<? extends Component> aComponentType)
     {
+        //Handle RequireComponent & RequireComponents annotations
+        {   
+            Annotation[] annotations = aComponentType.getAnnotations();
+            
+            for(int i=0,s=annotations.length;i<s;i++)
+                if (annotations[i].annotationType().equals(RequireComponents.class))
+                {
+                    RequireComponents rc = (RequireComponents)annotations[i];
+                    
+                    for(int j=0,t=rc.value().length;j<t;j++)
+                        if (getComponent(rc.value()[j])==null)
+                            addComponent(rc.value()[j]);
+                    
+                }
+                else if (annotations[i].annotationType().equals(RequireComponent.class))
+                {
+                    RequireComponent rc = (RequireComponent)annotations[i];
+                    
+                    if (getComponent(rc.value())==null)
+                        addComponent(rc.value());
+                    
+                }
+                
+        }
+        
+        //Add an instance of aComponentType to Components[]
         Component rValue = null;
         
-        try 
+        try
         {
             rValue = aComponentType.newInstance();
             
-            //if (!m_Components.contains(rValue))
-            {
-                m_Components.add(rValue);
-                rValue.OnAddedToGameObjectSuper(new WeakReference<>(this));
-                rValue.OnAddedToGameObject(new WeakReference<>(this));
-                
-            }
-            //else
-            //    Debug.log("GameObject "+m_Name+" already has a "+rValue.getClass().getSimpleName());
+            m_Components.add(rValue);
+            rValue.OnAddedToGameObjectSuper(new WeakReference<>(this));
+            rValue.OnAddedToGameObject(new WeakReference<>(this));
             
             m_MyScene.get().OnComponentAdded(rValue);
             
@@ -73,10 +96,28 @@ public class GameObject
         
     }
     
-    public void removeComponent(Class<? /*extends Component*/> aComponentType)
+    public void removeComponent(Class<?> aComponentType)
     {
         for (int i=0,s=m_Components.size();i<s;i++)
             if (m_Components.get(i).getClass() == aComponentType)
+            {
+                m_MyScene.get().OnComponentRemoved(m_Components.get(i));
+                
+                for(int j=0,t=m_Components.size();j<t;j++)
+                    m_Components.get(j).OnComponentRemoved(m_Components.get(i));
+                
+                m_Components.get(i).OnRemovedFromGameObjectSuper();
+                m_Components.get(i).OnRemovedFromGameObject();
+                m_Components.remove(i);
+        
+            }
+        
+    }
+    
+    public void removeComponent(final Component aComponentInstance)
+    {
+        for (int i=0,s=m_Components.size();i<s;i++)
+            if (m_Components.get(i) == aComponentInstance)
             {
                 m_MyScene.get().OnComponentRemoved(m_Components.get(i));
                 
@@ -153,6 +194,26 @@ public class GameObject
 
         }
             
+    }
+    
+    public void fixedUpdate()
+    {
+        Component c = null;
+        for(int i = 0, s = m_Components.size(); i<s; i++ )
+        {
+            c = m_Components.get(i);
+            
+            if (!c.getDidInit())
+            {
+                c.initialize();
+                c.setDidinitFalse();
+                
+            }
+            
+            m_Components.get(i).fixedUpdate();
+
+        }
+                
     }
     
     //

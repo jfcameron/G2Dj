@@ -186,6 +186,9 @@ public class Camera extends Component
     //
     @Override
     public void update() {}
+    
+    @Override
+    public void fixedUpdate() {}
 
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}

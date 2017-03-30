@@ -47,9 +47,11 @@ public class Engine
     //
     // Implementation
     //
-    private static void mainLoop()
+    protected static void mainLoop()
     {
+        //.if DESKTOP
         for(;;)
+        //.endif
         {
             //Call fixedUpdate only if the timer is > than interval and then call it as many times as it has been exceeded
             if ((s_FixedUpdateTimer += Time.getDeltaTime()) > Time.getFixedUpdateTargetInterval())
