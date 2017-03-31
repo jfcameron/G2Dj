@@ -432,6 +432,7 @@ gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
     public static final int GL_TEXTURE_MIN_FILTER;
     public static final int GL_NEAREST;
     public static final int GL_TEXTURE_MAG_FILTER;
+    public static final int GL_PROGRAM_POINT_SIZE;
     
     static
     {
@@ -473,6 +474,7 @@ gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
         GL_TEXTURE_MIN_FILTER = com.jogamp.opengl.GL2.GL_TEXTURE_MIN_FILTER;
         GL_NEAREST = com.jogamp.opengl.GL2.GL_NEAREST;
         GL_TEXTURE_MAG_FILTER = com.jogamp.opengl.GL2.GL_TEXTURE_MAG_FILTER;
+        GL_PROGRAM_POINT_SIZE = com.jogamp.opengl.GL2.GL_PROGRAM_POINT_SIZE_EXT;
         //.elseif ANDROID
         //|GL_TEXTURE_2D = GLES20.GL_TEXTURE_2D;
         //|GL_TEXTURE0 = GLES20.GL_TEXTURE0;
@@ -511,6 +513,7 @@ gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST );
         //|GL_TEXTURE_MIN_FILTER = GLES20.GL_TEXTURE_MIN_FILTER;
         //|GL_NEAREST = GLES20.GL_NEAREST;
         //|GL_TEXTURE_MAG_FILTER = GLES20.GL_TEXTURE_MAG_FILTER;
+        //|GL_PROGRAM_POINT_SIZE = GLES20.GL_PROGRAM_POINT_SIZE;
         //.endif
         
     }

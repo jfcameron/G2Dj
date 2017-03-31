@@ -11,6 +11,7 @@ import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
+import grimhaus.com.G2Dj.Type.Graphics.PointVisualizer;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
@@ -63,6 +64,7 @@ public class Main
             
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
+                
                 
                 
                 //aGameObject.get().removeComponent(Mesh.class);
@@ -217,9 +219,10 @@ public class Main
                 //theCamera.get().getTransform().get().getRotation().y = 45f;
                 
                 Collider c = (Collider)theCamera.get().addComponent(BoxCollider.class);
-                c.setType(ColliderType.Collidable);
+                //c.setType(ColliderType.Collidable);
                 //theCamera.get().addComponent(CircleCollider.class);
                 CameraController cc = (CameraController)theCamera.get().addComponent(CameraController.class);
+                theCamera.get().addComponent(PointVisualizer.class);
                 
             }
             

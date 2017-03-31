@@ -17,16 +17,16 @@ import org.jbox2d.dynamics.FixtureDef;
  */
 public abstract class SimpleCollider<T extends Shape> extends Collider
 {
-    //
+    //*************
     // Data members
-    //
+    //*************
     protected final FixtureDef m_FixtureDefinition = new FixtureDef();
     protected final T          m_Shape;
-    protected LineVisualizer m_LineVisualizer;    
+    protected LineVisualizer   m_LineVisualizer;    
     
-    //
+    //**********
     // Accessors
-    //
+    //**********
     @Override public FixtureDef[] getB2DFixtures(){return new FixtureDef[]{m_FixtureDefinition};}
     @Override public void setType(final ColliderType aColliderType){m_FixtureDefinition.setSensor(aColliderType.toB2TriggerBool());}
     @Override public void setDensity(final float aDensity){m_FixtureDefinition.setDensity(aDensity);}

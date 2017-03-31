@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Resource.Graphics;
 
+import grimhaus.com.G2Dj.Imp.Graphics.GL;
 import grimhaus.com.G2Dj.Imp.Graphics.ResourceShader;
 
 /**
@@ -16,6 +17,7 @@ public class PinkShaderOfDeath extends ResourceShader
     protected void glDrawCalls() 
     {        
         //put gl calls here
+        GL.glEnable(GL.GL_PROGRAM_POINT_SIZE);
     
     }
     
