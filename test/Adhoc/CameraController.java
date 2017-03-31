@@ -5,7 +5,6 @@
  */
 package Adhoc;
 
-import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
@@ -17,8 +16,6 @@ import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
-import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
-import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -58,14 +55,14 @@ public class CameraController extends Component
             
         if (Input.getKey(KeyCode.A))
         {
-            inputBuffer.z += (float)sin(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
-            inputBuffer.x -= (float)cos(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
+            inputBuffer.z += (float)sin(getTransform().get().getRotation().y);
+            inputBuffer.x -= (float)cos(getTransform().get().getRotation().y);
             
         }
         
         if (Input.getKey(KeyCode.D))
         {
-            inputBuffer.z -= (float)sin(getTransform().get().getRotation().y);// - (90.0f * Math.PI / 180));
+            inputBuffer.z -= (float)sin(getTransform().get().getRotation().y);
             inputBuffer.x += (float)cos(getTransform().get().getRotation().y);
 
         }
@@ -122,8 +119,8 @@ public class CameraController extends Component
                 
     }
     
-    @Override
-    public void fixedUpdate() {}
+    @Override public void fixedUpdate() {}
+    @Override protected void initialize() {}
 
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
@@ -136,20 +133,8 @@ public class CameraController extends Component
         
     }
 
-    @Override
-    protected void OnRemovedFromGameObject() {}
+    @Override protected void OnRemovedFromGameObject() {}
+    @Override protected void OnComponentAdded(Component aComponent) {}
+    @Override protected void OnComponentRemoved(Component aComponent) {}
 
-    @Override
-    protected void OnComponentAdded(Component aComponent) {
-    }
-
-    @Override
-    protected void OnComponentRemoved(Component aComponent) {
-    }
-
-    @Override
-    protected void initialize() {
-    }
-
-    
 }

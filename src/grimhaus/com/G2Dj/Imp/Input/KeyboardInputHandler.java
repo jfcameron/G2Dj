@@ -66,16 +66,17 @@ public class KeyboardInputHandler implements KeyListener
   }
 
         
-
-  public boolean getKey( KeyCode keyCode ) 
-  {
-      if (keyCode == KeyCode.W)
-          Debug.log(keys[s_G2DjKeyMapToAWTKey.get(keyCode)]);
-      
-      return keys[s_G2DjKeyMapToAWTKey.get(keyCode)] == KeyState.JustPressed ||
-             keys[s_G2DjKeyMapToAWTKey.get(keyCode)] == KeyState.Down;
-
-  }
+    /**
+     * Check if a key is down or was just pressed
+     * @param keyCode a keyboard key name
+     * @return whether or not the key is down or just pressed
+     */
+    public boolean getKey( KeyCode keyCode ) 
+    {      
+        return keys[s_G2DjKeyMapToAWTKey.get(keyCode)] == KeyState.JustPressed ||
+               keys[s_G2DjKeyMapToAWTKey.get(keyCode)] == KeyState.Down;
+    
+    }
 
         
 
