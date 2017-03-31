@@ -9,6 +9,15 @@ Desktop
  - Mouse handler
  - Joystick handler
 
+Physics2D
+ - OnCollisionEnter(Collision collisionInfo)
+ - OnCollisionStay(Collision collisionInfo)
+ - OnCollisionExit(Collision collisionInfo)
+ - OnTriggerEnter(Collider other)
+ - OnTriggerStay(Collider other)
+ - OnTriggerExit(Collider other)
+ - World.Raycast
+ 
 Graphics
  - Mesh
     - allow different primitve modes (line, dot)
