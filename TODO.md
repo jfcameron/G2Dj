@@ -28,6 +28,12 @@ Graphics
         
  - Add a solid color fallback shader (uniform specifies color)
  - Add standardized uniforms: uv offsets, total time and delta time uniforms 
+ 
+ECS
+ - Smart scenegraphs: only attach scenegraphs that are required for the components used in the scene:
+    - new Component annotation: @RequireSceneGraphs({SceneGraphs...}}).
+    - when a component is attached to a gameobejct in the scene, parse requirescenegraph annotation. If any required scenegraph is not
+      part of Scene.m_Scenegraphs, add an instance to the array.
 
 Audio
  - add an OpenAL dependency to the project, get an initial test working on desktop and android. Create AL wrapper object.

@@ -54,7 +54,7 @@ public class Main
             //Create a scene
             WeakReference<Scene> mainScene = Engine.createScene("Main");
 
-            //((Physics2DScene)mainScene.get().getSceneGraph(Physics2DScene.class)).setGravity(0, -2);
+            //((Physics2DScene)(mainScene.get().getSceneGraph(Physics2DScene.class)).get()).setGravity(0, -2);
             
             //Create a the player game object
             {
@@ -64,8 +64,6 @@ public class Main
             
                 Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
                 aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
-                
-                
                 
                 //aGameObject.get().removeComponent(Mesh.class);
                 
@@ -223,6 +221,18 @@ public class Main
                 //theCamera.get().addComponent(CircleCollider.class);
                 CameraController cc = (CameraController)theCamera.get().addComponent(CameraController.class);
                 theCamera.get().addComponent(PointVisualizer.class);
+                
+            }
+            
+            //Create the camera
+            {
+                WeakReference<GameObject> go = mainScene.get().addGameObject();
+                go.get().getTransform().get().setPosition(0,0,10);
+                go.get().getTransform().get().setScale(3,3,3);
+                
+                go.get().addComponent(BoxCollider.class);
+                go.get().addComponent(Rigidbody.class);
+                go.get().addComponent(PointVisualizer.class);
                 
             }
             

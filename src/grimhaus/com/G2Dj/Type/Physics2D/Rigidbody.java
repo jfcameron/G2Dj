@@ -6,8 +6,10 @@ package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
+import grimhaus.com.G2Dj.Imp.Physics2D.Physics2DComponent;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 
@@ -25,7 +27,7 @@ import org.jbox2d.dynamics.FixtureDef;
  *
  * @author Joseph Cameron
  */
-public class Rigidbody extends Component
+public class Rigidbody extends Physics2DComponent
 {
     //
     // Data members
@@ -76,8 +78,8 @@ public class Rigidbody extends Component
     @Override
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
-        m_Physics2DScene = (Physics2DScene)getGameObject().get().getScene().get().getSceneGraph(Physics2DScene.class);
-        buildBody();//m_RebuildRequired = true;
+        m_Physics2DScene = (Physics2DScene)(getGameObject().get().getScene().get().getSceneGraph(Physics2DScene.class).get());
+        buildBody();
         
     }
 

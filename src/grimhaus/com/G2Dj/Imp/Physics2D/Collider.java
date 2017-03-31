@@ -16,7 +16,7 @@ import org.jbox2d.dynamics.FixtureDef;
  *
  * @author Joseph Cameron
  */
-public abstract class Collider extends Component 
+public abstract class Collider extends Physics2DComponent 
 {
     //*************
     // Data members

@@ -6,6 +6,7 @@ package grimhaus.com.G2Dj.Type.Graphics;
 
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.GL;
+import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Imp.Graphics.ModelType;
 import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
@@ -21,7 +22,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joseph Cameron
  */
-public class PointVisualizer extends Component implements Drawable
+public class PointVisualizer extends GraphicsComponent implements Drawable
 {
     private static final float h = 0.5f;
     private static final float y = -0.1f;

@@ -16,13 +16,14 @@ import grimhaus.com.G2Dj.Type.Math.Mat4x4;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 import grimhaus.com.G2Dj.Imp.Graphics.GL;
+import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
 
 
 /**
  *
  * @author Joe
  */
-public class Camera extends Component
+public class Camera extends GraphicsComponent
 {
     //*************
     // Data members
@@ -191,9 +192,6 @@ public class Camera extends Component
     public void fixedUpdate() {}
 
     @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
-    
-    @Override
     protected void OnRemovedFromGameObject(){}
 
     @Override
@@ -206,6 +204,10 @@ public class Camera extends Component
 
     @Override
     protected void initialize() {
+    }
+
+    @Override
+    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {
     }
     
 }
