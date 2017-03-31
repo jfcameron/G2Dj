@@ -14,7 +14,6 @@ import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.event.WindowUpdateEvent;
 import com.jogamp.newt.opengl.GLWindow;
-
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
@@ -32,6 +31,8 @@ public final class Window implements WindowListener
     //***************
     public Window(KeyboardInputHandler aKeyboardInputHandler) 
     {
+        //m_GLWindow
+        
         //ICON TEST
         //IOUtil.ClassResources res = new ClassResources(new String[]{"brick.png"}, getClass().getClassLoader(), getClass());
         System.setProperty("newt.window.icons", "grimhaus/com/G2Dj/Resource/Graphics/icon-16.png grimhaus/com/G2Dj/Resource/Graphics/icon-32.png");

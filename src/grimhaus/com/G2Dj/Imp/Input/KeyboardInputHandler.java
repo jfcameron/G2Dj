@@ -17,8 +17,6 @@ public class KeyboardInputHandler implements KeyListener
 {
   private static final int KEY_COUNT = 256;
 
-        
-
   /*private enum KeyState {
 
     RELEASED, // Not down
@@ -28,8 +26,6 @@ public class KeyboardInputHandler implements KeyListener
     ONCE      // Down for the first time
 
   }*/
-
-        
 
   // Current state of the keyboard
 
@@ -112,6 +108,8 @@ public class KeyboardInputHandler implements KeyListener
   @Override
   public void keyPressed(com.jogamp.newt.event.KeyEvent e) 
   {
+    if (e.isAutoRepeat())
+          return;
 
     int keyCode = e.getKeyCode();
 
@@ -120,12 +118,16 @@ public class KeyboardInputHandler implements KeyListener
       currentKeys[ keyCode ] = true;
 
     }
+    
+    //Debug.log("PUSHED: "+keyCode);
 
   }
 
   @Override
   public void keyReleased(com.jogamp.newt.event.KeyEvent e) 
   {
+      if (e.isAutoRepeat())
+          return;
 
     int keyCode = e.getKeyCode();
 
@@ -135,7 +137,7 @@ public class KeyboardInputHandler implements KeyListener
 
     }
     
-    //Debug.log(keyCode);
+    //Debug.log("RELEASED: "+keyCode);
 
   }
   

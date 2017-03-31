@@ -8,8 +8,6 @@ import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Imp.Input.TouchHandler;
 
-import java.util.ArrayList;
-
 //.if DESKTOP
 import grimhaus.com.G2Dj.Imp.Input.KeyboardInputHandler;
 //.endif
