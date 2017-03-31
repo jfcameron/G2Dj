@@ -88,7 +88,6 @@ public class Main
                 Collider c = (Collider)aGameObject.get().addComponent(BoxCollider.class);
                 c.setOffset(-2, 0);
                 
-                
                 CompositeCollider compositeCollider = (CompositeCollider)aGameObject.get().addComponent(CompositeCollider.class);
                 compositeCollider.setVerticies(new Vector2[][]
                 { 
@@ -224,13 +223,27 @@ public class Main
                 
             }
             
-            //Create the camera
+            //Create a dynamic box
             {
                 WeakReference<GameObject> go = mainScene.get().addGameObject();
                 go.get().getTransform().get().setPosition(0,0,10);
                 go.get().getTransform().get().setScale(3,3,3);
                 
                 go.get().addComponent(BoxCollider.class);
+                go.get().addComponent(Rigidbody.class);
+                go.get().addComponent(PointVisualizer.class);
+                
+            }
+            
+            //Create a dynamic box trigger
+            {
+                WeakReference<GameObject> go = mainScene.get().addGameObject();
+                go.get().getTransform().get().setPosition(-8,0,10);
+                go.get().getTransform().get().setScale(3,3,3);
+                
+                BoxCollider bc = (BoxCollider)go.get().addComponent(BoxCollider.class);
+                bc.setType(ColliderType.Trigger);
+                
                 go.get().addComponent(Rigidbody.class);
                 go.get().addComponent(PointVisualizer.class);
                 
