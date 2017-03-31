@@ -1,3 +1,12 @@
+Physics2D
+ - OnCollisionEnter(Collision collisionInfo)
+ - OnCollisionStay(Collision collisionInfo)
+ - OnCollisionExit(Collision collisionInfo)
+ - OnTriggerEnter(Collider other)
+ - OnTriggerStay(Collider other)
+ - OnTriggerExit(Collider other)
+ - World.Raycast
+
 android
  - maintain gl context when minimizing app
  - improve touch handler
@@ -8,15 +17,6 @@ android
 Desktop
  - Mouse handler
  - Joystick handler
-
-Physics2D
- - OnCollisionEnter(Collision collisionInfo)
- - OnCollisionStay(Collision collisionInfo)
- - OnCollisionExit(Collision collisionInfo)
- - OnTriggerEnter(Collider other)
- - OnTriggerStay(Collider other)
- - OnTriggerExit(Collider other)
- - World.Raycast
  
 Graphics
  - Mesh
@@ -31,6 +31,11 @@ Graphics
 
 Audio
  - add an OpenAL dependency to the project, get an initial test working on desktop and android. Create AL wrapper object.
+ 
+Math
+ - Mat4x4 
+    - static Vec3 screenToWorldPoint(Vec2 screenPos, float dist, Mat4x4 cameraVP)
+    - static Vec2 screenToXYPlanePoint(Vec2 screenPos, Mat4x4 cameraVP)
 
 networking
  - should there be networking components or should networking implementation be entirely up to the end user?
