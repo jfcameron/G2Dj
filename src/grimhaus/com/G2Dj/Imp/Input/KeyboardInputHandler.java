@@ -15,29 +15,11 @@ import java.util.HashMap;
 
 public class KeyboardInputHandler implements KeyListener 
 {
-  private static final int KEY_COUNT = 256;
-
-  /*private enum KeyState {
-
-    RELEASED, // Not down
-
-    PRESSED,  // Down, but not the first time
-
-    ONCE      // Down for the first time
-
-  }*/
-
-  // Current state of the keyboard
-
-  private boolean[] currentKeys = null;
-
-        
-
-  // Polled keyboard state
-
-  private KeyState[] keys = null;
-
-        
+  private static final int KEY_COUNT = 512;
+  
+  //Raw key states
+  private boolean[] currentKeys = null; //current frame state
+  private KeyState[] keys = null; //last frame state
 
   public KeyboardInputHandler() 
   {
@@ -59,26 +41,23 @@ public class KeyboardInputHandler implements KeyListener
     for( int i = 0; i < KEY_COUNT; ++i ) {
 
       // Set the key state 
-
-      if( currentKeys[ i ] ) {
-
+      if( currentKeys[ i ] ) 
+      {
         // If the key is down now, but was not
-
         // down last frame, set it to ONCE,
-
         // otherwise, set it to PRESSED
-
-        if( keys[ i ] == KeyState.Up )
-
-          keys[ i ] = KeyState.JustPressed;
-
+        if( keys[ i ].equals(KeyState.Up))
+            keys[ i ] = KeyState.JustPressed;
         else
-
-          keys[ i ] = KeyState.Down;
-
-      } else {
-
-        keys[ i ] = KeyState.Up;
+            keys[ i ] = KeyState.Down;
+        
+      } 
+      else 
+      {
+        if( keys[ i ].equals(KeyState.Down))
+            keys[ i ] = KeyState.JustReleased;
+        else
+            keys[ i ] = KeyState.Up;
 
       }
 
@@ -90,6 +69,9 @@ public class KeyboardInputHandler implements KeyListener
 
   public boolean getKey( KeyCode keyCode ) 
   {
+      if (keyCode == KeyCode.W)
+          Debug.log(keys[s_G2DjKeyMapToAWTKey.get(keyCode)]);
+      
       return keys[s_G2DjKeyMapToAWTKey.get(keyCode)] == KeyState.JustPressed ||
              keys[s_G2DjKeyMapToAWTKey.get(keyCode)] == KeyState.Down;
 
@@ -108,8 +90,9 @@ public class KeyboardInputHandler implements KeyListener
   @Override
   public void keyPressed(com.jogamp.newt.event.KeyEvent e) 
   {
+    //ignore repeats
     if (e.isAutoRepeat())
-          return;
+        return;
 
     int keyCode = e.getKeyCode();
 
