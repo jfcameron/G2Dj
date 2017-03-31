@@ -35,7 +35,7 @@ Audio
 Math
  - Mat4x4 
     - static Vec3 screenToWorldPoint(Vec2 screenPos, float dist, Mat4x4 cameraVP)
-    - static Vec2 screenToXYPlanePoint(Vec2 screenPos, Mat4x4 cameraVP)
+    - static Vec2 screenToXZPlanePoint(Vec2 screenPos, Mat4x4 cameraVP)
 
 networking
  - should there be networking components or should networking implementation be entirely up to the end user?
