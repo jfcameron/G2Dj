@@ -25,6 +25,8 @@ Graphics
         - Mesh:Component and DynamicMesh:Component. 
         - Add a load from verts method in gfx. loadModel(String aPath), loadModel(Vector2[] aVertexData) for STATIC mesh
         - Add a loadFromVerts to DynamicMesh for DYNAMIC mesh
+ - TextMesh
+   - naive unicode then smart unicode.
         
  - Add a solid color fallback shader (uniform specifies color)
  - Add standardized uniforms: uv offsets, total time and delta time uniforms 
