@@ -6,6 +6,7 @@ Physics2D
  - OnTriggerStay(Collider other)
  - OnTriggerExit(Collider other)
  - World.Raycast
+ - filters
 
 android
  - maintain gl context when minimizing app

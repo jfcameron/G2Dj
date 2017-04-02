@@ -116,7 +116,7 @@ public class Main
                 });
                 
                 Rigidbody rb = (Rigidbody)aGameObject.get().addComponent(Rigidbody.class);
-                rb.setType(BodyType.Kinematic);
+                rb.setType(BodyType.Static);
                 
                 aPC.getTransform().get().setScale(7,1,7);
                             

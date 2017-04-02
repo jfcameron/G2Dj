@@ -9,12 +9,16 @@ import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
 import java.lang.ref.WeakReference;
+import org.jbox2d.callbacks.ContactImpulse;
+import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.callbacks.RayCastCallback;
+import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.RayCastOutput;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.contacts.Contact;
 
 /**
  *
@@ -73,6 +77,43 @@ public class Physics2DScene extends SceneGraph
     //************
     // Constructor
     //************
-    public Physics2DScene(WeakReference<Scene> aScene){super(aScene);}
+    public Physics2DScene(WeakReference<Scene> aScene)
+    {
+        super(aScene);
+        m_B2DWorld.setContactListener(new GlobalContactListener());
+        
+    }
+    
+    //
+    // Handles all contact events in the world.
+    //
+    private class GlobalContactListener implements ContactListener
+    {
+
+        @Override
+        public void beginContact(Contact contact) 
+        {
+            
+        }
+
+        @Override
+        public void endContact(Contact contact) 
+        {
+            
+        }
+
+        @Override
+        public void preSolve(Contact contact, Manifold oldManifold) 
+        {
+            
+        }
+
+        @Override
+        public void postSolve(Contact contact, ContactImpulse impulse) 
+        {
+            
+        }
+        
+    }
     
 }

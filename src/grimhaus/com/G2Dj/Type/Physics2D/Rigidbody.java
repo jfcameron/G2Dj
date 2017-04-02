@@ -197,7 +197,7 @@ public class Rigidbody extends Physics2DComponent
             m_Physics2DScene.getB2DWorld().destroyBody(m_Body);
         
         m_Body = m_Physics2DScene.getB2DWorld().createBody(m_BodyDef);
-        
+                
         
         buildFixtures();
                 
