@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
@@ -93,6 +94,20 @@ public class Physics2DScene extends SceneGraph
         @Override
         public void beginContact(Contact contact) 
         {
+            Debug.log("***begin contact***");
+            Debug.log
+            (
+                ((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject().get().getName(),
+                ((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject().get().getName()
+            
+            );
+            
+            //Detect type
+            boolean isSensor = contact.m_fixtureA.isSensor() | contact.m_fixtureB.isSensor();
+            
+            Debug.log("Collision type is: "+((isSensor==true)?"Trigger":"Collider"));
+            
+            //TODO: distribute col data to affected gameobjects
             
         }
 

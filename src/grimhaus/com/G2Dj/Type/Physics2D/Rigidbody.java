@@ -221,7 +221,11 @@ public class Rigidbody extends Physics2DComponent
             if (fixtures != null && m_Fixtures != null && m_Body != null)
                 for(int j=0,t=fixtures.length;j<t;j++)
                     if (fixtures[j] != null)
+                    {
+                        fixtures[j].setUserData(new WeakReference<>(this));
                         m_Fixtures.add(m_Body.createFixture(fixtures[j]));
+                    
+                    }
             
         }
             
