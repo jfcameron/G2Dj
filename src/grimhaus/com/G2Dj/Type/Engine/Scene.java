@@ -5,6 +5,7 @@
 package grimhaus.com.G2Dj.Type.Engine;
 
 import grimhaus.com.G2Dj.Imp.Engine.RequireSceneGraphs;
+import grimhaus.com.G2Dj.Imp.Engine.SceneEventCallbacks;
 import grimhaus.com.G2Dj.Type.Graphics.GraphicsScene;
 import grimhaus.com.G2Dj.Type.Physics2D.Physics2DScene;
 import java.lang.ref.WeakReference;
@@ -25,7 +26,7 @@ public class Scene
     private final String m_Name;
     private final ArrayList<SceneGraph> m_SceneGraphs = new ArrayList<>();
     private final ArrayList<GameObject> m_GameObjects = new ArrayList<>();
-    
+        
     //
     //
     //
@@ -51,7 +52,9 @@ public class Scene
         
         try //Otherwise add an instance of aSceneGraphType to the list and return a weak reference to it
         {
-            rvalue = new WeakReference<>(aSceneGraphType.getDeclaredConstructor(new Class[]{WeakReference.class}).newInstance(new WeakReference<>(this)));
+            Class[] args = new Class[]{WeakReference.class/*,SceneEventCallbacks.class*/};
+            
+            rvalue = new WeakReference<>(aSceneGraphType.getDeclaredConstructor(args).newInstance(new WeakReference<>(this)/*,new SceneEventCallbacks()*/));
             m_SceneGraphs.add(rvalue.get());
             return rvalue;
             
@@ -163,12 +166,24 @@ public class Scene
         
     }
     
+    protected void OnCollisionEnter()
+    {
+        
+        
+    }
+    
     //*************
     // Constructors
     //*************
     public Scene(final String aName)
     {
         m_Name = aName;
+        
+        SceneEventCallbacks onCollisionEnterFunctionPointer = new SceneEventCallbacks()
+        {
+            @Override public void onCollisionEnter(){OnCollisionEnter();}
+            
+        };
         
     }
     

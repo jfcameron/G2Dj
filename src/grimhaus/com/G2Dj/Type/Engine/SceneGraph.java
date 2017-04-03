@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Engine;
 
+import grimhaus.com.G2Dj.Imp.Engine.SceneEventCallbacks;
 import java.lang.ref.WeakReference;
 
 /**
@@ -18,7 +19,7 @@ public abstract class SceneGraph
     public abstract void update();
     public abstract void draw();
     
-    protected SceneGraph(final WeakReference<Scene> aScene){m_Scene = aScene;}
+    protected SceneGraph(final WeakReference<Scene> aScene/*,final SceneEventCallbacks aSceneEventCallbacks*/){m_Scene = aScene;}
     
     //
     // GameObject events

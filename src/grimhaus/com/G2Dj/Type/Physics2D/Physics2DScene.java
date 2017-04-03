@@ -5,6 +5,7 @@
 package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Debug;
+import grimhaus.com.G2Dj.Imp.Engine.SceneEventCallbacks;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
@@ -80,7 +81,7 @@ public class Physics2DScene extends SceneGraph
     //************
     public Physics2DScene(WeakReference<Scene> aScene)
     {
-        super(aScene);
+        super(aScene/*,new SceneEventCallbacks()*/);
         m_B2DWorld.setContactListener(new GlobalContactListener());
         
     }
@@ -101,6 +102,8 @@ public class Physics2DScene extends SceneGraph
                 ((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject().get().getName()
             
             );
+            
+            
             
             //Detect type
             boolean isSensor = contact.m_fixtureA.isSensor() | contact.m_fixtureB.isSensor();
