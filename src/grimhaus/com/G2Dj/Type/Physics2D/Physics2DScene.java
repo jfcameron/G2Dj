@@ -88,8 +88,7 @@ public class Physics2DScene extends SceneGraph
     }
     
     //
-    // Handles all contact events in the world.
-    // Glue between the B2D world and the Graph
+    // Translates Box2D collison events into G2Dj On Collision/Trigger Enter/Exit events
     //
     private class GlobalContactListener implements ContactListener
     {
