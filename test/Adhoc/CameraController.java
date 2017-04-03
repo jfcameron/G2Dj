@@ -142,12 +142,27 @@ public class CameraController extends Component
     public void OnCollisionEnter(final CollisionInfo info)
     {
         Debug.log("CameraController.OnCollisionEnter");
-    
+        Debug.log("Normal: "+info.collisionNormal,"Point: "+info.collisionPoint,"Other: "+info.other.get().getName());
+        
     }
     
     public void OnTriggerEnter(final CollisionInfo info)
     {
         Debug.log("CameraController.OnTriggerEnter");
+        
+        Debug.log("Normal: "+info.collisionNormal,"Point: "+info.collisionPoint,"Other: "+info.other.get().getName());
+    
+    }
+    
+    public void OnCollisionExit(final CollisionInfo info)
+    {
+        Debug.log("CameraController.OnCollisionExit");
+    
+    }
+    
+    public void OnTriggerExit(final CollisionInfo info)
+    {
+        Debug.log("CameraController.OnTriggerExit");
     
     }
     

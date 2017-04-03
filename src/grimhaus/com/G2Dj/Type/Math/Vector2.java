@@ -56,6 +56,7 @@ public class Vector2
     public Vector2(final float aScalar){this(aScalar,aScalar);}
     public Vector2(final float aX, final float aY){x=aX;y=aY;}
     public Vector2(final Vector2 aVector){x=aVector.x;y=aVector.y;}
+    public Vector2(final org.jbox2d.common.Vec2 aVector){x=aVector.x;y=aVector.y;}
     
     @Override public String toString(){return "{"+x+", "+y+"}";}
     
