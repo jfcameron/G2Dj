@@ -45,6 +45,9 @@ public class GameObject
     //
     //
     
+    public int getComponentCount(){return m_Components.size();}
+    public Component getComponent(final int aIndex){return m_Components.get(aIndex);}
+    
     public Component addComponent(Class<? extends Component> aComponentType)
     {
         //Handle RequireComponent & RequireComponents annotations

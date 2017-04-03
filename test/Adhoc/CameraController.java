@@ -5,6 +5,7 @@
  */
 package Adhoc;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
@@ -16,6 +17,7 @@ import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
+import grimhaus.com.G2Dj.Type.Physics2D.CollisionInfo;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -132,9 +134,21 @@ public class CameraController extends Component
         //m_Rigidbody.setRotation(0,45,0);
         
     }
-
+    
     @Override protected void OnRemovedFromGameObject() {}
     @Override protected void OnComponentAdded(Component aComponent) {}
     @Override protected void OnComponentRemoved(Component aComponent) {}
-
+    
+    public void OnCollisionEnter(final CollisionInfo info)
+    {
+        Debug.log("CameraController.OnCollisionEnter");
+    
+    }
+    
+    public void OnTriggerEnter(final CollisionInfo info)
+    {
+        Debug.log("CameraController.OnTriggerEnter");
+    
+    }
+    
 }

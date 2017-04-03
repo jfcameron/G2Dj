@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Engine;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Type.Engine.GameObject.Transform;
 import java.lang.ref.WeakReference;
 

@@ -4,21 +4,20 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
-import grimhaus.com.G2Dj.Debug;
-import grimhaus.com.G2Dj.Imp.Engine.SceneEventCallbacks;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
+import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
-import org.jbox2d.callbacks.RayCastCallback;
 import org.jbox2d.collision.Manifold;
-import org.jbox2d.collision.RayCastOutput;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
@@ -33,6 +32,7 @@ public class Physics2DScene extends SceneGraph
     //
     private final World m_B2DWorld = new World(new Vec2(0,0));
     private final float c_UpdateInterval = (float)Time.getFixedUpdateTargetInterval();
+    private final ArrayList<WeakReference<Rigidbody>> m_Rigidbodies = new ArrayList<>();
     
 //buffers
     private final Vec2 b_B2Vec2 = new Vec2();
@@ -88,6 +88,7 @@ public class Physics2DScene extends SceneGraph
     
     //
     // Handles all contact events in the world.
+    // Glue between the B2D world and the Graph
     //
     private class GlobalContactListener implements ContactListener
     {
@@ -95,42 +96,68 @@ public class Physics2DScene extends SceneGraph
         @Override
         public void beginContact(Contact contact) 
         {
-            Debug.log("***begin contact***");
-            Debug.log
-            (
-                ((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject().get().getName(),
-                ((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject().get().getName()
+            WeakReference<GameObject> 
+                gameObjectA = ((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject(), 
+                gameObjectB = ((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject();
             
-            );
+            CollisionInfo collisionInfoA = new CollisionInfo(gameObjectB);
+            CollisionInfo collisionInfoB = new CollisionInfo(gameObjectA);
             
-            
-            
-            //Detect type
-            boolean isSensor = contact.m_fixtureA.isSensor() | contact.m_fixtureB.isSensor();
-            
-            Debug.log("Collision type is: "+((isSensor==true)?"Trigger":"Collider"));
-            
-            //TODO: distribute col data to affected gameobjects
+            if (contact.m_fixtureA.isSensor() | contact.m_fixtureB.isSensor())
+            {
+                invokeOnTriggerEnter(((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject().get(),collisionInfoA);
+                invokeOnTriggerEnter(((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject().get(),collisionInfoB);
+                
+            }
+            else
+            {
+                invokeOnCollisionEnter(((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject().get(),collisionInfoA);
+                invokeOnCollisionEnter(((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject().get(),collisionInfoB);
+                
+            }
             
         }
 
         @Override
         public void endContact(Contact contact) 
         {
+            //TODO: implement
             
         }
 
-        @Override
-        public void preSolve(Contact contact, Manifold oldManifold) 
+        @Override public void preSolve(Contact contact, Manifold oldManifold){}
+        @Override public void postSolve(Contact contact, ContactImpulse impulse){}
+        
+        private void invokeOnCollisionEnter(final GameObject aGameObject, final CollisionInfo aCollisionInfo)
         {
+            invokeCollisionCallback("OnCollisionEnter",aGameObject,aCollisionInfo);
             
         }
-
-        @Override
-        public void postSolve(Contact contact, ContactImpulse impulse) 
+        
+        private void invokeOnTriggerEnter(final GameObject aGameObject, final CollisionInfo aCollisionInfo)
         {
+            invokeCollisionCallback("OnTriggerEnter",aGameObject,aCollisionInfo);
             
         }
+                
+        private void invokeCollisionCallback(final String aCallbackName,final GameObject aGameObject, final CollisionInfo aCollisionInfo)
+        {
+            for(int i=0,s=aGameObject.getComponentCount();i<s;i++)
+            {
+                try 
+                {
+                    aGameObject.getComponent(i).getClass().getMethod(aCallbackName,CollisionInfo.class).invoke(aGameObject.getComponent(i),aCollisionInfo);
+                
+                } 
+                catch (NoSuchMethodException ex){} 
+                catch (SecurityException ex){} 
+                catch (IllegalArgumentException ex){} 
+                catch (InvocationTargetException ex) {Logger.getLogger(Physics2DScene.class.getName()).log(Level.SEVERE, null, ex);} 
+                catch (IllegalAccessException ex) {Logger.getLogger(Physics2DScene.class.getName()).log(Level.SEVERE, null, ex);} 
+                
+            }
+            
+        }    
         
     }
     
