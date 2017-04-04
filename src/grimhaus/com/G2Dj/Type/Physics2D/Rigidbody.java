@@ -51,12 +51,19 @@ public class Rigidbody extends Physics2DComponent
     public void setVelocity(final float aX,final float aY){m_Body.setLinearVelocity(b_B2VecBuffer.set(aX,aY));}
 
     public void applyImpulse(final float aX,final float aY){m_Body.applyLinearImpulse(b_B2VecBuffer.set(aX,aY),b_B2VecBuffer.set(0,0),true);}
+    
+    public void applyForce(final Vector2 aForce){m_Body.applyForceToCenter(b_B2VecBuffer.set(aForce.x,aForce.y));}
     public void applyForce(final float aX,final float aY){m_Body.applyForceToCenter(b_B2VecBuffer.set(aX,aY));}
     
     public void applyTorque(final float aTorque){m_Body.applyTorque(-aTorque);}
     
     public void setType(final grimhaus.com.G2Dj.Imp.Physics2D.BodyType aType){m_Body.m_type = aType.toB2BodyType();}
     
+    public void setFrozenRotation(final boolean aFreeze){m_Body.setFixedRotation(aFreeze);}
+    //public void freezeX
+    //public void freezeY
+    
+    public boolean isRotationFrozen(){return m_Body.isFixedRotation();}
     
     public void setPosition(final float aX,final float aY,final float aZ)
     {

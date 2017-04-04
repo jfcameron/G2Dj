@@ -6,12 +6,15 @@ package Pong;
 
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.PointVisualizer;
+import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
+import grimhaus.com.G2Dj.Type.Physics2D.CompositeCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 
@@ -42,7 +45,9 @@ public class PongGame
         Graphics.loadFromResource("Adhoc/Sprites.png");
         
         createMainCamera(mainScene);
-        createPaddle(mainScene);
+        createBoundaries(mainScene);
+        createPlayer1Paddle(mainScene);
+        createPlayer2Paddle(mainScene);
         
     }
     
@@ -50,21 +55,70 @@ public class PongGame
     {
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         
-        gameObject.get().setName("TopCamera");
+        gameObject.get().setName("MainCamera");
         
         gameObject.get().getTransform().get().setPosition(0,10,0);
-        gameObject.get().getTransform().get().setRotation(-90,0,0);
+        gameObject.get().getTransform().get().setRotation(-90,180,0);
         
         Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
         
     }
     
-    private static WeakReference<GameObject> createPaddle(final WeakReference<Scene> aScene)
+    private static void createBoundaries(final WeakReference<Scene> aScene)
     {
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         
-        gameObject.get().getTransform().get().setPosition(0,0,0);
-        gameObject.get().getTransform().get().setScale(3,3,3);
+        Vector2 extents = new Vector2(20,15);
+        float thickness = 1.0f;
+        
+        CompositeCollider compositeCollider = (CompositeCollider)gameObject.get().addComponent(CompositeCollider.class);
+        compositeCollider.setVerticies(new Vector2[][]
+        { 
+            new Vector2[]
+            {
+                new Vector2(-extents.x          ,-extents.y),
+                new Vector2(-extents.x+thickness,-extents.y),
+                new Vector2(-extents.x+thickness,+extents.y),
+                new Vector2(-extents.x          ,+extents.y),
+            }, 
+            
+            new Vector2[]
+            {
+                new Vector2(+extents.x          ,+extents.y),
+                new Vector2(+extents.x-thickness,+extents.y),
+                new Vector2(+extents.x-thickness,-extents.y),
+                new Vector2(+extents.x          ,-extents.y),
+            },
+                
+        });
+        
+        Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
+        rb.setType(BodyType.Static);
+        
+    }
+    
+    private static WeakReference<GameObject> createPlayer1Paddle(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        
+        gameObject.get().getTransform().get().setPosition(0,0,-15);
+        gameObject.get().getTransform().get().setScale(6,1,1);
+        
+        gameObject.get().addComponent(BoxCollider.class);
+        gameObject.get().addComponent(Rigidbody.class);
+        gameObject.get().addComponent(PointVisualizer.class);
+        gameObject.get().addComponent(PlayerPaddleController.class);
+        
+        return gameObject;
+        
+    }
+    
+    private static WeakReference<GameObject> createPlayer2Paddle(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        
+        gameObject.get().getTransform().get().setPosition(0,0,+15);
+        gameObject.get().getTransform().get().setScale(6,1,1);
         
         gameObject.get().addComponent(BoxCollider.class);
         gameObject.get().addComponent(Rigidbody.class);

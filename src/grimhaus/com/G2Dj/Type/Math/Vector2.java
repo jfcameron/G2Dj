@@ -36,6 +36,7 @@ public class Vector2
     
     public void normalize(){float l=length(); x/=l; y/=l;}
     //public void normalizeAndScale(final float aScalar){normalize(); multiplyInPlace(aScalar);}
+    public void zero(){x=0;y=0;}
     
     //******************************
     //Non mutating vector operations
