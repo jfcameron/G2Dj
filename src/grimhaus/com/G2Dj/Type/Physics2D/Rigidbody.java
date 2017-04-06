@@ -37,6 +37,7 @@ public class Rigidbody extends Physics2DComponent
     private Physics2DScene m_Physics2DScene = null; //the scene
     private final ArrayList<Fixture> m_Fixtures = new ArrayList<>(); //the body
     private final BodyDef m_BodyDef = new BodyDef();
+    private PrismaticJoint m_AxisFreezeJoint = null;
     private boolean m_RebuildRequired = true;
     //private boolean m_FreezeY = false;
     //buffers
@@ -87,14 +88,13 @@ public class Rigidbody extends Physics2DComponent
         
     }
     
-    PrismaticJoint m_PrismaticJoint = null;
     public void freezeAxis(AxisFreezeMode aFreezeMode)
     {
-        if (m_PrismaticJoint != null)
+        if (m_AxisFreezeJoint != null)
         {
-            m_Physics2DScene.getB2DWorld().destroyJoint(m_PrismaticJoint);
-            m_PrismaticJoint.destructor();
-            m_PrismaticJoint = null;
+            m_Physics2DScene.getB2DWorld().destroyJoint(m_AxisFreezeJoint);
+            m_AxisFreezeJoint.destructor();
+            m_AxisFreezeJoint = null;
                 
         }
                 
@@ -111,7 +111,7 @@ public class Rigidbody extends Physics2DComponent
         if (aFreezeMode == AxisFreezeMode.Y)
             prismaticJointDef.localAxisA.set(b_B2VecBuffer.set(0,1));
         
-        m_PrismaticJoint = (PrismaticJoint)m_Physics2DScene.getB2DWorld().createJoint(prismaticJointDef);
+        m_AxisFreezeJoint = (PrismaticJoint)m_Physics2DScene.getB2DWorld().createJoint(prismaticJointDef);
         
     }
     
