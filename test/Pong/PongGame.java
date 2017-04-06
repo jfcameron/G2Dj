@@ -108,7 +108,7 @@ public class PongGame
                 
         });
         
-        compositeCollider.setRestitution(1.0f);
+        compositeCollider.setRestitution(0.0f);
         
         Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
         rb.setType(BodyType.Static);

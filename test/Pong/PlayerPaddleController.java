@@ -45,8 +45,9 @@ public class PlayerPaddleController extends Component
        //m_Rigidbody.setFreezeY(true);
 
         BoxCollider cc = (BoxCollider)getGameObject().get().getComponent(BoxCollider.class);
-        cc.setRestitution(1.0f);
+        cc.setRestitution(0.0f);
         
+        m_Rigidbody.testLock();
         
     }
 

@@ -22,6 +22,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.joints.PrismaticJoint;
+import org.jbox2d.dynamics.joints.PrismaticJointDef;
 
 /**
  *
@@ -83,6 +85,28 @@ public class Rigidbody extends Physics2DComponent
     {
         m_Body.setTransform(m_Body.getPosition(), -aRotation);
         getTransform().get().getRotation().y = aRotation;
+        
+    }
+    
+    PrismaticJoint m_PrismaticJointDef = null;
+    Body m_WorldOriginBody = null;
+    public void testLock()
+    {
+        //make world origin body
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.angle = 0;
+        bodyDef.position = new Vec2(0,0);
+        bodyDef.type = BodyType.STATIC;
+        m_WorldOriginBody = m_Physics2DScene.getB2DWorld().createBody(bodyDef);
+        
+        //Testing axis lock
+        PrismaticJointDef prismaticJointDef = new PrismaticJointDef();
+        prismaticJointDef.bodyA = m_WorldOriginBody;
+        prismaticJointDef.bodyB = m_Body;
+        prismaticJointDef.collideConnected = false;
+        
+        //
+        m_PrismaticJointDef = (PrismaticJoint)m_Physics2DScene.getB2DWorld().createJoint(prismaticJointDef);
         
     }
     
@@ -206,7 +230,7 @@ public class Rigidbody extends Physics2DComponent
             m_BodyDef.angularDamping = 1.0f;
             m_BodyDef.fixedRotation = false;
             
-            m_BodyDef.bullet=true;/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //m_BodyDef.bullet=true;/////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                     
             m_BodyDef.position = new Vec2(position.x,position.z);
             m_BodyDef.angle = -rotation.y;
@@ -272,6 +296,10 @@ public class Rigidbody extends Physics2DComponent
         
         buildFixtures();
         
+    }
+
+    private Vec2 Vec2(int i, int i0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

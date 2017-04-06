@@ -4,7 +4,6 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
-import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import java.lang.ref.WeakReference;

@@ -44,6 +44,7 @@ public class Physics2DScene extends SceneGraph
     public World getB2DWorld(){return m_B2DWorld;}    
     public void setGravity(final float aX, final float aY){m_B2DWorld.setGravity(b_B2Vec2.set(aX,aY));}
     
+    
     //
     //
     //
@@ -67,15 +68,8 @@ public class Physics2DScene extends SceneGraph
     @Override public void update(){}
     @Override public void draw(){}
 
-    @Override
-    protected void OnComponentAdded(Component aComponent) 
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
-    }
-
-    @Override
-    protected void OnComponentRemoved(Component aComponent) {}
+    @Override protected void OnComponentAdded(Component aComponent){}
+    @Override protected void OnComponentRemoved(Component aComponent) {}
     
     //************
     // Constructor
@@ -84,6 +78,8 @@ public class Physics2DScene extends SceneGraph
     {
         super(aScene/*,new SceneEventCallbacks()*/);
         m_B2DWorld.setContactListener(new GlobalContactListener());
+        
+        
         
     }
     
