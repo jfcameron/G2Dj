@@ -31,7 +31,7 @@ public abstract class SimpleCollider<T extends Shape> extends Collider
     @Override public void setType(final ColliderType aColliderType){m_FixtureDefinition.setSensor(aColliderType.toB2TriggerBool());}
     @Override public void setDensity(final float aDensity){m_FixtureDefinition.setDensity(aDensity);}
     @Override public void setFriction(final float aFriction){m_FixtureDefinition.setFriction(aFriction);}
-    @Override public void setRestitution(final float aRestitution){m_FixtureDefinition.setRestitution(aRestitution);}
+    @Override public void setRestitution(final float aRestitution){m_FixtureDefinition.setRestitution(aRestitution);requestShapeRebuildOnNextTick();}
     
     @Override public ColliderType getType(){return ColliderType.fromB2TriggerBool(m_FixtureDefinition.isSensor);}
     @Override public float getDensity(){return m_FixtureDefinition.getDensity();}
@@ -45,7 +45,6 @@ public abstract class SimpleCollider<T extends Shape> extends Collider
     protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
     {
         super.OnAddedToGameObject(aGameObject);
-        
         m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
         
     }

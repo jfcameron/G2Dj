@@ -6,13 +6,12 @@ package Pong;
 
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
-import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Engine.GameObject.Transform;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
-import grimhaus.com.G2Dj.Type.Math.Vector3;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
@@ -22,12 +21,14 @@ import java.lang.ref.WeakReference;
  * @author Joseph Cameron
  */
 @RequireComponents({BoxCollider.class,Rigidbody.class})
-public class PlayerPaddleController extends Component
+public class AIPaddleController extends Component
 {
     //
     //
     //
     private Rigidbody m_Rigidbody = null;
+    private WeakReference<Transform> m_Transform = null;
+    private WeakReference<Transform> m_Ball = null;
     //buffers
     private final Vector2 b_InputBuffer = Vector2.Zero();
     //const
@@ -41,12 +42,10 @@ public class PlayerPaddleController extends Component
     {
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
         m_Rigidbody.setFrozenRotation(true);
+        //m_Rigidbody.setFreezeY(true);
         
-       //m_Rigidbody.setFreezeY(true);
-
-        BoxCollider cc = (BoxCollider)getGameObject().get().getComponent(BoxCollider.class);
-        cc.setRestitution(1.0f);
-        
+        m_Transform = getGameObject().get().getTransform();
+        m_Ball = getGameObject().get().getScene().get().getGameObject("Ball").get().getTransform();
         
     }
 
@@ -55,17 +54,11 @@ public class PlayerPaddleController extends Component
     {
         b_InputBuffer.zero();
         
-        if (Input.getKey(KeyCode.A))
+        if (m_Transform.get().getPosition().x < m_Ball.get().getPosition().x-0.5f)
             b_InputBuffer.x += 1;
         
-        if (Input.getKey(KeyCode.D))
+        if (m_Transform.get().getPosition().x > m_Ball.get().getPosition().x+0.5f)
             b_InputBuffer.x -= 1;
-        
-        if (Input.getKey(KeyCode.W))
-            b_InputBuffer.y += 1;
-        
-        if (Input.getKey(KeyCode.S))
-            b_InputBuffer.y -= 1;
        
         b_InputBuffer.multiplyInPlace(s_TranslationSpeed);
         b_InputBuffer.multiplyInPlace((float)Time.getDeltaTime());

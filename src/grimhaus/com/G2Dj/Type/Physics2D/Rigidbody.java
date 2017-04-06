@@ -37,12 +37,12 @@ public class Rigidbody extends Physics2DComponent
     private final ArrayList<Fixture> m_Fixtures = new ArrayList<>(); //the body
     private final BodyDef m_BodyDef = new BodyDef();
     private boolean m_RebuildRequired = true;
+    //private boolean m_FreezeY = false;
     //buffers
     private final Vec2 b_B2VecBuffer = new Vec2();
     private Vector3 b_ScaleBuffer;
-    private Vector3 b_RotationBuffer = new Vector3();
-    private Vector3 b_TranslationBuffer = new Vector3();
-    
+    private final Vector3 b_RotationBuffer = new Vector3();
+    private final Vector3 b_TranslationBuffer = new Vector3();
     
     //
     // Accessors
@@ -61,9 +61,16 @@ public class Rigidbody extends Physics2DComponent
     
     public void setFrozenRotation(final boolean aFreeze){m_Body.setFixedRotation(aFreeze);}
     //public void freezeX
-    //public void freezeY
+    //public void setFreezeY(final boolean aFreezeY){m_FreezeY = aFreezeY;}
+    
+    public void setLinearDamping(final float aLinearDamping){m_Body.setLinearDamping(aLinearDamping);}
+    public void setAngularDamping(final float aAngularDamping){m_Body.setAngularDamping(aAngularDamping);}
+    
+    //public void setRestitution(final float aRestitution){m_Body.}
     
     public boolean isRotationFrozen(){return m_Body.isFixedRotation();}
+    
+    public void setLinearVelocity(final float aX, final float aY){m_Body.setLinearVelocity(b_B2VecBuffer.set(aX,aY));}
     
     public void setPosition(final float aX,final float aY,final float aZ)
     {
@@ -110,6 +117,13 @@ public class Rigidbody extends Physics2DComponent
             {
                 Vec2  b2Pos = m_Body.getPosition();
                 float b2Rot = -m_Body.getAngle();
+                
+                /*if (m_FreezeY)
+                {
+                    b2Pos.y = getTransform().get().getPosition().z;
+                    m_Body.m_xf.set(b2Pos, m_Body.getAngle());
+                    
+                }*/
                 
                 getTransform().get().setPosition(b2Pos.x,0,b2Pos.y);
                 getTransform().get().getRotation().y = b2Rot;
@@ -191,9 +205,11 @@ public class Rigidbody extends Physics2DComponent
             m_BodyDef.linearDamping = 1.0f;
             m_BodyDef.angularDamping = 1.0f;
             m_BodyDef.fixedRotation = false;
+            
+            m_BodyDef.bullet=true;/////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                     
             m_BodyDef.position = new Vec2(position.x,position.z);
-            m_BodyDef.angle = -rotation.y; //TODO: implement
+            m_BodyDef.angle = -rotation.y;
             Debug.log(getGameObject().get().getName(),rotation.y);
             
             
@@ -230,6 +246,7 @@ public class Rigidbody extends Physics2DComponent
                     if (fixtures[j] != null)
                     {
                         fixtures[j].setUserData(new WeakReference<>(this));
+                        //fixtures[j].setRestitution(1);/////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         m_Fixtures.add(m_Body.createFixture(fixtures[j]));
                     
                     }

@@ -24,6 +24,8 @@ public abstract class Collider extends Physics2DComponent
     protected final Vector2 m_Offset = new Vector2();
     private boolean m_RebuildShape = false;
     
+    //private float m_Restitution = 0;
+    
     //buffers
     protected Vector3 b_ScaleBuffer;
     protected final Vec2 b_Vec2Buffer = new Vec2();
