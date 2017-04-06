@@ -19,6 +19,9 @@ import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
@@ -34,13 +37,15 @@ public class Physics2DScene extends SceneGraph
     private final World m_B2DWorld = new World(new Vec2(0,0));
     private final float c_UpdateInterval = (float)Time.getFixedUpdateTargetInterval();
     private final ArrayList<WeakReference<Rigidbody>> m_Rigidbodies = new ArrayList<>();
+    private final Body m_WorldOriginBody;
     
-//buffers
+    //buffers
     private final Vec2 b_B2Vec2 = new Vec2();
     
     //
     // Accessors
     //
+    public Body getB2DWorldOriginBody(){return m_WorldOriginBody;}
     public World getB2DWorld(){return m_B2DWorld;}    
     public void setGravity(final float aX, final float aY){m_B2DWorld.setGravity(b_B2Vec2.set(aX,aY));}
     
@@ -79,7 +84,12 @@ public class Physics2DScene extends SceneGraph
         super(aScene/*,new SceneEventCallbacks()*/);
         m_B2DWorld.setContactListener(new GlobalContactListener());
         
-        
+        //Build origin body (used for rigidbody axis locking etc)
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.angle = 0;
+        bodyDef.position = new Vec2(0,0);
+        bodyDef.type = BodyType.STATIC;
+        m_WorldOriginBody = m_B2DWorld.createBody(bodyDef);
         
     }
     

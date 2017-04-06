@@ -13,6 +13,7 @@ import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
+import grimhaus.com.G2Dj.Type.Physics2D.AxisFreezeMode;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
@@ -47,7 +48,7 @@ public class PlayerPaddleController extends Component
         BoxCollider cc = (BoxCollider)getGameObject().get().getComponent(BoxCollider.class);
         cc.setRestitution(0.0f);
         
-        m_Rigidbody.testLock();
+        m_Rigidbody.freezeAxis(AxisFreezeMode.X);
         
     }
 

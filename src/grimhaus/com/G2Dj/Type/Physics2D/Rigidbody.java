@@ -9,7 +9,6 @@ import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Imp.Physics2D.Physics2DComponent;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
-import grimhaus.com.G2Dj.Type.Engine.SceneGraph;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 
@@ -88,25 +87,31 @@ public class Rigidbody extends Physics2DComponent
         
     }
     
-    PrismaticJoint m_PrismaticJointDef = null;
-    Body m_WorldOriginBody = null;
-    public void testLock()
+    PrismaticJoint m_PrismaticJoint = null;
+    public void freezeAxis(AxisFreezeMode aFreezeMode)
     {
-        //make world origin body
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.angle = 0;
-        bodyDef.position = new Vec2(0,0);
-        bodyDef.type = BodyType.STATIC;
-        m_WorldOriginBody = m_Physics2DScene.getB2DWorld().createBody(bodyDef);
-        
+        if (m_PrismaticJoint != null)
+        {
+            m_Physics2DScene.getB2DWorld().destroyJoint(m_PrismaticJoint);
+            m_PrismaticJoint.destructor();
+            m_PrismaticJoint = null;
+                
+        }
+                
         //Testing axis lock
         PrismaticJointDef prismaticJointDef = new PrismaticJointDef();
-        prismaticJointDef.bodyA = m_WorldOriginBody;
+        prismaticJointDef.bodyA = m_Physics2DScene.getB2DWorldOriginBody();
         prismaticJointDef.bodyB = m_Body;
         prismaticJointDef.collideConnected = false;
+        prismaticJointDef.localAnchorA.set(b_B2VecBuffer.set(0,m_Body.getPosition().y));
         
-        //
-        m_PrismaticJointDef = (PrismaticJoint)m_Physics2DScene.getB2DWorld().createJoint(prismaticJointDef);
+        if (aFreezeMode == AxisFreezeMode.X)        
+            prismaticJointDef.localAxisA.set(b_B2VecBuffer.set(1,0));
+        
+        if (aFreezeMode == AxisFreezeMode.Y)
+            prismaticJointDef.localAxisA.set(b_B2VecBuffer.set(0,1));
+        
+        m_PrismaticJoint = (PrismaticJoint)m_Physics2DScene.getB2DWorld().createJoint(prismaticJointDef);
         
     }
     
