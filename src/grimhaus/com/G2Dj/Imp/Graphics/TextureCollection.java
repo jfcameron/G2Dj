@@ -43,7 +43,7 @@ public class TextureCollection extends GraphicsResourceCollection<Texture>
     public TextureCollection()
     {
         loadFromResource("grimhaus/com/G2Dj/Resource/Graphics/default.png");
-        loadFromResource("grimhaus/com/G2Dj/Resource/Graphics/awesome.png");
+        loadFromResource("grimhaus/com/G2Dj/Resource/Graphics/FullUnicodePlaneTest.png");
 
         Debug.log("TextureCollection default: "+get().get().getName(),get().get().getHandle());
 

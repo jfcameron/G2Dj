@@ -49,7 +49,9 @@ public class Engine
     //
     public static void init(final Game aGame)
     {
-        aGame.init();
+        Graphics.getModel();//
+        
+        aGame.init();        
         mainLoop();
     
     }
@@ -68,7 +70,7 @@ public class Engine
             {
                 int timesToEvokeFixedUpdate = (int)Math.floor(((s_FixedUpdateTimer += Time.getDeltaTime()) > Time.getFixedUpdateTargetInterval())? (s_FixedUpdateTimer/Time.getFixedUpdateTargetInterval()) : 0);
                 
-                timesToEvokeFixedUpdate=1;
+                //timesToEvokeFixedUpdate=1;
                 
                 if (timesToEvokeFixedUpdate>1)
                     Debug.log("FixedUpdate is catching up!");

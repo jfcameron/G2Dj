@@ -56,7 +56,7 @@ public class PongGame
     }
     
     private static void createGUIScene()
-    {
+    {        
         WeakReference<Scene> scene = Engine.createScene("GUI");
         
         createGUIControllerObject(scene);

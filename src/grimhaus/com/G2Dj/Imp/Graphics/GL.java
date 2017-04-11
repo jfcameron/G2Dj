@@ -3,6 +3,7 @@
  * Written by Joseph Cameron
  */
 package grimhaus.com.G2Dj.Imp.Graphics;
+import grimhaus.com.G2Dj.Graphics;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 

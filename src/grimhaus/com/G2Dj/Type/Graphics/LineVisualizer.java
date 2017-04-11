@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference;
  */
 public class LineVisualizer extends GraphicsComponent implements Drawable
 {
-private static final float h = 0.5f;
+    private static final float h = 0.5f;
     private static final float y = -0.1f;
     
     public static final float[] lineBox(final float aOffsetX, final float aOffsetY, final float aOffsetScale){return new float[]
