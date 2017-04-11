@@ -12,6 +12,7 @@ import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.GameObject.Transform;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
+import grimhaus.com.G2Dj.Type.Physics2D.AxisFreezeMode;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
@@ -32,7 +33,7 @@ public class AIPaddleController extends Component
     //buffers
     private final Vector2 b_InputBuffer = Vector2.Zero();
     //const
-    private static final float s_TranslationSpeed = 1E4f;
+    private static final float s_TranslationSpeed = 1E3f;
     
     //
     //
@@ -47,30 +48,43 @@ public class AIPaddleController extends Component
         m_Transform = getGameObject().get().getTransform();
         m_Ball = getGameObject().get().getScene().get().getGameObject("Ball").get().getTransform();
         
+        m_Rigidbody.freezeAxis(AxisFreezeMode.X);
+        
     }
 
     @Override
     protected void update() 
-    {
+    {/*
         b_InputBuffer.zero();
         
-        if (m_Transform.get().getPosition().x < m_Ball.get().getPosition().x-0.5f)
+        if (m_Transform.get().getPosition().x < m_Ball.get().getPosition().x-0.25f)
             b_InputBuffer.x += 1;
         
-        if (m_Transform.get().getPosition().x > m_Ball.get().getPosition().x+0.5f)
+        if (m_Transform.get().getPosition().x > m_Ball.get().getPosition().x+0.25f)
             b_InputBuffer.x -= 1;
        
         b_InputBuffer.multiplyInPlace(s_TranslationSpeed);
         b_InputBuffer.multiplyInPlace((float)Time.getDeltaTime());
 
         m_Rigidbody.applyForce(b_InputBuffer.x,b_InputBuffer.y);
-        
+        */
     }
 
     @Override
     protected void fixedUpdate() 
     {
+        b_InputBuffer.zero();
         
+        if (m_Transform.get().getPosition().x < m_Ball.get().getPosition().x-0.25f)
+            b_InputBuffer.x += 1;
+        
+        if (m_Transform.get().getPosition().x > m_Ball.get().getPosition().x+0.25f)
+            b_InputBuffer.x -= 1;
+       
+        b_InputBuffer.multiplyInPlace(s_TranslationSpeed);
+        //b_InputBuffer.multiplyInPlace((float)Time.getDeltaTime());
+
+        m_Rigidbody.applyForce(b_InputBuffer.x,b_InputBuffer.y);
         
     }
 

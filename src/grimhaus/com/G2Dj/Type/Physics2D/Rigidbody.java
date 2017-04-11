@@ -39,7 +39,7 @@ public class Rigidbody extends Physics2DComponent
     private final BodyDef m_BodyDef = new BodyDef();
     private PrismaticJoint m_AxisFreezeJoint = null;
     private boolean m_RebuildRequired = true;
-    //private boolean m_FreezeY = false;
+    
     //buffers
     private final Vec2 b_B2VecBuffer = new Vec2();
     private Vector3 b_ScaleBuffer;
@@ -49,9 +49,14 @@ public class Rigidbody extends Physics2DComponent
     //
     // Accessors
     //
+    public Vector2 getVelocity(){return new Vector2(m_Body.m_linearVelocity);}
+    
     public void setVelocity(final Vector2 aVelocity){setVelocity(aVelocity.x,aVelocity.y);}
     public void setVelocity(final float aX,final float aY){m_Body.setLinearVelocity(b_B2VecBuffer.set(aX,aY));}
 
+    public void normalizeVelocity(){m_Body.m_linearVelocity.normalize();}
+    public void scaleVelocity(final float aScalar){m_Body.m_linearVelocity.x*=aScalar;m_Body.m_linearVelocity.y*=aScalar;}
+    
     public void applyImpulse(final float aX,final float aY){m_Body.applyLinearImpulse(b_B2VecBuffer.set(aX,aY),b_B2VecBuffer.set(0,0),true);}
     
     public void applyForce(final Vector2 aForce){m_Body.applyForceToCenter(b_B2VecBuffer.set(aForce.x,aForce.y));}
@@ -94,7 +99,6 @@ public class Rigidbody extends Physics2DComponent
         {
             m_Physics2DScene.getB2DWorld().destroyJoint(m_AxisFreezeJoint);
             m_AxisFreezeJoint.destructor();
-            m_AxisFreezeJoint = null;
                 
         }
                 

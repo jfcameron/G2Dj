@@ -48,7 +48,7 @@ public class PongGame
         createMainCamera(mainScene);
         createBoundaries(mainScene);
         createPlayer1Paddle(mainScene);
-        //createPlayer2Paddle(mainScene);
+        createPlayer2Paddle(mainScene);
         createBall(mainScene);
         
     }
@@ -62,11 +62,12 @@ public class PongGame
         gameObject.get().getTransform().get().setPosition(0,10,0);
         gameObject.get().getTransform().get().setRotation(-90,180,0);
         
-        //gameObject.get().getTransform().get().setPosition(0,10,-5);
-        //gameObject.get().getTransform().get().setRotation(-80,180,0);
+        //gameObject.get().getTransform().get().setPosition(0,10,-10);
+        //gameObject.get().getTransform().get().setRotation(-50,180,0);
         
         Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
         camera.setFarClippingPlane(50);
+        camera.setFieldOfView(40);
         
     }
     
@@ -98,17 +99,17 @@ public class PongGame
                 new Vector2(+extents.x          ,-extents.y),
             },
             
-            new Vector2[]
+            /*new Vector2[]
             {
                 new Vector2(+extents.x,+extents.y          ),
                 new Vector2(+extents.x,+extents.y-thickness),
                 new Vector2(-extents.x,+extents.y-thickness),
                 new Vector2(-extents.x,+extents.y),
-            },
+            },*/
                 
         });
         
-        compositeCollider.setRestitution(0.0f);
+        compositeCollider.setRestitution(1.0f);
         
         Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
         rb.setType(BodyType.Static);
