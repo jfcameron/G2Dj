@@ -4,6 +4,7 @@
  */
 package TextMeshTest;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
 import grimhaus.com.G2Dj.Imp.Graphics.Color;
@@ -61,9 +62,11 @@ public class Main
         
         TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
     
-        mesh.setText("Whats good");
+        mesh.setText("お早う,What's good,שלום,Здравствуйте,안녕하세요");
         
         //mesh.setTexture("_Texture", "Background.png");
+        
+        Debug.log(mesh.getText());
         
     }
     

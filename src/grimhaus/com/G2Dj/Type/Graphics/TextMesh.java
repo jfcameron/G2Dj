@@ -22,6 +22,8 @@ public class TextMesh extends GraphicsComponent implements Drawable
     //
     public void setText(final String aText){m_Text=aText;}
     
+    public String getText(){return m_Text;}
+    
     //
     //
     //
