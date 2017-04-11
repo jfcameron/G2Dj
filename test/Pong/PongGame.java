@@ -6,11 +6,13 @@ package Pong;
 
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
+import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Graphics.PointVisualizer;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
@@ -51,6 +53,18 @@ public class PongGame
         createPlayer2Paddle(mainScene);
         createBall(mainScene);
         
+        createAwesomeFace(mainScene);
+                
+    }
+    
+    private static void createAwesomeFace(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        //gameObject.get().getTransform().get().setRotation(-90,180,0);
+        gameObject.get().getTransform().get().setPosition(0,0,-0.1f);
+        
+        gameObject.get().addComponent(Mesh.class);
+    
     }
     
     private static void createMainCamera(final WeakReference<Scene> aScene)
@@ -62,12 +76,11 @@ public class PongGame
         gameObject.get().getTransform().get().setPosition(0,10,0);
         gameObject.get().getTransform().get().setRotation(-90,180,0);
         
-        //gameObject.get().getTransform().get().setPosition(0,10,-10);
-        //gameObject.get().getTransform().get().setRotation(-50,180,0);
-        
         Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
-        camera.setFarClippingPlane(50);
-        camera.setFieldOfView(40);
+        
+        camera.setProjectionMode(CameraProjectionMode.Orthographic);
+        camera.setFarClippingPlane(15);
+        camera.setOrthoSize(20, 20);
         
     }
     

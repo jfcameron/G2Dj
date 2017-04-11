@@ -37,7 +37,8 @@ public class Camera extends GraphicsComponent
     private float                m_FieldOfView;
     private float                m_NearClippingPlane;
     private float                m_FarClippingPlane;
-    private float                m_Size;
+    //private float                m_Size;
+    private Vector2 m_OrthoSize;
     
     //buffers & pools
     private final Mat4x4 b_ProjectionMatrixBuffer = new Mat4x4();//reduce heap abuse in getProjectionMatrix()
@@ -56,7 +57,7 @@ public class Camera extends GraphicsComponent
     public float                getFieldOfView           (){return m_FieldOfView;      }
     public float                getNearClippingPlane     (){return m_NearClippingPlane;}
     public float                getFarClippingPlane      (){return m_FarClippingPlane; }
-    public float                getSize                  (){return m_Size;             }
+    //public float                getSize                  (){return m_Size;             }
     
     public float getViewportAspectRatio(){return getViewportPixelSize().toVector2().aspectRatio();}
     
@@ -93,12 +94,12 @@ public class Camera extends GraphicsComponent
         switch(m_ProjectionMode)
         {
             case Perspective:  
-                b_ProjectionMatrixBuffer.perspectiveInPlace(m_FieldOfView, getViewportAspectRatio(), m_NearClippingPlane, m_FarClippingPlane);//p = Mat4x4.perspective(m_FieldOfView, getViewportAspectRatio(), m_NearClippingPlane, m_FarClippingPlane); break;
+                b_ProjectionMatrixBuffer.perspectiveInPlace(m_FieldOfView, getViewportAspectRatio(), m_NearClippingPlane, m_FarClippingPlane);
             break;
                 
             case Orthographic: 
-                throw new java.lang.UnsupportedOperationException("Not supported yet.");
-                //break;
+                b_ProjectionMatrixBuffer.orthographicInPlace(m_OrthoSize,m_NearClippingPlane,m_FarClippingPlane,getViewportAspectRatio());
+            break;
             
         }
         
@@ -109,7 +110,7 @@ public class Camera extends GraphicsComponent
     public Mat4x4 getViewMatrix()
     {
         Vector3 cameraPosition = getTransform().get().getPosition().multiply(-1f);
-        Vector3 cameraRotation = getTransform().get().getEulers().multiply(-1f);;
+        Vector3 cameraRotation = getTransform().get().getEulers().multiply(-1f);
         Mat4x4 v = Mat4x4.identity();
         
         //R
@@ -131,7 +132,8 @@ public class Camera extends GraphicsComponent
     public void setFieldOfView          (final float                aFieldOfView      ){m_FieldOfView       = aFieldOfView;      }
     public void setNearClippingPlane    (final float                aNearClippingPlane){m_NearClippingPlane = aNearClippingPlane;}
     public void setFarClippingPlane     (final float                aFarClippingPlane ){m_FarClippingPlane  = aFarClippingPlane; }
-    public void setSize                 (final float                aSize             ){m_Size              = aSize;             }
+    //public void setSize                 (final float                aSize             ){m_Size              = aSize;             }
+    public void setOrthoSize(final float aWidth, final float aHeight){m_OrthoSize.x = aWidth; m_OrthoSize.y = aHeight;}
       
     public void draw() //void draw(void) override;
     {   
@@ -174,7 +176,8 @@ public class Camera extends GraphicsComponent
         m_FieldOfView       = 90f;
         m_NearClippingPlane = 0.001f;
         m_FarClippingPlane  = 20;
-        m_Size              = 100;
+        //m_Size              = 100;
+        m_OrthoSize = new Vector2(40,40);
         
         //GL init
         GL.glEnable(GL.GL_DEPTH_TEST);

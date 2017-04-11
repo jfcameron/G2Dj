@@ -25,8 +25,7 @@ public class Ball extends Component
     //
     //
     private Rigidbody m_Rigidbody = null;
-    
-    private static float s_Speed = 1E3f;
+    private float m_Speed = 14f;
     
     //
     //
@@ -34,11 +33,9 @@ public class Ball extends Component
     @Override protected void initialize() 
     {
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
-    
         m_Rigidbody.setLinearDamping(0);
         m_Rigidbody.setAngularDamping(0);
-        
-        m_Rigidbody.applyForce(new Vector2(0,-0.75f).unit().multiply(s_Speed));
+        m_Rigidbody.applyForce(new Vector2(0,-0.75f).unit().multiply(m_Speed));
         
         CircleCollider cc = (CircleCollider)getGameObject().get().getComponent(CircleCollider.class);
         cc.setRestitution(1.0f);
@@ -54,8 +51,7 @@ public class Ball extends Component
     @Override protected void fixedUpdate() 
     {
         m_Rigidbody.normalizeVelocity();
-        //m_Rigidbody.scaleVelocity(1E1f);
-        m_Rigidbody.scaleVelocity(14f);
+        m_Rigidbody.scaleVelocity(m_Speed);
             
     }
     
@@ -67,11 +63,8 @@ public class Ball extends Component
         {
             //TODO: pos reflect behaviour
             float diff = (getTransform().get().getPosition().x - info.other.get().getTransform().get().getPosition().x)/(6f);
-
-            //float dir = diff/Math.abs(diff);
-            //diff -= diff/10f;
             
-            
+            m_Rigidbody.clearForces();
             
             Vector2 forceBuffer = new Vector2();
             forceBuffer.x = diff;
@@ -84,6 +77,12 @@ public class Ball extends Component
         
         }
         
+    }
+    
+    public void OnCollisionExit(final CollisionInfo info)
+    {
+        m_Speed += 0.1f;
+                
     }
 
     //

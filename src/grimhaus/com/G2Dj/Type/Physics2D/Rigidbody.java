@@ -93,6 +93,13 @@ public class Rigidbody extends Physics2DComponent
         
     }
     
+    public void clearForces()
+    {
+        m_Body.m_linearVelocity.set(0, 0);
+        m_Body.m_angularVelocity = 0;
+    
+    }
+    
     public void freezeAxis(AxisFreezeMode aFreezeMode)
     {
         if (m_AxisFreezeJoint != null)

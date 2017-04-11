@@ -41,33 +41,20 @@ public class AIPaddleController extends Component
     @Override
     protected void initialize() 
     {
+        m_Transform = getGameObject().get().getTransform();
+        
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
         m_Rigidbody.setFrozenRotation(true);
-        //m_Rigidbody.setFreezeY(true);
-        
-        m_Transform = getGameObject().get().getTransform();
-        m_Ball = getGameObject().get().getScene().get().getGameObject("Ball").get().getTransform();
-        
         m_Rigidbody.freezeAxis(AxisFreezeMode.X);
+        
+        m_Ball = getGameObject().get().getScene().get().getGameObject("Ball").get().getTransform();
         
     }
 
     @Override
     protected void update() 
-    {/*
-        b_InputBuffer.zero();
+    {
         
-        if (m_Transform.get().getPosition().x < m_Ball.get().getPosition().x-0.25f)
-            b_InputBuffer.x += 1;
-        
-        if (m_Transform.get().getPosition().x > m_Ball.get().getPosition().x+0.25f)
-            b_InputBuffer.x -= 1;
-       
-        b_InputBuffer.multiplyInPlace(s_TranslationSpeed);
-        b_InputBuffer.multiplyInPlace((float)Time.getDeltaTime());
-
-        m_Rigidbody.applyForce(b_InputBuffer.x,b_InputBuffer.y);
-        */
     }
 
     @Override
@@ -75,15 +62,13 @@ public class AIPaddleController extends Component
     {
         b_InputBuffer.zero();
         
-        if (m_Transform.get().getPosition().x < m_Ball.get().getPosition().x-0.25f)
+        if (m_Transform.get().getPosition().x < m_Ball.get().getPosition().x-0.5f)
             b_InputBuffer.x += 1;
         
-        if (m_Transform.get().getPosition().x > m_Ball.get().getPosition().x+0.25f)
+        if (m_Transform.get().getPosition().x > m_Ball.get().getPosition().x+0.5f)
             b_InputBuffer.x -= 1;
        
         b_InputBuffer.multiplyInPlace(s_TranslationSpeed);
-        //b_InputBuffer.multiplyInPlace((float)Time.getDeltaTime());
-
         m_Rigidbody.applyForce(b_InputBuffer.x,b_InputBuffer.y);
         
     }

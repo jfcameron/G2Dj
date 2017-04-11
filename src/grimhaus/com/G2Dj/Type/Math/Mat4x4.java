@@ -127,6 +127,12 @@ public class Mat4x4
         
     }
     
+    public void orthographicInPlace(final Vector2 aSize, final float nearClippingDistance, final float farClippingDistance,final float aAspectRatio)
+    {
+        orthographicRH(aSize,farClippingDistance,aAspectRatio,this);
+        
+    }
+    
     public final Mat4x4 set(float f) {
         return set(
                 f, 0, 0, 0,
@@ -395,28 +401,6 @@ public class Mat4x4
         return dest;
     }
     
-    /*private static Mat4x4 perspectiveLH(float fovy, float aspect, float zNear, float zFar, Mat4x4 res) 
-    {
-        float tanHalfFovy = (float) Math.tan(fovy * 0.5f);
-        res.m00 = 1.0f / (aspect * tanHalfFovy);
-        res.m01 = 0.0f;
-        res.m02 = 0.0f;
-        res.m03 = 0.0f;
-        res.m10 = 0.0f;
-        res.m11 = 1.0f / tanHalfFovy;
-        res.m12 = 0.0f;
-        res.m13 = 0.0f;
-        res.m20 = 0.0f;
-        res.m21 = 0.0f;
-        res.m22 = (zFar + zNear) / (zFar - zNear);
-        res.m23 = 1.0f;
-        res.m30 = 0.0f;
-        res.m31 = 0.0f;
-        res.m32 = -2.0f * zFar * zNear / (zFar - zNear);
-        res.m33 = 0.0f;
-        return res;
-    }*/
-    
     private static Mat4x4 perspectiveRH(float fovy, float aspect, float zNear, float zFar, Mat4x4 res) {
         float tanHalfFovy = (float)Math.tan(fovy * 0.5f);
         res.m00 = 1.0f / (aspect * tanHalfFovy);
@@ -436,6 +420,38 @@ public class Mat4x4
         res.m32 = -2.0f * zFar * zNear / (zFar - zNear);
         res.m33 = 0.0f;
         return res;
+    }
+    
+    private static Mat4x4 orthographicRH(final Vector2 aSize, final float farClippingDistance, final float aspect,Mat4x4 res) 
+    {
+        float
+        halfWidth = aSize.x,        
+        halfHeight = aSize.y,
+        right =halfWidth *aspect, left   =-halfWidth *aspect,
+        top   =halfHeight, bottom =-halfHeight, 
+        far   =farClippingDistance, near   =-farClippingDistance;
+        
+        res.m00 = 2.0f / (right - left);
+        res.m01 = 0.0f;
+        res.m02 = 0.0f;
+        res.m03 = -((right+left)/(right-left));
+        
+        res.m10 = 0.0f;
+        res.m11 = 2.0f / (top - bottom);
+        res.m12 = 0.0f;
+        res.m13 = -((top+bottom)/(top-bottom));
+        
+        res.m20 = 0.0f;
+        res.m21 = 0.0f;
+        res.m22 = (-2.0f) / (far - near);
+        res.m23 = -((far+near)/(far-near));
+        
+        res.m30 = 0.0f;
+        res.m31 = 0.0f;
+        res.m32 = 0.0f;
+        res.m33 = 1.0f;
+        return res;
+        
     }
     
 }
