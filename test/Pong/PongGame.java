@@ -6,7 +6,9 @@ package Pong;
 
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
+import grimhaus.com.G2Dj.Imp.Graphics.Color;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
@@ -43,28 +45,70 @@ public class PongGame
     
     private static void init()
     {
-        WeakReference<Scene> mainScene = Engine.createScene("Main");
         
-        Graphics.loadFromResource("Adhoc/Sprites.png");
         
-        createMainCamera(mainScene);
-        createBoundaries(mainScene);
-        createPlayer1Paddle(mainScene);
-        createPlayer2Paddle(mainScene);
-        createBall(mainScene);
+        createBackgroundScene();
+        createGameScene();
         
-        createAwesomeFace(mainScene);
                 
     }
     
-    private static void createAwesomeFace(final WeakReference<Scene> aScene)
+    private static void createGameScene()
+    {
+        WeakReference<Scene> scene = Engine.createScene("Main");
+        
+        createMainCamera(scene);
+        createBoundaries(scene);
+        createPlayer1Paddle(scene);
+        createPlayer2Paddle(scene);
+        createBall(scene);
+        
+        
+    }
+    
+    private static void createBackgroundScene()
+    {
+        Graphics.loadFromResource("Pong/Background.png");
+        
+        WeakReference<Scene> scene = Engine.createScene("Background");
+        
+        createBackgroundCamera(scene);
+        
+        createBackgroundQuad(scene);
+        
+        
+    }
+    
+    private static void createBackgroundCamera(final WeakReference<Scene> aScene)
     {
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
-        //gameObject.get().getTransform().get().setRotation(-90,180,0);
-        gameObject.get().getTransform().get().setPosition(0,0,-0.1f);
         
-        gameObject.get().addComponent(Mesh.class);
+        gameObject.get().setName("MainCamera");
+        
+        gameObject.get().getTransform().get().setPosition(0,10,0);
+        gameObject.get().getTransform().get().setRotation(-90,180,0);
+        
+        Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
+        
+        camera.setProjectionMode(CameraProjectionMode.Orthographic);
+        camera.setFarClippingPlane(15);
+        camera.setOrthoSize(20, 20);
+        
+        camera.setClearColor(new Color(0,0,0,1));
+        
+    }
     
+    private static void createBackgroundQuad(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().getTransform().get().setRotation(-90,180,0);
+        gameObject.get().getTransform().get().setPosition(0,-2,-0.1f);
+        gameObject.get().getTransform().get().setScale(40,40,0);
+        
+        Mesh mesh = (Mesh)gameObject.get().addComponent(Mesh.class);
+    
+        mesh.setTexture("_Texture", "Background.png");
+        
     }
     
     private static void createMainCamera(final WeakReference<Scene> aScene)
@@ -81,6 +125,7 @@ public class PongGame
         camera.setProjectionMode(CameraProjectionMode.Orthographic);
         camera.setFarClippingPlane(15);
         camera.setOrthoSize(20, 20);
+        camera.setClearMode(CameraClearMode.DepthOnly);
         
     }
     

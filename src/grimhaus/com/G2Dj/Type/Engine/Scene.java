@@ -6,8 +6,7 @@ package grimhaus.com.G2Dj.Type.Engine;
 
 import grimhaus.com.G2Dj.Imp.Engine.RequireSceneGraphs;
 import grimhaus.com.G2Dj.Imp.Engine.SceneEventCallbacks;
-import grimhaus.com.G2Dj.Type.Graphics.GraphicsScene;
-import grimhaus.com.G2Dj.Type.Physics2D.Physics2DScene;
+import grimhaus.com.G2Dj.Imp.Engine.SceneState;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -26,12 +25,18 @@ public class Scene
     private final String m_Name;
     private final ArrayList<SceneGraph> m_SceneGraphs = new ArrayList<>();
     private final ArrayList<GameObject> m_GameObjects = new ArrayList<>();
+    
+    //private final boolean m
+    private SceneState m_SceneState = SceneState.Active;
         
     //
     //
     //
     public String getName(){return m_Name;}
 
+    public SceneState getSceneState(){return m_SceneState;}
+    public void setSceneState(final SceneState aSceneState){m_SceneState=aSceneState;}
+    
     public WeakReference<SceneGraph> getSceneGraph(Class<? extends SceneGraph> aSceneGraphType)
     {
         for(int i=0,s=m_SceneGraphs.size();i<s;i++)
@@ -132,21 +137,45 @@ public class Scene
     //
     public void update()
     {
-        for(int i=0,s=m_GameObjects.size();i<s;i++)
-            m_GameObjects.get(i).update();
+        switch(m_SceneState)
+        {
+            case Active:
+            {
+                for(int i=0,s=m_GameObjects.size();i<s;i++)
+                    m_GameObjects.get(i).update();
 
-        for(int i=0,s=m_SceneGraphs.size();i<s;i++)
-            m_SceneGraphs.get(i).update();
+                for(int i=0,s=m_SceneGraphs.size();i<s;i++)
+                    m_SceneGraphs.get(i).update();
+                
+            } break;
+            
+            case Paused: 
+            default:
+            break;
+                
+        }
 
     }
     
     public void fixedUpdate()
     {
-        for(int i=0,s=m_GameObjects.size();i<s;i++)
-            m_GameObjects.get(i).fixedUpdate();
+        switch(m_SceneState)
+        {
+            case Active:
+            {
+                for(int i=0,s=m_GameObjects.size();i<s;i++)
+                    m_GameObjects.get(i).fixedUpdate();
 
-        for(int i=0,s=m_SceneGraphs.size();i<s;i++)
-            m_SceneGraphs.get(i).fixedUpdate();
+                for(int i=0,s=m_SceneGraphs.size();i<s;i++)
+                    m_SceneGraphs.get(i).fixedUpdate();
+        
+            } break;
+            
+            case Paused: 
+            default:
+            break;
+            
+        }
         
     }
     
