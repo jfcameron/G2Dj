@@ -25,6 +25,16 @@ public class Engine
     //
     // Accessors
     //
+    public static WeakReference<Scene> getScene(final String aSceneName)
+    {
+        for(int i=0,s=s_Scenes.size();i<s;i++)
+            if (s_Scenes.get(i).getName().equals(aSceneName))
+                return new WeakReference<>(s_Scenes.get(i));
+        
+        return new WeakReference<>(null);
+        
+    }
+    
     public static WeakReference<Scene> createScene(final String aSceneName)
     {
         Scene newScene = new Scene(aSceneName);
@@ -57,6 +67,9 @@ public class Engine
             if ((s_FixedUpdateTimer += Time.getDeltaTime()) > Time.getFixedUpdateTargetInterval())
             {
                 int timesToEvokeFixedUpdate = (int)Math.floor(((s_FixedUpdateTimer += Time.getDeltaTime()) > Time.getFixedUpdateTargetInterval())? (s_FixedUpdateTimer/Time.getFixedUpdateTargetInterval()) : 0);
+                
+                if (timesToEvokeFixedUpdate>1)
+                    Debug.log("FixedUpdate is catching up!");
                 
                 for(int i=0,s=timesToEvokeFixedUpdate;i<s;i++)
                     fixedUpdate(); 

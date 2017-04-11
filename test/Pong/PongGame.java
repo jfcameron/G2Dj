@@ -6,6 +6,7 @@ package Pong;
 
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Engine.SceneState;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
 import grimhaus.com.G2Dj.Imp.Graphics.Color;
@@ -49,8 +50,17 @@ public class PongGame
         
         createBackgroundScene();
         createGameScene();
+        createGUIScene();
         
                 
+    }
+    
+    private static void createGUIScene()
+    {
+        WeakReference<Scene> scene = Engine.createScene("GUI");
+        
+        createGUIControllerObject(scene);
+        
     }
     
     private static void createGameScene()
@@ -62,7 +72,6 @@ public class PongGame
         createPlayer1Paddle(scene);
         createPlayer2Paddle(scene);
         createBall(scene);
-        
         
     }
     
@@ -76,6 +85,16 @@ public class PongGame
         
         createBackgroundQuad(scene);
         
+        
+    }
+    
+    private static void createGUIControllerObject(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        
+        gameObject.get().setName("GUIController");
+        
+        gameObject.get().addComponent(GUIController.class);
         
     }
     
