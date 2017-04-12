@@ -1,6 +1,11 @@
 Graphics
  - TextMesh
-   - naive unicode then smart unicode.
+   - fix naive Unicode renderer. Anything beyond row 0 generates bad codepoints.
+   bug isolated to TextMesh.calculateUnicodePlanePosition(...)
+   - Add text anchors {(left, right, center),(top, down, center)}
+   - Split BML Plane texture into [16^2] array of textures.
+        - allows opt in and out of character support (looking at you 漢字)
+        - allows variable font resolutions across language domains
 
 Physics2D
  - OnCollisionStay(Collision collisionInfo)

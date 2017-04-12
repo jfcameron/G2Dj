@@ -126,10 +126,21 @@ public class TextMesh extends GraphicsComponent implements Drawable
                 byteBuffer[j] = rawbytes[j];
                 
             // 2. Split the buffer into a upper and lower 16bits, convert to int & divide by plane dimensions to get 2d pos in full unicode plane
-            int upper = (((byteBuffer[0] & 0xff) << 8) | (byteBuffer[1] & 0xff))/256;//x
-            int lower = (((byteBuffer[2] & 0xff) << 8) | (byteBuffer[3] & 0xff))/256;//y
+            int upper = (((byteBuffer[0] & 0xff) << 8)/* | (byteBuffer[1] & 0xff << 0)*/)/256;//x 1
+            int lower = (((byteBuffer[2] & 0xff) << 8)/* | (byteBuffer[3] & 0xff << 0)*/)/256;//y 255
+            
+            //upper = java.nio.ByteBuffer.wrap(new byte[]{byteBuffer[0],byteBuffer[1],0,0}).order(java.nio.ByteOrder.LITTLE_ENDIAN).getInt();
+            //lower = java.nio.ByteBuffer.wrap(new byte[]{byteBuffer[2],byteBuffer[3],0,0}).order(java.nio.ByteOrder.LITTLE_ENDIAN).getInt();
+            
+            //upper = java.nio.ByteBuffer.wrap(new byte[]{byteBuffer[0],0,0,0}).order(java.nio.ByteOrder.LITTLE_ENDIAN).getInt();
+            //lower = java.nio.ByteBuffer.wrap(new byte[]{byteBuffer[1],0,0,0}).order(java.nio.ByteOrder.LITTLE_ENDIAN).getInt();
                                 
             Debug.log(aWideChar+": "+upper,lower);//1 255
+            
+            Debug.log("raw data: ");
+            for (int j=0,t=rawbytes.length;j<t;j++) //write data to buffer
+                Debug.log(rawbytes[j]);
+            
             
             rValue.setInPlace(upper, lower);
         

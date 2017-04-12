@@ -17,6 +17,7 @@ import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Graphics.PointVisualizer;
+import grimhaus.com.G2Dj.Type.Graphics.TextMesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
@@ -60,6 +61,9 @@ public class PongGame
         WeakReference<Scene> scene = Engine.createScene("GUI");
         
         createGUIControllerObject(scene);
+        createGUICamera(scene);        
+        createScoreCounter(scene);
+        createMatchTimer(scene);
         
     }
     
@@ -95,6 +99,26 @@ public class PongGame
         gameObject.get().setName("GUIController");
         
         gameObject.get().addComponent(GUIController.class);
+        
+    }
+    
+    private static void createGUICamera(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        
+        gameObject.get().setName("MainCamera");
+        
+        gameObject.get().getTransform().get().setPosition(0,10,0);
+        gameObject.get().getTransform().get().setRotation(-90,180,0);
+        
+        Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
+        
+        camera.setProjectionMode(CameraProjectionMode.Orthographic);
+        camera.setFarClippingPlane(15);
+        camera.setOrthoSize(20, 20);
+        camera.setClearMode(CameraClearMode.DepthOnly);
+        
+        camera.setClearColor(new Color(0,0,0,1));
         
     }
     
@@ -143,7 +167,7 @@ public class PongGame
         
         camera.setProjectionMode(CameraProjectionMode.Orthographic);
         camera.setFarClippingPlane(15);
-        camera.setOrthoSize(20, 20);
+        camera.setOrthoSize(40, 40);
         camera.setClearMode(CameraClearMode.DepthOnly);
         
     }
@@ -237,6 +261,32 @@ public class PongGame
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         gameObject.get().addComponent(Ball.class);
+        
+    }
+    
+    private static void createScoreCounter(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("ScoreCounter");
+        gameObject.get().getTransform().get().setRotation(90,180,0);
+        gameObject.get().getTransform().get().setPosition(+9.5f,0,-9.5f);
+        gameObject.get().getTransform().get().setScale(1,1,1);
+        
+        TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
+        mesh.setText("Score: ");
+        
+    }
+    
+    private static void createMatchTimer(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("MatchTimer");
+        gameObject.get().getTransform().get().setRotation(90,180,0);
+        gameObject.get().getTransform().get().setPosition(+9.5f,0,+9.5f);
+        gameObject.get().getTransform().get().setScale(1,1,1);
+        
+        TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
+        mesh.setText("Time: ");
         
     }
     
