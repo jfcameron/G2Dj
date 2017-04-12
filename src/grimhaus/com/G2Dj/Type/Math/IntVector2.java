@@ -15,8 +15,9 @@ public class IntVector2
     public IntVector2(){this(0,0);}
     public IntVector2(final int aX, final int aY){x = aX; y = aY;}
     
-    
     public Vector2 toVector2(){return new Vector2(x,y);}
+    
+    public IntVector2 setInPlace (final int aX, final int aY){x=aX;y=aY;return this;}
     
     //public Vector2 divideToFloatVec(final float aScalar){return new Vector2(x/aScalar,y/aScalar);}
     

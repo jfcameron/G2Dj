@@ -4,10 +4,16 @@
  */
 package grimhaus.com.G2Dj.Type.Graphics;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Math.IntVector2;
+import grimhaus.com.G2Dj.Type.Math.Vector2;
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,14 +21,75 @@ import java.lang.ref.WeakReference;
  */
 public class TextMesh extends GraphicsComponent implements Drawable
 {
+    //
+    //
+    //
     private String m_Text = "";
     
-    //
-    //
-    //
-    public void setText(final String aText){m_Text=aText;}
+    //buffers
+    private final IntVector2 b_IntVector2 = new IntVector2();
+    private final byte[] b_32bitBuffer = new byte[4];
     
+    //
+    //
+    //
     public String getText(){return m_Text;}
+    
+    public void setText(final String aText)
+    {
+        if (!m_Text.equals(aText))
+        {
+            m_Text=aText;
+            updateVertexData();
+    
+        }
+        
+    }
+    
+    //
+    //
+    //
+    private void updateVertexData()
+    { 
+        for(int i=0,s=m_Text.length();i<s;i++) 
+        {
+            IntVector2 pos = calculateUnicodePlanePosition(m_Text.charAt(i));          
+            Vector2 uv = pos.toVector2().multiplyInPlace(1/256f);
+            
+            Debug.log("Char: "+m_Text.charAt(i),"Pos: "+pos,"UV: "+uv);
+            
+        }
+            
+    }
+        
+    private IntVector2 calculateUnicodePlanePosition(final char aWideChar)
+    {
+        IntVector2 rValue = b_IntVector2;
+        
+        try 
+        {
+            // 1. Create a 32bit buffer and dump current UTF-8 character data to it
+            byte[] rawbytes = Character.toString(aWideChar).getBytes("UTF-8");//convert a character to sequence of bytes
+            byte[] byteBuffer = b_32bitBuffer;
+                
+            for (int j=0,t=byteBuffer.length;j<t;j++) //zero it
+                byteBuffer[j] = 0b000_0000;
+                
+            for (int j=0,t=rawbytes.length;j<t;j++) //write data to buffer
+                byteBuffer[j] = rawbytes[j];
+                
+            // 2. Split the buffer into a upper and lower 16bits, convert to int & divide by plane dimensions to get 2d pos in full unicode plane
+            int upper = (((byteBuffer[0] & 0xff) << 8) | (byteBuffer[1] & 0xff))/256;//x
+            int lower = (((byteBuffer[2] & 0xff) << 8) | (byteBuffer[3] & 0xff))/256;//y
+                                
+            rValue.setInPlace(upper, lower);
+        
+        } 
+        catch (UnsupportedEncodingException ex) {Logger.getLogger(TextMesh.class.getName()).log(Level.SEVERE, null, ex);}
+        
+        return rValue;
+        
+    }
     
     //
     //
@@ -30,15 +97,15 @@ public class TextMesh extends GraphicsComponent implements Drawable
     @Override
     protected void initialize() 
     {
-    
+        
     
     }
 
     @Override
     protected void update() 
     {
-    
-    
+        
+        
     }
 
     @Override
@@ -51,7 +118,7 @@ public class TextMesh extends GraphicsComponent implements Drawable
     @Override
     public void draw(WeakReference<Camera> aCamera) 
     {
-        
+                
         
     }
     

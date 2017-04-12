@@ -55,18 +55,12 @@ public class Main
     {
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName("TextMesh");
-        
         gameObject.get().getTransform().get().setRotation(-90,180,0);
         gameObject.get().getTransform().get().setPosition(0,0,0);
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
-    
-        mesh.setText("お早う,What's good,שלום,Здравствуйте,안녕하세요");
-        
-        //mesh.setTexture("_Texture", "Background.png");
-        
-        Debug.log(mesh.getText());
+        mesh.setText("ad1仿今あ");//"お早う,What's good,שלום,Здравствуйте,안녕하세요");
         
     }
     
