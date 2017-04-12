@@ -38,14 +38,14 @@ public class Main
         
         gameObject.get().setName("MainCamera");
         
-        gameObject.get().getTransform().get().setPosition(0,10,0);
+        gameObject.get().getTransform().get().setPosition(-19,10,0);
         gameObject.get().getTransform().get().setRotation(-90,180,0);
         
         Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
         
         camera.setProjectionMode(CameraProjectionMode.Orthographic);
         camera.setFarClippingPlane(15);
-        camera.setOrthoSize(20, 20);
+        camera.setOrthoSize(30, 30);
         
         //camera.setClearColor(new Color(0,0,0,1));
         
@@ -55,12 +55,12 @@ public class Main
     {
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName("TextMesh");
-        gameObject.get().getTransform().get().setRotation(-90,180,0);
+        gameObject.get().getTransform().get().setRotation(90,180,0);
         gameObject.get().getTransform().get().setPosition(0,0,0);
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
-        mesh.setText("ad1仿今あ");//"お早う,What's good,שלום,Здравствуйте,안녕하세요");
+        mesh.setText("お早う,What's good,שלום,Здравствуйте,안녕하세요");
         
     }
     

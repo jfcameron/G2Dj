@@ -425,8 +425,8 @@ public class Mat4x4
     private static Mat4x4 orthographicRH(final Vector2 aSize, final float farClippingDistance, final float aspect,Mat4x4 res) 
     {
         float
-        halfWidth = aSize.x,        
-        halfHeight = aSize.y,
+        halfWidth = aSize.x/2,        
+        halfHeight = aSize.y/2,
         right =halfWidth *aspect, left   =-halfWidth *aspect,
         top   =halfHeight, bottom =-halfHeight, 
         far   =farClippingDistance, near   =-farClippingDistance;
