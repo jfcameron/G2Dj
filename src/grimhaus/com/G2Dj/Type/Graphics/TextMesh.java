@@ -41,6 +41,8 @@ public class TextMesh extends GraphicsComponent implements Drawable
         offsetU = aBasicMultilingualPlaneCoord.x*characterUVSize,
         offsetV = aBasicMultilingualPlaneCoord.y*characterUVSize;
         
+        //Debug.log("Pos: "+aBasicMultilingualPlaneCoord);
+        
         return new float[]
         {
             //                      x,                         y,    z,                         u,    v,
@@ -55,8 +57,6 @@ public class TextMesh extends GraphicsComponent implements Drawable
         };
         
     }
-    
-    
     
     //
     //
@@ -100,10 +100,8 @@ public class TextMesh extends GraphicsComponent implements Drawable
         for(int i=0,s=m_Text.length();i<s;i++) 
         {
             IntVector2 pos = calculateUnicodePlanePosition(m_Text.charAt(i));          
-            
+            //Debug.log("Char: "+m_Text.charAt(i));
             System.arraycopy(generateCharQuad(i,0,pos),0,m_VertexData,i*quadTotalAttributeCount,quadTotalAttributeCount);  
-            
-            Debug.log("Char: "+m_Text.charAt(i),"Pos: "+pos);
             
         }
         
@@ -131,6 +129,8 @@ public class TextMesh extends GraphicsComponent implements Drawable
             int upper = (((byteBuffer[0] & 0xff) << 8) | (byteBuffer[1] & 0xff))/256;//x
             int lower = (((byteBuffer[2] & 0xff) << 8) | (byteBuffer[3] & 0xff))/256;//y
                                 
+            Debug.log(aWideChar+": "+upper,lower);//1 255
+            
             rValue.setInPlace(upper, lower);
         
         } 
@@ -164,26 +164,9 @@ public class TextMesh extends GraphicsComponent implements Drawable
     //
     //
     //
-    @Override
-    protected void initialize() 
-    {
-        
-    
-    }
-
-    @Override
-    protected void update() 
-    {
-        
-        
-    }
-
-    @Override
-    protected void fixedUpdate() 
-    {
-    
-    
-    }
+    @Override protected void initialize(){}
+    @Override protected void update(){}
+    @Override protected void fixedUpdate(){}
     
     @Override
     public void draw(WeakReference<Camera> aCamera) 

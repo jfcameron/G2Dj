@@ -60,7 +60,7 @@ public class Main
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
-        mesh.setText("お早う,What's good,שלום,Здравствуйте,안녕하세요");
+        mesh.setText("！1W'");//("！123お早う,What's good,שלום,Здравствуйте,안녕하세요");
         
     }
     

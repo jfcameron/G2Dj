@@ -12,6 +12,7 @@ import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Graphics.PointVisualizer;
+import grimhaus.com.G2Dj.Type.Graphics.TextMesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
@@ -262,9 +263,24 @@ public class Main
                 gameObject.get().addComponent(TopCamera.class);
 
             }
+            
+            createTextMeshTest(mainScene);
         
         }
 
+    }
+    
+    private static void createTextMeshTest(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("TextMesh");
+        gameObject.get().getTransform().get().setRotation(0,180,0);
+        gameObject.get().getTransform().get().setPosition(-5,0,-5);
+        gameObject.get().getTransform().get().setScale(1,1,1);
+        
+        TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
+        mesh.setText("123！お早う,What's good,שלום,Здравствуйте,안녕하세요");
+        
     }
     
 }
