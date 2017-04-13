@@ -29,7 +29,11 @@ While systems can be added arbitarily to G2Dj, there are a few that are present 
 * 2D and 3D linear algebra
 * 2D & 3D Vectors, Mat4x4s
 
-### Input, Time, Files, Debug.
+### Input
+* Keyboard key pressed, held, released states
+* Touchscreen handler
+
+### Time, Files, Debug.
  
 ## Setup:
 Include JOGL as lib.
