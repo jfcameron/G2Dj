@@ -15,7 +15,7 @@ Run PreprocessorWizard.pl with either define ANDROID or DESKTOP and build the G2
 Include G2Dj as library to your Java project.
 Call Engine.init();
 
-### Creating an example scene:
+### Creating a game:
 ```java
 public static void main(String[] args) 
 {
@@ -29,8 +29,6 @@ public static void main(String[] args)
 
 public static void initMyGame() 
 {
-    Engine.init();
-    
     //Load a texture
     Graphics.loadFromResource("/Resources/Cloud.png");
     Graphics.loadFromResource("/Resources/brick.png");
@@ -70,6 +68,7 @@ public static void initMyGame()
 ```
 ### Creating a custom component
 ```java
+@RequireSceneGraphs({Physics2D.class})
 @RequireComponents({Camera.class,Rigidbody.class,CircleCollider.class})
 public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
 {
