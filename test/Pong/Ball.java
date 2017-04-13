@@ -100,7 +100,7 @@ public class Ball extends Component
         if (name.equals(Constants.Player1Name) || name.equals(Constants.Player2Name))
         {
             //TODO: pos reflect behaviour
-            float diff = (getTransform().get().getPosition().x - info.other.get().getTransform().get().getPosition().x)/(6f);
+            float diff = (getTransform().get().getPosition().x - info.other.get().getTransform().get().getPosition().x)/(5f);
             
             m_Rigidbody.clearForces();
             

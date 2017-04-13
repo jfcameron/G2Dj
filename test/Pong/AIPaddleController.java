@@ -10,6 +10,7 @@ import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.GameObject.Transform;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
+import grimhaus.com.G2Dj.Type.Math.Vector3;
 import grimhaus.com.G2Dj.Type.Physics2D.AxisFreezeMode;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
@@ -31,6 +32,7 @@ public class AIPaddleController extends Component
     private WeakReference<GameObject> m_Graphic = null;
     //buffers
     private final Vector2 b_InputBuffer = Vector2.Zero();
+    private final Vector3 b_GraphicOffset = Vector3.Zero();
     //const
     private static final float s_TranslationSpeed = 1E3f;
     
@@ -52,7 +54,7 @@ public class AIPaddleController extends Component
         m_Graphic = getGameObject().get().getScene().get().addGameObject();
         m_Graphic.get().getTransform().get().setRotation(-90,180,0);
         m_Graphic.get().getTransform().get().setPosition(0,-1,0);
-        m_Graphic.get().getTransform().get().setScale(6.5f,4.5f,1f);
+        m_Graphic.get().getTransform().get().setScale(6.5f,6.5f,1f);
         Mesh mesh = (Mesh)m_Graphic.get().addComponent(Mesh.class);
         mesh.setTexture("_Texture", "Paddle.png");
         
@@ -61,7 +63,10 @@ public class AIPaddleController extends Component
     @Override
     protected void update() 
     {
-        m_Graphic.get().getTransform().get().setPosition(getTransform().get().getPosition());
+        b_GraphicOffset.setInPlace(getTransform().get().getPosition());
+        b_GraphicOffset.addInPlace(0,0,-0.4f);
+        
+        m_Graphic.get().getTransform().get().setPosition(b_GraphicOffset);
         
     }
 

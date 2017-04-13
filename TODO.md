@@ -6,9 +6,11 @@ Graphics
  - TextMesh
    - fix naive Unicode renderer. Anything beyond row 0 generates bad codepoints.
    bug isolated to TextMesh.calculateUnicodePlanePosition(...)
+ - SpriteRenderer
+   - component for drawing cellbased sprite sheets
    
 ???
- - Write TileRenderer2D   
+ - TileRenderer2D   
    - depends on GraphicsSceneGraph, Physics2DSceneGraph
 
 Physics2D
@@ -53,6 +55,8 @@ networking
  - should there be networking components or should networking implementation be entirely up to the end user?
 
 ==================BACKBURNER=====================
+
+
 Graphics
  - TextMesh
    - Add text anchors {(left, right, center),(top, down, center)}
