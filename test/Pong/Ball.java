@@ -12,6 +12,7 @@ import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
+import grimhaus.com.G2Dj.Type.Math.Vector3;
 import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CollisionInfo;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
@@ -34,6 +35,9 @@ public class Ball extends Component
     private WeakReference<GameObject> m_Graphic = null;    
     
     private float m_Speed = 14f;
+    
+    //buffers
+    private Vector3 b_Vector3 = new Vector3();
     
     //
     //
@@ -85,11 +89,24 @@ public class Ball extends Component
 
     @Override protected void fixedUpdate() 
     {
+        //
         m_Rigidbody.normalizeVelocity();
         m_Rigidbody.scaleVelocity(m_Speed);
         
         if (Math.abs(getTransform().get().getPosition().z) > 20)
             resetVolley();
+        
+        //
+        b_Vector3.setInPlace(getTransform().get().getRotation());
+        b_Vector3.x = -90;//(-90,180,0);
+        b_Vector3.z = (float)Time.getCurrentTime()*-100f;
+        
+        if (m_Rigidbody.getVelocity().x < 0)
+            b_Vector3.y = 180;
+        else
+            b_Vector3.y = 0;
+        
+        m_Graphic.get().getTransform().get().setRotation(b_Vector3);
             
     }
     

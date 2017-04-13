@@ -1,12 +1,14 @@
+Graphics
+ - TextMesh
+   - fix naive Unicode renderer. Anything beyond row 0 generates bad codepoints.
+   bug isolated to TextMesh.calculateUnicodePlanePosition(...)
+
 Physics
  - Collider hierarchy
    - m_DrawDebugLines in Collider behaves strangely in SimpleCollider.initialize()
 
 Graphics
- - TextMesh
-   - fix naive Unicode renderer. Anything beyond row 0 generates bad codepoints.
-   bug isolated to TextMesh.calculateUnicodePlanePosition(...)
- - SpriteRenderer
+   - SpriteRenderer
    - component for drawing cellbased sprite sheets
    
 ???
