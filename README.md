@@ -7,7 +7,29 @@
 ## Description:
 Crossplatform game engine in Java & OpenGLES.
 Designed for 2D, low-fi graphics, but is capable of 3D perspective rendering for "2.5D" projects.
+Builds for Mac/Linux/Windows and Android.
 
+Core systems:
+Systems can be added arbitarily to G2Dj but there are a few systems that are guaranteed to be present.
+
+### Graphics
+* 3D Forward Renderer
+* Basic 2D game shaders & programmable shader interface
+* Unicode Text renderer supporting the entire Basic Multilingual Plane 
+* Resource managers for shaders, textures, models
+* Supports OpenGLES 2.0 standard
+
+### Physics2D
+* Rigidbodies, colliders and trigger areas
+* Colliders can be built from rectangles, circles or complex shapes made from sets of vertexes
+* When Rigidbodies collide with colliders or enter trigger areas, OnCollision and OnTigger callbacks on the Rigidbody's Gameobject are invoked
+* Implementation based on [jbox2D](https://github.com/jbox2d/jbox2d)
+
+### Math
+* 2D and 3D linear algebra
+
+### Input, Time, Files, Debug.
+ 
 ## Setup:
 Include JOGL as lib.
 Run PreprocessorWizard.pl with either define ANDROID or DESKTOP and build the G2Dj project.
