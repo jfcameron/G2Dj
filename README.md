@@ -6,7 +6,7 @@
 
 ## Description:
 Crossplatform game engine in Java & OpenGLES.
-Designed for 2D, low-fi graphics, but is capable of perspective rendering for "2.5D" projects. Uses the [JOGL](http://jogamp.org/) project (version 2.3) to access OpenGL.
+Designed for 2D, low-fi graphics, but is capable of 3D perspective rendering for "2.5D" projects.
 Makes use of [PreprocessorWizard.pl](http://www.rtbaileyphd.com/preprocessorwizard/) to split implementation between desktop and mobile code.
 
 ## Setup:
@@ -18,6 +18,16 @@ Call Engine.init();
 ### Creating an example scene:
 ```java
 public static void main(String[] args) 
+{
+    Engine.init(new Game()
+    {
+        @Override public void init(){initMyGame();}
+        
+    });
+    
+}
+
+public static void initMyGame() 
 {
     Engine.init();
     
@@ -55,8 +65,6 @@ public static void main(String[] args)
         theCamera.get().addComponent(Camera.class);
                 
     }
-    
-    Engine.update();
     
 }
 ```
