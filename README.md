@@ -10,7 +10,7 @@ Designed for 2D, low-fi graphics, but is capable of 3D perspective rendering for
 Builds for Mac/Linux/Windows and Android.
 
 Games are programmed against an Entity Component System, the components used by the game depend on a set of engine systems.
-While systems can be added arbitarily to G2Dj, there are a few that are guaranteed to be present:
+While systems can be added arbitarily to G2Dj, there are a few that are present out of the box:
 
 ### Graphics
 * 3D Forward Renderer
