@@ -21,12 +21,13 @@ While systems can be added arbitarily to G2Dj, there are a few that are present 
 
 ### Physics2D
 * Rigidbodies, colliders and trigger areas
-* Colliders can be built from rectangles, circles or complex shapes made from sets of vertexes
+* Colliders can be built from rectangles, circles or complex shapes made from sets of vertexes or primitives
 * When Rigidbodies collide with colliders or enter trigger areas, OnCollision and OnTigger callbacks on the Rigidbody's Gameobject are invoked
 * Implementation based on [jbox2D](https://github.com/jbox2d/jbox2d)
 
 ### Math
 * 2D and 3D linear algebra
+* 2D & 3D Vectors, Mat4x4s
 
 ### Input, Time, Files, Debug.
  
@@ -174,4 +175,4 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
 ## Tools used:
 * The desktop branch is setup for Netbeans
 * The mobile branch is setup for Android Studio
-* [PreprocessorWizard.pl](http://www.rtbaileyphd.com/preprocessorwizard/) used as a code preprocessor to share code between desktop and mobile
+* [PreprocessorWizard.pl](http://www.rtbaileyphd.com/preprocessorwizard/) used to share code between desktop and mobile
