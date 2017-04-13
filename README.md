@@ -9,8 +9,8 @@ Crossplatform game engine in Java & OpenGLES.
 Designed for 2D, low-fi graphics, but is capable of 3D perspective rendering for "2.5D" projects.
 Builds for Mac/Linux/Windows and Android.
 
-Core systems:
-Systems can be added arbitarily to G2Dj but there are a few systems that are guaranteed to be present.
+The game is programmed against an Entity Component System, the components used depend on an arbitrary set of systems.
+While systems can be added arbitarily to G2Dj, there are a few that are guaranteed to be present:
 
 ### Graphics
 * 3D Forward Renderer
