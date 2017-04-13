@@ -47,7 +47,7 @@ Run PreprocessorWizard.pl with #define ANDROID and build the G2Dj project.
 Games are written against an ECS. The ECS is comprised of 3 basic class types: Scene, GameObject, Component.
 Scenes define a 3D space with a customizable set of capabilities (rendering, physics, etc.). A game can be made of any number of scenes and can be run concurrently.
 GameObjects have a set of Components.
-Components define behaviours for their parent Gameobjects.
+Components define behaviours for their parent GameObjects.
 ```java
 public static void main(String[] args) 
 {
