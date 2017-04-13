@@ -2,14 +2,15 @@ precision mediump float;
 //*************************
 // FragmentIn vertex format
 //*************************
-varying  vec2 v_UV;
-//varying  vec3 v_Normal ;
+varying vec2 v_UV;
 
 //*********
 // Uniforms
 //*********
-//uniform  vec4 _Color;
 uniform sampler2D _Texture;
+
+uniform vec2 _UVScale;
+uniform vec2 _UVOffset;
 
 //**********
 // Constants
@@ -46,9 +47,17 @@ vec4 calculateTexelColor(const vec4 aFrag)
 {
     vec4 rvalue = aFrag;
     {
-        rvalue = texture2D(_Texture, v_UV);
-        //rvalue = vec4(1.0,0.0,0.0,1.0);
-        
+        vec2 uvScale = _UVScale;
+
+        if (_UVScale.x == 0.0 && _UVScale.y == 0.0)
+            uvScale = vec2(1.0);
+
+        vec2 uvOffset = _UVOffset;
+
+        vec2 uv = (v_UV*uvScale) + uvOffset;
+
+        rvalue = texture2D(_Texture, uv);
+                
     }
     
     return rvalue;      

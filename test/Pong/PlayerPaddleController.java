@@ -57,16 +57,10 @@ public class PlayerPaddleController extends Component
         b_InputBuffer.zero();
         
         if (Input.getKey(KeyCode.A))
-            b_InputBuffer.x += 1;
-        
-        if (Input.getKey(KeyCode.D))
             b_InputBuffer.x -= 1;
         
-        if (Input.getKey(KeyCode.W))
-            b_InputBuffer.y += 1;
-        
-        if (Input.getKey(KeyCode.S))
-            b_InputBuffer.y -= 1;
+        if (Input.getKey(KeyCode.D))
+            b_InputBuffer.x += 1;
        
         b_InputBuffer.multiplyInPlace(s_TranslationSpeed);
         b_InputBuffer.multiplyInPlace((float)Time.getDeltaTime());

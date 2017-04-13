@@ -72,6 +72,36 @@ public class GL
         
     }
     
+    public static void glUniform2f(final int aUniformHandle, final float aX, final float aY)
+    {
+        //.if DESKTOP
+        gl.glUniform2f(aUniformHandle, aX, aY);
+        //.elseif ANDROID
+        //|GLES20.glUniform2f(aUniformHandle, aX, aY);
+        //.endif
+        
+    }
+    
+    public static void glUniform3f(final int aUniformHandle, final float aX, final float aY, final float aZ)
+    {
+        //.if DESKTOP
+        gl.glUniform3f(aUniformHandle, aX, aY, aZ);
+        //.elseif ANDROID
+        //|GLES20.glUniform3f(aUniformHandle, aX, aY, aZ);
+        //.endif
+        
+    }
+    
+    public static void glUniform4f(final int aUniformHandle, final float aX, final float aY, final float aZ, final float aW)
+    {
+        //.if DESKTOP
+        gl.glUniform4f(aUniformHandle, aX, aY, aZ, aW);
+        //.elseif ANDROID
+        //|GLES20.glUniform4f(aUniformHandle, aX, aY, aZ, aW);
+        //.endif
+        
+    }
+    
     public static void glUniformMatrix4fv(final int aUniformHandle, final int aCount, final Boolean aTranspose, FloatBuffer aData  )
     {
         //.if DESKTOP

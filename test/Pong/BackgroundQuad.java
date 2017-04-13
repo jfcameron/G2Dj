@@ -4,52 +4,46 @@
  */
 package Pong;
 
-import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
+import grimhaus.com.G2Dj.Debug;
+import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
-import grimhaus.com.G2Dj.Type.Graphics.TextMesh;
+import grimhaus.com.G2Dj.Type.Graphics.Mesh;
+import grimhaus.com.G2Dj.Type.Math.Vector2;
 import java.lang.ref.WeakReference;
 
 /**
  *
  * @author Joseph Cameron
  */
-@RequireComponents({TextMesh.class})
-public class ScoreCounter extends Component 
+public class BackgroundQuad extends Component
 {
-    //
-    //
-    //
-    private TextMesh m_TextMesh = null;
-    
-    private int m_Value = 0;
-    
-    //
-    //
-    //
-    public int getScore(){return m_Value;}
-    public void incrementScore(){m_TextMesh.setText(Integer.toString(++m_Value));}
-    
-    //
-    //
-    //
+    private Mesh m_Mesh = null;
+    private final Vector2 m_UVOffset = new Vector2();
+
     @Override protected void initialize() 
     {
-        m_TextMesh = (TextMesh)getGameObject().get().getComponent(TextMesh.class);
-        m_TextMesh.setText("0");
+        m_Mesh = (Mesh)getGameObject().get().getComponent(Mesh.class);
     
     }
 
-    @Override protected void update(){}
+    @Override protected void update() 
+    {
+        m_UVOffset.x = -1.0f*(float)Time.getCurrentTime();
+        m_UVOffset.y =  1.0f*(float)Time.getCurrentTime();
+        
+        m_Mesh.setVector2("_UVOffset", m_UVOffset);
     
+    }
+
     @Override protected void fixedUpdate() {}
-    
-    //
-    //
-    //
+
     @Override protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
+
     @Override protected void OnRemovedFromGameObject() {}
+
     @Override protected void OnComponentAdded(Component aComponent) {}
+
     @Override protected void OnComponentRemoved(Component aComponent) {}
     
 }

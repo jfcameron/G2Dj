@@ -269,6 +269,7 @@ public class GameObject
     public void scale    (final Vector3    aScale      ){m_Scale.addInPlace(aScale);}
     public void scale    (final float      aScalar     ){m_Scale.multiply(aScalar);}
     public void rotate   (final Vector3    aEulers     ){m_Rotation.addInPlace(aEulers.multiply((float)PI/180));}
+    public void rotate   (float aX, float aY, float aZ){m_Rotation.addInPlace(aX*((float)PI/180),aY*((float)PI/180),aZ*((float)PI/180));}
     public void rotate   (final Quaternion aRotation   ){throw new java.lang.UnsupportedOperationException("Not supported yet.");}
     
     //

@@ -24,7 +24,7 @@ public class GUIController extends Component
     @Override
     protected void initialize() 
     {
-        m_GameScene = Engine.getScene("Main");
+        m_GameScene = Engine.getScene(Constants.MainSceneName);
         
     }
 

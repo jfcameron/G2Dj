@@ -41,12 +41,39 @@ public class Uniforms
         
     }
     
-    public static final void load1Foat(final int aShaderHandle, final String aUniformName, final float aValue)
+    public static final void load1Float(final int aShaderHandle, final String aUniformName, final float aValue)
     {
 	int uniformHandle = GL.glGetUniformLocation(aShaderHandle, aUniformName);
 
 	if (uniformHandle != -1)
 		GL.glUniform1f(uniformHandle, aValue);
+
+    }
+    
+    public static final void load2Float(final int aShaderHandle, final String aUniformName, final float aX, final float aY)
+    {
+	int uniformHandle = GL.glGetUniformLocation(aShaderHandle, aUniformName);
+
+	if (uniformHandle != -1)
+            GL.glUniform2f(uniformHandle, aX, aY);
+
+    }
+    
+    public static final void load3Float(final int aShaderHandle, final String aUniformName, final float aX, final float aY, final float aZ)
+    {
+	int uniformHandle = GL.glGetUniformLocation(aShaderHandle, aUniformName);
+
+	if (uniformHandle != -1)
+            GL.glUniform3f(uniformHandle, aX, aY, aZ);
+
+    }
+    
+    public static final void load4Float(final int aShaderHandle, final String aUniformName, final float aX, final float aY, final float aZ, final float aW)
+    {
+	int uniformHandle = GL.glGetUniformLocation(aShaderHandle, aUniformName);
+
+	if (uniformHandle != -1)
+            GL.glUniform4f(uniformHandle, aX, aY, aZ, aW);
 
     }
     

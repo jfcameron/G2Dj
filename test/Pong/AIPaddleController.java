@@ -47,7 +47,7 @@ public class AIPaddleController extends Component
         m_Rigidbody.setFrozenRotation(true);
         m_Rigidbody.freezeAxis(AxisFreezeMode.X);
         
-        m_Ball = getGameObject().get().getScene().get().getGameObject("Ball").get().getTransform();
+        m_Ball = getGameObject().get().getScene().get().getGameObject(Constants.BallName).get().getTransform();
         
     }
 

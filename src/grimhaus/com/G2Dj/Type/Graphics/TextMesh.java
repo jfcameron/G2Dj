@@ -214,7 +214,7 @@ public class TextMesh extends GraphicsComponent implements Drawable
     //
     public TextMesh()
     {
-        m_Textures.put("_Texture", Graphics.getTexture("FullUnicodePlaneTest.png"));
+        m_Textures.put("_Texture",Graphics.getTexture("FullUnicodePlaneTest.png"));
         
         m_ShaderProgram = Graphics.getShaderProgram("AlphaCutOff");
         m_Model = new Model
