@@ -37,11 +37,11 @@ While systems can be added arbitarily to G2Dj, there are a few that are present 
  
 ## Building the engine:
 ### Desktop
-Include JOGL as lib. Choose the correct JOGL package for the desired platform (Win32, Win64, Mac, Linux)
-Run PreprocessorWizard.pl with #define DESKTOP and build the G2Dj project.
+* Include JOGL as lib. Choose the correct JOGL package for the desired platform (Win32, Win64, Mac, Linux).
+* Run PreprocessorWizard.pl with #define DESKTOP and build the G2Dj project.
 
 ### Mobile
-Run PreprocessorWizard.pl with #define ANDROID and build the G2Dj project.
+* Run PreprocessorWizard.pl with #define ANDROID and build the G2Dj project.
 
 ## Creating a game:
 Games are written against an ECS. The ECS is comprised of 3 basic class types: Scene, GameObject, Component.
