@@ -35,8 +35,8 @@ While systems can be added arbitarily to G2Dj, there are a few that are present 
 
 ### Time, Files, Debug.
  
-## Setup:
-Setup varies slightly depending on the target platform you want to build the engine for.
+## Building the engine:
+Building varies slightly depending on the target platform you want to build the engine for.
 
 ### Desktop
 Include JOGL as lib. Choose the correct JOGL package for the desired platform (Win32, Win64, Mac, Linux)
@@ -45,10 +45,7 @@ Run PreprocessorWizard.pl with #define DESKTOP and build the G2Dj project.
 ### Mobile
 Run PreprocessorWizard.pl with #define ANDROID and build the G2Dj project.
 
-Include G2Dj as library to your Java project.
-Call Engine.init();
-
-### Creating a game:
+## Creating a game:
 ```java
 public static void main(String[] args) 
 {
