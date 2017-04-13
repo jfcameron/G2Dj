@@ -12,6 +12,7 @@ import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import grimhaus.com.G2Dj.Type.Physics2D.AxisFreezeMode;
@@ -30,6 +31,7 @@ public class PlayerPaddleController extends Component
     //
     //
     private Rigidbody m_Rigidbody = null;
+    private WeakReference<GameObject> m_Graphic = null;
     //buffers
     private final Vector2 b_InputBuffer = Vector2.Zero();
     //const
@@ -47,6 +49,15 @@ public class PlayerPaddleController extends Component
         
         BoxCollider cc = (BoxCollider)getGameObject().get().getComponent(BoxCollider.class);
         cc.setRestitution(0.0f);
+        cc.setDrawDebugLines(true);
+        
+        //Init graphic
+        m_Graphic = getGameObject().get().getScene().get().addGameObject();
+        m_Graphic.get().getTransform().get().setRotation(-90,180,0);
+        m_Graphic.get().getTransform().get().setPosition(0,-1,0);
+        m_Graphic.get().getTransform().get().setScale(6.5f,4.5f,1f);
+        Mesh mesh = (Mesh)m_Graphic.get().addComponent(Mesh.class);
+        mesh.setTexture("_Texture", "Paddle.png");
         
         
     }
@@ -66,6 +77,8 @@ public class PlayerPaddleController extends Component
         b_InputBuffer.multiplyInPlace((float)Time.getDeltaTime());
 
         m_Rigidbody.applyForce(b_InputBuffer.x,b_InputBuffer.y);
+        
+        m_Graphic.get().getTransform().get().setPosition(getTransform().get().getPosition());
                 
     }
 

@@ -3,6 +3,7 @@
  * Written by Joseph Cameron
  */
 package grimhaus.com.G2Dj.Imp.Physics2D;
+
 import grimhaus.com.G2Dj.Imp.Engine.RequireSceneGraphs;
 import grimhaus.com.G2Dj.Type.Physics2D.Physics2DScene;
 

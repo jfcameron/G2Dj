@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Imp.Physics2D;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
 import java.lang.ref.WeakReference;
@@ -41,13 +42,18 @@ public abstract class SimpleCollider<T extends Shape> extends Collider
     //
     // Collider interface
     //
-    @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) 
+    @Override protected void initialize()
     {
-        super.OnAddedToGameObject(aGameObject);
-        m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
+        super.initialize();
         
+        Debug.log("SIMPLE.initialize: "+getDrawDebugLines());
+        
+        if (getDrawDebugLines())
+            m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
+
+            
     }
+
     public SimpleCollider(final T aShape)
     {
         m_Shape = aShape;

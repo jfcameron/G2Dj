@@ -52,6 +52,7 @@ public class CompositeCollider extends Collider
         }
         
         //Init/Reinit Visualizers
+        if (getDrawDebugLines())
         {
             //destroy visualizers
             if (m_LineVisualizers!=null)
@@ -82,8 +83,16 @@ public class CompositeCollider extends Collider
         if (m_VertexArrays != null)
             for(int i=0,s=m_VertexArrays.length;i<s;i++)
                 if (m_VertexArrays[i] != null)
-                    buildAFixture(m_VertexArrays[i],m_LineVisualizers[i],m_FixtureDefinitions[i]);        
+                {
+                    LineVisualizer currentVisualizer = null;
+                    
+                    if (m_LineVisualizers != null && i < m_LineVisualizers.length)
+                        currentVisualizer = m_LineVisualizers[i];
+                    
+                    buildAFixture(m_VertexArrays[i],currentVisualizer,m_FixtureDefinitions[i]);        
         
+                }
+                    
     }
     
     //
@@ -147,7 +156,9 @@ public class CompositeCollider extends Collider
         visualVerts[visualVerts.length-2] = 0.0f; 
         visualVerts[visualVerts.length-1] = b2verts[0].y/scale.z;
                 
-        m_LineVisualizer.setVertexData(visualVerts);
+        if (m_LineVisualizer != null)
+            m_LineVisualizer.setVertexData(visualVerts);
+        
         m_FixtureDefinition.density = 1;
         
     }

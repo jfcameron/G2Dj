@@ -23,9 +23,7 @@ public abstract class Collider extends Physics2DComponent
     //*************
     protected final Vector2 m_Offset = new Vector2();
     private boolean m_RebuildShape = false;
-    
-    //private float m_Restitution = 0;
-    
+    private boolean m_DrawDebugLines = false;
     //buffers
     protected Vector3 b_ScaleBuffer;
     protected final Vec2 b_Vec2Buffer = new Vec2();
@@ -33,8 +31,11 @@ public abstract class Collider extends Physics2DComponent
     //**********
     // Accessors
     //**********
+    public void setDrawDebugLines(final boolean aBoolean){m_DrawDebugLines=aBoolean;}
     public void setOffset(final float aX, final float aY){m_Offset.setInPlace(aX, aY);requestShapeRebuildOnNextTick();}
     protected void requestShapeRebuildOnNextTick(){m_RebuildShape = true;}
+    
+    public boolean getDrawDebugLines(){return m_DrawDebugLines;}
     
     //*******************
     // Collider interface
@@ -75,6 +76,12 @@ public abstract class Collider extends Physics2DComponent
     //********************
     // Component interface
     //********************
+    @Override protected void initialize()
+    {
+        requestShapeRebuildOnNextTick();
+    
+    }
+    
     @Override
     public void update() 
     {
@@ -89,22 +96,11 @@ public abstract class Collider extends Physics2DComponent
             
     }
     
-    @Override
-    public void fixedUpdate() {}
+    @Override public void fixedUpdate() {}
     
-    @Override
-    protected void initialize(){requestShapeRebuildOnNextTick();}
-    
-    @Override
-    protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject){requestShapeRebuildOnNextTick();}
-
-    @Override 
-    protected void OnRemovedFromGameObject() {}
-
-    @Override 
-    protected void OnComponentAdded(Component aComponent) {}
-
-    @Override 
-    protected void OnComponentRemoved(Component aComponent) {}
+    @Override protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject){requestShapeRebuildOnNextTick();}
+    @Override protected void OnRemovedFromGameObject() {}
+    @Override protected void OnComponentAdded(Component aComponent) {}
+    @Override protected void OnComponentRemoved(Component aComponent) {}
     
 }

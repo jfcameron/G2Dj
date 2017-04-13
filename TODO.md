@@ -1,11 +1,15 @@
+Physics
+ - Collider hierarchy
+   - m_DrawDebugLines in Collider behaves strangely in SimpleCollider.initialize()
+
 Graphics
  - TextMesh
    - fix naive Unicode renderer. Anything beyond row 0 generates bad codepoints.
    bug isolated to TextMesh.calculateUnicodePlanePosition(...)
-   - Add text anchors {(left, right, center),(top, down, center)}
-   - Split BML Plane texture into [16^2] array of textures.
-        - allows opt in and out of character support (looking at you 漢字)
-        - allows variable font resolutions across language domains
+   
+???
+ - Write TileRenderer2D   
+   - depends on GraphicsSceneGraph, Physics2DSceneGraph
 
 Physics2D
  - OnCollisionStay(Collision collisionInfo)
@@ -49,6 +53,13 @@ networking
  - should there be networking components or should networking implementation be entirely up to the end user?
 
 ==================BACKBURNER=====================
+Graphics
+ - TextMesh
+   - Add text anchors {(left, right, center),(top, down, center)}
+   - Split BML Plane texture into [16^2] array of textures.
+        - allows opt in and out of character support (looking at you 漢字)
+        - allows variable font resolutions across language domains
+
 Pool shortlived and frequently used objects (Mat4x4 & Vec2/3 looking at you).
 Make the android engine present an identical public interface as the desktop one.
 

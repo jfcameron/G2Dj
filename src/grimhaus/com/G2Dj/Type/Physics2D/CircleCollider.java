@@ -29,7 +29,9 @@ public class CircleCollider extends SimpleCollider<CircleShape>
         
         m_Shape.m_p.set(m_Offset.x*scale,m_Offset.y*scale);
         
-        m_LineVisualizer.setVertexData(LineVisualizer.lineCircle((m_Offset.x*scale)/scale,(m_Offset.y*scale)/scale,1));
+        if (m_LineVisualizer != null)
+            m_LineVisualizer.setVertexData(LineVisualizer.lineCircle((m_Offset.x*scale)/scale,(m_Offset.y*scale)/scale,1));
+        
         m_FixtureDefinition.density = 1;
                 
     }

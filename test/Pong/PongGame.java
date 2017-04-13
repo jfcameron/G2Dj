@@ -4,6 +4,7 @@
  */
 package Pong;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
@@ -32,10 +33,11 @@ public class PongGame
     public static void main(String[] args){Engine.init(new Game(){@Override public void init(){PongGame.init();}});}
     
     private static void init()
-    {
+    {        
         createBackgroundScene();
         createGameScene();
         createGUIScene();
+    
     }
     
     //
@@ -47,12 +49,15 @@ public class PongGame
         
         createBackgroundCamera(scene);
         createBackgroundQuad(scene);
+        createGameBackgroundPicture(scene);
         
         
     }
     
     private static void createGameScene()
     {
+        Graphics.loadFromResource("Pong/Paddle.png");
+        
         WeakReference<Scene> scene = Engine.createScene(Constants.MainSceneName);
         
         createMainCamera(scene);
@@ -163,6 +168,20 @@ public class PongGame
         
     }
     
+    private static void createGameBackgroundPicture(final WeakReference<Scene> aScene)
+    {
+        Graphics.loadFromResource("Pong/BackgroundHills.png");
+        
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().getTransform().get().setRotation(-90,0,180);
+        gameObject.get().getTransform().get().setPosition(0,-1,-0.1f);
+        gameObject.get().getTransform().get().setScale(20,20,0);
+        
+        Mesh mesh = (Mesh)gameObject.get().addComponent(Mesh.class);
+        mesh.setTexture("_Texture", "BackgroundHills.png");
+        
+    }
+    
     private static void createBackgroundQuad(final WeakReference<Scene> aScene)
     {
         Graphics.loadFromResource("Pong/Background.png");
@@ -233,6 +252,8 @@ public class PongGame
                 
             });
             compositeCollider.setRestitution(1.0f);
+            Debug.log("SETTING DEBUGLINES");
+            compositeCollider.setDrawDebugLines(true);
             
             Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
             rb.setType(BodyType.Static);
@@ -247,7 +268,7 @@ public class PongGame
             
             WeakReference<GameObject> gameObject = aScene.get().addGameObject();
             gameObject.get().getTransform().get().setRotation(-90,180,0);
-            gameObject.get().getTransform().get().setScale(37,37f,1);
+            gameObject.get().getTransform().get().setScale(37,38f,1);
             gameObject.get().getTransform().get().setPosition(-20.5f,-1f,0);
         
             Mesh mesh = (Mesh)gameObject.get().addComponent(Mesh.class);
@@ -261,7 +282,7 @@ public class PongGame
             
             WeakReference<GameObject> gameObject = aScene.get().addGameObject();
             gameObject.get().getTransform().get().setRotation(-90,180,0);
-            gameObject.get().getTransform().get().setScale(37,37f,1);
+            gameObject.get().getTransform().get().setScale(37,38f,1);
             gameObject.get().getTransform().get().setPosition(+21f,-1f,0);
         
             Mesh mesh = (Mesh)gameObject.get().addComponent(Mesh.class);
