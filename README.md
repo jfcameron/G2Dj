@@ -7,7 +7,6 @@
 ## Description:
 Crossplatform game engine in Java & OpenGLES.
 Designed for 2D, low-fi graphics, but is capable of 3D perspective rendering for "2.5D" projects.
-Makes use of [PreprocessorWizard.pl](http://www.rtbaileyphd.com/preprocessorwizard/) to split implementation between desktop and mobile code.
 
 ## Setup:
 Include JOGL as lib.
@@ -145,3 +144,8 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
 * [JOGL](http://jogamp.org/)
 * [GLM](https://github.com/java-graphics/glm)
 * [jbox2D](https://github.com/jbox2d/jbox2d)
+
+## Tools used:
+* The desktop branch is setup for Netbeans
+* The mobile branch is setup for Android Studio
+* [PreprocessorWizard.pl](http://www.rtbaileyphd.com/preprocessorwizard/) used as a code preprocessor to share code between desktop and mobile
