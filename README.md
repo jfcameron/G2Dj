@@ -9,7 +9,7 @@ Crossplatform game engine in Java & OpenGLES.
 Designed for 2D, low-fi graphics, but is capable of 3D perspective rendering for "2.5D" projects.
 Builds for Mac/Linux/Windows and Android.
 
-The game is programmed against an Entity Component System, the components used depend on an arbitrary set of systems.
+Games are programmed against an Entity Component System, the components used by the game depend on a set of engine systems.
 While systems can be added arbitarily to G2Dj, there are a few that are guaranteed to be present:
 
 ### Graphics
@@ -89,8 +89,12 @@ public static void initMyGame()
 ```
 ### Creating a custom component
 ```java
-@RequireSceneGraphs({Physics2DSceneGraph.class}) //My scene must have 2D physics
-@RequireComponents({Camera.class,Rigidbody.class,CircleCollider.class}) //My gameobject must have a rigidbody and collider
+//Require that this GameObject's scene have 2D physics capability
+@RequireSceneGraphs({Physics2DSceneGraph.class}) 
+
+//Require that this GameObject have a rigidbody and a collider
+@RequireComponents({Camera.class,Rigidbody.class,CircleCollider.class}) 
+
 public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
 {
     private static final float s_Speed = 0.1f; 
