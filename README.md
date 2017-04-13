@@ -177,6 +177,6 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
 * [jbox2D](https://github.com/jbox2d/jbox2d)
 
 ## Tools used:
-* The desktop branch is setup for Netbeans
-* The mobile branch is setup for Android Studio
-* [PreprocessorWizard.pl](http://www.rtbaileyphd.com/preprocessorwizard/) used to share code between desktop and mobile
+* The desktop branch is setup for [Netbeans](https://netbeans.org/)
+* The mobile branch is setup for [Android Studio](https://developer.android.com/studio/index.html?gclid=Cj0KEQjww7zHBRCToPSj_c_WjZIBEiQAj8il5EmbhevnYcRaWG-OkJNcStUiwWozWMhyd1vzX7e8ZK8aAub18P8HAQ)
+* [PreprocessorWizard.pl](http://www.rtbaileyphd.com/preprocessorwizard/) is used as a code preprocessor to comment out desktop and mobile specific implementation
