@@ -68,8 +68,8 @@ public static void initMyGame()
 ```
 ### Creating a custom component
 ```java
-@RequireSceneGraphs({Physics2D.class})
-@RequireComponents({Camera.class,Rigidbody.class,CircleCollider.class})
+@RequireSceneGraphs({Physics2DSceneGraph.class}) //My scene must have 2D physics
+@RequireComponents({Camera.class,Rigidbody.class,CircleCollider.class}) //My gameobject must have a rigidbody and collider
 public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
 {
     private static final float s_Speed = 0.1f; 
