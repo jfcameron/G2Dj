@@ -51,6 +51,7 @@ Components define behaviours for their parent Gameobjects.
 ```java
 public static void main(String[] args) 
 {
+    //Engine entry point
     Engine.init(new Game()
     {
         @Override public void init(){initMyGame();}
@@ -61,7 +62,7 @@ public static void main(String[] args)
 
 public static void initMyGame() 
 {
-    //Load a texture
+    //Load some textures
     Graphics.loadFromResource("/Resources/Cloud.png");
     Graphics.loadFromResource("/Resources/brick.png");
     
@@ -75,8 +76,6 @@ public static void initMyGame()
     
         Mesh aMesh = (Mesh)aGameObject.get().addComponent(Mesh.class); //add a mesh
         aMesh.setTexture("_Texture", "awesome.png"); //give the mesh a texture
-        
-        //aGameObject.get().removeComponent(Mesh.class);
         
         PlayerController aPC = (PlayerController)aGameObject.get().addComponent(PlayerController.class);
         aPC.getTransform().get().setRotation(new Vector3(0,0,45));
