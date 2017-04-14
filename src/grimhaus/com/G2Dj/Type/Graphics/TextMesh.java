@@ -8,18 +8,21 @@ import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.GL;
 import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
+import grimhaus.com.G2Dj.Imp.Graphics.HorizontalTextAlignment;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Imp.Graphics.ModelType;
 import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
 import grimhaus.com.G2Dj.Imp.Graphics.TextureUniformCollection;
 import grimhaus.com.G2Dj.Imp.Graphics.Uniforms;
 import grimhaus.com.G2Dj.Imp.Graphics.VertexFormat;
+import grimhaus.com.G2Dj.Imp.Graphics.VerticalTextAlignment;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.IntVector2;
 import grimhaus.com.G2Dj.Type.Math.Mat4x4;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
+import static grimhaus.com.G2Dj.Type.Math.Vector3.Left;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.util.logging.Level;
@@ -34,6 +37,13 @@ public class TextMesh extends GraphicsComponent implements Drawable
     private static final float size = 1.0f;
     private static final int quadTotalAttributeCount = 30;
     private static final float characterUVSize = 0.00390625f;//16px/1char
+    private final Vector2 m_TextOffset = Vector2.Zero();
+    
+    private HorizontalTextAlignment m_HorizontalTextAlignment = HorizontalTextAlignment.Left;
+    private VerticalTextAlignment   m_VerticalTextAlignment   = VerticalTextAlignment.Top;
+    
+    public void setHorizontalTextAlignment(final HorizontalTextAlignment aHorizontalTextAlignment){m_HorizontalTextAlignment=aHorizontalTextAlignment;}
+    public void setVerticalTextAlignment(final VerticalTextAlignment aVerticalTextAlignment){m_VerticalTextAlignment=aVerticalTextAlignment;}
     
     private float[] generateCharQuad(final float aOffsetX, final float aOffsetY, final IntVector2 aBasicMultilingualPlaneCoord)
     {
@@ -73,6 +83,7 @@ public class TextMesh extends GraphicsComponent implements Drawable
     
     private final Mat4x4 b_ModelMatrixBuffer = new Mat4x4();//reduce heap abuse in getModelMatrix()
     private final Mat4x4 b_MVPMatrixBuffer   = new Mat4x4();
+    private final Vector3 b_PositionBuffer = new Vector3();
     
     //
     //
@@ -95,16 +106,68 @@ public class TextMesh extends GraphicsComponent implements Drawable
     //
     private void updateVertexData()
     { 
-        m_VertexData = new float[quadTotalAttributeCount*m_Text.length()];//quad for each string
+        m_VertexData = new float[quadTotalAttributeCount*m_Text.length()];//quad for each string        
         
+        m_TextOffset.zero();
+        
+        float maxX = 0, maxY = 0, x = 0,y = 0;
         for(int i=0,s=m_Text.length();i<s;i++) 
         {
-            IntVector2 pos = calculateUnicodePlanePosition(m_Text.charAt(i));          
-            //Debug.log("Char: "+m_Text.charAt(i));
-            System.arraycopy(generateCharQuad(i,0,pos),0,m_VertexData,i*quadTotalAttributeCount,quadTotalAttributeCount);  
+            if (m_Text.charAt(i) == '\n' || m_Text.charAt(i) == '\r')
+            {
+                x=0;
+                y--;
+                
+                if (y<maxY)
+                    maxY=y;
+                
+            }
+            else
+            {
+                IntVector2 pos = calculateUnicodePlanePosition(m_Text.charAt(i));             
+                System.arraycopy(generateCharQuad(x,y,pos),0,m_VertexData,i*quadTotalAttributeCount,quadTotalAttributeCount);
+                
+                x++;
+                
+                if (x>maxX)
+                    maxX=x;
+                
+            }
             
         }
         
+        switch(m_HorizontalTextAlignment)
+        {
+            case Center: 
+            m_TextOffset.x = maxX/2; 
+            break;
+            
+            case Right:  
+            m_TextOffset.x = maxX; 
+            break;
+            
+            default:
+            case Left:    
+            break;
+            
+        }
+        
+        switch(m_VerticalTextAlignment)
+        {
+            case Center: 
+            m_TextOffset.y = maxY/2; 
+            break;
+            
+            case Bottom:  
+            m_TextOffset.y = maxY; 
+            break;
+            
+            default:
+            case Top:    
+            break;
+            
+        }
+                
         m_Model.updateVertexData(m_VertexData);
             
     }
@@ -112,8 +175,10 @@ public class TextMesh extends GraphicsComponent implements Drawable
     private IntVector2 calculateUnicodePlanePosition(final char aWideChar)
     {
         int codePoint = (int)aWideChar; //get the unicode codepoint (one dimensional)
-        int lower = codePoint/256; //y
-        int upper = codePoint - (lower*256); //x
+        
+        //I treat the BML plane as a 256*256 character sheet so the 1d code must be converted to 2d
+        int lower = codePoint/256; //extract y component
+        int upper = codePoint - (lower*256); //extract x component
         
         return b_IntVector2.setInPlace(upper, lower);
         
@@ -121,9 +186,13 @@ public class TextMesh extends GraphicsComponent implements Drawable
     
     public Mat4x4 getModelMatrix()
     {
-        Vector3 position = getTransform().get().getPosition();
+        Vector3 position = b_PositionBuffer.setInPlace(getTransform().get().getPosition());
         Vector3 scale    = getTransform().get().getScale   ();
         Vector3 eulers   = getTransform().get().getEulers  ();
+        
+        //Apply offset for anchoring etc.
+        position.x += m_TextOffset.x;
+        position.z += m_TextOffset.y;
         
         b_ModelMatrixBuffer.identityInPlace();//Mat4x4 m = Mat4x4.identity();
         

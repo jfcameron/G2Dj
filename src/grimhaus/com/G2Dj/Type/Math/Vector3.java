@@ -29,7 +29,7 @@ public class Vector3
     //********************************
     //State mutating vector operations
     //********************************
-    public void setInPlace     (final Vector3 aVector3){setInPlace(aVector3.x,aVector3.y,aVector3.z);}
+    public Vector3 setInPlace     (final Vector3 aVector3){setInPlace(aVector3.x,aVector3.y,aVector3.z);return this;}
     public void setInPlace     (final float aX, final float aY, final float aZ){x=aX;y=aY;z=aZ;}
     public void addInPlace     (final Vector3 aVector){x+=aVector.x;y+=aVector.y;z+=aVector.z;}
     public void addInPlace     (final float aX, final float aY, final float aZ){x+=aX;y+=aY;z+=aZ;}

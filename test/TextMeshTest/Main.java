@@ -8,6 +8,8 @@ import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
 import grimhaus.com.G2Dj.Imp.Graphics.Color;
+import grimhaus.com.G2Dj.Imp.Graphics.HorizontalTextAlignment;
+import grimhaus.com.G2Dj.Imp.Graphics.VerticalTextAlignment;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
@@ -29,6 +31,7 @@ public class Main
         WeakReference<Scene> scene = Engine.createScene("Main");
         createTestCamera(scene);
         createTextMeshTest(scene);
+        createTextMeshTest2(scene);
         
     }
     
@@ -38,7 +41,7 @@ public class Main
         
         gameObject.get().setName("MainCamera");
         
-        gameObject.get().getTransform().get().setPosition(-19,10,0);
+        gameObject.get().getTransform().get().setPosition(0,10,0);
         gameObject.get().getTransform().get().setRotation(-90,180,0);
         
         Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
@@ -60,7 +63,26 @@ public class Main
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
-        mesh.setText("！1Ya");//("！123お早う,What's good,שלום,Здравствуйте,안녕하세요");
+        mesh.setText("！123お早う,\rWhat's good,שלום,\nЗдравствуйте,\n안녕하세요");
+        
+        //gameObject.get().addComponent(Incrementer.class);
+        
+    }
+    
+    private static void createTextMeshTest2(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("TextMesh");
+        gameObject.get().getTransform().get().setRotation(90,180,0);
+        gameObject.get().getTransform().get().setPosition(0.0f,0,0);
+        gameObject.get().getTransform().get().setScale(1,1,1);
+        
+        TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
+        mesh.setHorizontalTextAlignment(HorizontalTextAlignment.Right);
+        mesh.setVerticalTextAlignment(VerticalTextAlignment.Bottom);
+        mesh.setText("！123お早う,\rWhat's good,שלום,\nЗдравствуйте,\n안녕하세요");
+                
+        gameObject.get().addComponent(Incrementer.class);
         
     }
     
