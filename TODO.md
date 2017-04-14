@@ -1,6 +1,3 @@
-Adhoc MAJOR BUG!
- - Cameras behave strangely in adhoc test: needs to be included before meshes. Compare to other tests etc. Fix this!
-
 Graphics
  - SpriteRenderer
    - component for drawing cellbased sprite sheets
@@ -11,10 +8,7 @@ Physics2D
   - TileCollider2D   
   - takes tile data, produces colliders
    
-
 Physics2D
- - OnCollisionStay(Collision collisionInfo)
- - OnTriggerStay(Collider other)
  - World.Raycast
  - filters
 

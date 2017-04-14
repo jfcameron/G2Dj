@@ -20,7 +20,6 @@ import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CircleCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.CompositeCollider;
-import grimhaus.com.G2Dj.Type.Physics2D.Physics2DScene;
 import grimhaus.com.G2Dj.Type.Physics2D.PolygonCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
@@ -38,13 +37,15 @@ public class Main
         //Create a scene
         WeakReference<Scene> mainScene = Engine.createScene("Main");
         
-        createPlayerCamera(mainScene);
-        createMapCamera(mainScene);
+        
         createVisibleGeometry(mainScene);
         createCollisionGeometry(mainScene);
         createTextMeshTest(mainScene);
         createSomeDynamicBoxes(mainScene);
         
+        createPlayerCamera(mainScene);
+        
+        //createMapCamera(mainScene);
         
     }
     

@@ -21,17 +21,14 @@ public class GraphicsScene extends SceneGraph
     //*************
     // Data members
     //*************
-    private final ArrayList<WeakReference<Camera>> m_Cameras = new ArrayList<>();//make use of these
-    private final ArrayList<WeakReference<Drawable>>   m_Meshes  = new ArrayList<>();
+    private final ArrayList<WeakReference<Camera>>   m_Cameras = new ArrayList<>();//make use of these
+    private final ArrayList<WeakReference<Drawable>> m_Meshes  = new ArrayList<>();
     
     //
     // 
     //
-    @Override
-    public void update(){}
-    
-    @Override
-    public void fixedUpdate() {}
+    @Override public void update(){}
+    @Override public void fixedUpdate(){}
     
     @Override
     public void draw() 
