@@ -4,6 +4,8 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Debug;
+import grimhaus.com.G2Dj.Imp.Graphics.Color;
 import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
 import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
@@ -22,35 +24,35 @@ public class CompositeCollider extends Collider
     //*************
     // Data members
     //*************
-    private   Vector2[][]      m_VertexArrays = new Vector2[][]{};//good
+    private   Vector2[][]      m_VertexArrays = new Vector2[][]{};
     protected FixtureDef[]     m_FixtureDefinitions;
     protected LineVisualizer[] m_LineVisualizers; 
-        
+    
     //
     // Accessors
     //
-    @Override public void setType(final ColliderType aColliderType){for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)m_FixtureDefinitions[i].setSensor(aColliderType.toB2TriggerBool());}
-    @Override public void setDensity(final float aDensity){for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)m_FixtureDefinitions[i].setDensity(aDensity);}
-    @Override public void setFriction(final float aFriction){for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)m_FixtureDefinitions[i].setFriction(aFriction);}
-    @Override public void setRestitution(final float aRestitution){for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)m_FixtureDefinitions[i].setRestitution(aRestitution);}
+    @Override public FixtureDef[] getB2DFixtures(){return m_FixtureDefinitions;}
+    public void setVerticies(final Vector2[][] aCounterClockwiseVerticies){m_VertexArrays = aCounterClockwiseVerticies;requestShapeRebuildOnNextTick();}
     
-    public void setVerticies(final Vector2[][] aCounterClockwiseVerticies)
+    //
+    // Collider implementation
+    //
+    @Override
+    protected void buildShape()
     {
-        requestShapeRebuildOnNextTick();
-        m_VertexArrays = aCounterClockwiseVerticies;
-        
         //Init/Reinit Fixtures
+        m_FixtureDefinitions = new FixtureDef[m_VertexArrays.length];
+        for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)
         {
-            m_FixtureDefinitions = new FixtureDef[m_VertexArrays.length];
-            for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)
-            {
-                m_FixtureDefinitions[i] = new FixtureDef();
-                m_FixtureDefinitions[i].shape =  new PolygonShape();
+            m_FixtureDefinitions[i] = new FixtureDef();
+            m_FixtureDefinitions[i].shape =  new PolygonShape();
+            m_FixtureDefinitions[i].setDensity(m_Density);
+            m_FixtureDefinitions[i].setFriction(m_Friction);
+            m_FixtureDefinitions[i].setRestitution(m_Restitution);
+            m_FixtureDefinitions[i].setSensor(m_ColliderType.toB2TriggerBool());
         
-            }
-                
         }
-        
+              
         //Init/Reinit Visualizers
         if (getDrawDebugLines())
         {
@@ -62,24 +64,19 @@ public class CompositeCollider extends Collider
             //create visualizers
             m_LineVisualizers = new LineVisualizer[m_VertexArrays.length];
             for(int i=0,s=m_VertexArrays.length;i<s;i++)
+            {
                 m_LineVisualizers[i] = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
+                
+                if (m_ColliderType == ColliderType.Collidable)
+                    m_LineVisualizers[i].setColor(Color.Green());
+                else
+                    m_LineVisualizers[i].setColor(Color.DarkGreen());
+                
+            }
         
         }
-    
-    }
-    
-    @Override public FixtureDef[] getB2DFixtures(){return m_FixtureDefinitions;}
-    @Override public ColliderType getType(){return ColliderType.fromB2TriggerBool(m_FixtureDefinitions[0].isSensor);}
-    @Override public float getDensity(){return m_FixtureDefinitions[0].getDensity();}
-    @Override public float getFriction(){return m_FixtureDefinitions[0].getFriction();}
-    @Override public float getRestitution(){return m_FixtureDefinitions[0].getRestitution();}
-    
-    //
-    // Collider implementation
-    //
-    @Override
-    protected void buildShape()
-    {
+        
+        //Build the fixtures
         if (m_VertexArrays != null)
             for(int i=0,s=m_VertexArrays.length;i<s;i++)
                 if (m_VertexArrays[i] != null)
@@ -92,7 +89,7 @@ public class CompositeCollider extends Collider
                     buildAFixture(m_VertexArrays[i],currentVisualizer,m_FixtureDefinitions[i]);        
         
                 }
-                    
+           
     }
     
     //
@@ -104,11 +101,11 @@ public class CompositeCollider extends Collider
         
         final float hx = 0.5f;
         final float hy = 0.5f;
-        final int m_count = 4;
+        final int count = 4;
         
-        Vec2[] b2verts = new Vec2[m_count];
+        Vec2[] b2verts = new Vec2[count];
         
-        for(int i=0,s=m_count;i<s;i++)
+        for(int i=0,s=count;i<s;i++)
             b2verts[i] = new Vec2();
         
         b2verts[0].set((-hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);

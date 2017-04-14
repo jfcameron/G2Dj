@@ -5,6 +5,7 @@
 package Pong;
 
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
+import grimhaus.com.G2Dj.Imp.Graphics.HorizontalTextAlignment;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
@@ -33,7 +34,10 @@ public class MatchTimer extends Component
     @Override protected void initialize() 
     {
         m_TextMesh = (TextMesh)getGameObject().get().getComponent(TextMesh.class);
-        m_TextMesh.setText("0");
+        
+        
+        m_TextMesh.setHorizontalTextAlignment(HorizontalTextAlignment.Right);
+        m_TextMesh.setText("Time: 0");
     
     }
 
@@ -41,7 +45,7 @@ public class MatchTimer extends Component
     {
         if ((m_incrementTimer += Time.getDeltaTime()) > s_incrementSize)
         {
-            m_TextMesh.setText(Integer.toString(++m_Timer));        
+            m_TextMesh.setText("Time: "+Integer.toString(++m_Timer));        
             m_incrementTimer = 0;
             
         }

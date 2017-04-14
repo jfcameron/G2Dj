@@ -28,7 +28,7 @@ public class ScoreCounter extends Component
     //
     //
     public int getScore(){return m_Value;}
-    public void incrementScore(){m_TextMesh.setText(Integer.toString(++m_Value));}
+    public void incrementScore(){m_TextMesh.setText("Score: "+Integer.toString(++m_Value));}
     
     //
     //
@@ -36,7 +36,7 @@ public class ScoreCounter extends Component
     @Override protected void initialize() 
     {
         m_TextMesh = (TextMesh)getGameObject().get().getComponent(TextMesh.class);
-        m_TextMesh.setText("0");
+        m_TextMesh.setText("Score: 0");
     
     }
 

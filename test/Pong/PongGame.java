@@ -10,6 +10,7 @@ import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
 import grimhaus.com.G2Dj.Imp.Graphics.Color;
+import grimhaus.com.G2Dj.Imp.Graphics.HorizontalTextAlignment;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
@@ -72,10 +73,7 @@ public class PongGame
         WeakReference<Scene> scene = Engine.createScene(Constants.GUISceneName);
         
         createGUIControllerObject(scene);
-        createGUICamera(scene);        
-        createScoreCounterLabel(scene);
-        createMatchTimerLabel(scene);
-        
+        createGUICamera(scene);
         createScoreCounter(scene);
         createMatchTimer(scene);
         
@@ -254,10 +252,12 @@ public class PongGame
             });
             compositeCollider.setRestitution(1.0f);
             Debug.log("SETTING DEBUGLINES");
-            compositeCollider.setDrawDebugLines(true);
+            
             
             Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
             rb.setType(BodyType.Static);
+            
+            //compositeCollider.setDrawDebugLines(true);
         
         }
         
@@ -337,43 +337,24 @@ public class PongGame
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName(Constants.MatchTimerLabelName);
         gameObject.get().getTransform().get().setRotation(90,180,0);
-        gameObject.get().getTransform().get().setPosition(-5.5f,0,+9.5f);
-        gameObject.get().getTransform().get().setScale(0.4f);
+        gameObject.get().getTransform().get().setPosition(0,0,+9.5f);
+        gameObject.get().getTransform().get().setScale(0.5f);
         
         TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
+        mesh.setHorizontalTextAlignment(HorizontalTextAlignment.Center);
         
         String creditString ="";
         
         for(int i=0,s=Constants.Credits.length;i<s;i++)
+        {
             creditString += Constants.Credits[i];
+            
+            if (i < s-1)
+            creditString += ", ";
         
-        mesh.setText("Credits:"+creditString);
-        
-    }
-    
-    private static void createScoreCounterLabel(final WeakReference<Scene> aScene)
-    {
-        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
-        gameObject.get().setName(Constants.ScoreCounterLabelName);
-        gameObject.get().getTransform().get().setRotation(90,180,0);
-        gameObject.get().getTransform().get().setPosition(+9.5f,0,-9.5f);
-        gameObject.get().getTransform().get().setScale(1,1,1);
-        
-        TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
-        mesh.setText("Score: ");
-        
-    }
-    
-    private static void createMatchTimerLabel(final WeakReference<Scene> aScene)
-    {
-        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
-        gameObject.get().setName(Constants.MatchTimerLabelName);
-        gameObject.get().getTransform().get().setRotation(90,180,0);
-        gameObject.get().getTransform().get().setPosition(+9.5f,0,+9.5f);
-        gameObject.get().getTransform().get().setScale(1,1,1);
-        
-        TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
-        mesh.setText("Time: ");
+        }
+            
+        mesh.setText("Art:"+creditString);
         
     }
     
@@ -382,7 +363,7 @@ public class PongGame
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName(Constants.ScoreCounterName);
         gameObject.get().getTransform().get().setRotation(90,180,0);
-        gameObject.get().getTransform().get().setPosition(+9.5f-6f,1,-9.5f);
+        gameObject.get().getTransform().get().setPosition(+11.5f,1,-9.5f);
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         gameObject.get().addComponent(ScoreCounter.class);
@@ -394,7 +375,7 @@ public class PongGame
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName(Constants.MatchTimerName);
         gameObject.get().getTransform().get().setRotation(90,180,0);
-        gameObject.get().getTransform().get().setPosition(+9.5f-5f,1,+9.5f);
+        gameObject.get().getTransform().get().setPosition(-12.5f,1,-9.5f);
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         gameObject.get().addComponent(MatchTimer.class);

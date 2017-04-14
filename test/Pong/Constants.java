@@ -35,11 +35,8 @@ public class Constants
     //Attributions
     public static String[] Credits =
     {
-        "Programmers:",
-        "Joseph Cameron",
-        "Artists:",
         "Luis Zuno",
-        "Jeremias Dulaca II",
+        "Jeremias Dulaca",
         "software_atelier"
         
     };

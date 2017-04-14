@@ -21,9 +21,16 @@ public abstract class Collider extends Physics2DComponent
     //*************
     // Data members
     //*************
-    protected final Vector2 m_Offset = new Vector2();
+    protected final Vector2 m_Offset = Vector2.Zero();
     private boolean m_RebuildShape = false;
     private boolean m_DrawDebugLines = true;
+    
+    //fixture def data
+    protected float        m_Friction = 0.2f;
+    protected float        m_Restitution = 0.0f;
+    protected float        m_Density = 1.0f;
+    protected ColliderType m_ColliderType = ColliderType.Collidable;
+    
     //buffers
     protected Vector3 b_ScaleBuffer;
     protected final Vec2 b_Vec2Buffer = new Vec2();
@@ -31,27 +38,26 @@ public abstract class Collider extends Physics2DComponent
     //**********
     // Accessors
     //**********
-    public void setDrawDebugLines(final boolean aBoolean){m_DrawDebugLines=aBoolean;}
+    public void setDrawDebugLines(final boolean aBoolean){m_DrawDebugLines=aBoolean;requestShapeRebuildOnNextTick();}
     public void setOffset(final float aX, final float aY){m_Offset.setInPlace(aX, aY);requestShapeRebuildOnNextTick();}
-    protected void requestShapeRebuildOnNextTick(){m_RebuildShape = true;}
+    public void setType(final ColliderType aColliderType){m_ColliderType=aColliderType;requestShapeRebuildOnNextTick();}
+    public void setDensity(final float aDensity){m_Density=aDensity;requestShapeRebuildOnNextTick();}
+    public void setFriction(final float aFriction){m_Friction=aFriction;requestShapeRebuildOnNextTick();}
+    public void setRestitution(final float aRestitution){m_Restitution=aRestitution;requestShapeRebuildOnNextTick();}
     
     public boolean getDrawDebugLines(){return m_DrawDebugLines;}
+    public ColliderType getType(){return m_ColliderType;}
+    public float getDensity(){return m_Density;}
+    public float getFriction(){return m_Friction;}
+    public float getRestitution(){return m_Restitution;}
+    
     
     //*******************
     // Collider interface
-    //*******************
-    public abstract void setType(final ColliderType aColliderType);
-    public abstract void setDensity(final float aDensity);
-    public abstract void setFriction(final float aFriction);
-    public abstract void setRestitution(final float aRestitution);
-    
-    public abstract ColliderType getType();
-    public abstract float getDensity();
-    public abstract float getFriction();
-    public abstract float getRestitution();
-    
+    //*******************    
     public abstract FixtureDef[] getB2DFixtures();
     protected abstract void buildShape();
+    protected void requestShapeRebuildOnNextTick(){m_RebuildShape = true;}
     
     //***************
     // Implementation
@@ -77,7 +83,7 @@ public abstract class Collider extends Physics2DComponent
     // Component interface
     //********************
     @Override protected void initialize()
-    {
+    {        
         requestShapeRebuildOnNextTick();
     
     }
@@ -96,7 +102,11 @@ public abstract class Collider extends Physics2DComponent
             
     }
     
-    @Override public void fixedUpdate() {}
+    @Override public void fixedUpdate() 
+    {
+        
+        
+    }
     
     @Override protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject){requestShapeRebuildOnNextTick();}
     @Override protected void OnRemovedFromGameObject() {}

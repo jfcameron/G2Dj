@@ -5,6 +5,7 @@
 package grimhaus.com.G2Dj.Type.Graphics;
 
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Imp.Graphics.Color;
 import grimhaus.com.G2Dj.Imp.Graphics.GL;
 import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
@@ -53,6 +54,7 @@ public class LineVisualizer extends GraphicsComponent implements Drawable
     private final WeakReference<ShaderProgram>  m_ShaderProgram;
     
     private float m_LineWidth = 7.5f;
+    private Color m_Color = Color.DeathlyPink();
     
     //buffers & pools
     private final Mat4x4 b_ModelMatrixBuffer = new Mat4x4();//reduce heap abuse in getModelMatrix()
@@ -66,6 +68,7 @@ public class LineVisualizer extends GraphicsComponent implements Drawable
     }
     
     public void setLineWidth(final float aLineWidth){m_LineWidth=aLineWidth;}
+    public void setColor(final Color aColor){m_Color = aColor;}
     
     public float getLineWidth(){return m_LineWidth;}
     
@@ -111,6 +114,8 @@ public class LineVisualizer extends GraphicsComponent implements Drawable
         
         m_Model.draw(m_ShaderProgram.get().getProgramHandle());
         
+        Uniforms.load4Float(m_ShaderProgram.get().getProgramHandle(), "_Color", m_Color.r, m_Color.g, m_Color.b, m_Color.a);
+        
         GL.glLineWidth(m_LineWidth);
         
         GL.glDrawArrays( GL.GL_LINE_STRIP, 0, m_Model.getVertexCount() );
@@ -119,7 +124,7 @@ public class LineVisualizer extends GraphicsComponent implements Drawable
     
     public LineVisualizer()
     {
-        m_ShaderProgram = Graphics.getShaderProgram();
+        m_ShaderProgram = Graphics.getShaderProgram("SimpleColor");
         m_Model = new Model
         (
             "LineVisualizer"

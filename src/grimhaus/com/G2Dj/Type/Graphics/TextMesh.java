@@ -139,7 +139,7 @@ public class TextMesh extends GraphicsComponent implements Drawable
         switch(m_HorizontalTextAlignment)
         {
             case Center: 
-            m_TextOffset.x = maxX/2; 
+            m_TextOffset.x = maxX*0.25f; 
             break;
             
             case Right:  
@@ -155,7 +155,7 @@ public class TextMesh extends GraphicsComponent implements Drawable
         switch(m_VerticalTextAlignment)
         {
             case Center: 
-            m_TextOffset.y = maxY/2; 
+            m_TextOffset.y = maxY*0.25f; 
             break;
             
             case Bottom:  

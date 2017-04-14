@@ -1,18 +1,16 @@
-Graphics
- - TextMesh
-    - Add text anchors {(left, right, center),(top, down, center)}
-
-Physics
- - Collider hierarchy
-   - m_DrawDebugLines in Collider behaves strangely in SimpleCollider.initialize()
+Adhoc MAJOR BUG!
+ - Cameras behave strangely in adhoc test: needs to be included before meshes. Compare to other tests etc. Fix this!
 
 Graphics
-   - SpriteRenderer
+ - SpriteRenderer
    - component for drawing cellbased sprite sheets
-   
-???
  - TileRenderer2D   
-   - depends on GraphicsSceneGraph, Physics2DSceneGraph
+   - depends on GraphicsSceneGraph. Just renders tiles.
+   
+Physics2D
+  - TileCollider2D   
+  - takes tile data, produces colliders
+   
 
 Physics2D
  - OnCollisionStay(Collision collisionInfo)

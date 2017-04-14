@@ -20,6 +20,8 @@ public class CircleCollider extends SimpleCollider<CircleShape>
     @Override
     protected void buildShape()
     {   
+        
+        
         float scale = getGameObject().get().getTransform().get().getScale().x;
         
         m_Shape.setRadius(scale/2);
@@ -29,10 +31,12 @@ public class CircleCollider extends SimpleCollider<CircleShape>
         
         m_Shape.m_p.set(m_Offset.x*scale,m_Offset.y*scale);
         
+        super.buildShape();
+        
         if (m_LineVisualizer != null)
             m_LineVisualizer.setVertexData(LineVisualizer.lineCircle((m_Offset.x*scale)/scale,(m_Offset.y*scale)/scale,1));
         
-        m_FixtureDefinition.density = 1;
+        
                 
     }
     

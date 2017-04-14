@@ -27,6 +27,7 @@ public class Color
     //
     public static Color Red        (){return new Color(1.0f,0.0f,0.0f,1.0f);}
     public static Color Green      (){return new Color(0.0f,1.0f,0.0f,1.0f);}
+    public static Color DarkGreen  (){return new Color(0.0f,0.6f,0.0f,1.0f);}
     public static Color Blue       (){return new Color(0.0f,0.0f,1.0f,1.0f);}
     public static Color DeathlyPink(){return new Color(1.0f,0.2f,0.8f,1.0f);}
     

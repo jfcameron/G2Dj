@@ -27,30 +27,8 @@ public class PolygonCollider extends SimpleCollider<PolygonShape>
     public void setVerticies(final Vector2[] aCounterClockwiseVerticies){m_Vertices = aCounterClockwiseVerticies;requestShapeRebuildOnNextTick();}
     
     //
-    // Implementation
-    //    
-    private Vec2[] generateDefaultVertexData()
-    {
-        Vector3 scale = getGameObject().get().getTransform().get().getScale();
-        
-        final float hx = 0.5f;
-        final float hy = 0.5f;
-        final int m_count = 4;
-        
-        Vec2[] b2verts = new Vec2[m_count];
-        
-        for(int i=0,s=m_count;i<s;i++)
-            b2verts[i] = new Vec2();
-        
-        b2verts[0].set((-hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
-        b2verts[1].set(( hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
-        b2verts[2].set(( hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
-        b2verts[3].set((-hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
-        
-        return b2verts;
-        
-    }
-    
+    // Collider implementation
+    //
     @Override
     protected void buildShape()
     {
@@ -86,9 +64,39 @@ public class PolygonCollider extends SimpleCollider<PolygonShape>
         visualVerts[visualVerts.length-3] = b2verts[0].x/scale.x; 
         visualVerts[visualVerts.length-2] = 0.0f; 
         visualVerts[visualVerts.length-1] = b2verts[0].y/scale.z;
-                
-        m_LineVisualizer.setVertexData(visualVerts);
-        m_FixtureDefinition.density = 1;
+              
+        
+        super.buildShape();
+        
+        
+        if (m_LineVisualizer != null)
+            m_LineVisualizer.setVertexData(visualVerts);
+        
+        
+    }
+    
+    //
+    // Implementation
+    //    
+    private Vec2[] generateDefaultVertexData()
+    {
+        Vector3 scale = getGameObject().get().getTransform().get().getScale();
+        
+        final float hx = 0.5f;
+        final float hy = 0.5f;
+        final int m_count = 4;
+        
+        Vec2[] b2verts = new Vec2[m_count];
+        
+        for(int i=0,s=m_count;i<s;i++)
+            b2verts[i] = new Vec2();
+        
+        b2verts[0].set((-hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
+        b2verts[1].set(( hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
+        b2verts[2].set(( hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
+        b2verts[3].set((-hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
+        
+        return b2verts;
         
     }
     

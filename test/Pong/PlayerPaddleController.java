@@ -47,10 +47,11 @@ public class PlayerPaddleController extends Component
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
         m_Rigidbody.setFrozenRotation(true);
         m_Rigidbody.freezeAxis(AxisFreezeMode.X);
+        //m_Rigidbody.set
         
         BoxCollider cc = (BoxCollider)getGameObject().get().getComponent(BoxCollider.class);
         cc.setRestitution(0.0f);
-        cc.setDrawDebugLines(true);
+        //cc.setDrawDebugLines(true);
         
         //Init graphic
         m_Graphic = getGameObject().get().getScene().get().addGameObject();

@@ -33,6 +33,14 @@ public class Main
         createTextMeshTest(scene);
         createTextMeshTest2(scene);
         
+        WeakReference<GameObject> m_Graphic = scene.get().addGameObject();
+        m_Graphic.get().getTransform().get().setRotation(-90,180,0);
+        m_Graphic.get().getTransform().get().setPosition(0,+1,0);
+        m_Graphic.get().getTransform().get().setScale(1.5f,1.5f,1.5f);
+        
+        Mesh mesh = (Mesh)m_Graphic.get().addComponent(Mesh.class);
+        mesh.setTexture("_Texture", "BallGuy.png");
+        
     }
     
     private static void createTestCamera(final WeakReference<Scene> aScene)
