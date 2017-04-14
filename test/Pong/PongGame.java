@@ -11,7 +11,6 @@ import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
 import grimhaus.com.G2Dj.Imp.Graphics.Color;
 import grimhaus.com.G2Dj.Imp.Physics2D.BodyType;
-import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
@@ -81,6 +80,8 @@ public class PongGame
         createMatchTimer(scene);
         
         GUIBlackbars(scene);
+        
+        createAttributionLabels(scene);
         
     }
     
@@ -328,6 +329,25 @@ public class PongGame
         gameObject.get().getTransform().get().setScale(1.5f,1.5f,1.5f);
         
         gameObject.get().addComponent(Ball.class);
+        
+    }
+    
+    private static void createAttributionLabels(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName(Constants.MatchTimerLabelName);
+        gameObject.get().getTransform().get().setRotation(90,180,0);
+        gameObject.get().getTransform().get().setPosition(-5.5f,0,+9.5f);
+        gameObject.get().getTransform().get().setScale(0.4f);
+        
+        TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
+        
+        String creditString ="";
+        
+        for(int i=0,s=Constants.Credits.length;i<s;i++)
+            creditString += Constants.Credits[i];
+        
+        mesh.setText("Credits:"+creditString);
         
     }
     

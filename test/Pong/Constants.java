@@ -32,4 +32,16 @@ public class Constants
     ScoreCounterName      = "ScoreCounter"      ,
     MatchTimerName        = "MatchTimer"        ;
     
+    //Attributions
+    public static String[] Credits =
+    {
+        "Programmers:",
+        "Joseph Cameron",
+        "Artists:",
+        "Luis Zuno",
+        "Jeremias Dulaca II",
+        "software_atelier"
+        
+    };
+    
 }

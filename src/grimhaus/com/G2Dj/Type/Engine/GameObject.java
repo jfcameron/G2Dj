@@ -255,6 +255,7 @@ public class GameObject
     
     public void setPosition(final float aX, final float aY, final float aZ){m_Position.x=aX;m_Position.y=aY;m_Position.z=aZ;}
     public void setScale   (final float aX, final float aY, final float aZ){m_Scale   .x=aX;m_Scale   .y=aY;m_Scale   .z=aZ;}
+    public void setScale   (final float aScalar){m_Scale.x=aScalar;m_Scale.y=aScalar;m_Scale.z=aScalar;}
     public void setRotation(final float aX, final float aY, final float aZ){setRotation(new Vector3(aX,aY,aZ));}
     
     //public void setRotation(final Quaternion aRotation){m_Rotation = aRotation;}
