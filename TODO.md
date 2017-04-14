@@ -1,5 +1,5 @@
 Graphics
- - SpriteRenderer
+ - SpriteSheetRenderer
    - component for drawing cellbased sprite sheets
  - TileRenderer2D   
    - depends on GraphicsSceneGraph. Just renders tiles.

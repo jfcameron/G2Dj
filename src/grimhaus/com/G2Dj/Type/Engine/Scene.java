@@ -20,17 +20,15 @@ import java.util.logging.Logger;
 public class Scene
 {
     //
-    //
+    // Data members
     //
     private final String m_Name;
     private final ArrayList<SceneGraph> m_SceneGraphs = new ArrayList<>();
     private final ArrayList<GameObject> m_GameObjects = new ArrayList<>();
-    
-    //private final boolean m
     private SceneState m_SceneState = SceneState.Active;
         
     //
-    //
+    // Accessors
     //
     public String getName(){return m_Name;}
 
@@ -61,7 +59,7 @@ public class Scene
             
             rvalue = new WeakReference<>(aSceneGraphType.getDeclaredConstructor(args).newInstance(new WeakReference<>(this)/*,new SceneEventCallbacks()*/));
             m_SceneGraphs.add(rvalue.get());
-            return rvalue;
+            //return rvalue;
             
         } 
         catch (InstantiationException ex) {Logger.getLogger(Scene.class.getName()).log(Level.SEVERE, null, ex);} 
@@ -195,25 +193,13 @@ public class Scene
         
     }
     
-    protected void OnCollisionEnter()
-    {
-        
-        
-    }
-    
     //*************
     // Constructors
     //*************
     public Scene(final String aName)
     {
         m_Name = aName;
-        
-        SceneEventCallbacks onCollisionEnterFunctionPointer = new SceneEventCallbacks()
-        {
-            @Override public void onCollisionEnter(){OnCollisionEnter();}
-            
-        };
-        
+
     }
     
 }

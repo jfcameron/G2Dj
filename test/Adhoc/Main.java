@@ -37,15 +37,13 @@ public class Main
         //Create a scene
         WeakReference<Scene> mainScene = Engine.createScene("Main");
         
-        
         createVisibleGeometry(mainScene);
         createCollisionGeometry(mainScene);
         createTextMeshTest(mainScene);
         createSomeDynamicBoxes(mainScene);
         
         createPlayerCamera(mainScene);
-        
-        //createMapCamera(mainScene);
+        createMapCamera(mainScene);
         
     }
     

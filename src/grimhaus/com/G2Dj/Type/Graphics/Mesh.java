@@ -7,6 +7,7 @@ package grimhaus.com.G2Dj.Type.Graphics;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.FloatUniformCollection;
 import grimhaus.com.G2Dj.Imp.Graphics.GL;
+import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
 import grimhaus.com.G2Dj.Imp.Graphics.Texture;
@@ -27,7 +28,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joe
  */
-public class Mesh extends Component implements Drawable
+public class Mesh extends GraphicsComponent implements Drawable
 {
     //*************
     // Data members
