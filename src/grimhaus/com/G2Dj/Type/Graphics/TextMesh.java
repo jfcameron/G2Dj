@@ -5,18 +5,12 @@
 package grimhaus.com.G2Dj.Type.Graphics;
 
 import grimhaus.com.G2Dj.Graphics;
-import grimhaus.com.G2Dj.Imp.Graphics.GL;
-import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
+import grimhaus.com.G2Dj.Imp.Graphics.GraphicsObject;
 import grimhaus.com.G2Dj.Imp.Graphics.HorizontalTextAlignment;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Imp.Graphics.ModelType;
-import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
-import grimhaus.com.G2Dj.Imp.Graphics.TextureUniformCollection;
-import grimhaus.com.G2Dj.Imp.Graphics.Uniforms;
 import grimhaus.com.G2Dj.Imp.Graphics.VertexFormat;
 import grimhaus.com.G2Dj.Imp.Graphics.VerticalTextAlignment;
-import grimhaus.com.G2Dj.Type.Engine.Component;
-import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.IntVector2;
 import grimhaus.com.G2Dj.Type.Math.Mat4x4;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
@@ -27,36 +21,34 @@ import java.lang.ref.WeakReference;
  *
  * @author Joseph Cameron
  */
-public class TextMesh extends GraphicsComponent implements Drawable
+public class TextMesh extends GraphicsObject//GraphicsComponent implements Drawable
 {
-    //
+    //**********
     // Constants
-    //
+    //**********
     private static final float size = 1.0f;
     private static final int quadTotalAttributeCount = 30;
     private static final float characterUVSize = 0.00390625f;//16px/1char
     
-    //
+    //*************
     // Data members
-    //
-    private final Model                         m_Model;
-    private final WeakReference<ShaderProgram>  m_ShaderProgram;
-    private final TextureUniformCollection      m_Textures   = new TextureUniformCollection();
-    private final Vector2                       m_TextOffset = Vector2.Zero();
+    //*************
+    private final Model m_ModelData;
+    private final Vector2           m_TextOffset = Vector2.Zero();
     private String                  m_Text = "";
     private float[]                 m_VertexData;
     private HorizontalTextAlignment m_HorizontalTextAlignment = HorizontalTextAlignment.Left;
     private VerticalTextAlignment   m_VerticalTextAlignment   = VerticalTextAlignment.Top;
     //buffers
-    private final Mat4x4     b_ModelMatrixBuffer = new Mat4x4();//reduce heap abuse in getModelMatrix()
-    private final Mat4x4     b_MVPMatrixBuffer   = new Mat4x4();
     private final Vector3    b_PositionBuffer    = new Vector3();
     private final IntVector2 b_IntVector2        = new IntVector2();
     
-    //
+    //**********
     // Accessors
-    //
+    //**********
     public String getText(){return m_Text;}
+    
+    @Override 
     public Mat4x4 getModelMatrix()
     {
         Vector3 position = b_PositionBuffer.setInPlace(getTransform().get().getPosition());
@@ -95,46 +87,9 @@ public class TextMesh extends GraphicsComponent implements Drawable
         
     }
     
-    //
-    //
-    //
-    @Override protected void initialize(){}
-    @Override protected void update(){}
-    @Override protected void fixedUpdate(){}
-    
-    @Override
-    public void draw(WeakReference<Camera> aCamera) 
-    {
-        m_ShaderProgram.get().draw();
-        
-        //Bind uniforms
-        m_Textures.bind(m_ShaderProgram.get().getProgramHandle());/////////////////////////////////////////////////////////////////////
-        
-        //mvp
-        Mat4x4 p = aCamera.get().getProjectionMatrix();
-        Mat4x4 v = aCamera.get().getViewMatrix();
-        Mat4x4 m = getModelMatrix();
-        b_MVPMatrixBuffer.set(p.mul(v).mul(m));
-        
-        Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", b_MVPMatrixBuffer.toFloatBuffer());
-                
-        m_Model.draw(m_ShaderProgram.get().getProgramHandle());
-        
-        GL.glDrawArrays( GL.GL_TRIANGLES, 0, m_Model.getVertexCount() );
-        
-    }
-    
-    //
-    //
-    //
-    @Override protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
-    @Override protected void OnRemovedFromGameObject() {}
-    @Override protected void OnComponentAdded(Component aComponent) {}
-    @Override protected void OnComponentRemoved(Component aComponent) {}
-    
-    //
+    //***************
     // Implementation
-    //
+    //***************
     private float[] generateCharQuad(final float aOffsetX, final float aOffsetY, final IntVector2 aBasicMultilingualPlaneCoord)
     {
         float 
@@ -232,7 +187,7 @@ public class TextMesh extends GraphicsComponent implements Drawable
             
         }
                 
-        m_Model.updateVertexData(m_VertexData);
+        m_ModelData.updateVertexData(m_VertexData);//m_Model.updateVertexData(m_VertexData);
             
     }
     
@@ -242,9 +197,8 @@ public class TextMesh extends GraphicsComponent implements Drawable
     public TextMesh()
     {
         m_Textures.put("_Texture",Graphics.getTexture("FullUnicodePlaneTest.png"));
-        
         m_ShaderProgram = Graphics.getShaderProgram("AlphaCutOff");
-        m_Model = new Model
+        m_ModelData = new Model
         (
             "LineVisualizer"
             , 
@@ -255,6 +209,8 @@ public class TextMesh extends GraphicsComponent implements Drawable
             ModelType.Dynamic
             
         );
+        
+        m_Model = new WeakReference<>(m_ModelData);
         
     }
     

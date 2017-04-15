@@ -110,12 +110,6 @@ public abstract class ShaderProgram extends GraphicsResource
 
     }
     
-    /*protected void processShaderSourceFile(final String aFileName, String ioDrawCode, String ioVertexCode, String ioFragmentCode)
-    {
-        
-        
-    }*/
-
     protected abstract void   glDrawCalls();
     protected abstract String vertexShaderGLSL();
     protected abstract String fragmentShaderGLSL();
@@ -133,6 +127,7 @@ public abstract class ShaderProgram extends GraphicsResource
     }
     
     @Override
+    @SuppressWarnings("FinalizeDeclaration")
     protected void finalize() throws Throwable
     {
         GL.glDeleteProgram(m_ProgramHandle);

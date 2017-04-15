@@ -1,4 +1,5 @@
 Graphics
+   - abstract commonalities between TextMesh, Mesh, TileGrid, SpriteSheet into GraphicsObject
  - SpriteSheetRenderer
    - component for drawing cellbased sprite sheets
  - TileRenderer2D   
@@ -48,7 +49,12 @@ networking
  - should there be networking components or should networking implementation be entirely up to the end user?
 
 ==================BACKBURNER=====================
-
+ECS
+ - Component : Think about the future of:
+    void OnAddedToGameObject(WeakReference<GameObject> aGameObject)
+    void OnRemovedFromGameObject()
+    void OnComponentAdded(Component aComponent) 
+    void OnComponentRemoved(Component aComponent) 
 
 Graphics
  - TextMesh

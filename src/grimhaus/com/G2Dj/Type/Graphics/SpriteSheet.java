@@ -4,11 +4,13 @@
  */
 package grimhaus.com.G2Dj.Type.Graphics;
 
+import grimhaus.com.G2Dj.Imp.Graphics.GraphicsObject;
+
 /**
  *
  * @author Joseph Cameron
  */
-public class SpriteSheet
+public class SpriteSheet extends GraphicsObject
 {
     
     
