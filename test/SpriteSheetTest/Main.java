@@ -2,9 +2,10 @@
  * G2Dj Game engine
  * Written by Joseph Cameron
  */
-package SpriteRendererTest;
+package SpriteSheetTest;
 
 import grimhaus.com.G2Dj.Engine;
+import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
@@ -44,12 +45,14 @@ public class Main
         Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
         camera.setProjectionMode(CameraProjectionMode.Orthographic);
         camera.setFarClippingPlane(15);
-        camera.setOrthoSize(30, 30);
+        camera.setOrthoSize(5, 5);
         
     }
     
     private static void createSpriteSheet(final WeakReference<Scene> aScene)
     {
+        Graphics.loadFromResource("SpriteSheetTest/Blocky.png");
+        
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName("SpriteSheetTest");
         gameObject.get().getTransform().get().setRotation(90,180,0);
@@ -57,6 +60,7 @@ public class Main
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         SpriteSheet spriteSheet = (SpriteSheet)gameObject.get().addComponent(SpriteSheet.class);
+        spriteSheet.setTexture("_Texture", "Blocky.png");
         
     }
     

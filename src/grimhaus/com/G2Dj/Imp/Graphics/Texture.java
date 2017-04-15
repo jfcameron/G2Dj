@@ -5,6 +5,7 @@
 package grimhaus.com.G2Dj.Imp.Graphics;
 
 import grimhaus.com.G2Dj.Debug;
+import grimhaus.com.G2Dj.Type.Math.IntVector2;
 import grimhaus.com.G2Dj.Type.Resources.Image;
 import java.nio.IntBuffer;
 
@@ -18,11 +19,13 @@ public class Texture extends GraphicsResource
     // Data members
     //
     private final int m_TextureHandle;
+    private final IntVector2 m_Size = new IntVector2();
     
     //
     // Accessors
     //
     public int getHandle(){return m_TextureHandle;}
+    public IntVector2 getSize(){return m_Size;}
     
     //
     // Constructors
@@ -38,6 +41,8 @@ public class Texture extends GraphicsResource
         int width = aImage.getData().getWidth(),height = aImage.getData().getHeight();
             
         Debug.log("Dimensons: {"+width+", "+width+"}");
+        
+        m_Size.setInPlace(width, height);
 
         //.if DESKTOP
         int[] data;
