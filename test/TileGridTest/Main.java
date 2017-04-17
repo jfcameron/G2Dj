@@ -11,6 +11,7 @@ import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
+import grimhaus.com.G2Dj.Type.Graphics.SpriteSheet;
 import grimhaus.com.G2Dj.Type.Graphics.TileGrid;
 import java.lang.ref.WeakReference;
 
@@ -27,6 +28,7 @@ public class Main
         WeakReference<Scene> scene = Engine.createScene("Main");
         createTestCamera(scene);
         createTestTileGrid(scene);
+        createSpriteSheet(scene);
         
     }
     
@@ -71,6 +73,23 @@ public class Main
             5,0, 6,0, 8,1,  7,0, 8,0,
         });
         
+        
+    }
+    
+    private static void createSpriteSheet(final WeakReference<Scene> aScene)
+    {
+        Graphics.loadFromResource("SpriteSheetTest/Blocky.png");
+        
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("SpriteSheetTest");
+        gameObject.get().getTransform().get().setRotation(90,180,0);
+        gameObject.get().getTransform().get().setPosition(0,1,2);
+        gameObject.get().getTransform().get().setScale(1,1,1);
+        
+        SpriteSheet spriteSheet = (SpriteSheet)gameObject.get().addComponent(SpriteSheet.class);
+        spriteSheet.setTexture("_Texture", "Blocky.png");
+        spriteSheet.setCellSizeByPixel(16,17);
+        spriteSheet.setCurrentCell(0, 0);
         
     }
     
