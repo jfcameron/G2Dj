@@ -60,6 +60,16 @@ public class Main
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         TileGrid tilegrid = (TileGrid)gameObject.get().addComponent(TileGrid.class);
+        tilegrid.setTexture("_Texture", "bloo.png");
+        tilegrid.setTileSizeByPixel(16, 16);
+        tilegrid.setTileData(5,5,new int[]
+        {
+            1,3, 1,3, 1,3,  1,3,  1,3,
+            1,2, 1,2, 1,2,  1,2,  1,2,
+            3,1, 4,1, 3,2, 10,3, 11,3,
+            8,1, 8,1, 8,1, 10,2, 11,2,
+            5,0, 6,0, 8,1,  7,0, 8,0,
+        });
         
         
     }

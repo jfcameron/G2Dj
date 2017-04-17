@@ -26,14 +26,20 @@ public class TileGrid extends GraphicsObject
     private float[]       m_VertexData;
     private final Model   m_ModelData;
     
+    private int[]      m_TileData;
+    private final IntVector2 m_TileDataSize = new IntVector2(0,0);
+    
+    private boolean m_RebuildVertsNextTick = false;
+    
     //
     //
     //
+    public final void setTileData(final int aDataWidth, final int aDataHeight,final int[] aTileData){m_TileDataSize.setInPlace(aDataWidth, aDataHeight);m_TileData=aTileData;m_RebuildVertsNextTick=true;}
     public IntVector2 getTextureSize(){return getTexture("_Texture").get().getSize();}
     public final void setTileSizeByUV(final float aU, final float aV)
     {
         m_TileSize.setInPlace(aU, aV);
-        setVector2("_UVScale",m_TileSize);
+        //setVector2("_UVScale",m_TileSize);
     
     }
     public final void setTileSizeByPixel(final int aWidthInPixels, final int aHeightInPixels)
@@ -55,13 +61,13 @@ public class TileGrid extends GraphicsObject
     //
     private static final float size = 1.0f;
     private static final int quadTotalAttributeCount = 30;
-    private float[] generateCharQuad(final float aOffsetX, final float aOffsetY, final float aOffsetU, final float aOffsetV)
+    private float[] generateTileQuad(final int aOffsetX, final int aOffsetY, final int aOffsetU, final int aOffsetV)
     {
         float 
-        offsetU = aOffsetU,
-        offsetV = aOffsetV,
-        tileSizeX = (16/256f),
-        tileSizeY = (16/256f);
+        offsetU = aOffsetU*m_TileSize.x,
+        offsetV = aOffsetV*m_TileSize.y,
+        tileSizeX = m_TileSize.x,
+        tileSizeY = m_TileSize.y;
                 
         return new float[]
         {
@@ -80,29 +86,22 @@ public class TileGrid extends GraphicsObject
     
     private void updateVertexData()
     { 
-        /*m_VertexData = new float[quadTotalAttributeCount*m_Text.length()];//quad for each string        
-        
-        m_TextOffset.zero();
-        
-        float maxX = 0, maxY = 0, x = 0,y = 0;
-        for(int i=0,s=m_Text.length();i<s;i++) 
-        {
-            IntVector2 pos = calculateUnicodePlanePosition(m_Text.charAt(i));             
-            System.arraycopy(generateCharQuad(x,y,pos),0,m_VertexData,i*quadTotalAttributeCount,quadTotalAttributeCount);
-
-        }*/
-        
         int 
-        dataW = 10,
-        dataH = 10;
-        
+        dataW = m_TileDataSize.x,
+        dataH = m_TileDataSize.y;
         
         m_VertexData = new float[quadTotalAttributeCount*(dataW*dataH)];
 
         for(int y=0;y<dataH;y++)
             for(int x=0;x<dataW;x++)
-                System.arraycopy(generateCharQuad(x,y,0,0),0,m_VertexData,((y*dataW)+x)*quadTotalAttributeCount,quadTotalAttributeCount);
+            {
+                int dataIndex = y * (2*dataW);
+                dataIndex += x*2;
+                
+                System.arraycopy(generateTileQuad(x,y,m_TileData[dataIndex],m_TileData[dataIndex+1]),0,m_VertexData,((y*dataW)+x)*quadTotalAttributeCount,quadTotalAttributeCount);
         
+            }
+                
         m_ModelData.updateVertexData(m_VertexData);
             
     }
@@ -126,12 +125,16 @@ public class TileGrid extends GraphicsObject
         m_Model = new WeakReference<>(m_ModelData);
         
         
-        
-        /////////////TSET
-        setTexture("_Texture", "bloo.png");
-        //setTileSizeByPixel(16, 16);
-        setTileSizeByUV(0.0625f*4,0.0625f*4);
-        updateVertexData();//this is a test
+    }
+    
+    @Override protected void initialize()
+    {
+        if (m_RebuildVertsNextTick)
+        {
+            m_RebuildVertsNextTick = false;
+            updateVertexData();
+            
+        }
         
     }
     
