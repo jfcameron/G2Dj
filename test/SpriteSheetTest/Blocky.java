@@ -4,7 +4,6 @@
  */
 package SpriteSheetTest;
 
-import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;

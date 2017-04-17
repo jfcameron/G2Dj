@@ -36,9 +36,6 @@ public class SpriteSheet extends GraphicsObject
     public final void setCellSizeByPixel(final int aWidthInPixels, final int aHeightInPixels)
     {
         IntVector2 size = getTextureSize();
-        size.x = 64;
-        size.y =64;
-        
         setCellSizeByUV((float)aWidthInPixels/size.x,(float)aHeightInPixels/size.y);
     
     }

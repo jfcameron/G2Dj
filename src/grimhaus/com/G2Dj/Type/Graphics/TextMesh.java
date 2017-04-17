@@ -200,7 +200,7 @@ public class TextMesh extends GraphicsObject//GraphicsComponent implements Drawa
         m_ShaderProgram = Graphics.getShaderProgram("AlphaCutOff");
         m_ModelData = new Model
         (
-            "LineVisualizer"
+            "TextMesh"
             , 
             new float[0]//m_VertexData
             , 

@@ -39,13 +39,13 @@ public class Main
         
         gameObject.get().setName("MainCamera");
         
-        gameObject.get().getTransform().get().setPosition(0,10,0);
+        gameObject.get().getTransform().get().setPosition(-4.5f,10,+4.5f);
         gameObject.get().getTransform().get().setRotation(-90,180,0);
         
         Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
         camera.setProjectionMode(CameraProjectionMode.Orthographic);
         camera.setFarClippingPlane(15);
-        camera.setOrthoSize(5, 5);
+        camera.setOrthoSize(10, 10);
         
     }
     
@@ -59,7 +59,8 @@ public class Main
         gameObject.get().getTransform().get().setPosition(0,0,0);
         gameObject.get().getTransform().get().setScale(1,1,1);
         
-        gameObject.get().addComponent(TileGrid.class);
+        TileGrid tilegrid = (TileGrid)gameObject.get().addComponent(TileGrid.class);
+        
         
     }
     
