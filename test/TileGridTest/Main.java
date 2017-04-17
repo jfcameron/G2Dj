@@ -66,8 +66,7 @@ public class Main
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         TileGrid tilegrid = (TileGrid)gameObject.get().addComponent(TileGrid.class);
-        tilegrid.setTexture("_Texture", "bloo.png");
-        tilegrid.setTileSizeByPixel(16, 16);
+        tilegrid.setTileSet("bloo.png",16,16);
         tilegrid.setTileData(7,6,new int[]
         {
             8,1, 8,1, 8,1, 8,1, 8,1,  8,1,  8,1,
@@ -78,7 +77,6 @@ public class Main
             1,3, 1,3, 1,3, 1,3, 1,3,  1,3,  1,3,
             
         });
-        
         
     }
     
@@ -93,8 +91,7 @@ public class Main
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         SpriteSheet spriteSheet = (SpriteSheet)gameObject.get().addComponent(SpriteSheet.class);
-        spriteSheet.setTexture("_Texture", "Blocky.png");
-        spriteSheet.setCellSizeByPixel(16,17);
+        spriteSheet.setSpriteSheet("Blocky.png", 16, 17);
         spriteSheet.setCurrentCell(0, 0);
         
     }

@@ -75,8 +75,7 @@ public class Main
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         SpriteSheet spriteSheet = (SpriteSheet)gameObject.get().addComponent(SpriteSheet.class);
-        spriteSheet.setTexture("_Texture", "Blocky.png");
-        spriteSheet.setCellSizeByPixel(16,17);
+        spriteSheet.setSpriteSheet("Blocky.png",16,17);
         spriteSheet.setCurrentCell(2, 0);
         
     }

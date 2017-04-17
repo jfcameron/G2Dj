@@ -36,23 +36,23 @@ public class TileGrid extends GraphicsObject
     //
     public final void setTileData(final int aDataWidth, final int aDataHeight,final int[] aTileData){m_TileDataSize.setInPlace(aDataWidth, aDataHeight);m_TileData=aTileData;m_RebuildVertsNextTick=true;}
     public IntVector2 getTextureSize(){return getTexture("_Texture").get().getSize();}
-    public final void setTileSizeByUV(final float aU, final float aV)
-    {
-        m_TileSize.setInPlace(aU, aV);
-    
-    }
-    public final void setTileSizeByPixel(final int aWidthInPixels, final int aHeightInPixels)
+    private void setTileSizeByUV(final float aU, final float aV){m_TileSize.setInPlace(aU, aV);}
+    private void setTileSizeByPixel(final int aWidthInPixels, final int aHeightInPixels)
     {
         IntVector2 texSize = getTextureSize();
         
         m_TileSize.x = (float)aWidthInPixels/(texSize.x);
         m_TileSize.y = (float)aHeightInPixels/(texSize.y);
         
-        Debug.log("TEXTURESIZE: "+texSize,aWidthInPixels,m_TileSize.x);
-        
         setTileSizeByUV(m_TileSize.x,m_TileSize.y);
-        
     
+    }
+    
+    public final void setTileSet(final String aTileSetTextureName, final int aTilePixelWidth, final int aTilePixelHeight)
+    {
+        setTexture("_Texture", aTileSetTextureName);
+        setTileSizeByPixel(aTilePixelWidth,aTilePixelHeight);
+                
     }
     
     //

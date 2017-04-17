@@ -24,8 +24,7 @@ public class Blocky extends Component
     @Override protected void initialize() 
     {
         m_SpriteSheet = (SpriteSheet)getGameObject().get().getComponent(SpriteSheet.class);
-        m_SpriteSheet.setTexture("_Texture", "Blocky.png");
-        m_SpriteSheet.setCellSizeByPixel(16,17);
+        m_SpriteSheet.setSpriteSheet("Blocky.png", 16,17);
         m_SpriteSheet.setCurrentCell(1, 0);
     
     }

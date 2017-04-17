@@ -48,7 +48,7 @@ public abstract class GraphicsObject extends GraphicsComponent implements Drawab
     public final WeakReference<ShaderProgram> getShaderProgram(){return m_ShaderProgram;}
     public final WeakReference<Model> getModel(){return m_Model;}
     
-    public final void setTexture(final String aUniformName, final String aTextureResourceName){m_Textures.put(aUniformName, Graphics.getTexture(aTextureResourceName));}
+    public void setTexture(final String aUniformName, final String aTextureResourceName){m_Textures.put(aUniformName, Graphics.getTexture(aTextureResourceName));}
     public final void setFloats (final String aUniformname, final float aFloat){m_Floats.put(aUniformname, aFloat);}
     public final void setVector2(final String aUniformname, final Vector2 aVector2){m_Vector2s.put(aUniformname, aVector2);}
     public final void setVector3(final String aUniformname, final Vector3 aVector3){m_Vector3s.put(aUniformname, aVector3);}
