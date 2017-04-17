@@ -4,6 +4,7 @@
  */
 package SpriteSheetTest;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
@@ -19,6 +20,7 @@ import java.lang.ref.WeakReference;
 public class Blocky extends Component
 {
     private SpriteSheet m_SpriteSheet = null;
+    private float m_Timer = 0;
     
     @Override protected void initialize() 
     {
@@ -31,11 +33,13 @@ public class Blocky extends Component
     
     @Override protected void update() 
     {
-        if ((int)Time.getCurrentTime() % 2 == 0)
+        if ((int)m_Timer % 2 == 0)
             m_SpriteSheet.setCurrentCell(0, 0);
         else
             m_SpriteSheet.setCurrentCell(1, 0);
-    
+        
+        m_Timer += 5*Time.getDeltaTime();
+            
     }
     
     @Override protected void fixedUpdate() {}

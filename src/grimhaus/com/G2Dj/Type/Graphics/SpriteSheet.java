@@ -4,7 +4,6 @@
  */
 package grimhaus.com.G2Dj.Type.Graphics;
 
-import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Graphics.GraphicsObject;
 import grimhaus.com.G2Dj.Type.Math.IntVector2;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
