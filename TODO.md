@@ -1,10 +1,6 @@
-Graphics
- - review public interfaces of SpriteSheet and TileGrid.
- are they appropriate? What should change?
-   
 Physics2D
   - TileCollider2D   
-  - takes tile data, produces colliders
+    - takes tile data, produces colliders
    
 Physics2D
  - World.Raycast

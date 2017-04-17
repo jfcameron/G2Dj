@@ -126,7 +126,7 @@ public class TileGrid extends GraphicsObject
         
     }
     
-    @Override protected void initialize()
+    @Override protected void update()
     {
         if (m_RebuildVertsNextTick)
         {
