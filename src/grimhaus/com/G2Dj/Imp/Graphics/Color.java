@@ -30,6 +30,8 @@ public class Color
     public static Color DarkGreen  (){return new Color(0.0f,0.6f,0.0f,1.0f);}
     public static Color Blue       (){return new Color(0.0f,0.0f,1.0f,1.0f);}
     public static Color DeathlyPink(){return new Color(1.0f,0.2f,0.8f,1.0f);}
+    public static Color Black      (){return new Color(0.0f,0.0f,0.0f,1.0f);}
+    public static Color White      (){return new Color(1.0f,1.0f,1.0f,1.0f);}
     
     public static Color CornflowerBlue()
     {

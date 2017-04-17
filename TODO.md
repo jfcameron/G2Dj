@@ -1,9 +1,6 @@
 Graphics
-   - abstract commonalities between TextMesh, Mesh, TileGrid, SpriteSheet into GraphicsObject
- - SpriteSheetRenderer
-   - component for drawing cellbased sprite sheets
- - TileRenderer2D   
-   - depends on GraphicsSceneGraph. Just renders tiles.
+ - review public interfaces of SpriteSheet and TileGrid.
+ are they appropriate? What should change?
    
 Physics2D
   - TileCollider2D   

@@ -39,7 +39,6 @@ public class TileGrid extends GraphicsObject
     public final void setTileSizeByUV(final float aU, final float aV)
     {
         m_TileSize.setInPlace(aU, aV);
-        //setVector2("_UVScale",m_TileSize);
     
     }
     public final void setTileSizeByPixel(final int aWidthInPixels, final int aHeightInPixels)
@@ -94,8 +93,8 @@ public class TileGrid extends GraphicsObject
 
         for(int y=0;y<dataH;y++)
             for(int x=0;x<dataW;x++)
-            {
-                int dataIndex = y * (2*dataW);
+            {                
+                int dataIndex = (dataH*dataW*2)-((y+1)*2*dataW);
                 dataIndex += x*2;
                 
                 System.arraycopy(generateTileQuad(x,y,m_TileData[dataIndex],m_TileData[dataIndex+1]),0,m_VertexData,((y*dataW)+x)*quadTotalAttributeCount,quadTotalAttributeCount);
