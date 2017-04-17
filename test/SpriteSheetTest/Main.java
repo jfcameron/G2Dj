@@ -27,6 +27,7 @@ public class Main
         WeakReference<Scene> scene = Engine.createScene("Main");
         createTestCamera(scene);
         createSpriteSheet(scene);
+        createSpriteSheet2(scene);
         
     }
     
@@ -59,8 +60,24 @@ public class Main
         gameObject.get().getTransform().get().setPosition(0,0,0);
         gameObject.get().getTransform().get().setScale(1,1,1);
         
+        gameObject.get().addComponent(Blocky.class);
+        
+    }
+    
+    private static void createSpriteSheet2(final WeakReference<Scene> aScene)
+    {
+        Graphics.loadFromResource("SpriteSheetTest/Blocky.png");
+        
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("SpriteSheetTest");
+        gameObject.get().getTransform().get().setRotation(90,0,0);
+        gameObject.get().getTransform().get().setPosition(-2,0,0);
+        gameObject.get().getTransform().get().setScale(1,1,1);
+        
         SpriteSheet spriteSheet = (SpriteSheet)gameObject.get().addComponent(SpriteSheet.class);
         spriteSheet.setTexture("_Texture", "Blocky.png");
+        spriteSheet.setCellSizeByPixel(16,17);
+        spriteSheet.setCurrentCell(2, 0);
         
     }
     
