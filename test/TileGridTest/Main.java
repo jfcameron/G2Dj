@@ -12,6 +12,7 @@ import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.SpriteSheet;
+import grimhaus.com.G2Dj.Type.Graphics.TextMesh;
 import grimhaus.com.G2Dj.Type.Graphics.TileGrid;
 import java.lang.ref.WeakReference;
 
@@ -29,6 +30,7 @@ public class Main
         createTestCamera(scene);
         createTestTileGrid(scene);
         createSpriteSheet(scene);
+        createTextMesh(scene);
         
     }
     
@@ -90,6 +92,21 @@ public class Main
         spriteSheet.setTexture("_Texture", "Blocky.png");
         spriteSheet.setCellSizeByPixel(16,17);
         spriteSheet.setCurrentCell(0, 0);
+        
+    }
+    
+    private static void createTextMesh(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("TextMesh");
+        gameObject.get().getTransform().get().setRotation(90,180,0);
+        gameObject.get().getTransform().get().setPosition(0,1,0);
+        gameObject.get().getTransform().get().setScale(0.5f,0.5f,0.5f);
+        
+        TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
+        mesh.setText("走れ！");
+        
+        //gameObject.get().addComponent(Incrementer.class);
         
     }
     

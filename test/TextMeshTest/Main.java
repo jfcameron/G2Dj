@@ -63,7 +63,7 @@ public class Main
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
-        mesh.setText("！123お早う,\rWhat's good,שלום,\nЗдравствуйте,\n안녕하세요");
+        mesh.setText("！123お早う,\rWhat's good,שלום,\nЗдравствуйте,\n안녕하세요\r走れ！");
         
         //gameObject.get().addComponent(Incrementer.class);
         
@@ -80,7 +80,6 @@ public class Main
         TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
         mesh.setHorizontalTextAlignment(HorizontalTextAlignment.Right);
         mesh.setVerticalTextAlignment(VerticalTextAlignment.Bottom);
-        mesh.setText("！123お早う,\rWhat's good,שלום,\nЗдравствуйте,\n안녕하세요");
                 
         gameObject.get().addComponent(Incrementer.class);
         
