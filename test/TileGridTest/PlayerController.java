@@ -7,6 +7,7 @@ package TileGridTest;
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
+import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
@@ -39,7 +40,8 @@ public class PlayerController extends Component
     @Override
     protected void initialize() 
     {
-        getGameObject().get().addComponent(BoxCollider.class);
+        Collider c = (Collider)getGameObject().get().addComponent(BoxCollider.class);
+        //c.setFriction(5);
         
         m_SpriteSheet = (SpriteSheet)getGameObject().get().addComponent(SpriteSheet.class);
         m_SpriteSheet.setSpriteSheet("Blocky.png", 16, 17);
@@ -48,6 +50,8 @@ public class PlayerController extends Component
         m_Rigidbody = (Rigidbody)getGameObject().get().addComponent(Rigidbody.class);
         m_Rigidbody.freezeRotation(true);
         m_Rigidbody.setLinearDamping(0);
+        
+        
                 
     }
 

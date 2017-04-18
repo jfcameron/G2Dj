@@ -18,6 +18,7 @@ import grimhaus.com.G2Dj.Type.Graphics.TextMesh;
 import grimhaus.com.G2Dj.Type.Graphics.TileGrid;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.BoxCollider;
+import grimhaus.com.G2Dj.Type.Physics2D.EdgeDefinition;
 import grimhaus.com.G2Dj.Type.Physics2D.GridCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.GridColliderDefinition;
 import grimhaus.com.G2Dj.Type.Physics2D.Physics2DScene;
@@ -91,26 +92,29 @@ public class Main
         });
         
         GridCollider gridcollider = (GridCollider)gameObject.get().addComponent(GridCollider.class);
+        
+        float size = 1f;
         gridcollider.setColliderDefinitions(new GridColliderDefinition[]
         {
             //Empty tile collider
-            new GridColliderDefinition(new Vector2[]{},new Vector2[]{},new Vector2[]{},new Vector2[]{}),
+            new GridColliderDefinition(new EdgeDefinition[]{}),
             
             //Full tile collider
-            new GridColliderDefinition
-            ( 
-                //n
-                new Vector2[]{new Vector2(1,0),new Vector2(0,0)},
-                //e
-                new Vector2[]{new Vector2(1,0),new Vector2(1,1)},
-                //s
-                new Vector2[]{new Vector2(1,1),new Vector2(0,1)},
-                //w
-                new Vector2[]{new Vector2(0,0),new Vector2(0,1)}
+            new GridColliderDefinition(new EdgeDefinition[]
+            {
+                //north edge
+                new EdgeDefinition(new Vector2[]{new Vector2(size,0),new Vector2(0,0)},5f,0,0),
+                //east edge
+                new EdgeDefinition(new Vector2[]{new Vector2(size,0),new Vector2(size,size)},0f,0,0),
+                //south edge
+                new EdgeDefinition(new Vector2[]{new Vector2(size,size),new Vector2(0,size)},0f,0,0),
+                //west edge
+                new EdgeDefinition(new Vector2[]{new Vector2(0,0),new Vector2(0,size)},0f,0,0)
             
-            )
+            })
         
         });
+        
         
         gridcollider.setGridData(21,6,new int[]
         {
@@ -138,7 +142,7 @@ public class Main
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName("Player");
         gameObject.get().getTransform().get().setRotation(90,180,0);
-        gameObject.get().getTransform().get().setPosition(0,1,4);
+        gameObject.get().getTransform().get().setPosition(-5,1,4);
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         gameObject.get().addComponent(PlayerController.class);

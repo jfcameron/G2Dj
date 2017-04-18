@@ -11,6 +11,8 @@ import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
 import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
+import java.util.ArrayList;
+import java.util.List;
 import org.jbox2d.collision.shapes.EdgeShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
@@ -51,25 +53,47 @@ public class GridCollider extends Collider
     //
     //
     //
-    @Override
-    protected void buildShape() 
-    {        
-        if (m_Data == null)
-            return;
-            
-        //Init/Reinit Fixtures
-        m_FixtureDefinitions = new FixtureDef[m_Data.length*4];
-        for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)
-        {
-            m_FixtureDefinitions[i] = new FixtureDef();
-            m_FixtureDefinitions[i].shape = new EdgeShape();  //new PolygonShape();
-            m_FixtureDefinitions[i].setDensity(m_Density);
-            m_FixtureDefinitions[i].setFriction(m_Friction);
-            m_FixtureDefinitions[i].setRestitution(m_Restitution);
-            m_FixtureDefinitions[i].setSensor(m_ColliderType.toB2TriggerBool());
+    private void initalizeFixtureDefinitionsAndBuildFixtures()
+    {
+        List<FixtureDef> fixtureDefinitions = new ArrayList<>();
         
-        }
+        for(int y=0;y<m_DataHeight;y++)
+            for(int x=0;x<m_DataWidth;x++)
+            {
+                int dataIndex = (y*m_DataWidth)+x;
+                
+                GridColliderDefinition currentColDef = m_GridColliderDefinitions[m_Data[dataIndex]];
+                
+                for(int i=0;i<currentColDef.edgeDefinitions.length;i++)
+                {
+                    EdgeDefinition currentEdgeDef = currentColDef.edgeDefinitions[i];
+                    
+                    FixtureDef currentFixtureDef = new FixtureDef();
+                    currentFixtureDef.shape      = new EdgeShape();
+                    
+                    currentFixtureDef.setDensity    (currentEdgeDef.density);
+                    currentFixtureDef.setFriction   (currentEdgeDef.friction);
+                    currentFixtureDef.setRestitution(currentEdgeDef.restitution);
+                    currentFixtureDef.setSensor(ColliderType.Collidable.toB2TriggerBool());
+                    
+                    buildAFixture(x,y,m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes,null,currentFixtureDef);
+                    
+                    Debug.log("SURF: "+i,"FRIC: "+currentEdgeDef.friction);
+                    
+                    fixtureDefinitions.add(currentFixtureDef);
+                    
+                }
+                
+            }
         
+        //Convert to array
+        m_FixtureDefinitions = new FixtureDef[fixtureDefinitions.size()];
+        m_FixtureDefinitions = fixtureDefinitions.toArray(m_FixtureDefinitions);
+        
+    }
+    
+    private void initalizeVisualizers()
+    {
         //Init/Reinit Visualizers
         if (getDrawDebugLines())
         {
@@ -97,36 +121,17 @@ public class GridCollider extends Collider
         
         }
         
-        //craete fixtures m_GridColliderDefinitions
-        //if (m_Data != null)
-            for(int y=0;y<m_DataHeight;y++)
-                for(int x=0;x<m_DataWidth;x++)
-                    {
-                        int index = (y*m_DataWidth) +x;
-                        
-                        LineVisualizer visN = null, visE = null, visS = null, visW = null;
-                        
-                        if (m_LineVisualizers != null)
-                        {
-                            visN = m_LineVisualizers[index+0];
-                            visE = m_LineVisualizers[index+1];
-                            visS = m_LineVisualizers[index+2];
-                            visW = m_LineVisualizers[index+3];
-                                    
-                        }
-                        
-                        // BUG NOTE: these each work individually but not all at ocne
-                        
-                        
-                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[index]].northSurface,visN,m_FixtureDefinitions[index+0]);//n
-                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[index]].eastSurface ,visE,m_FixtureDefinitions[index+1]);//e
-                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[index]].southSurface,visS,m_FixtureDefinitions[index+2]);//s
-                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[index]].westSurface ,visW,m_FixtureDefinitions[index+3]);//w   
-        
-                    }
-        
-        //Debug.log("ASFFASAF: "+m_LineVisualizers);
-           
+    }
+    
+    @Override
+    protected void buildShape() 
+    {        
+        if (m_Data == null)
+            return;
+            
+        initalizeFixtureDefinitionsAndBuildFixtures();
+        //initalizeVisualizers();
+                   
     }
     
     private void buildAFixture(final int aTileX, final int aTileY, Vector2[] m_Vertices, LineVisualizer aLineVisualizer, FixtureDef m_FixtureDefinition)
@@ -183,5 +188,6 @@ public class GridCollider extends Collider
         m_FixtureDefinition.density = 1;
         
     }
+    
     
 }
