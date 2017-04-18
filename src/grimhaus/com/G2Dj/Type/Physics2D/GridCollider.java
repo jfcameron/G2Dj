@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Graphics.Color;
 import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
@@ -18,29 +19,46 @@ import org.jbox2d.dynamics.FixtureDef;
  *
  * @author Joseph Cameron
  */
-public class CompositeCollider extends Collider
+public class GridCollider extends Collider
 {
     //*************
     // Data members
     //*************
-    private   Vector2[][]      m_VertexArrays = new Vector2[][]{};
-    protected FixtureDef[]     m_FixtureDefinitions;
-    protected LineVisualizer[] m_LineVisualizers; 
+    //collider info
+    private GridColliderDefinition[] m_GridColliderDefinitions = null;
+    private FixtureDef[] m_FixtureDefinitions = null;
+    //grid data
+    private int m_DataWidth = 0, m_DataHeight = 0;
+    private int[] m_Data = null;
+    //debug info
+    private LineVisualizer[] m_LineVisualizers = null;
     
     //
-    // Accessors
     //
+    //
+    public void setColliderDefinitions(final GridColliderDefinition[] aGridColliderDefinitions){m_GridColliderDefinitions=aGridColliderDefinitions;}
+    public void setGridData(final int aDataWidth, final int aDataHeight, final int[] aGridData)
+    {
+        m_DataWidth = aDataWidth;
+        m_DataHeight = aDataHeight;   
+        m_Data = aGridData;
+        requestShapeRebuildOnNextTick();
+    
+    }
+    
     @Override public FixtureDef[] getB2DFixtures(){return m_FixtureDefinitions;}
-    public void setVerticies(final Vector2[][] aCounterClockwiseVerticies){m_VertexArrays = aCounterClockwiseVerticies;requestShapeRebuildOnNextTick();}
     
     //
-    // Collider implementation
+    //
     //
     @Override
-    protected void buildShape()
-    {
+    protected void buildShape() 
+    {        
+        if (m_Data == null)
+            return;
+            
         //Init/Reinit Fixtures
-        m_FixtureDefinitions = new FixtureDef[m_VertexArrays.length];
+        m_FixtureDefinitions = new FixtureDef[m_Data.length];
         for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)
         {
             m_FixtureDefinitions[i] = new FixtureDef();
@@ -51,7 +69,7 @@ public class CompositeCollider extends Collider
             m_FixtureDefinitions[i].setSensor(m_ColliderType.toB2TriggerBool());
         
         }
-              
+        
         //Init/Reinit Visualizers
         if (getDrawDebugLines())
         {
@@ -60,63 +78,44 @@ public class CompositeCollider extends Collider
                 for(int i=0,s=m_LineVisualizers.length;i<s;i++)
                     getGameObject().get().removeComponent(m_LineVisualizers[i]);
             
-            //create visualizers
-            m_LineVisualizers = new LineVisualizer[m_VertexArrays.length];
-            for(int i=0,s=m_VertexArrays.length;i<s;i++)
+            //if (m_Data != null)
             {
-                m_LineVisualizers[i] = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
-                
-                if (m_ColliderType == ColliderType.Collidable)
-                    m_LineVisualizers[i].setColor(Color.Green());
-                else
-                    m_LineVisualizers[i].setColor(Color.DarkGreen());
-                
+                //create visualizers
+                m_LineVisualizers = new LineVisualizer[m_Data.length];
+                for(int i=0,s=m_Data.length;i<s;i++)
+                {
+                    m_LineVisualizers[i] = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
+                    
+                    if (m_ColliderType == ColliderType.Collidable)
+                        m_LineVisualizers[i].setColor(Color.Green());
+                    else
+                        m_LineVisualizers[i].setColor(Color.DarkGreen());
+                    
+                }
+            
             }
         
         }
         
-        //Build the fixtures
-        if (m_VertexArrays != null)
-            for(int i=0,s=m_VertexArrays.length;i<s;i++)
-                if (m_VertexArrays[i] != null)
-                {
-                    LineVisualizer currentVisualizer = null;
+        //craete fixtures m_GridColliderDefinitions
+        //if (m_Data != null)
+            for(int y=0;y<m_DataHeight;y++)
+                for(int x=0;x<m_DataWidth;x++)
+                    {
+                        LineVisualizer currentVisualizer = null;
                     
-                    if (m_LineVisualizers != null && i < m_LineVisualizers.length)
-                        currentVisualizer = m_LineVisualizers[i];
+                        if (m_LineVisualizers != null && (y*m_DataWidth +x) < m_LineVisualizers.length)
+                            currentVisualizer = m_LineVisualizers[(y*m_DataWidth +x)];
                     
-                    buildAFixture(m_VertexArrays[i],currentVisualizer,m_FixtureDefinitions[i]);        
+                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[(y*m_DataWidth +x)]].colliderVertexes,currentVisualizer,m_FixtureDefinitions[(y*m_DataWidth +x)]);        
         
-                }
+                    }
+        
+        //Debug.log("ASFFASAF: "+m_LineVisualizers);
            
     }
     
-    //
-    // Implementation
-    //    
-    private Vec2[] generateDefaultVertexData()
-    {
-        Vector3 scale = getGameObject().get().getTransform().get().getScale();
-        
-        final float hx = 0.5f;
-        final float hy = 0.5f;
-        final int count = 4;
-        
-        Vec2[] b2verts = new Vec2[count];
-        
-        for(int i=0,s=count;i<s;i++)
-            b2verts[i] = new Vec2();
-        
-        b2verts[0].set((-hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
-        b2verts[1].set(( hx +m_Offset.x)*scale.x, (-hy +m_Offset.y)*scale.z);
-        b2verts[2].set(( hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
-        b2verts[3].set((-hx +m_Offset.x)*scale.x, ( hy +m_Offset.y)*scale.z);
-        
-        return b2verts;
-        
-    }
-    
-    private void buildAFixture(Vector2[] m_Vertices, LineVisualizer m_LineVisualizer, FixtureDef m_FixtureDefinition)
+    private void buildAFixture(final int aTileX, final int aTileY, Vector2[] m_Vertices, LineVisualizer m_LineVisualizer, FixtureDef m_FixtureDefinition)
     {
         Vec2[] b2verts;
         PolygonShape m_Shape = (PolygonShape)m_FixtureDefinition.shape;
@@ -124,13 +123,19 @@ public class CompositeCollider extends Collider
         Vector3 scale = getGameObject().get().getTransform().get().getScale();
         
         if (m_Vertices == null || m_Vertices.length == 0)
-            b2verts = generateDefaultVertexData();
+        {
+            if (m_LineVisualizer!=null)
+                getGameObject().get().removeComponent(m_LineVisualizer);
+            
+            return;//b2verts = generateDefaultVertexData();
+        
+        }
         else
         {
             b2verts = new Vec2[m_Vertices.length];
             
             for(int i=0,s=m_Vertices.length;i<s;i++)
-                b2verts[i] = new Vec2((m_Vertices[i].x+m_Offset.x)*scale.x,(m_Vertices[i].y+m_Offset.y)*scale.z);
+                b2verts[i] = new Vec2((m_Vertices[i].x+m_Offset.x-0.5f+aTileX)*scale.x,(m_Vertices[i].y+m_Offset.y-0.5f+(aTileY-m_DataHeight+1))*scale.z);
             
         }
         

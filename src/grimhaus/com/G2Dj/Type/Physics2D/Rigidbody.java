@@ -66,7 +66,7 @@ public class Rigidbody extends Physics2DComponent
     
     public void setType(final grimhaus.com.G2Dj.Imp.Physics2D.BodyType aType){m_Body.m_type = aType.toB2BodyType();}
     
-    public void setFrozenRotation(final boolean aFreeze){m_Body.setFixedRotation(aFreeze);}
+    public void freezeRotation(final boolean aFreeze){m_Body.setFixedRotation(aFreeze);}
     //public void freezeX
     //public void setFreezeY(final boolean aFreezeY){m_FreezeY = aFreezeY;}
     

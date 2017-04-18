@@ -45,7 +45,7 @@ public class PlayerPaddleController extends Component
     protected void initialize() 
     {
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
-        m_Rigidbody.setFrozenRotation(true);
+        m_Rigidbody.freezeRotation(true);
         m_Rigidbody.freezeAxis(AxisFreezeMode.X);
         //m_Rigidbody.set
         

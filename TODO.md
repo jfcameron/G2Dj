@@ -1,6 +1,10 @@
 Physics2D
   - TileCollider2D   
     - takes tile data, produces colliders
+  - SimpleCollider exists for FixtureDefinition therefore create ComplexCollider for FixtureDefinition[] -> abstract gridcollider & composite collider commonalities to this.
+  - Rigidbody & colliders
+   - colliders should require a rigidbody
+   - rigidbody should be a unique component (create an attribute for this)
    
 Physics2D
  - World.Raycast

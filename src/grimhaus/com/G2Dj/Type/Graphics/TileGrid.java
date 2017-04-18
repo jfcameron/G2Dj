@@ -63,6 +63,7 @@ public class TileGrid extends GraphicsObject
     private float[] generateTileQuad(final int aOffsetX, final int aOffsetY, final int aOffsetU, final int aOffsetV)
     {
         float 
+        depthOffset = -1.0f,        
         offsetU = aOffsetU*m_TileSize.x,
         offsetV = aOffsetV*m_TileSize.y,
         tileSizeX = m_TileSize.x,
@@ -71,13 +72,13 @@ public class TileGrid extends GraphicsObject
         return new float[]
         {
             //                      x,                         y,    z,                         u,    v,
-            aOffsetX+(size -(size/2)), aOffsetY+(size -(size/2)), 0.0f, offsetU+tileSizeX, offsetV+   (0.0f), // 1--0
-            aOffsetX+(0.0f -(size/2)), aOffsetY+(size -(size/2)), 0.0f, offsetU+   (0.0f), offsetV+   (0.0f), // | /
-            aOffsetX+(0.0f -(size/2)), aOffsetY+(0.0f -(size/2)), 0.0f, offsetU+   (0.0f), offsetV+tileSizeY, // 2
+            aOffsetX+(size -(size/2)), aOffsetY+(size -(size/2)), 0.0f + depthOffset, offsetU+tileSizeX, offsetV+   (0.0f), // 1--0
+            aOffsetX+(0.0f -(size/2)), aOffsetY+(size -(size/2)), 0.0f + depthOffset, offsetU+   (0.0f), offsetV+   (0.0f), // | /
+            aOffsetX+(0.0f -(size/2)), aOffsetY+(0.0f -(size/2)), 0.0f + depthOffset, offsetU+   (0.0f), offsetV+tileSizeY, // 2
 
-            aOffsetX+(size -(size/2)), aOffsetY+(size -(size/2)), 0.0f, offsetU+tileSizeX, offsetV+   (0.0f), //    0
-            aOffsetX+(0.0f -(size/2)), aOffsetY+(0.0f -(size/2)), 0.0f, offsetU+   (0.0f), offsetV+tileSizeY, //  / |
-            aOffsetX+(size -(size/2)), aOffsetY+(0.0f -(size/2)), 0.0f, offsetU+tileSizeX, offsetV+tileSizeY, // 1--2
+            aOffsetX+(size -(size/2)), aOffsetY+(size -(size/2)), 0.0f + depthOffset, offsetU+tileSizeX, offsetV+   (0.0f), //    0
+            aOffsetX+(0.0f -(size/2)), aOffsetY+(0.0f -(size/2)), 0.0f + depthOffset, offsetU+   (0.0f), offsetV+tileSizeY, //  / |
+            aOffsetX+(size -(size/2)), aOffsetY+(0.0f -(size/2)), 0.0f + depthOffset, offsetU+tileSizeX, offsetV+tileSizeY, // 1--2
                 
         };
         

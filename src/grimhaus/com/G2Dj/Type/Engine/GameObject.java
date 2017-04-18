@@ -101,7 +101,7 @@ public class GameObject
     
     public void removeComponent(Class<?> aComponentType)
     {
-        for (int i=0,s=m_Components.size();i<s;i++)
+        for (int i=0;i<m_Components.size();i++)
             if (m_Components.get(i).getClass() == aComponentType)
             {
                 m_MyScene.get().OnComponentRemoved(m_Components.get(i));
@@ -119,7 +119,7 @@ public class GameObject
     
     public void removeComponent(final Component aComponentInstance)
     {
-        for (int i=0,s=m_Components.size();i<s;i++)
+        for (int i=0;i<m_Components.size();i++)
             if (m_Components.get(i) == aComponentInstance)
             {
                 m_MyScene.get().OnComponentRemoved(m_Components.get(i));
