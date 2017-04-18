@@ -11,7 +11,7 @@ import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
 import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
-import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.collision.shapes.EdgeShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 
@@ -26,7 +26,7 @@ public class GridCollider extends Collider
     //*************
     //collider info
     private GridColliderDefinition[] m_GridColliderDefinitions = null;
-    private FixtureDef[] m_FixtureDefinitions = null;
+    private FixtureDef[]             m_FixtureDefinitions      = null;
     //grid data
     private int m_DataWidth = 0, m_DataHeight = 0;
     private int[] m_Data = null;
@@ -43,7 +43,7 @@ public class GridCollider extends Collider
         m_DataHeight = aDataHeight;   
         m_Data = aGridData;
         requestShapeRebuildOnNextTick();
-    
+        
     }
     
     @Override public FixtureDef[] getB2DFixtures(){return m_FixtureDefinitions;}
@@ -58,11 +58,11 @@ public class GridCollider extends Collider
             return;
             
         //Init/Reinit Fixtures
-        m_FixtureDefinitions = new FixtureDef[m_Data.length];
+        m_FixtureDefinitions = new FixtureDef[m_Data.length*4];
         for(int i=0,s=m_FixtureDefinitions.length;i<s;i++)
         {
             m_FixtureDefinitions[i] = new FixtureDef();
-            m_FixtureDefinitions[i].shape =  new PolygonShape();
+            m_FixtureDefinitions[i].shape = new EdgeShape();  //new PolygonShape();
             m_FixtureDefinitions[i].setDensity(m_Density);
             m_FixtureDefinitions[i].setFriction(m_Friction);
             m_FixtureDefinitions[i].setRestitution(m_Restitution);
@@ -81,7 +81,7 @@ public class GridCollider extends Collider
             //if (m_Data != null)
             {
                 //create visualizers
-                m_LineVisualizers = new LineVisualizer[m_Data.length];
+                m_LineVisualizers = new LineVisualizer[m_Data.length*4];
                 for(int i=0,s=m_Data.length;i<s;i++)
                 {
                     m_LineVisualizers[i] = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
@@ -102,12 +102,26 @@ public class GridCollider extends Collider
             for(int y=0;y<m_DataHeight;y++)
                 for(int x=0;x<m_DataWidth;x++)
                     {
-                        LineVisualizer currentVisualizer = null;
-                    
-                        if (m_LineVisualizers != null && (y*m_DataWidth +x) < m_LineVisualizers.length)
-                            currentVisualizer = m_LineVisualizers[(y*m_DataWidth +x)];
-                    
-                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[(y*m_DataWidth +x)]].colliderVertexes,currentVisualizer,m_FixtureDefinitions[(y*m_DataWidth +x)]);        
+                        int index = (y*m_DataWidth) +x;
+                        
+                        LineVisualizer visN = null, visE = null, visS = null, visW = null;
+                        
+                        if (m_LineVisualizers != null)
+                        {
+                            visN = m_LineVisualizers[index+0];
+                            visE = m_LineVisualizers[index+1];
+                            visS = m_LineVisualizers[index+2];
+                            visW = m_LineVisualizers[index+3];
+                                    
+                        }
+                        
+                        // BUG NOTE: these each work individually but not all at ocne
+                        
+                        
+                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[index]].northSurface,visN,m_FixtureDefinitions[index+0]);//n
+                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[index]].eastSurface ,visE,m_FixtureDefinitions[index+1]);//e
+                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[index]].southSurface,visS,m_FixtureDefinitions[index+2]);//s
+                        buildAFixture(x,y,m_GridColliderDefinitions[m_Data[index]].westSurface ,visW,m_FixtureDefinitions[index+3]);//w   
         
                     }
         
@@ -115,19 +129,20 @@ public class GridCollider extends Collider
            
     }
     
-    private void buildAFixture(final int aTileX, final int aTileY, Vector2[] m_Vertices, LineVisualizer m_LineVisualizer, FixtureDef m_FixtureDefinition)
+    private void buildAFixture(final int aTileX, final int aTileY, Vector2[] m_Vertices, LineVisualizer aLineVisualizer, FixtureDef m_FixtureDefinition)
     {
         Vec2[] b2verts;
-        PolygonShape m_Shape = (PolygonShape)m_FixtureDefinition.shape;
+        EdgeShape currentShape = (EdgeShape)m_FixtureDefinition.shape;//PolygonShape m_Shape = (PolygonShape)m_FixtureDefinition.shape;
                 
         Vector3 scale = getGameObject().get().getTransform().get().getScale();
         
+        //some kind of sanity check?
         if (m_Vertices == null || m_Vertices.length == 0)
         {
-            if (m_LineVisualizer!=null)
-                getGameObject().get().removeComponent(m_LineVisualizer);
+            if (aLineVisualizer!=null)
+                getGameObject().get().removeComponent(aLineVisualizer);
             
-            return;//b2verts = generateDefaultVertexData();
+            return;
         
         }
         else
@@ -139,9 +154,11 @@ public class GridCollider extends Collider
             
         }
         
-        m_Shape.set(b2verts, b2verts.length);
+        //HERE
+        //create top l
+        currentShape.set(b2verts[0],b2verts[1]);//m_Shape.set(b2verts, b2verts.length);
                 
-        m_Shape.m_centroid.set(b_Vec2Buffer.set((m_Offset.x),(m_Offset.y)));
+        //m_Shape.m_centroid.set(b_Vec2Buffer.set((m_Offset.x),(m_Offset.y)));
 
         //Generate the line mesh
         float[] visualVerts = new float[(b2verts.length*3)+3];
@@ -157,9 +174,12 @@ public class GridCollider extends Collider
         visualVerts[visualVerts.length-2] = 0.0f; 
         visualVerts[visualVerts.length-1] = b2verts[0].y/scale.z;
                 
-        if (m_LineVisualizer != null)
-            m_LineVisualizer.setVertexData(visualVerts);
-        
+        if (aLineVisualizer != null)
+        {
+            aLineVisualizer.setVertexData(visualVerts);
+
+        }
+            
         m_FixtureDefinition.density = 1;
         
     }

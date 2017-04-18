@@ -13,13 +13,20 @@ import grimhaus.com.G2Dj.Type.Math.Vector2;
  */
 public class GridColliderDefinition 
 {
-    public final Vector2[]    colliderVertexes;
+    public final Vector2[]    
+    northSurface,
+    eastSurface ,
+    southSurface,
+    westSurface ;
     //private final float      friction;
     //private final float      restitution;
     
-    public GridColliderDefinition(final Vector2[] aCounterclockwiseVertexArray)
+    public GridColliderDefinition(final Vector2[] aNorthSurface,final Vector2[] aEastSurface,final Vector2[] aSouthSurface,final Vector2[] aWestSurface)
     {
-        colliderVertexes = aCounterclockwiseVertexArray;
+        northSurface = aNorthSurface;
+        eastSurface  = aEastSurface;
+        southSurface = aSouthSurface;
+        westSurface  = aWestSurface;
         
     }
     

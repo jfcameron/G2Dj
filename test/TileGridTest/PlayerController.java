@@ -39,15 +39,15 @@ public class PlayerController extends Component
     @Override
     protected void initialize() 
     {
+        getGameObject().get().addComponent(BoxCollider.class);
         
         m_SpriteSheet = (SpriteSheet)getGameObject().get().addComponent(SpriteSheet.class);
         m_SpriteSheet.setSpriteSheet("Blocky.png", 16, 17);
         m_SpriteSheet.setCurrentCell(0, 0);
         
-        getGameObject().get().addComponent(BoxCollider.class);
-        
         m_Rigidbody = (Rigidbody)getGameObject().get().addComponent(Rigidbody.class);
         m_Rigidbody.freezeRotation(true);
+        m_Rigidbody.setLinearDamping(0);
                 
     }
 
@@ -89,6 +89,7 @@ public class PlayerController extends Component
         if (Math.abs(m_Rigidbody.getVelocity().x) < 0.1f)
         {
             m_SpriteSheet.setCurrentCell(1, 0);
+            m_AnimationTimer=0;
             
         }
                                 

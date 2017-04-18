@@ -94,35 +94,36 @@ public class Main
         gridcollider.setColliderDefinitions(new GridColliderDefinition[]
         {
             //Empty tile collider
-            new GridColliderDefinition(new Vector2[]
-            {
-               
-            }),
+            new GridColliderDefinition(new Vector2[]{},new Vector2[]{},new Vector2[]{},new Vector2[]{}),
             
             //Full tile collider
-            new GridColliderDefinition(new Vector2[]
-            {
-                new Vector2(0,0),
-                new Vector2(1,0),
-                new Vector2(1,1),
-                new Vector2(0,1)
+            new GridColliderDefinition
+            ( 
+                //n
+                new Vector2[]{new Vector2(1,0),new Vector2(0,0)},
+                //e
+                new Vector2[]{new Vector2(1,0),new Vector2(1,1)},
+                //s
+                new Vector2[]{new Vector2(1,1),new Vector2(0,1)},
+                //w
+                new Vector2[]{new Vector2(0,0),new Vector2(0,1)}
             
-            }),
+            )
         
         });
         
         gridcollider.setGridData(21,6,new int[]
         {
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             
         });
         
-        gridcollider.setDrawDebugLines(false);
+        //gridcollider.setDrawDebugLines(false);
         
         Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
         rb.setType(BodyType.Static);
