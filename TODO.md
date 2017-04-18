@@ -4,7 +4,7 @@ Physics2D
   - SimpleCollider exists for FixtureDefinition therefore create ComplexCollider for FixtureDefinition[] -> abstract gridcollider & composite collider commonalities to this.
   - Rigidbody & colliders
    - colliders should require a rigidbody
-   - rigidbody should be a unique component (create an attribute for this)
+   - rigidbody should be a unique component (create an attribute for this) VERY IMPORTANT: just ran into a bug around the lack of this!
    
 Physics2D
  - World.Raycast

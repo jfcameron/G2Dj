@@ -44,12 +44,13 @@ public class PlayerController extends Component
         m_SpriteSheet.setSpriteSheet("Blocky.png", 16, 17);
         m_SpriteSheet.setCurrentCell(0, 0);
         
-        //Collider c = (Collider)getGameObject().get().getComponent(BoxCollider.class);
+        //Collider collider = (Collider)getGameObject().get().getComponent(BoxCollider.class);
+        //collider.setFriction(10f);
         
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
         m_Rigidbody.freezeRotation(true);
         m_Rigidbody.setLinearDamping(0);
-                
+        
     }
 
     @Override

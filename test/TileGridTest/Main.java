@@ -43,7 +43,7 @@ public class Main
         createSpriteSheet(scene);
         createTextMesh(scene);
         createTestCamera(scene);
-        //createFloor(scene);
+        createFloor(scene);
         createBox(scene);
         
         
@@ -96,7 +96,12 @@ public class Main
         
         GridCollider gridcollider = (GridCollider)gameObject.get().addComponent(GridCollider.class);
         
-        float size = 1f;
+        float 
+        hStart = 0.01f, //prevent overlaps
+        hEnd   = 0.99f, //
+
+        vStart = 0.01f;
+        
         gridcollider.setColliderDefinitions(new GridColliderDefinition[]
         {
             //Empty tile collider
@@ -106,13 +111,13 @@ public class Main
             new GridColliderDefinition(new EdgeDefinition[]
             {
                 //north edge
-                new EdgeDefinition(new Vector2[]{new Vector2(size,0),new Vector2(0,0)},5f,0,0),
+                new EdgeDefinition(new Vector2[]{new Vector2(hEnd,0),new Vector2(hStart,0)},5f,0,0),//{new Vector2(1,0),new Vector2(0,0)}
                 //east edge
-                new EdgeDefinition(new Vector2[]{new Vector2(size,0),new Vector2(size,size)},0f,0,0),
+                new EdgeDefinition(new Vector2[]{new Vector2(1,vStart),new Vector2(1,1)},0f,0,0),    //{new Vector2(1,0),new Vector2(1,1)}
                 //south edge
-                new EdgeDefinition(new Vector2[]{new Vector2(size,size),new Vector2(0,size)},0f,0,0),
+                new EdgeDefinition(new Vector2[]{new Vector2(1,1),new Vector2(0,1)},0f,0,0),    //{new Vector2(1,1),new Vector2(0,1)}
                 //west edge
-                new EdgeDefinition(new Vector2[]{new Vector2(0,0),new Vector2(0,size)},0f,0,0)
+                new EdgeDefinition(new Vector2[]{new Vector2(0,vStart),new Vector2(0,1)},0f,0,0) //{new Vector2(0,0),new Vector2(0,1)}
             
             })
         
@@ -122,9 +127,9 @@ public class Main
         gridcollider.setGridData(21,6,new int[]
         {
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             
@@ -185,7 +190,7 @@ public class Main
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName("Floor");
         gameObject.get().getTransform().get().setRotation(90,180,0);
-        gameObject.get().getTransform().get().setPosition(-12,1,7);
+        gameObject.get().getTransform().get().setPosition(-6,1,4);
         gameObject.get().getTransform().get().setScale(1.0f,1.0f,1.0f);
         
         gameObject.get().addComponent(Mesh.class);

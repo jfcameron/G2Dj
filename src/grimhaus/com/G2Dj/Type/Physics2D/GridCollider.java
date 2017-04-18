@@ -155,7 +155,7 @@ public class GridCollider extends Collider
             b2verts = new Vec2[m_Vertices.length];
             
             for(int i=0,s=m_Vertices.length;i<s;i++)
-                b2verts[i] = new Vec2((m_Vertices[i].x+m_Offset.x-0.5f+aTileX)*scale.x,(m_Vertices[i].y+m_Offset.y-0.5f+(aTileY-m_DataHeight+1))*scale.z);
+                b2verts[i] = new Vec2((m_Vertices[i].x+m_Offset.x-0.35f+aTileX)*scale.x,(m_Vertices[i].y+m_Offset.y-0.5f+(aTileY-m_DataHeight+1))*scale.z);
             
         }
         
