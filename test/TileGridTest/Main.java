@@ -38,10 +38,10 @@ public class Main
         Physics2DScene p2d = (Physics2DScene)scene.get().getSceneGraph(Physics2DScene.class).get();
         p2d.setGravity(0, -9.81f);
         
-        createTestCamera(scene);
         createTestTileGrid(scene);
         createSpriteSheet(scene);
         createTextMesh(scene);
+        createTestCamera(scene);
         
     }
     
@@ -60,8 +60,10 @@ public class Main
         Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
         camera.setProjectionMode(CameraProjectionMode.Orthographic);
         camera.setFarClippingPlane(15);
-        camera.setOrthoSize(20, 20);
+        camera.setOrthoSize(7.5f, 7.5f);
         camera.setClearColor(Color.Black());
+        
+        gameObject.get().addComponent(PlayerCamera.class);
         
     }
     
@@ -119,6 +121,8 @@ public class Main
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             
         });
+        
+        gridcollider.setDrawDebugLines(false);
         
         Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
         rb.setType(BodyType.Static);
