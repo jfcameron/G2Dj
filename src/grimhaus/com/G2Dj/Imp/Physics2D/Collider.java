@@ -24,6 +24,7 @@ public abstract class Collider extends Physics2DComponent
     protected final Vector2 m_Offset = Vector2.Zero();
     private boolean m_RebuildShape = false;
     private boolean m_DrawDebugLines = true;
+    private String m_Name = "Unnamed Collider";
     
     //fixture def data
     protected float        m_Friction = 0.2f;
@@ -44,12 +45,14 @@ public abstract class Collider extends Physics2DComponent
     public void setDensity(final float aDensity){m_Density=aDensity;requestShapeRebuildOnNextTick();}
     public void setFriction(final float aFriction){m_Friction=aFriction;requestShapeRebuildOnNextTick();}
     public void setRestitution(final float aRestitution){m_Restitution=aRestitution;requestShapeRebuildOnNextTick();}
+    public void setName(final String aName){m_Name=aName;requestShapeRebuildOnNextTick();}
     
     public boolean getDrawDebugLines(){return m_DrawDebugLines;}
     public ColliderType getType(){return m_ColliderType;}
     public float getDensity(){return m_Density;}
     public float getFriction(){return m_Friction;}
     public float getRestitution(){return m_Restitution;}
+    public String getName(){return m_Name;}
     
     
     //*******************
@@ -72,7 +75,7 @@ public abstract class Collider extends Physics2DComponent
             b_ScaleBuffer.copy(scale);
         
         }
-                    
+        
         if (!b_ScaleBuffer.equals(scale))
             requestShapeRebuildOnNextTick();
         

@@ -112,7 +112,7 @@ public class Ball extends Component
     
     public void OnCollisionEnter(final CollisionInfo info)
     {
-        String name = info.other.get().getName();
+        String name = info.other.get().getGameObject().get().getName();
         
         if (name.equals(Constants.Player1Name) || name.equals(Constants.Player2Name))
         {

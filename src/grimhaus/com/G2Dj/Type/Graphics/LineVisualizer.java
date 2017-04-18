@@ -8,6 +8,7 @@ import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.Color;
 import grimhaus.com.G2Dj.Imp.Graphics.GL;
 import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
+import grimhaus.com.G2Dj.Imp.Graphics.LinePrimitive;
 import grimhaus.com.G2Dj.Imp.Graphics.Model;
 import grimhaus.com.G2Dj.Imp.Graphics.ModelType;
 import grimhaus.com.G2Dj.Imp.Graphics.ShaderProgram;
@@ -25,30 +26,38 @@ import java.lang.ref.WeakReference;
  */
 public class LineVisualizer extends GraphicsComponent implements Drawable
 {
+    //
+    // Constants
+    //
     private static final float h = 0.5f;
     private static final float y = -0.1f;
     
-    public static final float[] lineBox(final float aOffsetX, final float aOffsetY, final float aOffsetScale){return new float[]
+    public static final float[] lineStripBox(final float aOffsetX, final float aOffsetY, final float aOffsetScale){return new float[]
     {
         (+h+aOffsetX)*aOffsetScale,y,(+h+aOffsetY)*aOffsetScale,
         (-h+aOffsetX)*aOffsetScale,y,(+h+aOffsetY)*aOffsetScale,
         (-h+aOffsetX)*aOffsetScale,y,(-h+aOffsetY)*aOffsetScale,
         (+h+aOffsetX)*aOffsetScale,y,(-h+aOffsetY)*aOffsetScale,
         (+h+aOffsetX)*aOffsetScale,y,(+h+aOffsetY)*aOffsetScale,
+
                 
     };}
     
-    public static final float[] lineCircle(final float aOffsetX, final float aOffsetY, final float aScale){return new float[]
+    public static final float[] lineStripCircle(final float aOffsetX, final float aOffsetY, final float aScale){return new float[]
     {
         (-h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale,    (+h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale,
         (+h  +aOffsetX)*aScale,y,(+h/3+aOffsetY)*aScale,    (+h  +aOffsetX)*aScale,y,(-h/3+aOffsetY)*aScale,
         (+h/3+aOffsetX)*aScale,y,(-h  +aOffsetY)*aScale,    (-h/3+aOffsetX)*aScale,y,(-h  +aOffsetY)*aScale,
         (-h  +aOffsetX)*aScale,y,(-h/3+aOffsetY)*aScale,    (-h  +aOffsetX)*aScale,y,(+h/3+aOffsetY)*aScale,
-        (-h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale,    (+h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale, 
+        (-h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale,    (+h/3+aOffsetX)*aScale,y,(+h  +aOffsetY)*aScale,
                 
     };}
     
-    private float[] m_VertexData = lineCircle(0,0,1);
+    //
+    // Data members
+    //
+    private LinePrimitive m_LinePrimitive = LinePrimitive.LineStrip;
+    private float[] m_VertexData = lineStripCircle(0,0,1);
     
     private final Model                         m_Model;
     private final WeakReference<ShaderProgram>  m_ShaderProgram;
@@ -67,6 +76,7 @@ public class LineVisualizer extends GraphicsComponent implements Drawable
     
     }
     
+    public void setDrawPrimitiveMode(final LinePrimitive aLinePrimitive){m_LinePrimitive = aLinePrimitive;}
     public void setLineWidth(final float aLineWidth){m_LineWidth=aLineWidth;}
     public void setColor(final Color aColor){m_Color = aColor;}
     
@@ -118,7 +128,7 @@ public class LineVisualizer extends GraphicsComponent implements Drawable
         
         GL.glLineWidth(m_LineWidth);
         
-        GL.glDrawArrays( GL.GL_LINE_STRIP, 0, m_Model.getVertexCount() );
+        GL.glDrawArrays( m_LinePrimitive.toOpenGLLinePrimitive(), 0, m_Model.getVertexCount() );
     
     }
     

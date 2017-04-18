@@ -31,7 +31,7 @@ public class PlayerCamera extends Component
         Vector3 pos = getTransform().get().getPosition();
         
         pos.x = m_Player.get().getPosition().x;
-        //pos.z = m_Player.get().getPosition().z;
+        pos.z = 3.5f;
         
     }
 

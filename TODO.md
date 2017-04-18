@@ -1,10 +1,13 @@
 Physics2D
   - TileCollider2D   
-    - takes tile data, produces colliders
+    - support line visualizer
+    - add empty checks
+    - Add support for 1 directional colliders
   - SimpleCollider exists for FixtureDefinition therefore create ComplexCollider for FixtureDefinition[] -> abstract gridcollider & composite collider commonalities to this.
   - Rigidbody & colliders
    - colliders should require a rigidbody
    - rigidbody should be a unique component (create an attribute for this) VERY IMPORTANT: just ran into a bug around the lack of this!
+   
    
 Physics2D
  - World.Raycast
@@ -46,6 +49,10 @@ networking
  - should there be networking components or should networking implementation be entirely up to the end user?
 
 ==================BACKBURNER=====================
+legal
+ - licence requiring attribution & title card for ? time (2 sec?)
+ - titlecard with attributions to box2d, glm, jogl et. all
+
 ECS
  - Component : Think about the future of:
     void OnAddedToGameObject(WeakReference<GameObject> aGameObject)

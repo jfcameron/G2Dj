@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Physics2D;
 
+import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
@@ -112,28 +113,28 @@ public class Physics2DScene extends SceneGraph
         //***************
         private void handleContact(final boolean isBegin, final Contact contact)
         {
-            WeakReference<GameObject> 
-                gameObjectA = ((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject(), 
-                gameObjectB = ((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject();
+            WeakReference<Collider> 
+                colliderA = (WeakReference<Collider>)(contact.m_fixtureA.getUserData()), 
+                colliderB = (WeakReference<Collider>)(contact.m_fixtureB.getUserData());
             
             Vector2 collisionNormal = new Vector2(contact.m_manifold.localNormal);
             Vector2 collisionPoint = new Vector2(contact.m_manifold.localPoint);
             
-            CollisionInfo collisionInfoA = new CollisionInfo(gameObjectB,collisionNormal,collisionPoint);
-            CollisionInfo collisionInfoB = new CollisionInfo(gameObjectA,collisionNormal,collisionPoint);
+            CollisionInfo collisionInfoA = new CollisionInfo(colliderA,colliderB,collisionPoint);
+            CollisionInfo collisionInfoB = new CollisionInfo(colliderB,colliderA,collisionPoint);
             
             if (contact.m_fixtureA.isSensor() | contact.m_fixtureB.isSensor())
             {
                 if (isBegin)
                 {
-                    invokeOnTriggerEnter(((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject().get(),collisionInfoA);
-                    invokeOnTriggerEnter(((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject().get(),collisionInfoB);
+                    invokeOnTriggerEnter(((Collider)((WeakReference)contact.m_fixtureA.getUserData()).get()),collisionInfoA);
+                    invokeOnTriggerEnter(((Collider)((WeakReference)contact.m_fixtureB.getUserData()).get()),collisionInfoB);
                 
                 }
                 else
                 {
-                    invokeOnTriggerExit(((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject().get(),collisionInfoA);
-                    invokeOnTriggerExit(((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject().get(),collisionInfoB);
+                    invokeOnTriggerExit(((Collider)((WeakReference)contact.m_fixtureA.getUserData()).get()),collisionInfoA);
+                    invokeOnTriggerExit(((Collider)((WeakReference)contact.m_fixtureB.getUserData()).get()),collisionInfoB);
                     
                 }
                 
@@ -142,14 +143,14 @@ public class Physics2DScene extends SceneGraph
             {
                 if (isBegin)
                 {
-                    invokeOnCollisionEnter(((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject().get(),collisionInfoA);
-                    invokeOnCollisionEnter(((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject().get(),collisionInfoB);
+                    invokeOnCollisionEnter(((Collider)((WeakReference)contact.m_fixtureA.getUserData()).get()),collisionInfoA);
+                    invokeOnCollisionEnter(((Collider)((WeakReference)contact.m_fixtureB.getUserData()).get()),collisionInfoB);
                     
                 }
                 else
                 {
-                    invokeOnCollisionExit(((Rigidbody)((WeakReference)contact.m_fixtureA.getUserData()).get()).getGameObject().get(),collisionInfoA);
-                    invokeOnCollisionExit(((Rigidbody)((WeakReference)contact.m_fixtureB.getUserData()).get()).getGameObject().get(),collisionInfoB);
+                    invokeOnCollisionExit(((Collider)((WeakReference)contact.m_fixtureA.getUserData()).get()),collisionInfoA);
+                    invokeOnCollisionExit(((Collider)((WeakReference)contact.m_fixtureB.getUserData()).get()),collisionInfoB);
                     
                 }
                 
@@ -158,32 +159,34 @@ public class Physics2DScene extends SceneGraph
             
         }
         
-        private void invokeOnCollisionExit(final GameObject aGameObject, final CollisionInfo aCollisionInfo)
+        private void invokeOnCollisionExit(final Collider aCollider, final CollisionInfo aCollisionInfo)
         {
-            invokeCollisionCallback("OnCollisionExit",aGameObject,aCollisionInfo);
+            invokeCollisionCallback("OnCollisionExit",aCollider,aCollisionInfo);
             
         }
         
-        private void invokeOnTriggerExit(final GameObject aGameObject, final CollisionInfo aCollisionInfo)
+        private void invokeOnTriggerExit(final Collider aCollider, final CollisionInfo aCollisionInfo)
         {
-            invokeCollisionCallback("OnTriggerExit",aGameObject,aCollisionInfo);
+            invokeCollisionCallback("OnTriggerExit",aCollider,aCollisionInfo);
             
         }
         
-        private void invokeOnCollisionEnter(final GameObject aGameObject, final CollisionInfo aCollisionInfo)
+        private void invokeOnCollisionEnter(final Collider aCollider, final CollisionInfo aCollisionInfo)
         {
-            invokeCollisionCallback("OnCollisionEnter",aGameObject,aCollisionInfo);
+            invokeCollisionCallback("OnCollisionEnter",aCollider,aCollisionInfo);
             
         }
         
-        private void invokeOnTriggerEnter(final GameObject aGameObject, final CollisionInfo aCollisionInfo)
+        private void invokeOnTriggerEnter(final Collider aCollider, final CollisionInfo aCollisionInfo)
         {
-            invokeCollisionCallback("OnTriggerEnter",aGameObject,aCollisionInfo);
+            invokeCollisionCallback("OnTriggerEnter",aCollider,aCollisionInfo);
             
         }
                 
-        private void invokeCollisionCallback(final String aCallbackName,final GameObject aGameObject, final CollisionInfo aCollisionInfo)
+        private void invokeCollisionCallback(final String aCallbackName,final Collider aCollider, final CollisionInfo aCollisionInfo)
         {
+            GameObject aGameObject = aCollider.getGameObject().get();
+            
             for(int i=0,s=aGameObject.getComponentCount();i<s;i++)
             {
                 try 

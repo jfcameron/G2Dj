@@ -6,6 +6,7 @@ package grimhaus.com.G2Dj.Type.Physics2D;
 
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Graphics.Color;
+import grimhaus.com.G2Dj.Imp.Graphics.LinePrimitive;
 import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
 import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
@@ -33,7 +34,7 @@ public class GridCollider extends Collider
     private int m_DataWidth = 0, m_DataHeight = 0;
     private int[] m_Data = null;
     //debug info
-    private LineVisualizer[] m_LineVisualizers = null;
+    private LineVisualizer m_LineVisualizer = null;
     
     //
     //
@@ -52,9 +53,23 @@ public class GridCollider extends Collider
     
     //
     //
-    //
-    private void initalizeFixtureDefinitionsAndBuildFixtures()
-    {
+    //    
+    @Override
+    protected void buildShape() 
+    {        
+        if (m_Data == null)
+            return;
+        
+        List<Float> lineVisualizerVertexes = null;
+        
+        if (m_LineVisualizer == null)
+        {
+            m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
+            m_LineVisualizer.setDrawPrimitiveMode(LinePrimitive.Lines);
+            lineVisualizerVertexes = new ArrayList<>();
+            
+        }
+            
         List<FixtureDef> fixtureDefinitions = new ArrayList<>();
         
         for(int y=0;y<m_DataHeight;y++)
@@ -77,60 +92,31 @@ public class GridCollider extends Collider
                     currentFixtureDef.setSensor(ColliderType.Collidable.toB2TriggerBool());
                     
                     buildAFixture(x,y,m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes,null,currentFixtureDef);
-                    
-                    Debug.log("SURF: "+i,"FRIC: "+currentEdgeDef.friction);
-                    
                     fixtureDefinitions.add(currentFixtureDef);
                     
+                    
+                    for(int j=0;j<m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes.length;j++)
+                    {
+                        lineVisualizerVertexes.add(m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes[j].x+x-0.3f);
+                        lineVisualizerVertexes.add(0.1f);
+                        lineVisualizerVertexes.add(m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes[j].y+y-m_DataHeight+0.5f);
+                    
+                    }
+                                
                 }
                 
             }
         
         //Convert to array
-        m_FixtureDefinitions = new FixtureDef[fixtureDefinitions.size()];
-        m_FixtureDefinitions = fixtureDefinitions.toArray(m_FixtureDefinitions);
+        m_FixtureDefinitions = fixtureDefinitions.toArray(new FixtureDef[fixtureDefinitions.size()]);
         
-    }
-    
-    private void initalizeVisualizers()
-    {
-        //Init/Reinit Visualizers
-        if (getDrawDebugLines())
-        {
-            //destroy visualizers
-            if (m_LineVisualizers!=null)
-                for(int i=0,s=m_LineVisualizers.length;i<s;i++)
-                    getGameObject().get().removeComponent(m_LineVisualizers[i]);
-            
-            //if (m_Data != null)
-            {
-                //create visualizers
-                m_LineVisualizers = new LineVisualizer[m_Data.length*4];
-                for(int i=0,s=m_Data.length;i<s;i++)
-                {
-                    m_LineVisualizers[i] = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
-                    
-                    if (m_ColliderType == ColliderType.Collidable)
-                        m_LineVisualizers[i].setColor(Color.Green());
-                    else
-                        m_LineVisualizers[i].setColor(Color.DarkGreen());
-                    
-                }
-            
-            }
+        //update linevisualizer//lineVisualizerVertexes.toArray(new float[lineVisualizerVertexes.size()]
+        float[] visdata = new float[lineVisualizerVertexes.size()];
         
-        }
+        for(int i=0;i<lineVisualizerVertexes.size();i++)
+            visdata[i] = lineVisualizerVertexes.get(i);
         
-    }
-    
-    @Override
-    protected void buildShape() 
-    {        
-        if (m_Data == null)
-            return;
-            
-        initalizeFixtureDefinitionsAndBuildFixtures();
-        //initalizeVisualizers();
+        m_LineVisualizer.setVertexData(visdata);
                    
     }
     

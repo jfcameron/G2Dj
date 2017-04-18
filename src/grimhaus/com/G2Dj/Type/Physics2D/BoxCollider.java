@@ -46,7 +46,7 @@ public class BoxCollider extends SimpleCollider<PolygonShape>
         super.buildShape();
         
         if (m_LineVisualizer != null)
-            m_LineVisualizer.setVertexData(LineVisualizer.lineBox((m_Offset.x*scale.x)/scale.x,(m_Offset.y*scale.z)/scale.z,1));
+            m_LineVisualizer.setVertexData(LineVisualizer.lineStripBox((m_Offset.x*scale.x)/scale.x,(m_Offset.y*scale.z)/scale.z,1));
         
         //m_FixtureDefinition.density = 1;
         

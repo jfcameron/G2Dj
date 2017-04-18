@@ -58,7 +58,7 @@ public class PolygonCollider extends SimpleCollider<PolygonShape>
             visualVerts[j+0] = b2verts[i].x/scale.x; 
             visualVerts[j+1] = 0.0f; 
             visualVerts[j+2] = b2verts[i].y/scale.z;
-            
+                        
         }
         //The first vert has to be repeated due to visualizer using GL_LINE_STRIP not "_LOOP
         visualVerts[visualVerts.length-3] = b2verts[0].x/scale.x; 

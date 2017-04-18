@@ -34,7 +34,7 @@ public class CircleCollider extends SimpleCollider<CircleShape>
         super.buildShape();
         
         if (m_LineVisualizer != null)
-            m_LineVisualizer.setVertexData(LineVisualizer.lineCircle((m_Offset.x*scale)/scale,(m_Offset.y*scale)/scale,1));
+            m_LineVisualizer.setVertexData(LineVisualizer.lineStripCircle((m_Offset.x*scale)/scale,(m_Offset.y*scale)/scale,1));
         
         
                 
