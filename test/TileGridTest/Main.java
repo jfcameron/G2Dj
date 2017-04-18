@@ -13,7 +13,7 @@ import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
-import grimhaus.com.G2Dj.Type.Graphics.SpriteSheet;
+import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Graphics.TextMesh;
 import grimhaus.com.G2Dj.Type.Graphics.TileGrid;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
@@ -43,6 +43,9 @@ public class Main
         createSpriteSheet(scene);
         createTextMesh(scene);
         createTestCamera(scene);
+        //createFloor(scene);
+        createBox(scene);
+        
         
     }
     
@@ -55,8 +58,8 @@ public class Main
         
         gameObject.get().setName("MainCamera");
         
-        gameObject.get().getTransform().get().setPosition(-2f,10,+2.5f);
-        gameObject.get().getTransform().get().setRotation(-90,180,0);
+        gameObject.get().getTransform().get().setPosition(-8f,0,+2.5f);
+        gameObject.get().getTransform().get().setRotation(-90,180,10);
         
         Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
         camera.setProjectionMode(CameraProjectionMode.Orthographic);
@@ -142,7 +145,7 @@ public class Main
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName("Player");
         gameObject.get().getTransform().get().setRotation(90,180,0);
-        gameObject.get().getTransform().get().setPosition(-5,1,4);
+        gameObject.get().getTransform().get().setPosition(-12,1,4);
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         gameObject.get().addComponent(PlayerController.class);
@@ -159,6 +162,36 @@ public class Main
         
         TextMesh mesh = (TextMesh)gameObject.get().addComponent(TextMesh.class);
         mesh.setText("走れ！");
+        
+    }
+    
+    private static void createFloor(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("Floor");
+        gameObject.get().getTransform().get().setRotation(90,180,0);
+        gameObject.get().getTransform().get().setPosition(-5,0,-1);
+        gameObject.get().getTransform().get().setScale(20.0f,1.0f,1.0f);
+        
+        gameObject.get().addComponent(BoxCollider.class);
+        
+        Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
+        rb.setType(BodyType.Static);
+        
+    }
+    
+    private static void createBox(final WeakReference<Scene> aScene)
+    {
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("Floor");
+        gameObject.get().getTransform().get().setRotation(90,180,0);
+        gameObject.get().getTransform().get().setPosition(-12,1,7);
+        gameObject.get().getTransform().get().setScale(1.0f,1.0f,1.0f);
+        
+        gameObject.get().addComponent(Mesh.class);
+        gameObject.get().addComponent(BoxCollider.class);
+        
+        Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
         
     }
     

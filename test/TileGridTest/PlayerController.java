@@ -22,7 +22,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joseph Cameron
  */
-@RequireComponents({Rigidbody.class})
+@RequireComponents({BoxCollider.class,Rigidbody.class})
 public class PlayerController extends Component
 {
     //
@@ -40,18 +40,15 @@ public class PlayerController extends Component
     @Override
     protected void initialize() 
     {
-        Collider c = (Collider)getGameObject().get().addComponent(BoxCollider.class);
-        //c.setFriction(5);
-        
         m_SpriteSheet = (SpriteSheet)getGameObject().get().addComponent(SpriteSheet.class);
         m_SpriteSheet.setSpriteSheet("Blocky.png", 16, 17);
         m_SpriteSheet.setCurrentCell(0, 0);
         
-        m_Rigidbody = (Rigidbody)getGameObject().get().addComponent(Rigidbody.class);
+        //Collider c = (Collider)getGameObject().get().getComponent(BoxCollider.class);
+        
+        m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
         m_Rigidbody.freezeRotation(true);
         m_Rigidbody.setLinearDamping(0);
-        
-        
                 
     }
 
