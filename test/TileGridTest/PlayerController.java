@@ -54,7 +54,7 @@ public class PlayerController extends Component
         
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
         m_Rigidbody.freezeRotation(true);
-        m_Rigidbody.setLinearDamping(0);
+        m_Rigidbody.setLinearDamping(1);
         
         //Init graphic
         m_Graphic = getGameObject().get().getScene().get().addGameObject().get();
@@ -64,12 +64,11 @@ public class PlayerController extends Component
         m_SpriteSheet.setSpriteSheet("Blocky.png", 16, 17);
         m_SpriteSheet.setCurrentCell(0, 0);
         
-        
-        
     }
     
     private void initBodyColliderAndCardinalSensors()
     {
+        //Body
         PolygonCollider bodyCollider = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
         float offset = -0.5f;
         bodyCollider.setVerticies(new Vector2[]
@@ -80,34 +79,37 @@ public class PlayerController extends Component
             new Vector2(0.8f+offset,0.1f+offset),
         
         });
-        bodyCollider.setDensity(1.5f);
+        bodyCollider.setDensity(1.5f);        
         
+        //North sensor
         PolygonCollider northSensor  = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
         northSensor.setVerticies(new Vector2[]
         {
-            new Vector2(0.2f+offset,0.0f+offset),
-            new Vector2(0.2f+offset,0.1f+offset),
-            new Vector2(0.8f+offset,0.1f+offset),
-            new Vector2(0.8f+offset,0.0f+offset),
+            new Vector2(0.3f+offset,0.0f+offset),
+            new Vector2(0.3f+offset,0.1f+offset),
+            new Vector2(0.7f+offset,0.1f+offset),
+            new Vector2(0.7f+offset,0.0f+offset),
         
         });
         northSensor.setDensity(0);
         northSensor.setType(ColliderType.Trigger);
         m_NorthSensor = northSensor;
         
+        //South sensor
         PolygonCollider southSensor  = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
         southSensor.setVerticies(new Vector2[]
         {
-            new Vector2(0.2f+offset,1.0f+offset),
-            new Vector2(0.2f+offset,1.1f+offset),
-            new Vector2(0.8f+offset,1.1f+offset),
-            new Vector2(0.8f+offset,1.0f+offset),
+            new Vector2(0.3f+offset,1.0f+offset),
+            new Vector2(0.3f+offset,1.1f+offset),
+            new Vector2(0.7f+offset,1.1f+offset),
+            new Vector2(0.7f+offset,1.0f+offset),
         
         });
         southSensor.setDensity(0);
         southSensor.setType(ColliderType.Trigger);
         m_SouthSensor = southSensor;
         
+        //East sensor
         PolygonCollider eastSensor  = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
         eastSensor.setVerticies(new Vector2[]
         {
@@ -121,6 +123,7 @@ public class PlayerController extends Component
         eastSensor.setType(ColliderType.Trigger);
         m_EastSensor = eastSensor;
         
+        //West sensor
         PolygonCollider westSensor  = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
         westSensor.setVerticies(new Vector2[]
         {
@@ -145,10 +148,15 @@ public class PlayerController extends Component
             Debug.log("EAST");
         
         if (m_SouthSensor.equals(info.mine.get()))
+        {
+            jumptime = jumplength;
             Debug.log("SOUTH");
         
+        }
+            
         if (m_WestSensor.equals(info.mine.get()))
             Debug.log("WEST");
+        
         
     }
 
@@ -169,6 +177,9 @@ public class PlayerController extends Component
     //
     // Implementation
     //
+    static final int jumplength = 10;
+    int jumptime = jumplength;
+    
     private void handleInputs()
     {
         b_InputBuffer.zero();
@@ -179,14 +190,20 @@ public class PlayerController extends Component
         if (Input.getKey(KeyCode.D))
             b_InputBuffer.x -= 1;
         
-        if (Input.getKey(KeyCode.W))
-            b_InputBuffer.y += 1;
-       
         b_InputBuffer.multiplyInPlace(s_TranslationSpeed);
         b_InputBuffer.multiplyInPlace((float)Time.getDeltaTime());
 
         m_Rigidbody.applyForce(b_InputBuffer.x,b_InputBuffer.y);
         
+        if (Input.getKeyDown(KeyCode.W) && jumptime-- > 0)
+        {            
+            Debug.log("hi");
+            
+            m_Rigidbody.applyImpulse(0, jumptime*2E3f*(float)Time.getDeltaTime());
+            //m_Rigidbody.applyImpulse(0, m_AnimationTimer);
+        
+        }
+            
     }
     private void updateGraphic()
     {

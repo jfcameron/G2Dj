@@ -41,7 +41,8 @@ public class Rigidbody extends Physics2DComponent
     private boolean m_RebuildRequired = true;
     
     //buffers
-    private final Vec2 b_B2VecBuffer = new Vec2();
+    private final Vec2 b_B2VecBuffer  = new Vec2();
+    private final Vec2 b_B2VecBuffer2 = new Vec2();
     private Vector3 b_ScaleBuffer;
     private final Vector3 b_RotationBuffer = new Vector3();
     private final Vector3 b_TranslationBuffer = new Vector3();
@@ -57,7 +58,7 @@ public class Rigidbody extends Physics2DComponent
     public void normalizeVelocity(){m_Body.m_linearVelocity.normalize();}
     public void scaleVelocity(final float aScalar){m_Body.m_linearVelocity.x*=aScalar;m_Body.m_linearVelocity.y*=aScalar;}
     
-    public void applyImpulse(final float aX,final float aY){m_Body.applyLinearImpulse(b_B2VecBuffer.set(aX,aY),b_B2VecBuffer.set(0,0),true);}
+    public void applyImpulse(final float aX,final float aY){m_Body.applyLinearImpulse(b_B2VecBuffer.set(aX,aY),b_B2VecBuffer2.set(0,0),true);}
     
     public void applyForce(final Vector2 aForce){m_Body.applyForceToCenter(b_B2VecBuffer.set(aForce.x,aForce.y));}
     public void applyForce(final float aX,final float aY){m_Body.applyForceToCenter(b_B2VecBuffer.set(aX,aY));}

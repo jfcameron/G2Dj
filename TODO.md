@@ -1,7 +1,7 @@
 Physics2D
   - TileCollider2D   
-    - support line visualizer
-    - add empty checks
+    - add support for trigger tiles, add collider name option
+    - optimize collision mesh gen. specifically: remove gen of faces that are inside a shape. these are a burden on the sim, contribute nothing and can cause collision problems at high enough velocity collisions.
     - Add support for 1 directional colliders
   - SimpleCollider exists for FixtureDefinition therefore create ComplexCollider for FixtureDefinition[] -> abstract gridcollider & composite collider commonalities to this.
   - Rigidbody & colliders

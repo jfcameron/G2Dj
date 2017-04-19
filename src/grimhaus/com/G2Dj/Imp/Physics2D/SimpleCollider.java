@@ -6,7 +6,6 @@ package grimhaus.com.G2Dj.Imp.Physics2D;
 
 import grimhaus.com.G2Dj.Imp.Graphics.Color;
 import grimhaus.com.G2Dj.Type.Graphics.LineVisualizer;
-import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.dynamics.FixtureDef;
 
