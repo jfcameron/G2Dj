@@ -4,6 +4,7 @@
  */
 package TileGridTest;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
 import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
 import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
@@ -16,6 +17,8 @@ import grimhaus.com.G2Dj.Type.Physics2D.PolygonCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,41 +27,67 @@ import java.util.HashMap;
 @RequireComponents({Rigidbody.class})
 public abstract class CharacterController extends Component
 {
-    protected  class CharacterState
+    protected class CharacterState
     {
-        public void OnEnter(){};
-        public void OnExit(){};
-        public void OnUpdate(){};
-        public void OnFixedUpdate(){};
-        public void OnTriggerEnter(final CollisionInfo info){};
+        //private final String m_Name;
+        //public  final String getName(){return m_Name;}
         
-        public CharacterState(){}
+        protected void OnEnter(){};
+        protected void OnExit(){};
+        protected void OnUpdate(){};
+        protected void OnFixedUpdate(){};
+        protected void OnTriggerEnter(final CollisionInfo info){};
+        
+        //public CharacterState(final String aStateName){m_Name=aStateName;}
+        
         
     }
     
-    private HashMap<Class<? extends CharacterState>,CharacterState> m_States = new HashMap<>();
+    protected HashMap<Class<? extends CharacterState>,CharacterState> m_States = new HashMap<>();
     
     private CharacterState m_LastState;
     private CharacterState m_CurrentState;
     
-    protected final void addState(final CharacterState aState)
+    protected final void initStates(final Class<? extends CharacterState> aState,final CharacterState... aStates)
     {
-        m_States.put(aState.getClass(), aState);
-
+        m_States.clear();
+        addStates(aStates);
+        setState(aState);
         
     }
+    
+    
     protected final void setState(final Class<? extends CharacterState> aState)
     {
         m_LastState = m_CurrentState;
         m_CurrentState = m_States.get(aState);
-    
-    }
-    
-    protected final CharacterState getState()
-    {
-        return m_CurrentState;
         
+        if (m_CurrentState == null)
+        {
+            try 
+            {
+                m_States.put(aState, aState.newInstance());
+            
+            } 
+            catch (InstantiationException ex) {Logger.getLogger(CharacterController.class.getName()).log(Level.SEVERE, null, ex);} 
+            catch (IllegalAccessException ex) {Logger.getLogger(CharacterController.class.getName()).log(Level.SEVERE, null, ex);}
+            
+            m_CurrentState = m_States.get(aState);
+            
+        }
+    
     }
+    
+    protected final void addStates(final CharacterState... aStates)
+    { 
+        if (aStates == null)
+            return;
+        
+        for (int i=0;i<aStates.length;i++)
+            m_States.put(aStates[i].getClass(), aStates[i]);
+
+    }
+
     
     //
     //
@@ -71,12 +100,7 @@ public abstract class CharacterController extends Component
     protected Collider m_SouthSensor = null;
     protected Collider m_WestSensor  = null;
 
-    @Override protected void initialize() 
-    {
-        initGraphic();
-        initRigidbody();
-        
-    }
+    
 
     @Override protected void update() 
     {
@@ -93,6 +117,8 @@ public abstract class CharacterController extends Component
             }
             
             m_CurrentState.OnUpdate();
+            
+            Debug.log(m_CurrentState.getClass().getSimpleName().toString());
         
         }
         
@@ -225,31 +251,37 @@ public abstract class CharacterController extends Component
         
     }
     
-    protected abstract CharacterState[] initStates();
-    
-    //final Class<? extends CharacterState> theTest;
-    protected CharacterController(final Class<? extends CharacterState> test)//[] aStates)//final Class<? extends CharacterState> aInitialState,final Class<? extends CharacterState>[] aCharacterStates)
+    @Override protected void initialize() 
     {
-        CharacterState[] states = initStates();
+        initGraphic();
+        initRigidbody();
+        /*
+        //collect all states on this
+        Class[] innerClasses = this.getClass().getDeclaredClasses();
         
-        for(int i=0;i<states.length;i++)
-            addState(states[i]);
+        for(int i=0;i<innerClasses.length;i++)
+            if (CharacterState.class.isAssignableFrom(innerClasses[i]))
+                try 
+                {
+                    m_States.put(innerClasses[i], (CharacterState)innerClasses[i].newInstance());
+                
+                } 
+                catch (InstantiationException ex) {Logger.getLogger(CharacterController.class.getName()).log(Level.SEVERE, null, ex);} 
+                catch (IllegalAccessException ex) {Logger.getLogger(CharacterController.class.getName()).log(Level.SEVERE, null, ex);}*/
         
-        setState(test);
+    }
+    
+    protected CharacterController()
+    {
         
-        //theTest = test;
-        /*try 
-        {
-            CharacterState test = aInitialState.newInstance();
-            
-        } 
-        catch (InstantiationException ex) {Logger.getLogger(CharacterController.class.getName()).log(Level.SEVERE, null, ex);} 
-        catch (IllegalAccessException ex) {Logger.getLogger(CharacterController.class.getName()).log(Level.SEVERE, null, ex);}*/
         
-        //for(int i=0,s=aCharacterStates.length;i<s;i++)
-            // addState(aCharacterStates[i]);
-            
-            //setState(getState(aInitialState));
+        
+        
+               
+        //Set initial state
+       // m_CurrentState = setInitialState();
+     //   m_States.put(m_CurrentState.getClass(),m_CurrentState);
+        
         
     }
     

@@ -181,7 +181,7 @@ public class GameObject
     //
     public void update()
     {
-        Component c = null;
+        Component c;
         for(int i = 0, s = m_Components.size(); i<s; i++ )
         {
             c = m_Components.get(i);

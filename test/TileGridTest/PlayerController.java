@@ -4,6 +4,9 @@
  */
 package TileGridTest;
 
+import grimhaus.com.G2Dj.Imp.Input.KeyCode;
+import grimhaus.com.G2Dj.Input;
+import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
@@ -15,45 +18,57 @@ import java.lang.ref.WeakReference;
  * @author Joseph Cameron
  */
 public class PlayerController extends CharacterController
-{
+{    
+    protected int test = 0;
+    
+    private static final float s_TranslationSpeed = 1E3f;
+    private float m_AnimationTimer = 0;
+    
+    private final KeyCode m_LeftKey = KeyCode.A;
+    private final KeyCode m_RightKey = KeyCode.D;
+    
+    //buffers
+    private final Vector2 b_InputBuffer   = Vector2.Zero();
+    
     //
-    // State definitions
+    // States
     //
-    private class Idle extends CharacterState
+    public class Idle extends CharacterState
+    {
+        @Override public void OnEnter()
+        {
+            m_Graphic.setCurrentCell(1, 0);
+            
+        }
+        
+        @Override public void OnUpdate()
+        {
+            if (Input.getKey(m_LeftKey) || Input.getKey(m_RightKey))
+                setState(Walk.class);
+
+        }
+        
+    }
+    
+    protected class Walk extends CharacterState
     {
         @Override public void OnUpdate()
         {
-            m_Graphic.setCurrentCell(1, 0);  
-        
+            
+            
         }
-                
-    }
-    
-    private class Walk extends CharacterState
-    {
-        
         
     }
     
-    private class Jump extends CharacterState
+    public PlayerController()
     {
-        
-        
-    }
-        
-    //
-    // Initialization
-    //
-    public PlayerController(){super(Idle.class);}
-    @Override protected CharacterState[] initStates() 
-    {
-        return new CharacterState[]
-        {
+        initStates
+        (
+            Idle.class,
             new Idle(),
-            new Walk(),
-            new Jump()
-               
-        };
+            new Walk()
+        
+        );
         
     }
     
