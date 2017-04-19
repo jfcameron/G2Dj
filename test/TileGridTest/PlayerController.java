@@ -4,184 +4,69 @@
  */
 package TileGridTest;
 
-import grimhaus.com.G2Dj.Debug;
-import grimhaus.com.G2Dj.Imp.Engine.RequireComponents;
-import grimhaus.com.G2Dj.Imp.Input.KeyCode;
-import grimhaus.com.G2Dj.Imp.Physics2D.Collider;
-import grimhaus.com.G2Dj.Imp.Physics2D.ColliderType;
-import grimhaus.com.G2Dj.Input;
-import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
-import grimhaus.com.G2Dj.Type.Graphics.SpriteSheet;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
-import grimhaus.com.G2Dj.Type.Math.Vector3;
 import grimhaus.com.G2Dj.Type.Physics2D.CollisionInfo;
-import grimhaus.com.G2Dj.Type.Physics2D.PolygonCollider;
-import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 
 /**
  *
  * @author Joseph Cameron
  */
-@RequireComponents({Rigidbody.class})
-public class PlayerController extends Component
+public class PlayerController extends CharacterController
 {
     //
+    // State definitions
     //
-    //
-    private Rigidbody m_Rigidbody = null;
-    private SpriteSheet m_SpriteSheet = null;
-    private float m_AnimationTimer = 0;
-    private GameObject m_Graphic = null;
-    
-    //Cardinal Sensors
-    private Collider m_NorthSensor = null;
-    private Collider m_EastSensor  = null;
-    private Collider m_SouthSensor = null;
-    private Collider m_WestSensor  = null;
-    
-    //buffers
-    private final Vector2 b_InputBuffer   = Vector2.Zero();
-    //const
-    private static final float s_TranslationSpeed = 1E3f;
-
-    @Override
-    protected void initialize() 
+    private class Idle extends CharacterState
     {
-        initBodyColliderAndCardinalSensors();
-        
-        m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
-        m_Rigidbody.freezeRotation(true);
-        m_Rigidbody.setLinearDamping(1);
-        
-        //Init graphic
-        m_Graphic = getGameObject().get().getScene().get().addGameObject().get();
-        m_Graphic.getTransform().get().setRotation(90,180,0);
-        m_Graphic.getTransform().get().setPosition(+1,0,0);
-        m_SpriteSheet = (SpriteSheet)m_Graphic.addComponent(SpriteSheet.class);
-        m_SpriteSheet.setSpriteSheet("Blocky.png", 16, 17);
-        m_SpriteSheet.setCurrentCell(0, 0);
-        
-    }
-    
-    private void initBodyColliderAndCardinalSensors()
-    {
-        //Body
-        PolygonCollider bodyCollider = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
-        float offset = -0.5f;
-        bodyCollider.setVerticies(new Vector2[]
+        @Override public void OnUpdate()
         {
-            new Vector2(0.2f+offset,0.1f+offset),
-            new Vector2(0.2f+offset,1.0f+offset),
-            new Vector2(0.8f+offset,1.0f+offset),
-            new Vector2(0.8f+offset,0.1f+offset),
-        
-        });
-        bodyCollider.setDensity(1.5f);        
-        
-        //North sensor
-        PolygonCollider northSensor  = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
-        northSensor.setVerticies(new Vector2[]
-        {
-            new Vector2(0.3f+offset,0.0f+offset),
-            new Vector2(0.3f+offset,0.1f+offset),
-            new Vector2(0.7f+offset,0.1f+offset),
-            new Vector2(0.7f+offset,0.0f+offset),
-        
-        });
-        northSensor.setDensity(0);
-        northSensor.setType(ColliderType.Trigger);
-        m_NorthSensor = northSensor;
-        
-        //South sensor
-        PolygonCollider southSensor  = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
-        southSensor.setVerticies(new Vector2[]
-        {
-            new Vector2(0.3f+offset,1.0f+offset),
-            new Vector2(0.3f+offset,1.1f+offset),
-            new Vector2(0.7f+offset,1.1f+offset),
-            new Vector2(0.7f+offset,1.0f+offset),
-        
-        });
-        southSensor.setDensity(0);
-        southSensor.setType(ColliderType.Trigger);
-        m_SouthSensor = southSensor;
-        
-        //East sensor
-        PolygonCollider eastSensor  = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
-        eastSensor.setVerticies(new Vector2[]
-        {
-            new Vector2(0.8f+offset,0.2f+offset),
-            new Vector2(0.8f+offset,0.9f+offset),
-            new Vector2(0.9f+offset,0.9f+offset),
-            new Vector2(0.9f+offset,0.2f+offset),
-        
-        });
-        eastSensor.setDensity(0);
-        eastSensor.setType(ColliderType.Trigger);
-        m_EastSensor = eastSensor;
-        
-        //West sensor
-        PolygonCollider westSensor  = (PolygonCollider)getGameObject().get().addComponent(PolygonCollider.class);
-        westSensor.setVerticies(new Vector2[]
-        {
-            new Vector2(0.1f+offset,0.2f+offset),
-            new Vector2(0.1f+offset,0.9f+offset),
-            new Vector2(0.2f+offset,0.9f+offset),
-            new Vector2(0.2f+offset,0.2f+offset),
-        
-        });
-        westSensor.setDensity(0);
-        westSensor.setType(ColliderType.Trigger);
-        m_WestSensor = westSensor;
-        
-    }
-    
-    public void OnTriggerEnter(final CollisionInfo info)
-    {
-        if (m_NorthSensor.equals(info.mine.get()))
-            Debug.log("NORTH");
-        
-        if (m_EastSensor.equals(info.mine.get()))
-            Debug.log("EAST");
-        
-        if (m_SouthSensor.equals(info.mine.get()))
-        {
-            jumptime = jumplength;
-            Debug.log("SOUTH");
+            m_Graphic.setCurrentCell(1, 0);  
         
         }
-            
-        if (m_WestSensor.equals(info.mine.get()))
-            Debug.log("WEST");
-        
-        
-    }
-
-    @Override
-    protected void update() 
-    {
-        handleInputs();
-        updateGraphic();
-                                
+                
     }
     
-    @Override protected void fixedUpdate() { }
-    @Override protected void OnAddedToGameObject(WeakReference<GameObject> aGameObject) {}
-    @Override protected void OnRemovedFromGameObject() {}
-    @Override protected void OnComponentAdded(Component aComponent) {}
-    @Override protected void OnComponentRemoved(Component aComponent) {}
+    private class Walk extends CharacterState
+    {
+        
+        
+    }
+    
+    private class Jump extends CharacterState
+    {
+        
+        
+    }
+        
+    //
+    // Initialization
+    //
+    public PlayerController(){super(Idle.class);}
+    @Override protected CharacterState[] initStates() 
+    {
+        return new CharacterState[]
+        {
+            new Idle(),
+            new Walk(),
+            new Jump()
+               
+        };
+        
+    }
     
     //
     // Implementation
-    //
-    static final int jumplength = 10;
-    int jumptime = jumplength;
-    
-    private void handleInputs()
+    //    
+    /*private void handleInputs()
     {
+        private static final float s_TranslationSpeed = 1E3f;
+        private float m_AnimationTimer = 0;
+        //buffers
+        private final Vector2 b_InputBuffer   = Vector2.Zero();
+        
         b_InputBuffer.zero();
         
         if (Input.getKey(KeyCode.A))
@@ -195,16 +80,14 @@ public class PlayerController extends Component
 
         m_Rigidbody.applyForce(b_InputBuffer.x,b_InputBuffer.y);
         
-        if (Input.getKeyDown(KeyCode.W) && jumptime-- > 0)
+        /*if (Input.getKeyDown(KeyCode.W) && jumptime-- > 0)
         {            
-            Debug.log("hi");
-            
+            Debug.log("hi"); 
             m_Rigidbody.applyImpulse(0, jumptime*2E3f*(float)Time.getDeltaTime());
-            //m_Rigidbody.applyImpulse(0, m_AnimationTimer);
         
-        }
+        }*/
             
-    }
+    /*}
     private void updateGraphic()
     {
         m_AnimationTimer += Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x);
@@ -239,6 +122,6 @@ public class PlayerController extends Component
         Vector3 pos = getTransform().get().getPosition();
         m_Graphic.getTransform().get().setPosition(pos);
         
-    }
+    }*/
     
 }
