@@ -1,7 +1,14 @@
-CharacterController
- - bug: spamming jump while facing left lets you reach max speed near instantly
- -landing recovery anim (sideradical)
- -super fast run (hands back)
+Tilegrid TestScene
+ - PlayerController
+    - bug: spamming jump while facing left lets you reach max speed near instantly
+    - landing recovery anim (sideradical)
+    - super fast run (hands back)
+ - Create a stompable enemy
+    - slime
+    - bouncy up edge
+    - state: {wander, idle, dead}
+ - CharacterController
+    - parameterize hitbox & detection boxes OR refactor these to playercontroller if this cannot be done meaningfully
 
 Physics2D
  - Rigidbody.Raycast
