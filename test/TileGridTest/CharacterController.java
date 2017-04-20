@@ -17,8 +17,6 @@ import grimhaus.com.G2Dj.Type.Physics2D.PolygonCollider;
 import grimhaus.com.G2Dj.Type.Physics2D.Rigidbody;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -62,20 +60,6 @@ public abstract class CharacterController extends Component
         m_LastState = m_CurrentState;
         m_CurrentState = m_States.get(aState);
         
-        if (m_CurrentState == null)
-        {
-            try 
-            {
-                m_States.put(aState, aState.newInstance());
-            
-            } 
-            catch (InstantiationException ex) {Logger.getLogger(CharacterController.class.getName()).log(Level.SEVERE, null, ex);} 
-            catch (IllegalAccessException ex) {Logger.getLogger(CharacterController.class.getName()).log(Level.SEVERE, null, ex);}
-            
-            m_CurrentState = m_States.get(aState);
-            
-        }
-    
     }
     
     protected final void addStates(final CharacterState... aStates)
@@ -107,18 +91,25 @@ public abstract class CharacterController extends Component
         //State updating
         if (m_CurrentState != null)
         {
-            if (!m_CurrentState.equals(m_LastState))
-            {
-                if (m_LastState != null)
-                    m_LastState.OnExit();
-                
-                m_CurrentState.OnEnter();
-                
-            }
             
+                if (!m_CurrentState.equals(m_LastState))
+                {
+                    if (m_LastState != null)
+                    {
+                        Debug.log(m_LastState.getClass().getSimpleName()+".OnExit");
+                        m_LastState.OnExit();
+                        
+                    }
+                    
+                    m_CurrentState.OnEnter();
+                    m_LastState = m_CurrentState;
+
+                    Debug.log(m_CurrentState.getClass().getSimpleName()+".OnEnter");
+                    Debug.log(m_CurrentState.getClass().getSimpleName()+".Update ...");
+                
+                }
+                
             m_CurrentState.OnUpdate();
-            
-            Debug.log(m_CurrentState.getClass().getSimpleName().toString());
         
         }
         
@@ -248,6 +239,13 @@ public abstract class CharacterController extends Component
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
         m_Rigidbody.freezeRotation(true);
         m_Rigidbody.setLinearDamping(1);
+        
+        //
+        /*bodyCollider .setDrawDebugLines(false);
+        m_NorthSensor.setDrawDebugLines(false);
+        m_EastSensor .setDrawDebugLines(false);
+        m_SouthSensor.setDrawDebugLines(false);
+        m_WestSensor .setDrawDebugLines(false);*/
         
     }
     

@@ -49,6 +49,8 @@ networking
  - should there be networking components or should networking implementation be entirely up to the end user?
 
 ==================BACKBURNER=====================
+cleaning
+ - replace excessive requirement of new vec[]{new vec...} using varags
 legal
  - licence requiring attribution & title card for ? time (2 sec?)
  - titlecard with attributions to box2d, glm, jogl et. all

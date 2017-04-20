@@ -18,14 +18,13 @@ import java.lang.ref.WeakReference;
  * @author Joseph Cameron
  */
 public class PlayerController extends CharacterController
-{    
-    protected int test = 0;
-    
+{
     private static final float s_TranslationSpeed = 1E3f;
     private float m_AnimationTimer = 0;
     
     private final KeyCode m_LeftKey = KeyCode.A;
     private final KeyCode m_RightKey = KeyCode.D;
+    private final KeyCode m_ActionKey = KeyCode.Space;
     
     //buffers
     private final Vector2 b_InputBuffer   = Vector2.Zero();
@@ -43,18 +42,123 @@ public class PlayerController extends CharacterController
         
         @Override public void OnUpdate()
         {
+            tryJump();
+            tryWalk();
+
+        }
+        
+        private void tryWalk()
+        {
             if (Input.getKey(m_LeftKey) || Input.getKey(m_RightKey))
                 setState(Walk.class);
-
+            
+        }
+        
+        private void tryJump()
+        {
+            if (Input.getKey(m_ActionKey))
+                setState(Jump.class);
+                
         }
         
     }
     
     protected class Walk extends CharacterState
     {
+        private float idleSpeedThreshold = 1f; 
+        private static final float s_TranslationSpeed = 1E3f;
+        private float m_AnimationTimer = 0;
+        private final float walkInterval = 1f;
+        //buffers
+        private final Vector2 b_InputBuffer   = Vector2.Zero();
+        
+        
+        @Override public void OnEnter()
+        {
+            //m_Graphic.setCurrentCell(0, 0);
+            m_AnimationTimer=0;
+            
+        }
+        
         @Override public void OnUpdate()
         {
+            tryIdle();
+            tryJump();
             
+            handleInputs();
+            animate();
+            
+        }
+        
+        //
+        // Implementation
+        //
+        private void tryIdle()
+        {
+            if (!Input.getKey(m_LeftKey) && !Input.getKey(m_RightKey))
+                if (m_Rigidbody.getVelocity().length() <= idleSpeedThreshold)
+                    setState(Idle.class);
+            
+        }
+        
+        private void tryJump()
+        {
+            if (Input.getKey(m_ActionKey))
+                setState(Jump.class);
+                
+        }
+        
+        private void handleInputs()
+        {
+            b_InputBuffer.zero();
+            
+            if (Input.getKey(KeyCode.A))
+                b_InputBuffer.x += 1;
+            
+            if (Input.getKey(KeyCode.D))
+                b_InputBuffer.x -= 1;
+            
+            b_InputBuffer.multiplyInPlace(s_TranslationSpeed);
+            b_InputBuffer.multiplyInPlace((float)Time.getDeltaTime());
+            
+            m_Rigidbody.applyForce(b_InputBuffer.x,b_InputBuffer.y);
+            
+        }
+        
+        private void animate()
+        {
+            if (m_AnimationTimer > 2*walkInterval)
+            {
+                m_Graphic.setCurrentCell(2, 0);
+                m_AnimationTimer = 0;
+            
+            }
+            else if (m_AnimationTimer > walkInterval)
+                m_Graphic.setCurrentCell(1, 0);
+
+            m_AnimationTimer += (float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x);
+            
+            if (m_Rigidbody.getVelocity().x < -0.1f)
+                m_Graphic.getTransform().get().setRotation(90,180,0);
+            else if (m_Rigidbody.getVelocity().x > 0.1f)
+                m_Graphic.getTransform().get().setRotation(90,0,0);
+            
+        }
+        
+    }
+    
+    protected class Jump extends CharacterState
+    {
+        @Override public void OnEnter()
+        {
+            m_Graphic.setCurrentCell(2, 0);
+            
+        }
+        
+        @Override public void OnUpdate()
+        {
+            if (!Input.getKey(m_ActionKey))
+                setState(Idle.class);
             
         }
         
@@ -65,8 +169,10 @@ public class PlayerController extends CharacterController
         initStates
         (
             Idle.class,
+                
             new Idle(),
-            new Walk()
+            new Walk(),
+            new Jump()
         
         );
         
