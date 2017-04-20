@@ -1,5 +1,7 @@
 CharacterController
  - bug: spamming jump while facing left lets you reach max speed near instantly
+ -landing recovery anim (sideradical)
+ -super fast run (hands back)
 
 Physics2D
  - Rigidbody.Raycast
