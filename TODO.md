@@ -27,16 +27,15 @@ Desktop
  - Joystick handler
  
 Graphics
- - Mesh
+ /*- Mesh
     - allow different primitve modes (line, dot)
     - allow custom shapes from vert arrays, allow use of dynamic memory for faster vbo rewrites (currently hardcoded to static)
         - Mesh:Component and DynamicMesh:Component. 
         - Add a load from verts method in gfx. loadModel(String aPath), loadModel(Vector2[] aVertexData) for STATIC mesh
-        - Add a loadFromVerts to DynamicMesh for DYNAMIC mesh
+        - Add a loadFromVerts to DynamicMesh for DYNAMIC mesh*/ UNCERTAIN ABOUT THESE SUGGESTIONS. a new class type: DynamicMesh may be more appropriate.
  - TextMesh
-   - naive unicode then smart unicode.
-        
- - Add a solid color fallback shader (uniform specifies color)
+   - allow support for only specified language regions, custom fonts.
+     - strategy choice: divide & conquer BMLP or fileformat .FONT:{png,{utf8codepoint...}}
  - Add standardized uniforms: uv offsets, total time and delta time uniforms 
 
 Audio
@@ -49,10 +48,9 @@ Math
 
 networking
  - should there be networking components or should networking implementation be entirely up to the end user?
+  - There should be a wrapper if platform differences exist here between mobile & desktop.
 
 ==================BACKBURNER=====================
-cleaning
- - replace excessive requirement of new vec[]{new vec...} using varags
 legal
  - licence requiring attribution & title card for ? time (2 sec?)
  - titlecard with attributions to box2d, glm, jogl et. all
@@ -70,17 +68,9 @@ Graphics
         - allows opt in and out of character support (looking at you 漢字)
         - allows variable font resolutions across language domains
 
-Pool shortlived and frequently used objects (Mat4x4 & Vec2/3 looking at you).
-Make the android engine present an identical public interface as the desktop one.
+Mobile
+ - Make the android engine present an identical public interface as the desktop one.
 
-Collections/Resources
-    -prevent duplicate names being entered
-    -prevent duplicate resources from being allocated (fail silently or throw?)
-
-Clean
-    - style
-    - imports
-    - unused data members
 
 Tile renderer
  - 2D. Tesselated plane. Make heavy use of shaders?
@@ -90,14 +80,21 @@ Midi Synthesizer
  - jfugue + Gervill
  - bundle with retro soundfonts
 
-prevent duplicates in: all resource collections, gameobjectComponents
+Input
+ - Improve mobile Touch API
+ - think about recording input states for a variable number of frames (instead of just current and last)
 
-implement more uniform collection
- - float2 uniforms
-
-clean up all public interfaces
-
-Improve mobile Touch API
-
-think about recording input states for a variable number of frames (instead of just current and last)
-add meaningful ToString overrides for all types.
+Collections/Resources
+    -prevent duplicate names being entered
+    -prevent duplicate resources from being allocated (fail silently or throw?)
+    -create a scene destruction test to see what havok is done to the heap
+    
+Cleaning
+    - replace excessive requirement of new vec[]{new vec...} using varags
+    - clean up all public interfaces
+    - style
+    - imports
+    - unused data members
+    - add meaningful ToString overrides for all types.
+    - prevent duplicates in: all resource collections, gameobjectComponents
+    - Pool shortlived and frequently used objects (Mat4x4 & Vec2/3 looking at you).
