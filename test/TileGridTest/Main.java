@@ -37,7 +37,7 @@ public class Main
     {
         WeakReference<Scene> scene = Engine.createScene("Main");
         Physics2DScene p2d = (Physics2DScene)scene.get().getSceneGraph(Physics2DScene.class).get();
-        p2d.setGravity(0, -9.81f);
+        p2d.setGravity(0, -30f);//-9.81f
         
         createTestTileGrid(scene);
         createSpriteSheet(scene);
@@ -117,7 +117,7 @@ public class Main
             new GridColliderDefinition(new EdgeDefinition[]
             {
                 //north edge
-                new EdgeDefinition(new Vector2[]{new Vector2(hEnd,0),new Vector2(hStart,0)},5f,0,0),//{new Vector2(1,0),new Vector2(0,0)}
+                new EdgeDefinition(new Vector2[]{new Vector2(hEnd,0),new Vector2(hStart,0)},1f,0,0),//{new Vector2(1,0),new Vector2(0,0)}
                 //east edge
                 new EdgeDefinition(new Vector2[]{new Vector2(1,vStart),new Vector2(1,1)},0f,0,0),    //{new Vector2(1,0),new Vector2(1,1)}
                 //south edge
@@ -211,7 +211,8 @@ public class Main
         gameObject.get().getTransform().get().setScale(1.0f,1.0f,1.0f);
         
         gameObject.get().addComponent(Mesh.class);
-        gameObject.get().addComponent(BoxCollider.class);
+        BoxCollider bc = (BoxCollider)gameObject.get().addComponent(BoxCollider.class);
+        //bc.setDensity(0.5f);
         
         Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
         

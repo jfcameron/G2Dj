@@ -39,6 +39,7 @@ public class Rigidbody extends Physics2DComponent
     private final BodyDef m_BodyDef = new BodyDef();
     private PrismaticJoint m_AxisFreezeJoint = null;
     private boolean m_RebuildRequired = true;
+    //private float m_GravityScalar = 1f;
     
     //buffers
     private final Vec2 b_B2VecBuffer  = new Vec2();
@@ -54,6 +55,9 @@ public class Rigidbody extends Physics2DComponent
     
     public void setVelocity(final Vector2 aVelocity){setVelocity(aVelocity.x,aVelocity.y);}
     public void setVelocity(final float aX,final float aY){m_Body.setLinearVelocity(b_B2VecBuffer.set(aX,aY));}
+    
+    public void setVelocityX(final float aX){m_Body.m_linearVelocity.x =aX;}
+    public void setVelocityY(final float aY){m_Body.m_linearVelocity.y =aY;}
 
     public void normalizeVelocity(){m_Body.m_linearVelocity.normalize();}
     public void scaleVelocity(final float aScalar){m_Body.m_linearVelocity.x*=aScalar;m_Body.m_linearVelocity.y*=aScalar;}
@@ -87,6 +91,23 @@ public class Rigidbody extends Physics2DComponent
         
     }
     
+    public void setPosition(final float aX,final float aY)
+    {
+        m_Body.setTransform(b_B2VecBuffer.set(aX,aY), m_Body.getAngle());
+        getTransform().get().setPosition(aX,getTransform().get().getPosition().y,aY);
+        
+    }
+    
+    public void setPositionY(final float aY)
+    {
+        float x = m_Body.getPosition().x;
+        m_Body.setTransform(b_B2VecBuffer.set(x,aY), m_Body.getAngle());
+        getTransform().get().setPosition(x,getTransform().get().getPosition().y,aY);
+        
+    }
+    
+    public void setGravityScale(final float aScalar){m_Body.m_gravityScale = aScalar;}
+    
     public void setRotation(final float aRotation)
     {
         m_Body.setTransform(m_Body.getPosition(), -aRotation);
@@ -100,6 +121,7 @@ public class Rigidbody extends Physics2DComponent
         m_Body.m_angularVelocity = 0;
     
     }
+    
     
     public void freezeAxis(AxisFreezeMode aFreezeMode)
     {

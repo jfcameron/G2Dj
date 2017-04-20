@@ -25,6 +25,13 @@ import java.util.HashMap;
 @RequireComponents({Rigidbody.class})
 public abstract class CharacterController extends Component
 {
+    public enum Facing
+    {
+        Left,
+        Right;
+        
+    }
+    
     protected class CharacterState
     {
         //private final String m_Name;
@@ -45,6 +52,7 @@ public abstract class CharacterController extends Component
     
     private CharacterState m_LastState;
     private CharacterState m_CurrentState;
+    protected Facing m_Facing = Facing.Right;
     
     protected final void initStates(final Class<? extends CharacterState> aState,final CharacterState... aStates)
     {
@@ -96,7 +104,7 @@ public abstract class CharacterController extends Component
                 {
                     if (m_LastState != null)
                     {
-                        Debug.log(m_LastState.getClass().getSimpleName()+".OnExit");
+                        //Debug.log(m_LastState.getClass().getSimpleName()+".OnExit");
                         m_LastState.OnExit();
                         
                     }
@@ -104,10 +112,15 @@ public abstract class CharacterController extends Component
                     m_CurrentState.OnEnter();
                     m_LastState = m_CurrentState;
 
-                    Debug.log(m_CurrentState.getClass().getSimpleName()+".OnEnter");
-                    Debug.log(m_CurrentState.getClass().getSimpleName()+".Update ...");
+                    //Debug.log(m_CurrentState.getClass().getSimpleName()+".OnEnter");
+                    //Debug.log(m_CurrentState.getClass().getSimpleName()+".Update ...");
                 
                 }
+                
+            if (m_Facing == Facing.Left)
+                m_Graphic.getTransform().get().setRotation(90,0,0);
+            else if (m_Facing == Facing.Right)
+                m_Graphic.getTransform().get().setRotation(90,180,0);
                 
             m_CurrentState.OnUpdate();
         
@@ -239,6 +252,7 @@ public abstract class CharacterController extends Component
         m_Rigidbody = (Rigidbody)getGameObject().get().getComponent(Rigidbody.class);
         m_Rigidbody.freezeRotation(true);
         m_Rigidbody.setLinearDamping(1);
+        //m_Rigidbody.setGravityScale(2);
         
         //
         bodyCollider .setDrawDebugLines(false);

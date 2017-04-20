@@ -1,4 +1,9 @@
+CharacterController
+ - bug: spamming jump while facing left lets you reach max speed near instantly
+
 Physics2D
+ - Rigidbody.Raycast
+ - World.Raycast
   - TileCollider2D   
     - add support for trigger tiles, add collider name option
     - optimize collision mesh gen. specifically: remove gen of faces that are inside a shape. these are a burden on the sim, contribute nothing and can cause collision problems at high enough velocity collisions.
@@ -7,10 +12,7 @@ Physics2D
   - Rigidbody & colliders
    - colliders should require a rigidbody
    - rigidbody should be a unique component (create an attribute for this) VERY IMPORTANT: just ran into a bug around the lack of this!
-   
-   
-Physics2D
- - World.Raycast
+   - colliders should have either names or optional "userdata" (type: object) for special behaviour in collision events
  - filters
 
 android
