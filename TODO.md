@@ -1,3 +1,14 @@
+Input
+ - Desktop
+  - Mouse handler
+Math
+ - Mat4x4 
+    - static Vec3 screenToWorldPoint(Vec2 screenPos, float dist, Mat4x4 cameraVP)
+    - static Vec2 screenToXZPlanePoint(Vec2 screenPos, Mat4x4 cameraVP)
+        - investigate glm
+          - screenToWorldPoint(2dpos,2dscreensize, depthFromCamera, cameraviewmat, cameraprojmat){calc invMP, ararnge screen data into vec4. mul, return data as vec3}
+          - screenToXZPlanePoint(2dpos,2dscreensize, YplaneDepth cameraviewmat, cameraprojmat){vec = screenToWorldPoint(...depth arbitray). add vec to istelf: is delta y approaching YplaneDepth? if yes project to y = YplaneDepth, return x,y; else bail.}
+    
 Tilegrid TestScene
  - PlayerController
     - bug: spamming jump while facing left lets you reach max speed near instantly
@@ -53,10 +64,7 @@ Graphics
 Audio
  - add an OpenAL dependency to the project, get an initial test working on desktop and android. Create AL wrapper object.
  
-Math
- - Mat4x4 
-    - static Vec3 screenToWorldPoint(Vec2 screenPos, float dist, Mat4x4 cameraVP)
-    - static Vec2 screenToXZPlanePoint(Vec2 screenPos, Mat4x4 cameraVP)
+
 
 networking
  - should there be networking components or should networking implementation be entirely up to the end user?
