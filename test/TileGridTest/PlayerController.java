@@ -4,6 +4,7 @@
  */
 package TileGridTest;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Time;
@@ -22,8 +23,10 @@ public class PlayerController extends CharacterController
     private static final float s_TranslationSpeed = 1E3f;
     private float m_AnimationTimer = 0;
     
-    private final KeyCode m_LeftKey = KeyCode.A;
-    private final KeyCode m_RightKey = KeyCode.D;
+    private final KeyCode m_LeftKey   = KeyCode.A;
+    private final KeyCode m_RightKey  = KeyCode.D;
+    private final KeyCode m_DownKey   = KeyCode.S;
+    private final KeyCode m_UpKey     = KeyCode.W;
     private final KeyCode m_ActionKey = KeyCode.Space;
     
     //buffers
@@ -36,7 +39,7 @@ public class PlayerController extends CharacterController
     {
         @Override public void OnEnter()
         {
-            m_Graphic.setCurrentCell(1, 0);
+            m_Graphic.setCurrentCell(0, 0);
             
         }
         
@@ -44,6 +47,12 @@ public class PlayerController extends CharacterController
         {
             tryJump();
             tryWalk();
+            tryCrouch();
+            
+            if (Input.getKey(m_UpKey))
+                m_Graphic.setCurrentCell(3, 0);
+            else if (!Input.getKey(m_UpKey))
+                m_Graphic.setCurrentCell(0, 0);
 
         }
         
@@ -61,11 +70,18 @@ public class PlayerController extends CharacterController
                 
         }
         
+        private void tryCrouch()
+        {
+            if (Input.getKey(m_DownKey))
+                setState(Crouch.class);
+            
+        }
+        
     }
     
     protected class Walk extends CharacterState
     {
-        private float idleSpeedThreshold = 1f; 
+        private float idleSpeedThreshold = 3f; 
         private static final float s_TranslationSpeed = 1E3f;
         private float m_AnimationTimer = 0;
         private final float walkInterval = 1f;
@@ -84,6 +100,7 @@ public class PlayerController extends CharacterController
         {
             tryIdle();
             tryJump();
+            tryCrouch();
             
             handleInputs();
             animate();
@@ -136,12 +153,28 @@ public class PlayerController extends CharacterController
             else if (m_AnimationTimer > walkInterval)
                 m_Graphic.setCurrentCell(1, 0);
 
-            m_AnimationTimer += (float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x);
+            //m_AnimationTimer += (float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x+1);
+            
+            float speedFactor = Math.abs(m_Rigidbody.getVelocity().x+1);
+            
+            if (speedFactor < 5)
+                speedFactor = 5;
+            
+            Debug.log(speedFactor);
+            
+            m_AnimationTimer += (float)Time.getDeltaTime()*speedFactor;
             
             if (m_Rigidbody.getVelocity().x < -0.1f)
                 m_Graphic.getTransform().get().setRotation(90,180,0);
             else if (m_Rigidbody.getVelocity().x > 0.1f)
                 m_Graphic.getTransform().get().setRotation(90,0,0);
+            
+        }
+        
+        private void tryCrouch()
+        {
+            if (Input.getKey(m_DownKey))
+                setState(Crouch.class);
             
         }
         
@@ -151,13 +184,38 @@ public class PlayerController extends CharacterController
     {
         @Override public void OnEnter()
         {
-            m_Graphic.setCurrentCell(2, 0);
+            m_Graphic.setCurrentCell(2, 1);
             
         }
         
         @Override public void OnUpdate()
         {
-            if (!Input.getKey(m_ActionKey))
+            if (Input.getKey(m_ActionKey))
+                handleMultiframeJumpMechanics();
+            else if (!Input.getKey(m_ActionKey))
+                setState(Idle.class);
+            
+        }
+        
+        private void handleMultiframeJumpMechanics()
+        {
+            
+            
+        }
+        
+    }
+    
+    protected class Crouch extends CharacterState
+    {
+        @Override public void OnEnter()
+        {
+            m_Graphic.setCurrentCell(3, 1);
+            
+        }
+        
+        @Override public void OnUpdate()
+        {
+            if (!Input.getKey(m_DownKey))
                 setState(Idle.class);
             
         }
@@ -172,7 +230,8 @@ public class PlayerController extends CharacterController
                 
             new Idle(),
             new Walk(),
-            new Jump()
+            new Jump(),
+            new Crouch()
         
         );
         

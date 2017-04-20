@@ -61,12 +61,6 @@ public class Main
         gameObject.get().getTransform().get().setPosition(-8f,0,+2.5f);
         gameObject.get().getTransform().get().setRotation(-90,180,10);
         
-        Camera camera = (Camera)gameObject.get().addComponent(Camera.class);
-        camera.setProjectionMode(CameraProjectionMode.Orthographic);
-        camera.setFarClippingPlane(15);
-        camera.setOrthoSize(14.5f, 14.5f);
-        camera.setClearColor(Color.Black());
-        
         gameObject.get().addComponent(PlayerCamera.class);
         
     }
@@ -82,6 +76,7 @@ public class Main
         gameObject.get().getTransform().get().setScale(1,1,1);
         
         TileGrid tilegrid = (TileGrid)gameObject.get().addComponent(TileGrid.class);
+        //tilegrid.set
         tilegrid.setTileSet("bloo.png",16,16);
         tilegrid.setTileData(256,16,new int[]
         {
@@ -106,6 +101,7 @@ public class Main
         });
         
         GridCollider gridcollider = (GridCollider)gameObject.get().addComponent(GridCollider.class);
+        gridcollider.setDrawDebugLines(false);
         
         float 
         hStart = 0.01f, //prevent overlaps
@@ -166,7 +162,7 @@ public class Main
     
     private static void createSpriteSheet(final WeakReference<Scene> aScene)
     {
-        Graphics.loadFromResource("SpriteSheetTest/Blocky.png");
+        Graphics.loadFromResource("TileGridTest/Blocky.png");
         
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
         gameObject.get().setName("Player");

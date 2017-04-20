@@ -62,7 +62,7 @@ public class GridCollider extends Collider
         
         List<Float> lineVisualizerVertexes = null;
         
-        if (m_LineVisualizer == null)
+        if (getDrawDebugLines() && m_LineVisualizer == null)
         {
             m_LineVisualizer = (LineVisualizer)getGameObject().get().addComponent(LineVisualizer.class);
             m_LineVisualizer.setDrawPrimitiveMode(LinePrimitive.Lines);
@@ -94,14 +94,14 @@ public class GridCollider extends Collider
                     buildAFixture(x,y,m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes,null,currentFixtureDef);
                     fixtureDefinitions.add(currentFixtureDef);
                     
-                    
-                    for(int j=0;j<m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes.length;j++)
-                    {
-                        lineVisualizerVertexes.add(m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes[j].x+x-0.3f);
-                        lineVisualizerVertexes.add(0.1f);
-                        lineVisualizerVertexes.add(m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes[j].y+y-m_DataHeight+0.5f);
-                    
-                    }
+                    if (getDrawDebugLines())
+                        for(int j=0;j<m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes.length;j++)
+                        {
+                            lineVisualizerVertexes.add(m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes[j].x+x-0.3f);
+                            lineVisualizerVertexes.add(0.1f);
+                            lineVisualizerVertexes.add(m_GridColliderDefinitions[m_Data[dataIndex]].edgeDefinitions[i].vertexes[j].y+y-m_DataHeight+0.5f);
+                            
+                        }
                                 
                 }
                 
@@ -111,12 +111,16 @@ public class GridCollider extends Collider
         m_FixtureDefinitions = fixtureDefinitions.toArray(new FixtureDef[fixtureDefinitions.size()]);
         
         //update linevisualizer//lineVisualizerVertexes.toArray(new float[lineVisualizerVertexes.size()]
-        float[] visdata = new float[lineVisualizerVertexes.size()];
+        if (getDrawDebugLines())
+        {
+            float[] visdata = new float[lineVisualizerVertexes.size()];
         
-        for(int i=0;i<lineVisualizerVertexes.size();i++)
-            visdata[i] = lineVisualizerVertexes.get(i);
+            for(int i=0;i<lineVisualizerVertexes.size();i++)
+                visdata[i] = lineVisualizerVertexes.get(i);
+
+            m_LineVisualizer.setVertexData(visdata);
         
-        m_LineVisualizer.setVertexData(visdata);
+        }
                    
     }
     

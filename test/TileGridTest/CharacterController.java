@@ -241,11 +241,12 @@ public abstract class CharacterController extends Component
         m_Rigidbody.setLinearDamping(1);
         
         //
-        /*bodyCollider .setDrawDebugLines(false);
+        bodyCollider .setDrawDebugLines(false);
+        
         m_NorthSensor.setDrawDebugLines(false);
         m_EastSensor .setDrawDebugLines(false);
-        m_SouthSensor.setDrawDebugLines(false);
-        m_WestSensor .setDrawDebugLines(false);*/
+        m_SouthSensor.setDrawDebugLines(true);
+        m_WestSensor .setDrawDebugLines(false);
         
     }
     
