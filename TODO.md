@@ -11,6 +11,8 @@ Tilegrid TestScene
     - parameterize hitbox & detection boxes OR refactor these to playercontroller if this cannot be done meaningfully
 
 Physics2D
+ - rigidbody.lockPosition(Vector2 aPosition, Vector2 aLocalOffset) -> allow hinges etc. in worldspace
+ - rigidbody.lockPosition(Rigidbody aRigidbody, Vector2 aPosition, Vector2 aLocalOffset) -> local to aRigidbody
  - Rigidbody.Raycast
  - World.Raycast
   - TileCollider2D   
