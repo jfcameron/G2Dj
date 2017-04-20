@@ -109,7 +109,7 @@ public class PlayerController extends CharacterController
         //
         private void tryIdle()
         {
-            if (!Input.getKey(m_LeftKey) && !Input.getKey(m_RightKey))
+            if ((!Input.getKey(m_LeftKey) && !Input.getKey(m_RightKey)) || (Input.getKey(m_LeftKey) && Input.getKey(m_RightKey)))
                 if (m_Rigidbody.getVelocity().length() <= idleSpeedThreshold)
                     setState(Idle.class);
             
@@ -217,7 +217,7 @@ public class PlayerController extends CharacterController
         
         private void applyFirstFrameJumpImpulse()
         {
-            Debug.log(1E1f*(float)Time.getDeltaTime());
+            //Debug.log(1E1f*(float)Time.getDeltaTime());
             m_Rigidbody.applyImpulse(0, firstFrameJumpImpulseMagnitude);
             
             jumpVelocityBuffer = m_Rigidbody.getVelocity().y;
@@ -354,18 +354,18 @@ public class PlayerController extends CharacterController
     private final float maxLandSpeed = 11f;
     private void handleLateralAirMovement()
     {
-        Debug.log(m_Rigidbody.getVelocity().x);
+        //Debug.log(m_Rigidbody.getVelocity().x);
         
         if (m_Facing == Facing.Left)
         {
             if (Input.getKey(m_LeftKey)) 
             {
                 if (m_Rigidbody.getVelocity().x < +maxAirSpeed)
-                    m_Rigidbody.applyImpulse(+forwardAirSpeed*(float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x/maxAirSpeed+0.75f), 0);
+                    m_Rigidbody.applyImpulse(+forwardAirSpeed*(float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x/maxAirSpeed-0.75f), 0);
                 
             }
             if (Input.getKey(m_RightKey))
-                m_Rigidbody.applyImpulse(-backwardAirSpeed*(float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x/maxAirSpeed+0.75f), 0);
+                m_Rigidbody.applyImpulse(-backwardAirSpeed*(float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x/maxAirSpeed-0.75f), 0);
             
         }
         else if (m_Facing == Facing.Right)

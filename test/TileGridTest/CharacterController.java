@@ -113,7 +113,7 @@ public abstract class CharacterController extends Component
                     m_LastState = m_CurrentState;
 
                     //Debug.log(m_CurrentState.getClass().getSimpleName()+".OnEnter");
-                    //Debug.log(m_CurrentState.getClass().getSimpleName()+".Update ...");
+                    Debug.log(m_CurrentState.getClass().getSimpleName()+".Update ...");
                 
                 }
                 

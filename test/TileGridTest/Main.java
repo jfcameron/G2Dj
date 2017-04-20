@@ -4,6 +4,7 @@
  */
 package TileGridTest;
 
+import SpriteSheetTest.Slime;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
@@ -43,9 +44,8 @@ public class Main
         createSpriteSheet(scene);
         createTextMesh(scene);
         createTestCamera(scene);
-        createFloor(scene);
         createBox(scene);
-        
+        createSlime(scene);
         
     }
     
@@ -215,6 +215,20 @@ public class Main
         //bc.setDensity(0.5f);
         
         Rigidbody rb = (Rigidbody)gameObject.get().addComponent(Rigidbody.class);
+        
+    }
+    
+    private static void createSlime(final WeakReference<Scene> aScene)
+    {
+        Graphics.loadFromResource("SpriteSheetTest/Slime.png");
+        
+        WeakReference<GameObject> gameObject = aScene.get().addGameObject();
+        gameObject.get().setName("Slime");
+        gameObject.get().getTransform().get().setRotation(90,0,0);
+        gameObject.get().getTransform().get().setPosition(-15,1,2);
+        gameObject.get().getTransform().get().setScale(1,1,1);
+        
+        gameObject.get().addComponent(Slime.class);
         
     }
     

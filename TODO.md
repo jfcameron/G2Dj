@@ -3,6 +3,7 @@ Tilegrid TestScene
     - bug: spamming jump while facing left lets you reach max speed near instantly
     - landing recovery anim (sideradical)
     - super fast run (hands back)
+    - add raycast check to collision check
  - Create a stompable enemy
     - slime
     - bouncy up edge

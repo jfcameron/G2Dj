@@ -55,7 +55,7 @@ public class Main
         Graphics.loadFromResource("SpriteSheetTest/Blocky.png");
         
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
-        gameObject.get().setName("SpriteSheetTest");
+        gameObject.get().setName("Blocky");
         gameObject.get().getTransform().get().setRotation(90,180,0);
         gameObject.get().getTransform().get().setPosition(0,0,0);
         gameObject.get().getTransform().get().setScale(1,1,1);
@@ -66,17 +66,15 @@ public class Main
     
     private static void createSpriteSheet2(final WeakReference<Scene> aScene)
     {
-        Graphics.loadFromResource("SpriteSheetTest/Blocky.png");
+        Graphics.loadFromResource("SpriteSheetTest/Slime.png");
         
         WeakReference<GameObject> gameObject = aScene.get().addGameObject();
-        gameObject.get().setName("SpriteSheetTest");
+        gameObject.get().setName("Slime");
         gameObject.get().getTransform().get().setRotation(90,0,0);
         gameObject.get().getTransform().get().setPosition(-2,0,0);
         gameObject.get().getTransform().get().setScale(1,1,1);
         
-        SpriteSheet spriteSheet = (SpriteSheet)gameObject.get().addComponent(SpriteSheet.class);
-        spriteSheet.setSpriteSheet("Blocky.png",16,17);
-        spriteSheet.setCurrentCell(2, 0);
+        gameObject.get().addComponent(Slime.class);
         
     }
     
