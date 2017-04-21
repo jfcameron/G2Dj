@@ -12,6 +12,7 @@ import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.IntVector2;
+import grimhaus.com.G2Dj.Type.Math.Mat4x4;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 
@@ -30,8 +31,11 @@ public class MouseTest extends Component
     {
         m_Camera = (Camera)getGameObject().get().getScene().get().getGameObject("MainCamera").get().getComponent(Camera.class);
         
-        
+        Mat4x4 test = new Mat4x4();
             
+        Debug.log("Mat test");
+        Debug.log(test);
+        
     }
 
     @Override

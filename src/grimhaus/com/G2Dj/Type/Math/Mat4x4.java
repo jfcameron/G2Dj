@@ -600,4 +600,18 @@ public class Mat4x4
          
      }
      
+     @Override public String toString()
+     {
+        return new StringBuilder()
+        .append("{").append(m00).append(", ").append(m10).append(", ").append(m20).append(", ").append(m30).append("}\n")
+        .append("{").append(m01).append(", ").append(m11).append(", ").append(m21).append(", ").append(m31).append("}\n")
+        .append("{").append(m02).append(", ").append(m12).append(", ").append(m22).append(", ").append(m32).append("}\n")     
+        .append("{").append(m03).append(", ").append(m13).append(", ").append(m23).append(", ").append(m33).append("}\n")         
+        .toString();
+
+
+        //"{"+x+", "+y+", "+z+", "+w+"}";
+     
+     }
+     
 }
