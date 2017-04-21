@@ -609,6 +609,11 @@ public class Mat4x4
             this.m01 * right.x + this.m11 * right.y + this.m21 * right.z + this.m31 * right.w,
             this.m02 * right.x + this.m12 * right.y + this.m22 * right.z + this.m32 * right.w,
             this.m03 * right.x + this.m13 * right.y + this.m23 * right.z + this.m33 * right.w
+         /*
+            this.m00 * right.x + this.m01 * right.y + this.m02 * right.z + this.m03 * right.w,
+            this.m10 * right.x + this.m11 * right.y + this.m12 * right.z + this.m13 * right.w,
+            this.m20 * right.x + this.m21 * right.y + this.m22 * right.z + this.m23 * right.w,
+            this.m30 * right.x + this.m31 * right.y + this.m32 * right.z + this.m33 * right.w*/
         );
          
      }
@@ -616,7 +621,7 @@ public class Mat4x4
      @Override public String toString()
      {
         return new StringBuilder()
-        .append("{").append(m01).append(", ").append(m01).append(", ").append(m02).append(", ").append(m03).append("}\n")
+        .append("{").append(m00).append(", ").append(m01).append(", ").append(m02).append(", ").append(m03).append("}\n")
         .append("{").append(m10).append(", ").append(m11).append(", ").append(m12).append(", ").append(m13).append("}\n")
         .append("{").append(m20).append(", ").append(m21).append(", ").append(m22).append(", ").append(m23).append("}\n")     
         .append("{").append(m30).append(", ").append(m31).append(", ").append(m32).append(", ").append(m33).append("}\n")         

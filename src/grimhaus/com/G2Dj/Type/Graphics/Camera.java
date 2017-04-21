@@ -163,50 +163,49 @@ public class Camera extends GraphicsComponent
         
     }
     
-    //void generateViewProjectionMatrix(mat4x4* aViewMatrix, mat4x4* aProjectionMatrix, mat4x4* aVPMatrix = 0);
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    private Vector3 unproject(IntVector2 point2D, int width,int height, Mat4x4 viewMatrix, Mat4x4 projectionMatrix) 
+    public Vector3 getWorldPointFromScreenPoint(final IntVector2 aScreenPoint, final float aWorldSpaceDistance)
     {
-        /* //origianl mple,enation
-        float x =   2.0f * point2D.x / width - 1;
-        float y = - 2.0f * point2D.y / height + 1;
-        
-        Mat4x4 viewProjectionInverse = Mat4x4.Inversion(projectionMatrix.mul(viewMatrix));
+        //Marshall data
+        IntVector2 screenSize = Graphics.getScreenSize();
+        Mat4x4  view       = new Mat4x4(getViewMatrix());
+    	Mat4x4  projection = new Mat4x4(getProjectionMatrix());    	
 
-        Vector4 point3D = new Vector4(x, y, 0,1); 
+        //delinearize depth (gl depth buffer is not linear)
+        float zFar           = m_FarClippingPlane;
+	float zNear          = m_NearClippingPlane;
+	float linearDepth    = aWorldSpaceDistance;
+	float nonLinearDepth = (zFar + zNear - 2.0f * zNear * zFar / linearDepth) / (zFar - zNear);
+	nonLinearDepth       = (nonLinearDepth + 1.0f) / 2.0f;
         
-        return viewProjectionInverse.mul(point3D).ToVector3();
-*/
-        float x =   2.0f * point2D.x / width - 1;
-        float y = - 2.0f * point2D.y / height + 1;
+        //Viewport coords to NDC
+        float x =   2.0f * aScreenPoint.x / screenSize.x - 1;
+        float y = - 2.0f * aScreenPoint.y / screenSize.y + 1;
         
-        Mat4x4 projectionInverse = Mat4x4.Inversion(projectionMatrix);
-        Mat4x4 viewInverse = Mat4x4.Inversion(viewMatrix);
-
-        Vector4 point3D = new Vector4(x, y, 0,1); 
-        point3D = projectionInverse.mul(point3D);
-        point3D = viewInverse.mul(point3D);
+        //NDC to view to world
+        Vector4 point3D = new Vector4(x, y, nonLinearDepth,1); 
+        point3D = Mat4x4.Inversion(projection.mul(view)).mul(point3D);
         
-        point3D.multiplyInPlace(1f/point3D.w);
+        point3D.multiplyInPlace(1f/point3D.w);//normalize components beore producing vec3
         
         return point3D.ToVector3();
         
     }
     
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    public Vector3 getWorldPointFromScreenPoint(final IntVector2 aScreenPoint, final float aWorldSpaceDistance)
+    public Vector3 getWorldPlanePointFromScreenPoint(final IntVector2 aScreenPoint, final Vector3 aPlanePoint1, final Vector3 aPlanePoint2, final Vector3 aPlanePoint3)
     {
-        IntVector2 screenSize = Graphics.getScreenSize();
-    	
-        //Vector3 screenPos  = new Vector3(aScreenPoint.x,aScreenPoint.y,1);
-        Mat4x4  view       = new Mat4x4(getViewMatrix());
-    	Mat4x4  projection = new Mat4x4(getProjectionMatrix());    	
-        //Vector4 viewport   = new Vector4(0.0f, 0.0f, m_ViewportSize.x*screenSize.x, m_ViewportSize.y*screenSize.y);
-
-    	return unproject(aScreenPoint, screenSize.x, screenSize.y, view, projection);
+        Vector3 cameraPos = getTransform().get().getPosition();
+        Vector3 screenworldPos = getWorldPointFromScreenPoint(aScreenPoint,1);
+        
+        Vector3 dir = new Vector3(screenworldPos.x-cameraPos.x,screenworldPos.y-cameraPos.y,screenworldPos.z-cameraPos.z);//cameraPos.add(screenworldPos);//.unit();
+        dir.normalize();
+        
+        
+        
+        Vector3 projectedPoint = dir.setInPlace(cameraPos.add(dir));
+        
+        
+        
+        return dir;
         
     }
     

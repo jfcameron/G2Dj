@@ -63,9 +63,9 @@ public class MouseTest extends Component
         {
             //marshall
             IntVector2 mousePos = Input.getMousePosition();
-            float sceneDepth = 2;
+            float sceneDepth = 3;
             
-            Vector3 wpos = m_Camera.getWorldPointFromScreenPoint(mousePos, sceneDepth);
+            Vector3 wpos = m_Camera.getWorldPointFromScreenPoint(mousePos,4);//getWorldPointFromScreenPoint(mousePos, sceneDepth);
             
             Debug.log("LeftClicked at: "+mousePos,"World position is: "+wpos);
             
@@ -76,11 +76,34 @@ public class MouseTest extends Component
             rot.x -=90;
             
             gameObject.getTransform().get().setRotation(rot);
-            gameObject.getTransform().get().setPosition(wpos.x,0,wpos.z);
+            gameObject.getTransform().get().setPosition(wpos.x,wpos.y,wpos.z);
             gameObject.getTransform().get().setScale(1.5f,1.5f,1.5f);
             
             gameObject.addComponent(Mesh.class);
             
+        }
+        
+        if (Input.getMouseButtonDown(MouseButtonCode.Right))
+        {
+            //marshall
+            IntVector2 mousePos = Input.getMousePosition();
+            float sceneDepth = 3;
+            
+            Vector3 wpos = m_Camera.getWorldPlanePointFromScreenPoint(mousePos,Vector3.Zero(),Vector3.Forward(),Vector3.Right());//getWorldPointFromScreenPoint(mousePos, sceneDepth);
+            
+            Debug.log("LeftClicked at: "+mousePos,"Intercept is: "+wpos);
+            
+            GameObject gameObject = getGameObject().get().getScene().get().addGameObject().get();
+            
+            //gameObject.getTransform().get().setRotation(-90,180,0);//m_Camera
+            Vector3 rot = new Vector3(m_Camera.getTransform().get().getRotation());
+            rot.x -=90;
+            
+            gameObject.getTransform().get().setRotation(rot);
+            gameObject.getTransform().get().setPosition(wpos.x,wpos.y,wpos.z);
+            gameObject.getTransform().get().setScale(1.5f,1.5f,1.5f);
+            
+            gameObject.addComponent(Mesh.class);
             
         }
         
