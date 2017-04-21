@@ -31,10 +31,19 @@ public class MouseTest extends Component
     {
         m_Camera = (Camera)getGameObject().get().getScene().get().getGameObject("MainCamera").get().getComponent(Camera.class);
         
-        Mat4x4 test = new Mat4x4();
-            
-        Debug.log("Mat test");
+        Mat4x4 test = new Mat4x4
+        (
+            1f,0f,0f,0f,
+            0f,1f,0f,0f,
+            0f,0f,1f,0f,
+           -1f,0f,0f,1f
+        );
+                
+        Debug.log("====Mat test====");
+        Debug.log("test matrix:");
         Debug.log(test);
+        Debug.log("inverted test matrix");
+        Debug.log(Mat4x4.Inversion(test));
         
     }
 

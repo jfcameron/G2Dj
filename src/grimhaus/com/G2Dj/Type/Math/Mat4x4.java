@@ -69,6 +69,19 @@ public class Mat4x4
         
     }
     
+    /*
+    float m00, float m01, float m02, float m03, 
+    float m10, float m11, float m12, float m13,
+    float m20, float m21, float m22, float m23, 
+    float m30, float m31, float m32, float m33
+    */
+    /*
+    float m00, float m10, float m20, float m30, 
+    float m01, float m11, float m21, float m31,
+    float m02, float m12, float m22, float m32, 
+    sfloat m03, float m13, float m23, float m33
+    */
+    
     public Mat4x4
     (
         float m00, float m01, float m02, float m03, 
@@ -603,10 +616,10 @@ public class Mat4x4
      @Override public String toString()
      {
         return new StringBuilder()
-        .append("{").append(m00).append(", ").append(m10).append(", ").append(m20).append(", ").append(m30).append("}\n")
-        .append("{").append(m01).append(", ").append(m11).append(", ").append(m21).append(", ").append(m31).append("}\n")
-        .append("{").append(m02).append(", ").append(m12).append(", ").append(m22).append(", ").append(m32).append("}\n")     
-        .append("{").append(m03).append(", ").append(m13).append(", ").append(m23).append(", ").append(m33).append("}\n")         
+        .append("{").append(m01).append(", ").append(m01).append(", ").append(m02).append(", ").append(m03).append("}\n")
+        .append("{").append(m10).append(", ").append(m11).append(", ").append(m12).append(", ").append(m13).append("}\n")
+        .append("{").append(m20).append(", ").append(m21).append(", ").append(m22).append(", ").append(m23).append("}\n")     
+        .append("{").append(m30).append(", ").append(m31).append(", ").append(m32).append(", ").append(m33).append("}\n")         
         .toString();
 
 
