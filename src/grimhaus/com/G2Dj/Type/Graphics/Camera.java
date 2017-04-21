@@ -167,100 +167,31 @@ public class Camera extends GraphicsComponent
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    /*
-    template <typename T, typename U, precision P>
-	GLM_FUNC_QUALIFIER tvec3<T, P> unProject
-	(
-		tvec3<T, P> const & win,
-		tmat4x4<T, P> const & model,
-		tmat4x4<T, P> const & proj,
-		tvec4<U, P> const & viewport
-	)
-	{
-		tmat4x4<T, P> Inverse = inverse(proj * model);
-
-		tvec4<T, P> tmp = tvec4<T, P>(win, T(1));
-		tmp.x = (tmp.x - T(viewport[0])) / T(viewport[2]);
-		tmp.y = (tmp.y - T(viewport[1])) / T(viewport[3]);
-		tmp = tmp * T(2) - T(1);
-
-		tvec4<T, P> obj = Inverse * tmp;
-		obj /= obj.w;
-
-		return tvec3<T, P>(obj);
-	}
-    */
-    
-/*
-    mat4 projectionMatrix = GetPerspectiveMatrix();
-    mat4 projectionMatrixInverse = glm::inverse(projectionMatrix);
-    mat4 viewMatrix = GetViewMatrix();
-    mat4 viewMatrixInverse = glm::inverse(viewMatrix);
-
-
-    vec2 screenCoord = MathLib::vec2(x, y);
-    vec2 normalizedCoord2D = MathLib::vec2(2.0 * screenCoord.x / viewportSize.x - 1.0, 2.0 * screenCoord.y / viewportSize.y - 1.0);
-    vec4 worldCoordNear;
-    vec4 worldCoordFar;
-    
+    private Vector3 unproject(IntVector2 point2D, int width,int height, Mat4x4 viewMatrix, Mat4x4 projectionMatrix) 
     {
-        vec4 normalizedCoordNear = vec4(normalizedCoord2D.x, normalizedCoord2D.y, -1.0, 1.0);
-        vec4 clipCoordNear = normalizedCoordNear;
-        vec4 eyeCoordNear = projectionMatrixInverse * clipCoordNear;
-        worldCoordNear = viewMatrixInverse * eyeCoordNear;
-        worldCoordNear /= worldCoordNear.w;
-    }
-    {
-        vec4 normalizedCoordFar = vec4(normalizedCoord2D.x, normalizedCoord2D.y, 1.0, 1.0);
-        vec4 clipCoordFar = normalizedCoordFar;
-        vec4 eyeCoordFar = projectionMatrixInverse * clipCoordFar;
-        worldCoordFar = viewMatrixInverse * eyeCoordFar;
-        worldCoordFar /= worldCoordFar.w;
-    }   
+        /* //origianl mple,enation
+        float x =   2.0f * point2D.x / width - 1;
+        float y = - 2.0f * point2D.y / height + 1;
+        
+        Mat4x4 viewProjectionInverse = Mat4x4.Inversion(projectionMatrix.mul(viewMatrix));
+
+        Vector4 point3D = new Vector4(x, y, 0,1); 
+        
+        return viewProjectionInverse.mul(point3D).ToVector3();
 */
-    
-    private Vector3 TEMPunproject(final Vector3 screenPos, final Mat4x4 aViewMatrix, final Mat4x4 aProjectionMatrix, final Vector4 aViewport)
-    {
-        Mat4x4 projectionMatrix = aProjectionMatrix;
-        Mat4x4 projectionMatrixInverse = Mat4x4.Inversion(projectionMatrix);
-        Mat4x4 viewMatrix = aViewMatrix;
-        Mat4x4 viewMatrixInverse = Mat4x4.Inversion(aViewMatrix);
+        float x =   2.0f * point2D.x / width - 1;
+        float y = - 2.0f * point2D.y / height + 1;
         
-        Vector2 viewportSize = new Vector2(m_ViewportSize.x,m_ViewportSize.y);
+        Mat4x4 projectionInverse = Mat4x4.Inversion(projectionMatrix);
+        Mat4x4 viewInverse = Mat4x4.Inversion(viewMatrix);
+
+        Vector4 point3D = new Vector4(x, y, 0,1); 
+        point3D = projectionInverse.mul(point3D);
+        point3D = viewInverse.mul(point3D);
         
-        Debug.log("Viewport: "+m_ViewportSize);
+        point3D.multiplyInPlace(1f/point3D.w);
         
-        Vector2 screenCoord = new Vector2(screenPos.x, screenPos.y);
-        Vector2 normalizedCoord2D = new Vector2(2.0f * screenCoord.x / viewportSize.x - 1.0f, 2.0f * screenCoord.y / viewportSize.y - 1.0f);
-        Vector4 worldCoordNear;
-        Vector4 worldCoordFar;
-        
-        {
-            Vector4 normalizedCoordNear = new Vector4(normalizedCoord2D.x, normalizedCoord2D.y, -1.0f, 1.0f);
-            Vector4 clipCoordNear = new Vector4(normalizedCoordNear);
-            Vector4 eyeCoordNear = projectionMatrixInverse.mul(clipCoordNear);//projectionMatrixInverse * clipCoordNear;
-            worldCoordNear = viewMatrixInverse.mul(eyeCoordNear);
-            worldCoordNear.multiply(1.0f/worldCoordNear.w);
-            
-        }
-        {
-            Vector4 normalizedCoordFar = new Vector4(normalizedCoord2D.x, normalizedCoord2D.y, 1.0f, 1.0f);
-            Vector4 clipCoordFar = normalizedCoordFar;
-            Vector4 eyeCoordFar = projectionMatrixInverse.mul(clipCoordFar);
-            worldCoordFar = viewMatrixInverse.mul(eyeCoordFar);
-            worldCoordFar.multiply(1.0f/worldCoordFar.w);
-        
-        }
-        
-        Debug.log("unprojected coord: "+worldCoordNear);
-        
-        return new Vector3
-        (
-                worldCoordNear.x,
-                worldCoordNear.y,
-                worldCoordNear.z
-                
-        );
+        return point3D.ToVector3();
         
     }
     
@@ -268,89 +199,16 @@ public class Camera extends GraphicsComponent
     
     public Vector3 getWorldPointFromScreenPoint(final IntVector2 aScreenPoint, final float aWorldSpaceDistance)
     {
-        Debug.log("Screen point: "+aScreenPoint,"Viewport size: "+m_ViewportSize);
-        //**********************1 ./
-        //----
-    	//marshal data
-    	//----
-    	//vp dimensions
         IntVector2 screenSize = Graphics.getScreenSize();
-    	float viewportSizeX = m_ViewportSize.x * screenSize.x;
-    	float viewportSizeY = m_ViewportSize.y * screenSize.y;
-    	Vector4 viewport = new Vector4(0.0f, 0.0f, viewportSizeX, viewportSizeY);/*glm::vec4 viewport = glm::vec4(0.0f, 0.0f, screenW, screenH);*/
-        //v&p mats
-    	Mat4x4 view       = new Mat4x4(getViewMatrix());/*glm::mat4 tmpView;// (1.0f);*/
-    	Mat4x4 projection = new Mat4x4(getProjectionMatrix());/*glm::mat4 tmpProj;// = glm::perspective(90.0f, screenW / screenH, 0.1f, 1000.0f);*/
     	
-        //**********************2 ./
-    	float zFar  = m_FarClippingPlane;/*float zFar        = m_FarClippingDistance;*/
-    	float zNear = m_NearClippingPlane;/*float zNear       = m_NearClippingDistance;*/
-    	float linearDepth = aWorldSpaceDistance;/*float linearDepth = aWorldSpaceDistance;*/
-    	float nonLinearDepth = (zFar + zNear - 2.0f * zNear * zFar / linearDepth) / (zFar - zNear);/*float nonLinearDepth = (zFar + zNear - 2.0 * zNear * zFar / linearDepth) / (zFar - zNear);*/
-    	nonLinearDepth = (nonLinearDepth + 1.0f) / 2.0f;/*nonLinearDepth = (nonLinearDepth + 1.0) / 2.0;*/
-        
-    	//Debug::log("wsd:", aWorldSpaceDistance,"Lineardepth:",linearDepth, "\n");
-        
-        //**********************3 ./
-    	Vector3 screenPos = new Vector3
-    	(
-    		aScreenPoint.x * m_ViewportSize.x, //denormalizing to fit glm expectation
-    		m_ViewportSize.y + (-1.f*aScreenPoint.y * m_ViewportSize.y), //flipping input screen pos y and denormalizing to match glm expectation
-    		//(2 * m_NearClippingDistance) / (m_FarClippingDistance + m_NearClippingDistance - 1.0f * (m_FarClippingDistance - m_NearClippingDistance)) //linearizing depth
-    		nonLinearDepth
-    	);
-        
-        //**********************4
-        //calc wpos
-    	return TEMPunproject(screenPos, view, projection, viewport);/*glm::vec3 worldPos = glm::unProject(screenPos, tmpView, tmpProj, viewport);*/
+        //Vector3 screenPos  = new Vector3(aScreenPoint.x,aScreenPoint.y,1);
+        Mat4x4  view       = new Mat4x4(getViewMatrix());
+    	Mat4x4  projection = new Mat4x4(getProjectionMatrix());    	
+        //Vector4 viewport   = new Vector4(0.0f, 0.0f, m_ViewportSize.x*screenSize.x, m_ViewportSize.y*screenSize.y);
+
+    	return unproject(aScreenPoint, screenSize.x, screenSize.y, view, projection);
         
     }
-    /*Math::Vector3 RenderCamera::getWorldPointFromScreenPoint(const Math::Vector2 &aScreenPoint, const float &aWorldSpaceDistance)
-    {
-        //**********************1
-    	//----
-    	//marshal data
-    	//----
-    	//vp dimensions
-    	float screenW = m_ViewportSize.x;
-    	float screenH = m_ViewportSize.y;
-    	glm::vec4 viewport = glm::vec4(0.0f, 0.0f, screenW, screenH);
-    	//v&p mats
-    	glm::mat4 tmpView;// (1.0f);
-    	glm::mat4 tmpProj;// = glm::perspective(90.0f, screenW / screenH, 0.1f, 1000.0f);
-    	generateViewProjectionMatrix(&tmpView, &tmpProj);
-    	//screen pos
-        
-        //**********************2
-    	float zFar        = m_FarClippingDistance;
-    	float zNear       = m_NearClippingDistance;
-    	float linearDepth = aWorldSpaceDistance;
-    	float nonLinearDepth = (zFar + zNear - 2.0 * zNear * zFar / linearDepth) / (zFar - zNear);
-    	nonLinearDepth = (nonLinearDepth + 1.0) / 2.0;
-        
-    	//Debug::log("wsd:", aWorldSpaceDistance,"Lineardepth:",linearDepth, "\n");
-        
-        //**********************3
-    	glm::vec3 screenPos = glm::vec3
-    	(
-    		aScreenPoint.x * m_ViewportSize.x, //denormalizing to fit glm expectation
-    		m_ViewportSize.y + (-1.f*aScreenPoint.y * m_ViewportSize.y), //flipping input screen pos y and denormalizing to match glm expectation
-    		//(2 * m_NearClippingDistance) / (m_FarClippingDistance + m_NearClippingDistance - 1.0f * (m_FarClippingDistance - m_NearClippingDistance)) //linearizing depth
-    		nonLinearDepth
-    	);
-                
-    	//calc wpos
-    	glm::vec3 worldPos = glm::unProject(screenPos, tmpView, tmpProj, viewport);
-        
-    	return Math::Vector3
-    	(
-    		worldPos.x,
-    		worldPos.y,
-    		worldPos.z
-                        
-    	);
-                
-    }*/
     
     //*************
     // Constructors

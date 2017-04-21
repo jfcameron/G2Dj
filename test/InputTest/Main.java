@@ -42,11 +42,11 @@ public class Main
     {
         GameObject gameObject = aScene.addGameObject().get();
         gameObject.setName("MainCamera");
-        gameObject.getTransform().get().setPosition(0,10,0);
+        gameObject.getTransform().get().setPosition(30,5,0);
         gameObject.getTransform().get().setRotation(-90,0,0);
         
         Camera camera = (Camera)gameObject.addComponent(Camera.class);
-        camera.setProjectionMode(CameraProjectionMode.Perspective);
+        camera.setProjectionMode(CameraProjectionMode.Orthographic);
         camera.setFarClippingPlane(15);
         //camera.setOrthoSize(40, 40);
         camera.setClearMode(CameraClearMode.Color);

@@ -61,6 +61,7 @@ public class Vector3
     //Constructors
     //************
     public Vector3(){this(0);}
+    public Vector3(final Vector3 aVector3){x=aVector3.x;y=aVector3.y;z=aVector3.z;}
     public Vector3(final float aScalar){this(aScalar,aScalar,aScalar);}
     public Vector3(final float aX, final float aY, final float aZ){x=aX;y=aY;z=aZ;}
     //public Vector3(const btVector3 &aBulletVector);

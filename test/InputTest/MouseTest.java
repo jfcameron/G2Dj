@@ -31,20 +31,6 @@ public class MouseTest extends Component
     {
         m_Camera = (Camera)getGameObject().get().getScene().get().getGameObject("MainCamera").get().getComponent(Camera.class);
         
-        Mat4x4 test = new Mat4x4
-        (
-            1f,0f,0f,0f,
-            0f,1f,0f,0f,
-            0f,0f,1f,0f,
-           -1f,0f,0f,1f
-        );
-                
-        Debug.log("====Mat test====");
-        Debug.log("test matrix:");
-        Debug.log(test);
-        Debug.log("inverted test matrix");
-        Debug.log(Mat4x4.Inversion(test));
-        
     }
 
     @Override
@@ -85,7 +71,11 @@ public class MouseTest extends Component
             
             GameObject gameObject = getGameObject().get().getScene().get().addGameObject().get();
             
-            gameObject.getTransform().get().setRotation(-90,180,0);
+            //gameObject.getTransform().get().setRotation(-90,180,0);//m_Camera
+            Vector3 rot = new Vector3(m_Camera.getTransform().get().getRotation());
+            rot.x -=90;
+            
+            gameObject.getTransform().get().setRotation(rot);
             gameObject.getTransform().get().setPosition(wpos.x,0,wpos.z);
             gameObject.getTransform().get().setScale(1.5f,1.5f,1.5f);
             

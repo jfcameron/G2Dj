@@ -18,7 +18,7 @@ public class Vector4
     //
     // state mul op
     //
-    public Vector4 multiply(final float aScalar)
+    public Vector4 multiplyInPlace(final float aScalar)
     {
         x*=aScalar;
         y*=aScalar;
@@ -29,9 +29,27 @@ public class Vector4
         
     }
     
+    public Vector4 addInPlace(final float aScalar)
+    {
+        x+=aScalar;
+        y+=aScalar;
+        z+=aScalar;
+        w+=aScalar;
+        
+        return this;
+        
+    }
+    
+    public Vector3 ToVector3()
+    {
+        return new Vector3(x,y,z);
+        
+    }
+    
     //************
     //Constructors
     //************
+    public Vector4(final Vector3 aVector3, final float aW){x=aVector3.x;y=aVector3.y;z=aVector3.z;w=aW;}
     public Vector4(){this(0);}
     public Vector4(final Vector4 aVector4){this(aVector4.x,aVector4.y,aVector4.z,aVector4.w);}
     public Vector4(final float aScalar){this(aScalar,aScalar,aScalar,aScalar);}
