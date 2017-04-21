@@ -9,6 +9,8 @@ import grimhaus.com.G2Dj.Imp.Input.MouseButtonCode;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Graphics.Camera;
+import grimhaus.com.G2Dj.Type.Math.IntVector2;
 import java.lang.ref.WeakReference;
 
 /**
@@ -18,20 +20,21 @@ import java.lang.ref.WeakReference;
 public class MouseTest extends Component 
 {
     //
+    private Camera m_Camera;
     
     //
     @Override
     protected void initialize() 
     {
-        
-    
+        m_Camera = (Camera)getGameObject().get().getScene().get().getGameObject("MainCamera").get().getComponent(Camera.class);
+            
     }
 
     @Override
     protected void update() 
     {
         //buttonsTest();
-        leftClickAtTest();
+        leftClickProjectionTest();
 
     }
 
@@ -51,10 +54,17 @@ public class MouseTest extends Component
     //
     //
     //
-    private void leftClickAtTest()
+    private void leftClickProjectionTest()
     {
         if (Input.getMouseButtonDown(MouseButtonCode.Left))
-            Debug.log("LeftClicked at: "+Input.getMousePosition());
+        {
+            //marshall
+            IntVector2 mousePos = Input.getMousePosition();
+            float sceneDepth = 2;
+            
+            Debug.log("LeftClicked at: "+mousePos,"World position is: "+m_Camera.getWorldPointFromScreenPoint(mousePos, sceneDepth));
+            
+        }
         
     }
     

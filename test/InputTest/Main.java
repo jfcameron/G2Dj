@@ -5,9 +5,12 @@
 package InputTest;
 
 import grimhaus.com.G2Dj.Engine;
+import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
+import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Engine.Scene;
+import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import java.lang.ref.WeakReference;
 
 /**
@@ -24,6 +27,7 @@ public class Main
     private static void InputTestInit()
     {
         WeakReference<Scene> theScene = Engine.createScene("InputTestScene");
+        createMainCamera(theScene.get());
         createKeyboardTestGameObject(theScene.get());
         createMouseTestGameObject(theScene.get());
         //createGamepadTestGameObject(theScene.get());
@@ -33,6 +37,21 @@ public class Main
     //
     // gameobject creation
     //
+    private static void createMainCamera(final Scene aScene)
+    {
+        GameObject gameObject = aScene.addGameObject().get();
+        gameObject.setName("MainCamera");
+        gameObject.getTransform().get().setPosition(0,10,0);
+        gameObject.getTransform().get().setRotation(-90,0,0);
+        
+        Camera camera = (Camera)gameObject.addComponent(Camera.class);
+        camera.setProjectionMode(CameraProjectionMode.Perspective);
+        camera.setFarClippingPlane(15);
+        //camera.setOrthoSize(40, 40);
+        camera.setClearMode(CameraClearMode.Color);
+        
+    }
+    
     private static void createKeyboardTestGameObject(final Scene aScene)
     {
         GameObject gameObject = aScene.addGameObject().get();

@@ -17,6 +17,7 @@ import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 import grimhaus.com.G2Dj.Imp.Graphics.GL;
 import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
+import grimhaus.com.G2Dj.Type.Math.Vector4;
 
 
 /**
@@ -162,6 +163,125 @@ public class Camera extends GraphicsComponent
     }
     
     //void generateViewProjectionMatrix(mat4x4* aViewMatrix, mat4x4* aProjectionMatrix, mat4x4* aVPMatrix = 0);
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /*
+    template <typename T, typename U, precision P>
+	GLM_FUNC_QUALIFIER tvec3<T, P> unProject
+	(
+		tvec3<T, P> const & win,
+		tmat4x4<T, P> const & model,
+		tmat4x4<T, P> const & proj,
+		tvec4<U, P> const & viewport
+	)
+	{
+		tmat4x4<T, P> Inverse = inverse(proj * model);
+
+		tvec4<T, P> tmp = tvec4<T, P>(win, T(1));
+		tmp.x = (tmp.x - T(viewport[0])) / T(viewport[2]);
+		tmp.y = (tmp.y - T(viewport[1])) / T(viewport[3]);
+		tmp = tmp * T(2) - T(1);
+
+		tvec4<T, P> obj = Inverse * tmp;
+		obj /= obj.w;
+
+		return tvec3<T, P>(obj);
+	}
+    */
+    private Vector3 TEMPunproject(final Vector3 screenPos, final Mat4x4 aViewMatrix, final Mat4x4 aProjectionMatrix, final Vector4 aViewport)
+    {
+        Mat4x4 inverse = Mat4x4.Inversion(aProjectionMatrix.mul(aViewMatrix)); //Inverse VP matrix
+        
+        return Vector3.Zero();
+        
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    public Vector3 getWorldPointFromScreenPoint(final IntVector2 aScreenPoint, final float aWorldSpaceDistance)
+    {
+        //**********************1 ./
+        //----
+    	//marshal data
+    	//----
+    	//vp dimensions
+    	float screenW = m_ViewportSize.x;
+    	float screenH = m_ViewportSize.y;
+    	Vector4 viewport = new Vector4(0.0f, 0.0f, screenW, screenH);/*glm::vec4 viewport = glm::vec4(0.0f, 0.0f, screenW, screenH);*/
+        //v&p mats
+    	Mat4x4 view       = new Mat4x4(getViewMatrix());/*glm::mat4 tmpView;// (1.0f);*/
+    	Mat4x4 projection = new Mat4x4(getProjectionMatrix());/*glm::mat4 tmpProj;// = glm::perspective(90.0f, screenW / screenH, 0.1f, 1000.0f);*/
+    	
+        //**********************2 ./
+    	float zFar  = m_FarClippingPlane;/*float zFar        = m_FarClippingDistance;*/
+    	float zNear = m_NearClippingPlane;/*float zNear       = m_NearClippingDistance;*/
+    	float linearDepth = aWorldSpaceDistance;/*float linearDepth = aWorldSpaceDistance;*/
+    	float nonLinearDepth = (zFar + zNear - 2.0f * zNear * zFar / linearDepth) / (zFar - zNear);/*float nonLinearDepth = (zFar + zNear - 2.0 * zNear * zFar / linearDepth) / (zFar - zNear);*/
+    	nonLinearDepth = (nonLinearDepth + 1.0f) / 2.0f;/*nonLinearDepth = (nonLinearDepth + 1.0) / 2.0;*/
+        
+    	//Debug::log("wsd:", aWorldSpaceDistance,"Lineardepth:",linearDepth, "\n");
+        
+        //**********************3 ./
+    	Vector3 screenPos = new Vector3
+    	(
+    		aScreenPoint.x * m_ViewportSize.x, //denormalizing to fit glm expectation
+    		m_ViewportSize.y + (-1.f*aScreenPoint.y * m_ViewportSize.y), //flipping input screen pos y and denormalizing to match glm expectation
+    		//(2 * m_NearClippingDistance) / (m_FarClippingDistance + m_NearClippingDistance - 1.0f * (m_FarClippingDistance - m_NearClippingDistance)) //linearizing depth
+    		nonLinearDepth
+    	);
+        
+        //**********************4
+        //calc wpos
+    	return TEMPunproject(screenPos, view, projection, viewport);/*glm::vec3 worldPos = glm::unProject(screenPos, tmpView, tmpProj, viewport);*/
+        
+    }
+    /*Math::Vector3 RenderCamera::getWorldPointFromScreenPoint(const Math::Vector2 &aScreenPoint, const float &aWorldSpaceDistance)
+    {
+        //**********************1
+    	//----
+    	//marshal data
+    	//----
+    	//vp dimensions
+    	float screenW = m_ViewportSize.x;
+    	float screenH = m_ViewportSize.y;
+    	glm::vec4 viewport = glm::vec4(0.0f, 0.0f, screenW, screenH);
+    	//v&p mats
+    	glm::mat4 tmpView;// (1.0f);
+    	glm::mat4 tmpProj;// = glm::perspective(90.0f, screenW / screenH, 0.1f, 1000.0f);
+    	generateViewProjectionMatrix(&tmpView, &tmpProj);
+    	//screen pos
+        
+        //**********************2
+    	float zFar        = m_FarClippingDistance;
+    	float zNear       = m_NearClippingDistance;
+    	float linearDepth = aWorldSpaceDistance;
+    	float nonLinearDepth = (zFar + zNear - 2.0 * zNear * zFar / linearDepth) / (zFar - zNear);
+    	nonLinearDepth = (nonLinearDepth + 1.0) / 2.0;
+        
+    	//Debug::log("wsd:", aWorldSpaceDistance,"Lineardepth:",linearDepth, "\n");
+        
+        //**********************3
+    	glm::vec3 screenPos = glm::vec3
+    	(
+    		aScreenPoint.x * m_ViewportSize.x, //denormalizing to fit glm expectation
+    		m_ViewportSize.y + (-1.f*aScreenPoint.y * m_ViewportSize.y), //flipping input screen pos y and denormalizing to match glm expectation
+    		//(2 * m_NearClippingDistance) / (m_FarClippingDistance + m_NearClippingDistance - 1.0f * (m_FarClippingDistance - m_NearClippingDistance)) //linearizing depth
+    		nonLinearDepth
+    	);
+                
+    	//calc wpos
+    	glm::vec3 worldPos = glm::unProject(screenPos, tmpView, tmpProj, viewport);
+        
+    	return Math::Vector3
+    	(
+    		worldPos.x,
+    		worldPos.y,
+    		worldPos.z
+                        
+    	);
+                
+    }*/
     
     //*************
     // Constructors

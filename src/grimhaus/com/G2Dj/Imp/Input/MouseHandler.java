@@ -114,7 +114,7 @@ public class MouseHandler implements MouseListener
     @Override
     public void mouseWheelMoved(MouseEvent me) 
     {
-        Debug.log("wheel");
+        //Debug.log("wheel");
         
     }
     
