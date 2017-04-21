@@ -4,6 +4,7 @@
  */
 package InputTest;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
@@ -49,7 +50,7 @@ public class Main
         camera.setFarClippingPlane(15);
         //camera.setOrthoSize(40, 40);
         camera.setClearMode(CameraClearMode.Color);
-        
+                
     }
     
     private static void createKeyboardTestGameObject(final Scene aScene)

@@ -268,14 +268,16 @@ public class Camera extends GraphicsComponent
     
     public Vector3 getWorldPointFromScreenPoint(final IntVector2 aScreenPoint, final float aWorldSpaceDistance)
     {
+        Debug.log("Screen point: "+aScreenPoint,"Viewport size: "+m_ViewportSize);
         //**********************1 ./
         //----
     	//marshal data
     	//----
     	//vp dimensions
-    	float screenW = m_ViewportSize.x;
-    	float screenH = m_ViewportSize.y;
-    	Vector4 viewport = new Vector4(0.0f, 0.0f, screenW, screenH);/*glm::vec4 viewport = glm::vec4(0.0f, 0.0f, screenW, screenH);*/
+        IntVector2 screenSize = Graphics.getScreenSize();
+    	float viewportSizeX = m_ViewportSize.x * screenSize.x;
+    	float viewportSizeY = m_ViewportSize.y * screenSize.y;
+    	Vector4 viewport = new Vector4(0.0f, 0.0f, viewportSizeX, viewportSizeY);/*glm::vec4 viewport = glm::vec4(0.0f, 0.0f, screenW, screenH);*/
         //v&p mats
     	Mat4x4 view       = new Mat4x4(getViewMatrix());/*glm::mat4 tmpView;// (1.0f);*/
     	Mat4x4 projection = new Mat4x4(getProjectionMatrix());/*glm::mat4 tmpProj;// = glm::perspective(90.0f, screenW / screenH, 0.1f, 1000.0f);*/

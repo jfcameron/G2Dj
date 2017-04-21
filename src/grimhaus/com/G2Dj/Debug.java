@@ -24,52 +24,32 @@ package grimhaus.com.G2Dj;
  */
 public class Debug 
 {
+    private static final StringBuilder s_StringBuilder = new StringBuilder();
+    
     public static void log(final Object... aObjects)
     {
-        if (aObjects == null)
+        if (aObjects == null || aObjects.length <= 0)
             return;
         
-        String output = aObjects[0].toString(); //aObjects.toString();
-        
-        if (aObjects.length > 1)
-            for(int i = 1, s = aObjects.length; i < s; i++)
-                output += ", " + aObjects[i].toString();
-
-        //.if DESKTOP
-        System.out.print(output+"\n");
-        //.elseif ANDROID
-        //|Log.d("G2Dj",output+"\n");
-        //.endif
-
-    }
-    
-    /*public static String getFormattedInspectionString(Class<?> type) 
-    {
-        String rValue =type.getSimpleName()+"{ ";
-        Field[] fields = type.getDeclaredFields();
-        
-        Field currentField = null;
-        for (int i=0,s=fields.length;i<s;i++) 
+        s_StringBuilder.append(aObjects[0].toString());
+            
+        for(int i = 1, s = aObjects.length; i < s; i++)
         {
-            currentField = fields[i];
-            
-            try 
-            {
-                rValue+=currentField.getName()+": "+currentField.get(type);
-            
-            } 
-            catch (IllegalArgumentException ex){Logger.getLogger(Debug.class.getName()).log(Level.SEVERE, null, ex);} 
-            catch (IllegalAccessException ex){Logger.getLogger(Debug.class.getName()).log(Level.SEVERE, null, ex);}
+            s_StringBuilder.append(", ");
+            s_StringBuilder.append(aObjects[i].toString());
         
-            if (i < s-1)
-                rValue+=", ";
-            
         }
         
-        rValue +=" }";
+        s_StringBuilder.append("\n");
         
-        return rValue;
+        //.if DESKTOP
+        System.out.print(s_StringBuilder.toString());
+        //.elseif ANDROID
+        //|Log.d("G2Dj",s_StringBuilder.toString());
+        //.endif
         
-    }*/
+        s_StringBuilder.setLength(0);
+        
+    }
     
 }

@@ -29,6 +29,8 @@ public class MouseTest extends Component
     protected void initialize() 
     {
         m_Camera = (Camera)getGameObject().get().getScene().get().getGameObject("MainCamera").get().getComponent(Camera.class);
+        
+        
             
     }
 
@@ -71,7 +73,7 @@ public class MouseTest extends Component
             GameObject gameObject = getGameObject().get().getScene().get().addGameObject().get();
             
             gameObject.getTransform().get().setRotation(-90,180,0);
-            gameObject.getTransform().get().setPosition(wpos.x,+1,wpos.z);
+            gameObject.getTransform().get().setPosition(wpos.x,0,wpos.z);
             gameObject.getTransform().get().setScale(1.5f,1.5f,1.5f);
             
             gameObject.addComponent(Mesh.class);
