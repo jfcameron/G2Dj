@@ -21,6 +21,8 @@ public class IntVector2
     
     //public Vector2 divideToFloatVec(final float aScalar){return new Vector2(x/aScalar,y/aScalar);}
     
+    public static IntVector2 Zero(){return new IntVector2(0,0);}
+    
     @Override public String toString(){return "{"+x+", "+y+"}";}
     
 }

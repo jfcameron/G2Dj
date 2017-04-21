@@ -87,7 +87,7 @@ public class Graphics
     static
     {
         //.if DESKTOP
-        s_Window = new Window(Input.s_KeyboardInputHandler);
+        s_Window = new Window(Input.s_KeyboardInputHandler,Input.s_MouseHandler);
         //.endif
         s_ShaderPrograms  = new ShaderProgramCollection();
         s_Models          = new ModelCollection();

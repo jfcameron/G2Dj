@@ -34,17 +34,11 @@ public abstract class CharacterController extends Component
     
     protected class CharacterState
     {
-        //private final String m_Name;
-        //public  final String getName(){return m_Name;}
-        
         protected void OnEnter(){};
         protected void OnExit(){};
         protected void OnUpdate(){};
         protected void OnFixedUpdate(){};
         protected void OnTriggerEnter(final CollisionInfo info){};
-        
-        //public CharacterState(final String aStateName){m_Name=aStateName;}
-        
         
     }
     

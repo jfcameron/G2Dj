@@ -11,12 +11,14 @@ import com.jogamp.newt.Display;
 import com.jogamp.newt.NewtFactory;
 import com.jogamp.newt.Screen;
 import com.jogamp.newt.event.KeyListener;
+import com.jogamp.newt.event.MouseListener;
 import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.event.WindowUpdateEvent;
 import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
+import grimhaus.com.G2Dj.Imp.Input.MouseHandler;
 
 /**
  *
@@ -29,7 +31,7 @@ public final class Window implements WindowListener
     //***************
     // Initialization
     //***************
-    public Window(KeyboardInputHandler aKeyboardInputHandler) 
+    public Window(KeyboardInputHandler aKeyboardInputHandler, MouseHandler aMouseHandler) 
     {
         //m_GLWindow
         
@@ -63,6 +65,7 @@ public final class Window implements WindowListener
         //Attach window event listeners
         m_GLWindow.addWindowListener((WindowListener)this);
         m_GLWindow.addKeyListener((KeyListener)aKeyboardInputHandler);
+        m_GLWindow.addMouseListener((MouseListener)aMouseHandler);
         
         GL gl = m_GLWindow.getGL();
         grimhaus.com.G2Dj.Imp.Graphics.GL.gl = m_GLWindow.getGL().getGL2ES2();

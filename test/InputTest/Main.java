@@ -1,0 +1,51 @@
+/*
+ * G2Dj Game engine
+ * Written by Joseph Cameron
+ */
+package InputTest;
+
+import grimhaus.com.G2Dj.Engine;
+import grimhaus.com.G2Dj.Type.Engine.Game;
+import grimhaus.com.G2Dj.Type.Engine.GameObject;
+import grimhaus.com.G2Dj.Type.Engine.Scene;
+import java.lang.ref.WeakReference;
+
+/**
+ *
+ * @author Joseph Cameron
+ */
+public class Main 
+{
+    public static void main(String[] args){ Engine.init(new Game(){@Override public void init(){InputTestInit();}});}
+    
+    //
+    // The test
+    //
+    private static void InputTestInit()
+    {
+        WeakReference<Scene> theScene = Engine.createScene("InputTestScene");
+        createKeyboardTestGameObject(theScene.get());
+        createMouseTestGameObject(theScene.get());
+        //createGamepadTestGameObject(theScene.get());
+        
+    }
+    
+    //
+    // gameobject creation
+    //
+    private static void createKeyboardTestGameObject(final Scene aScene)
+    {
+        GameObject gameObject = aScene.addGameObject().get();
+        gameObject.addComponent(KeyboardTest.class);
+    
+    }
+    
+    private static void createMouseTestGameObject(final Scene aScene)
+    {
+        GameObject gameObject = aScene.addGameObject().get();
+        gameObject.addComponent(MouseTest.class);
+    
+    }
+    
+    
+}

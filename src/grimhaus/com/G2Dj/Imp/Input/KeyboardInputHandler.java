@@ -10,7 +10,6 @@ import com.jogamp.newt.event.KeyListener;
 import grimhaus.com.G2Dj.Debug;
 
 import java.awt.event.KeyEvent;
-//import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 public class KeyboardInputHandler implements KeyListener 
