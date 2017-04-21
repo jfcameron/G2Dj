@@ -587,5 +587,17 @@ public class Mat4x4
 			}
 		}
 	}
-    
+     
+     public Vector4 mul(final Vector4 right) 
+     {
+        return new Vector4
+        (
+            this.m00 * right.x + this.m10 * right.y + this.m20 * right.z + this.m30 * right.w,
+            this.m01 * right.x + this.m11 * right.y + this.m21 * right.z + this.m31 * right.w,
+            this.m02 * right.x + this.m12 * right.y + this.m22 * right.z + this.m32 * right.w,
+            this.m03 * right.x + this.m13 * right.y + this.m23 * right.z + this.m33 * right.w
+        );
+         
+     }
+     
 }

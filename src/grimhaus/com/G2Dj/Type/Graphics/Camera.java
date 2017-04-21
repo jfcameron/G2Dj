@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Type.Graphics;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Graphics;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraClearMode;
 import grimhaus.com.G2Dj.Imp.Graphics.CameraProjectionMode;
@@ -189,11 +190,77 @@ public class Camera extends GraphicsComponent
 		return tvec3<T, P>(obj);
 	}
     */
+    
+/*
+    mat4 projectionMatrix = GetPerspectiveMatrix();
+    mat4 projectionMatrixInverse = glm::inverse(projectionMatrix);
+    mat4 viewMatrix = GetViewMatrix();
+    mat4 viewMatrixInverse = glm::inverse(viewMatrix);
+
+
+    vec2 screenCoord = MathLib::vec2(x, y);
+    vec2 normalizedCoord2D = MathLib::vec2(2.0 * screenCoord.x / viewportSize.x - 1.0, 2.0 * screenCoord.y / viewportSize.y - 1.0);
+    vec4 worldCoordNear;
+    vec4 worldCoordFar;
+    
+    {
+        vec4 normalizedCoordNear = vec4(normalizedCoord2D.x, normalizedCoord2D.y, -1.0, 1.0);
+        vec4 clipCoordNear = normalizedCoordNear;
+        vec4 eyeCoordNear = projectionMatrixInverse * clipCoordNear;
+        worldCoordNear = viewMatrixInverse * eyeCoordNear;
+        worldCoordNear /= worldCoordNear.w;
+    }
+    {
+        vec4 normalizedCoordFar = vec4(normalizedCoord2D.x, normalizedCoord2D.y, 1.0, 1.0);
+        vec4 clipCoordFar = normalizedCoordFar;
+        vec4 eyeCoordFar = projectionMatrixInverse * clipCoordFar;
+        worldCoordFar = viewMatrixInverse * eyeCoordFar;
+        worldCoordFar /= worldCoordFar.w;
+    }   
+*/
+    
     private Vector3 TEMPunproject(final Vector3 screenPos, final Mat4x4 aViewMatrix, final Mat4x4 aProjectionMatrix, final Vector4 aViewport)
     {
-        Mat4x4 inverse = Mat4x4.Inversion(aProjectionMatrix.mul(aViewMatrix)); //Inverse VP matrix
+        Mat4x4 projectionMatrix = aProjectionMatrix;
+        Mat4x4 projectionMatrixInverse = Mat4x4.Inversion(projectionMatrix);
+        Mat4x4 viewMatrix = aViewMatrix;
+        Mat4x4 viewMatrixInverse = Mat4x4.Inversion(aViewMatrix);
         
-        return Vector3.Zero();
+        Vector2 viewportSize = new Vector2(m_ViewportSize.x,m_ViewportSize.y);
+        
+        Debug.log("Viewport: "+m_ViewportSize);
+        
+        Vector2 screenCoord = new Vector2(screenPos.x, screenPos.y);
+        Vector2 normalizedCoord2D = new Vector2(2.0f * screenCoord.x / viewportSize.x - 1.0f, 2.0f * screenCoord.y / viewportSize.y - 1.0f);
+        Vector4 worldCoordNear;
+        Vector4 worldCoordFar;
+        
+        {
+            Vector4 normalizedCoordNear = new Vector4(normalizedCoord2D.x, normalizedCoord2D.y, -1.0f, 1.0f);
+            Vector4 clipCoordNear = new Vector4(normalizedCoordNear);
+            Vector4 eyeCoordNear = projectionMatrixInverse.mul(clipCoordNear);//projectionMatrixInverse * clipCoordNear;
+            worldCoordNear = viewMatrixInverse.mul(eyeCoordNear);
+            worldCoordNear.multiply(1.0f/worldCoordNear.w);
+            
+        }
+        {
+            Vector4 normalizedCoordFar = new Vector4(normalizedCoord2D.x, normalizedCoord2D.y, 1.0f, 1.0f);
+            Vector4 clipCoordFar = normalizedCoordFar;
+            Vector4 eyeCoordFar = projectionMatrixInverse.mul(clipCoordFar);
+            worldCoordFar = viewMatrixInverse.mul(eyeCoordFar);
+            worldCoordFar.multiply(1.0f/worldCoordFar.w);
+        
+        }
+        
+        Debug.log("unprojected coord: "+worldCoordNear);
+        
+        return new Vector3
+        (
+                worldCoordNear.x,
+                worldCoordNear.y,
+                worldCoordNear.z
+                
+        );
         
     }
     
