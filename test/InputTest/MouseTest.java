@@ -89,7 +89,7 @@ public class MouseTest extends Component
             IntVector2 mousePos = Input.getMousePosition();
             float sceneDepth = 3;
             
-            Vector3 wpos = m_Camera.getWorldPlanePointFromScreenPoint(mousePos,Vector3.Zero(),Vector3.Forward(),Vector3.Right());//getWorldPointFromScreenPoint(mousePos, sceneDepth);
+            Vector3 wpos = m_Camera.getWorldXZPlanePointFromScreenPoint(mousePos);//getWorldPointFromScreenPoint(mousePos, sceneDepth);
             
             Debug.log("LeftClicked at: "+mousePos,"Intercept is: "+wpos);
             

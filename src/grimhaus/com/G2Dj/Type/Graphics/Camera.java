@@ -191,7 +191,8 @@ public class Camera extends GraphicsComponent
         
     }
     
-    public Vector3 getWorldPlanePointFromScreenPoint(final IntVector2 aScreenPoint, final Vector3 aPlanePoint1, final Vector3 aPlanePoint2, final Vector3 aPlanePoint3)
+    public Vector3 getWorldXZPlanePointFromScreenPoint(final IntVector2 aScreenPoint){return getWorldXZPlanePointFromScreenPoint(aScreenPoint,0);}
+    public Vector3 getWorldXZPlanePointFromScreenPoint(final IntVector2 aScreenPoint, final float aPlaneY)
     {
         Vector3 cameraPos = getTransform().get().getPosition();
         Vector3 screenworldPos = getWorldPointFromScreenPoint(aScreenPoint,1);
@@ -199,13 +200,17 @@ public class Camera extends GraphicsComponent
         Vector3 dir = new Vector3(screenworldPos.x-cameraPos.x,screenworldPos.y-cameraPos.y,screenworldPos.z-cameraPos.z);//cameraPos.add(screenworldPos);//.unit();
         dir.normalize();
         
+        if (dir.y == 0)//no intercept possible. bail early
+            return Vector3.Zero();
         
+        float t = (aPlaneY-cameraPos.y)/dir.y;
+        dir.multiplyInPlace(t);
         
-        Vector3 projectedPoint = dir.setInPlace(cameraPos.add(dir));
+        Vector3 projectedPoint = new Vector3(cameraPos.add(dir));//dir.setInPlace(cameraPos.add(dir));
         
+        Debug.log("Intercept vec: "+projectedPoint);
         
-        
-        return dir;
+        return projectedPoint;
         
     }
     
