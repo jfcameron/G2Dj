@@ -5,13 +5,12 @@
 package InputTest;
 
 import grimhaus.com.G2Dj.Debug;
-import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import java.lang.ref.WeakReference;
 import net.java.games.input.Controller;
 import net.java.games.input.Controller.Type;
 import net.java.games.input.ControllerEnvironment;
-
+import grimhaus.com.G2Dj.Type.Engine.Component;
 
 /**
  *
@@ -24,6 +23,10 @@ public class GamepadTest extends Component
     //private JInputJoystick joystick;// = new JInputJoystick(Controller.Type.STICK, Controller.Type.GAMEPAD);
     Controller[] ca;
 
+    Controller m_ControllerHandle = null;
+    net.java.games.input.Component button1 = null;
+    net.java.games.input.Component axis1 = null;
+    net.java.games.input.Component hat1 = null;
     
     //
     @Override
@@ -41,8 +44,17 @@ public class GamepadTest extends Component
             
             if (current.getType() == Type.GAMEPAD || current.getType() == Type.STICK)
             {
-                Debug.log("Gamepad found!");
+                //Debug.log("Gamepad found!");
                 
+                net.java.games.input.Component[] components = current.getComponents();
+                
+                for(int j=0,t=components.length;j<t;j++)
+                    Debug.log(components[j].getName(),components[j].getIdentifier());
+                
+                m_ControllerHandle = current;
+                button1 = components[5];
+                axis1   = components[3];
+                hat1    = components[4];
                 
             }
             
@@ -50,11 +62,12 @@ public class GamepadTest extends Component
         
     }
 
+    boolean asdf = true;
     @Override
     protected void update() 
     {
-        
-        
+        Debug.log(button1.getName(),hat1.getPollData());
+       
     }
 
     @Override

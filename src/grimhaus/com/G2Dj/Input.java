@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj;
 
+import grimhaus.com.G2Dj.Imp.Input.GamepadHandler;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Type.Input.Touch;
 import grimhaus.com.G2Dj.Imp.Input.TouchHandler;
@@ -27,14 +28,16 @@ public class Input
     //.if DESKTOP
     protected static final KeyboardInputHandler s_KeyboardInputHandler = new KeyboardInputHandler();
     //.endif
-    protected static final TouchHandler S_TouchHandler = new TouchHandler();
-    protected static final MouseHandler s_MouseHandler = new MouseHandler();
+    protected static final TouchHandler   s_TouchHandler   = new TouchHandler();
+    protected static final MouseHandler   s_MouseHandler   = new MouseHandler();
+    protected static final GamepadHandler s_GamepadHandler = new GamepadHandler();
 
     protected static void update()
     {
         //.if DESKTOP
         s_KeyboardInputHandler.update();
         s_MouseHandler.update();
+        s_GamepadHandler.update();
         //.endif
 
     }
@@ -111,7 +114,7 @@ public class Input
     //Touch
     public static Touch[] getTouches()
     {
-        return S_TouchHandler.getTouches();
+        return s_TouchHandler.getTouches();
 
     }
 
