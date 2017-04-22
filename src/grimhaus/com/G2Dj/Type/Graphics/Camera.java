@@ -201,7 +201,7 @@ public class Camera extends GraphicsComponent
         dir.normalize();
         
         if (dir.y == 0)//no intercept possible. project camerapos directly against xzplane
-            return new Vector2(cameraPos.x,aPlaneY,cameraPos.z);
+            return new Vector3(cameraPos.x,aPlaneY,cameraPos.z);
         
         float t = (aPlaneY-cameraPos.y)/dir.y;
         dir.multiplyInPlace(t);
