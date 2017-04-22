@@ -13,6 +13,7 @@ import grimhaus.com.G2Dj.Type.Graphics.Camera;
 import grimhaus.com.G2Dj.Type.Graphics.Mesh;
 import grimhaus.com.G2Dj.Type.Math.IntVector2;
 import grimhaus.com.G2Dj.Type.Math.Mat4x4;
+import grimhaus.com.G2Dj.Type.Math.Plane;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 
@@ -87,15 +88,11 @@ public class MouseTest extends Component
         {
             //marshall
             IntVector2 mousePos = Input.getMousePosition();
-            float sceneDepth = 3;
+            //float sceneDepth = 3;
             
-            Vector3 wpos = m_Camera.getWorldXZPlanePointFromScreenPoint(mousePos);//getWorldPointFromScreenPoint(mousePos, sceneDepth);
-            
-            Debug.log("LeftClicked at: "+mousePos,"Intercept is: "+wpos);
+            Vector3 wpos = m_Camera.getWorldPlanePointFromScreenPoint(mousePos,Plane.AxisAligned.XZ);
             
             GameObject gameObject = getGameObject().get().getScene().get().addGameObject().get();
-            
-            //gameObject.getTransform().get().setRotation(-90,180,0);//m_Camera
             Vector3 rot = new Vector3(m_Camera.getTransform().get().getRotation());
             rot.x -=90;
             

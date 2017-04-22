@@ -18,6 +18,7 @@ import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
 import grimhaus.com.G2Dj.Imp.Graphics.GL;
 import grimhaus.com.G2Dj.Imp.Graphics.GraphicsComponent;
+import grimhaus.com.G2Dj.Type.Math.Plane;
 import grimhaus.com.G2Dj.Type.Math.Vector4;
 
 
@@ -191,27 +192,32 @@ public class Camera extends GraphicsComponent
         
     }
     
-    public Vector3 getWorldXZPlanePointFromScreenPoint(final IntVector2 aScreenPoint){return getWorldXZPlanePointFromScreenPoint(aScreenPoint,0);}
-    public Vector3 getWorldXZPlanePointFromScreenPoint(final IntVector2 aScreenPoint, final float aPlaneY)
+    public Vector3 getWorldPlanePointFromScreenPoint(final IntVector2 aScreenPoint, final Plane.AxisAligned aAxisAlignedPlane){return getWorldPlanePointFromScreenPoint(aScreenPoint,aAxisAlignedPlane,0);}
+    public Vector3 getWorldPlanePointFromScreenPoint(final IntVector2 aScreenPoint, final Plane.AxisAligned aAxisAlignedPlane, final float aPlaneDepthOffset)
     {
-        Vector3 cameraPos = getTransform().get().getPosition();
+        Vector3 cameraPos      = getTransform().get().getPosition();
         Vector3 screenworldPos = getWorldPointFromScreenPoint(aScreenPoint,1);
-        
-        Vector3 dir = new Vector3(screenworldPos.x-cameraPos.x,screenworldPos.y-cameraPos.y,screenworldPos.z-cameraPos.z);//cameraPos.add(screenworldPos);//.unit();
+        Vector3 dir            = new Vector3(screenworldPos.x-cameraPos.x,screenworldPos.y-cameraPos.y,screenworldPos.z-cameraPos.z);
         dir.normalize();
         
-        if (dir.y == 0)//no intercept possible. project camerapos directly against xzplane
-            return new Vector3(cameraPos.x,aPlaneY,cameraPos.z);
-        
-        float t = (aPlaneY-cameraPos.y)/dir.y;
-        dir.multiplyInPlace(t);
-        
-        Vector3 projectedPoint = new Vector3(cameraPos.add(dir));//dir.setInPlace(cameraPos.add(dir));
-        
-        Debug.log("Intercept vec: "+projectedPoint);
-        
-        return projectedPoint;
-        
+        switch(aAxisAlignedPlane)
+        {
+            default:
+            case XZ:
+            return Plane.getPlaneInterceptPointFromALineInVectorForm(cameraPos,dir,aPlaneDepthOffset);
+            case XY:
+            throw new java.lang.UnsupportedOperationException("Not supported yet.");
+            case YZ:
+            throw new java.lang.UnsupportedOperationException("Not supported yet.");
+            
+        }
+                
+    }
+    
+    public Vector3 getWorldPlanePointFromScreenPoint(final IntVector2 aScreenPoint, final Plane aPlane)
+    {
+        throw new java.lang.UnsupportedOperationException("Not supported yet.");
+    
     }
     
     //*************
