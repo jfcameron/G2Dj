@@ -1,18 +1,19 @@
 ===NOW==========
-Mouse handler
-mat4x4 inversion, unprojection, screenToWorld, screenToWorldXZPlane
-===INBOX==============
 Input
  - Desktop
-  - Mouse handler
-Math
- - Mat4x4 
-    - static Vec3 screenToWorldPoint(Vec2 screenPos, float dist, Mat4x4 cameraVP)
-    - static Vec2 screenToXZPlanePoint(Vec2 screenPos, Mat4x4 cameraVP)
-        - investigate glm
-          - screenToWorldPoint(2dpos,2dscreensize, depthFromCamera, cameraviewmat, cameraprojmat){calc invMP, ararnge screen data into vec4. mul, return data as vec3}
-          - screenToXZPlanePoint(2dpos,2dscreensize, YplaneDepth cameraviewmat, cameraprojmat){vec = screenToWorldPoint(...depth arbitray). add vec to istelf: is delta y approaching YplaneDepth? if yes project to y = YplaneDepth, return x,y; else bail.}
-    
+  - ControllerHandler
+Physics2D
+ - Raycasting
+ - 2d point testing vs colliders, vs triggers: return Collider world.checkPoint(Vec2 aPoint, type). where type {collider,trigger,any}
+===INBOX==============
+Physics2D
+ - Rigidbody.Raycast
+ - World.Raycast
+  - TileCollider2D   
+    - add support for trigger tiles, add collider name option
+    - optimize collision mesh gen. specifically: remove gen of faces that are inside a shape. these are a burden on the sim, contribute nothing and can cause collision problems at high enough velocity collisions.
+    - Add support for 1 directional colliders
+    - offset the whole grid by half xy
 Tilegrid TestScene
  - PlayerController
     - bug: spamming jump while facing left lets you reach max speed near instantly
@@ -27,19 +28,13 @@ Tilegrid TestScene
     - parameterize hitbox & detection boxes OR refactor these to playercontroller if this cannot be done meaningfully
 
 Physics2D
+ - SimpleCollider exists for FixtureDefinition therefore create ComplexCollider for FixtureDefinition[] -> abstract gridcollider & composite collider commonalities to this.
  - rigidbody.lockPosition(Vector2 aPosition, Vector2 aLocalOffset) -> allow hinges etc. in worldspace
  - rigidbody.lockPosition(Rigidbody aRigidbody, Vector2 aPosition, Vector2 aLocalOffset) -> local to aRigidbody
- - Rigidbody.Raycast
- - World.Raycast
-  - TileCollider2D   
-    - add support for trigger tiles, add collider name option
-    - optimize collision mesh gen. specifically: remove gen of faces that are inside a shape. these are a burden on the sim, contribute nothing and can cause collision problems at high enough velocity collisions.
-    - Add support for 1 directional colliders
-  - SimpleCollider exists for FixtureDefinition therefore create ComplexCollider for FixtureDefinition[] -> abstract gridcollider & composite collider commonalities to this.
-  - Rigidbody & colliders
-   - colliders should require a rigidbody
-   - rigidbody should be a unique component (create an attribute for this) VERY IMPORTANT: just ran into a bug around the lack of this!
-   - colliders should have either names or optional "userdata" (type: object) for special behaviour in collision events
+ - Rigidbody & colliders
+ - colliders should require a rigidbody
+ - rigidbody should be a unique component (create an attribute for this) VERY IMPORTANT: just ran into a bug around the lack of this!
+ - colliders should have either names or optional "userdata" (type: object) for special behaviour in collision events
  - filters
 
 android
@@ -84,7 +79,12 @@ ECS
     void OnAddedToGameObject(WeakReference<GameObject> aGameObject)
     void OnRemovedFromGameObject()
     void OnComponentAdded(Component aComponent) 
-    void OnComponentRemoved(Component aComponent) 
+    void OnComponentRemoved(Component aComponent)
+
+Math
+ - Mat4x4
+    - cleaning. code is very messy
+    - ortho: depth planes are placed incorrectly
 
 Graphics
  - TextMesh
