@@ -31,7 +31,7 @@ public class Main
         createMainCamera(theScene.get());
         createKeyboardTestGameObject(theScene.get());
         createMouseTestGameObject(theScene.get());
-        //createGamepadTestGameObject(theScene.get());
+        createGamepadTestGameObject(theScene.get());
         
     }
     
@@ -64,6 +64,13 @@ public class Main
     {
         GameObject gameObject = aScene.addGameObject().get();
         gameObject.addComponent(MouseTest.class);
+    
+    }
+    
+    private static void createGamepadTestGameObject(final Scene aScene)
+    {
+        GameObject gameObject = aScene.addGameObject().get();
+        gameObject.addComponent(GamepadTest.class);
     
     }
     
