@@ -1,4 +1,6 @@
 ===NOW==========
+continue work in Gamepad, specifically inner classes button, axis, hat. get and getdown for component value getters.
+
 Input
  - Desktop
   - ControllerHandler
