@@ -200,8 +200,8 @@ public class Camera extends GraphicsComponent
         Vector3 dir = new Vector3(screenworldPos.x-cameraPos.x,screenworldPos.y-cameraPos.y,screenworldPos.z-cameraPos.z);//cameraPos.add(screenworldPos);//.unit();
         dir.normalize();
         
-        if (dir.y == 0)//no intercept possible. bail early
-            return Vector3.Zero();
+        if (dir.y == 0)//no intercept possible. project camerapos directly against xzplane
+            return new Vector2(cameraPos.x,aPlaneY,cameraPos.z);
         
         float t = (aPlaneY-cameraPos.y)/dir.y;
         dir.multiplyInPlace(t);
