@@ -68,7 +68,7 @@ public class MouseTest extends Component
             
             Vector3 wpos = m_Camera.getWorldPointFromScreenPoint(mousePos,4);//getWorldPointFromScreenPoint(mousePos, sceneDepth);
             
-            Debug.log("LeftClicked at: "+mousePos,"World position is: "+wpos);
+            //Debug.log("LeftClicked at: "+mousePos,"World position is: "+wpos);
             
             GameObject gameObject = getGameObject().get().getScene().get().addGameObject().get();
             

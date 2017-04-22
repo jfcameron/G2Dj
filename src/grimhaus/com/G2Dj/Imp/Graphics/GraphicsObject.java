@@ -5,6 +5,7 @@
 package grimhaus.com.G2Dj.Imp.Graphics;
 
 import grimhaus.com.G2Dj.Graphics;
+import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import grimhaus.com.G2Dj.Type.Graphics.Camera;
@@ -92,14 +93,15 @@ public abstract class GraphicsObject extends GraphicsComponent implements Drawab
         m_Vector3s.bind(m_ShaderProgram.get().getProgramHandle());
         m_Vector4s.bind(m_ShaderProgram.get().getProgramHandle());
         
-        //mvp
+        //standard uniforms
         Mat4x4 p = aCamera.get().getProjectionMatrix();
         Mat4x4 v = aCamera.get().getViewMatrix();
         Mat4x4 m = getModelMatrix();
         b_MVPMatrixBuffer.set(p.mul(v).mul(m));
         
-        Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP", b_MVPMatrixBuffer.toFloatBuffer());
-                
+        Uniforms.loadMatrix4x4(m_ShaderProgram.get().getProgramHandle(), "_MVP" , b_MVPMatrixBuffer.toFloatBuffer());
+        Uniforms.load1Float(m_ShaderProgram.get().getProgramHandle(), "_Time", (float)Time.getCurrentTime());
+        
         m_Model.get().draw(m_ShaderProgram.get().getProgramHandle());
         
         GL.glDrawArrays( GL.GL_TRIANGLES, 0, m_Model.get().getVertexCount() );
