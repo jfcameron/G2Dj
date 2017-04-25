@@ -6,6 +6,7 @@ package grimhaus.com.G2Dj.Imp.Input;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
@@ -19,7 +20,6 @@ public final class GamepadHandler /*implements ControllerListener*/ //not suppor
     // Data members
     //
     private final ArrayList<Gamepad> m_GamePads = new ArrayList<>();
-    private final net.java.games.input.Controller[] m_JInputControllerHandles;
     
     //
     // Public interface
@@ -28,10 +28,14 @@ public final class GamepadHandler /*implements ControllerListener*/ //not suppor
     
     public void update()
     {
-        for (int i=0,s=m_JInputControllerHandles.length;i<s;i++)
-            m_JInputControllerHandles[i].poll();
+        for (int i=0,s=m_GamePads.size();i<s;i++)
+            m_GamePads.get(i).update();
+        
+        
         
     }
+    
+    
     
     //
     // Implementation
@@ -57,7 +61,7 @@ public final class GamepadHandler /*implements ControllerListener*/ //not suppor
             
         }
         
-        m_JInputControllerHandles = controllers.toArray(new net.java.games.input.Controller[controllers.size()]);
+        //m_JInputControllerHandles = controllers.toArray(new net.java.games.input.Controller[controllers.size()]);
         
     }
     

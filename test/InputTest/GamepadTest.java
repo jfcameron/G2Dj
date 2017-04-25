@@ -5,6 +5,8 @@
 package InputTest;
 
 import grimhaus.com.G2Dj.Debug;
+import grimhaus.com.G2Dj.Imp.Input.Gamepad;
+import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import java.lang.ref.WeakReference;
 import net.java.games.input.Controller;
@@ -40,7 +42,7 @@ public class GamepadTest extends Component
         {
             current = ca[i];
             
-            Debug.log(current.getType(),current.getName());
+            //Debug.log(current.getType(),current.getName());
             
             if (current.getType() == Type.GAMEPAD || current.getType() == Type.STICK)
             {
@@ -48,8 +50,8 @@ public class GamepadTest extends Component
                 
                 net.java.games.input.Component[] components = current.getComponents();
                 
-                for(int j=0,t=components.length;j<t;j++)
-                    Debug.log(components[j].getName(),components[j].getIdentifier());
+                //for(int j=0,t=components.length;j<t;j++)
+                 //   Debug.log(components[j].getName(),components[j].getIdentifier());
                 
                 m_ControllerHandle = current;
                 button1 = components[5];
@@ -60,13 +62,20 @@ public class GamepadTest extends Component
             
         }
         
+        StringBuilder output = new StringBuilder();
+        Gamepad[] pads = Input.getGamepads();
+        for(int i=0;i<pads.length;i++)
+            output.append(pads[i]).append(", ");
+        
+        Debug.log("GamepadTest "+output.toString());
+        
     }
 
     boolean asdf = true;
     @Override
     protected void update() 
     {
-        Debug.log(button1.getName(),hat1.getPollData());
+        //Debug.log(button1.getName(),hat1.getPollData());
        
     }
 

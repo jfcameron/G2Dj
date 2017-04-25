@@ -101,7 +101,7 @@ public class Main
         });
         
         GridCollider gridcollider = (GridCollider)gameObject.get().addComponent(GridCollider.class);
-        gridcollider.setDrawDebugLines(false);
+        gridcollider.setDrawDebugLines(true);
         
         float 
         hStart = 0.01f, //prevent overlaps

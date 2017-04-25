@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj;
 
+import grimhaus.com.G2Dj.Imp.Input.Gamepad;
 import grimhaus.com.G2Dj.Imp.Input.GamepadHandler;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Type.Input.Touch;
@@ -83,9 +84,9 @@ public class Input
     
     }
     
-    public static int[] getControllerArray()//(replace int with more appropriate class types)
+    public static Gamepad[] getGamepads()//(replace int with more appropriate class types)
     {
-        throw new java.lang.UnsupportedOperationException("Not supported yet.");
+        return s_GamepadHandler.getGamepads();
         
     }
     
