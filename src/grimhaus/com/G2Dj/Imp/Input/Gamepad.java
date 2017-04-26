@@ -69,9 +69,19 @@ public class Gamepad
         
     }
     
-    public boolean getButton(final String aButtonName){return m_Buttons.get(aButtonName).get();}
-    public boolean getButtonDown(final String aButtonName){return m_Buttons.get(aButtonName).getDown();}
-    public float   getAxis(final String aAxisName){return m_Axes.get(aAxisName).get();}
+    /*public final Button[] getButtons()
+    {
+        
+        
+    }*/
+    
+    public Button getButton(final String aButtonName){return m_Buttons.get(aButtonName);}
+    public Hat    getHat   (final String aHatName   ){return m_Hats   .get(aHatName)   ;}
+    public Axis   getAxis  (final String aAxisName  ){return m_Axes   .get(aAxisName)  ;}
+    
+    //public boolean getButton(final String aButtonName){return m_Buttons.get(aButtonName).get();}
+    //public boolean getButtonDown(final String aButtonName){return m_Buttons.get(aButtonName).getDown();}
+    //public float   getAxis(final String aAxisName){return m_Axes.get(aAxisName).get();}
     
     public void update()
     {
@@ -123,64 +133,227 @@ public class Gamepad
     //
     private abstract class Component
     {
-        protected abstract void update();
         protected final net.java.games.input.Component m_Component;
+        protected abstract void update();
         protected Component(final net.java.games.input.Component aComponent){m_Component = aComponent;}
         
     }
     
-    private class Button extends Component
+    public static class Button extends Component
     {
+        private ButtonState m_Ready = ButtonState.Up;
+        private ButtonState m_Raw   = ButtonState.Up;
+        
         public boolean getDown() 
         {
-            return true;
+            return (m_Ready == ButtonState.JustPressed)? true : false;
         
         }
 
         public boolean get() 
         {
-            return true;
+            return (m_Ready == ButtonState.JustPressed || m_Ready == ButtonState.Down)? true : false;
         
         }
         
-        public Button(net.java.games.input.Component aComponent) {super(aComponent);}
-
-        @Override protected void update() {}
+        @Override 
+        protected void update() 
+        {
+            m_Raw = ButtonState.FromJInputComponentPollData(m_Component.getPollData());
+            
+            if (m_Ready == ButtonState.Down && m_Raw == ButtonState.Up)
+                m_Ready = ButtonState.JustReleased;  
+            
+            else if (m_Ready == ButtonState.Up && m_Raw == ButtonState.Down)
+                m_Ready = ButtonState.JustPressed;  
+            else
+                m_Ready = m_Raw;
         
+        }
+        
+        protected Button(net.java.games.input.Component aComponent) {super(aComponent);}
+        
+        public static enum ButtonState
+        {
+            Up,
+            Down,
+            JustPressed,
+            JustReleased;
+            
+            public static ButtonState FromJInputComponentPollData(final float aJInputComponentPollData)
+            {
+                return (aJInputComponentPollData==1.0f)?Down:Up;
+                
+            }
+            
+        }
+
     }
     
-    private class Axis extends Component
-    {
+    public static class Axis extends Component
+    {        
         public float get() 
         {
-            return 1.0f;
+            return m_Component.getPollData();
             
         }
         
-        public Axis(net.java.games.input.Component aComponent) {super(aComponent);}
+        protected Axis(net.java.games.input.Component aComponent) {super(aComponent);}
 
-        @Override protected void update() {}
+        @Override protected void update(){}
         
     }
     
-    private class Hat extends Component
+    public static class Hat extends Component
     {
-        
-        public boolean getDown() 
-        {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
-        }
+        private HatState m_Ready = HatState.Up;
+        private HatState m_Raw   = HatState.Up; 
 
-        public boolean get() 
+        public boolean get(final Direction aDirection) 
         {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+            switch(aDirection)
+            {
+                case Up       : return (m_Ready == HatState.Up   )?true:false;
+                case Down     : return (m_Ready == HatState.Down )?true:false;
+                case Left     : return (m_Ready == HatState.Left )?true:false;
+                case Right    : return (m_Ready == HatState.Right)?true:false;
+                
+                case UpLeft   : return (m_Ready == HatState.UpLeft)?true:false;
+                case DownLeft : return (m_Ready == HatState.DownLeft)?true:false;
+                case UpRight  : return (m_Ready == HatState.UpRight)?true:false;
+                case DownRight: return (m_Ready == HatState.DownRight)?true:false;
+                
+            }
+            
+            return false;
+            
         }
         
-        public Hat(net.java.games.input.Component aComponent) {super(aComponent);}
+        public boolean getDown(final Direction aDirection) 
+        {
+            switch(aDirection)
+            {
+                case Up       : return (m_Ready == HatState.JustUp   )?true:false;
+                case Down     : return (m_Ready == HatState.JustDown )?true:false;
+                case Left     : return (m_Ready == HatState.JustLeft )?true:false;
+                case Right    : return (m_Ready == HatState.JustRight)?true:false;
+                
+                case UpLeft   : return (m_Ready == HatState.JustUpLeft)?true:false;
+                case DownLeft : return (m_Ready == HatState.JustDownLeft)?true:false;
+                case UpRight  : return (m_Ready == HatState.JustUpRight)?true:false;
+                case DownRight: return (m_Ready == HatState.JustDownRight)?true:false;
+                
+            }
+            
+            return false;
+            
+        }
         
-        @Override protected void update() {}
+        protected Hat(net.java.games.input.Component aComponent) {super(aComponent);}
+        
+        @Override protected void update() 
+        {
+            m_Raw = Hat.HatState.FromJInputComponentPollData(m_Component.getPollData());
+            
+            if (m_Raw == HatState.Up && m_Ready != HatState.Up && m_Ready != HatState.JustUp)
+                m_Ready = HatState.JustUp;
+            
+            else if (m_Raw == HatState.Down && m_Ready != HatState.Down && m_Ready != HatState.JustDown)
+                m_Ready = HatState.JustDown;
+            
+            else if (m_Raw == HatState.Left && m_Ready != HatState.Left && m_Ready != HatState.JustLeft)
+                m_Ready = HatState.JustLeft;
+            
+            else if (m_Raw == HatState.Right && m_Ready != HatState.Right && m_Ready != HatState.JustRight)
+                m_Ready = HatState.JustRight;
+            
+            //45
+            else if (m_Raw == HatState.UpLeft && m_Ready != HatState.UpLeft && m_Ready != HatState.JustUpLeft)
+                m_Ready = HatState.JustUpLeft;
+            
+            else if (m_Raw == HatState.DownLeft && m_Ready != HatState.DownLeft && m_Ready != HatState.JustDownLeft)
+                m_Ready = HatState.JustDownLeft;
+            
+            else if (m_Raw == HatState.UpRight && m_Ready != HatState.UpRight && m_Ready != HatState.JustUpRight)
+                m_Ready = HatState.JustUpRight;
+            
+            else if (m_Raw == HatState.DownRight && m_Ready != HatState.DownRight && m_Ready != HatState.JustDownRight)
+                m_Ready = HatState.JustDownRight;
+            
+            //Neutral
+            else if (m_Raw == HatState.Neutral && m_Ready != HatState.Neutral && m_Ready != HatState.JustReleased)
+                m_Ready = HatState.JustReleased;
+            
+            else
+                m_Ready = m_Raw;
+            
+        }
+        
+        public static enum Direction
+        {
+            Up,
+            Down,
+            Left,
+            Right,
+            
+            UpLeft,
+            DownLeft,
+            UpRight,
+            DownRight;
+            
+        }
+        
+        private static enum HatState
+        {
+            Up,
+            Down,
+            Left,
+            Right,
+            
+            UpLeft,
+            DownLeft,
+            UpRight,
+            DownRight,
+            
+            //
+            JustUp,
+            JustDown,
+            JustLeft,
+            JustRight,
+            
+            JustUpLeft,
+            JustDownLeft,
+            JustUpRight,
+            JustDownRight,
+            
+            JustReleased,
+            Neutral;
+            
+            public static HatState FromJInputComponentPollData(final float aJInputComponentPollData)
+            {
+                if (aJInputComponentPollData == net.java.games.input.Component.POV.UP)
+                    return HatState.Up;
+                else if (aJInputComponentPollData == net.java.games.input.Component.POV.DOWN)
+                    return HatState.Down;
+                else if (aJInputComponentPollData == net.java.games.input.Component.POV.LEFT)
+                    return HatState.Left;
+                else if (aJInputComponentPollData == net.java.games.input.Component.POV.RIGHT)
+                    return HatState.Right;
+                //cardinal+45
+                else if (aJInputComponentPollData == net.java.games.input.Component.POV.UP_LEFT)
+                    return HatState.UpLeft;
+                else if (aJInputComponentPollData == net.java.games.input.Component.POV.UP_RIGHT)
+                    return HatState.UpRight;
+                else if (aJInputComponentPollData == net.java.games.input.Component.POV.DOWN_LEFT)
+                    return HatState.DownLeft;
+                else if (aJInputComponentPollData == net.java.games.input.Component.POV.DOWN_RIGHT)
+                    return HatState.DownRight;
+                
+                return HatState.Neutral;
+                
+            }
+            
+        }
         
     }
     

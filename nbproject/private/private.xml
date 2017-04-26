@@ -3,16 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Joe/Desktop/G2Dj/test/TileGridTest/blocky.png</file>
             <file>file:/C:/Users/Joe/Desktop/G2Dj/src/grimhaus/com/G2Dj/Type/Graphics/SpriteSheet.java</file>
-            <file>file:/C:/Users/Joe/Desktop/G2Dj/test/TileGridTest/Main.java</file>
+            <file>file:/C:/Users/Joe/Desktop/G2Dj/src/grimhaus/com/G2Dj/Imp/Input/Gamepad.java</file>
             <file>file:/C:/Users/Joe/Desktop/G2Dj/test/TileGridTest/CharacterController.java</file>
-            <file>file:/C:/Users/Joe/Desktop/G2Dj/src/grimhaus/com/G2Dj/Resource/Graphics/AlphaCutOff_Frag.glsl</file>
             <file>file:/C:/Users/Joe/Desktop/G2Dj/test/SpriteSheetTest/Slime.java</file>
+            <file>file:/C:/Users/Joe/Desktop/G2Dj/test/InputTest/GamepadTest.java</file>
             <file>file:/C:/Users/Joe/Desktop/G2Dj/src/grimhaus/com/G2Dj/Engine.java</file>
             <file>file:/C:/Users/Joe/Desktop/G2Dj/test/TileGridTest/PlayerCamera.java</file>
             <file>file:/C:/Users/Joe/Desktop/G2Dj/test/TileGridTest/PlayerController.java</file>
-            <file>file:/C:/Users/Joe/Desktop/G2Dj/test/TileGridTest/bloo.png</file>
         </group>
     </open-files>
 </project-private>

@@ -6,12 +6,11 @@ package InputTest;
 
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Input.Gamepad;
+import grimhaus.com.G2Dj.Imp.Input.Gamepad.Button;
+import grimhaus.com.G2Dj.Imp.Input.Gamepad.Hat;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Type.Engine.GameObject;
 import java.lang.ref.WeakReference;
-import net.java.games.input.Controller;
-import net.java.games.input.Controller.Type;
-import net.java.games.input.ControllerEnvironment;
 import grimhaus.com.G2Dj.Type.Engine.Component;
 
 /**
@@ -20,62 +19,39 @@ import grimhaus.com.G2Dj.Type.Engine.Component;
  */
 public class GamepadTest extends Component 
 {
-    //
-    // First you need to create controller.
-    //private JInputJoystick joystick;// = new JInputJoystick(Controller.Type.STICK, Controller.Type.GAMEPAD);
-    Controller[] ca;
-
-    Controller m_ControllerHandle = null;
-    net.java.games.input.Component button1 = null;
-    net.java.games.input.Component axis1 = null;
-    net.java.games.input.Component hat1 = null;
+    private Gamepad m_Gamepad      = null;
+    private Hat     m_DirectionHat = null;
+    private Button  m_ActionButton = null;
     
+ 
     //
     @Override
     protected void initialize() 
-    {
-        ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
+    { 
+        Gamepad[] gamepads = Input.getGamepads();
         
-        Controller current = null; 
-                    
-        for(int i=0,s=ca.length;i<s;i++)
-        {
-            current = ca[i];
-            
-            //Debug.log(current.getType(),current.getName());
-            
-            if (current.getType() == Type.GAMEPAD || current.getType() == Type.STICK)
-            {
-                //Debug.log("Gamepad found!");
-                
-                net.java.games.input.Component[] components = current.getComponents();
-                
-                //for(int j=0,t=components.length;j<t;j++)
-                 //   Debug.log(components[j].getName(),components[j].getIdentifier());
-                
-                m_ControllerHandle = current;
-                button1 = components[5];
-                axis1   = components[3];
-                hat1    = components[4];
-                
-            }
-            
-        }
+        if (gamepads.length <= 0)
+            return;
         
-        StringBuilder output = new StringBuilder();
-        Gamepad[] pads = Input.getGamepads();
-        for(int i=0;i<pads.length;i++)
-            output.append(pads[i]).append(", ");
+        m_Gamepad = gamepads[0]; 
+        Debug.log(m_Gamepad);
         
-        Debug.log("GamepadTest "+output.toString());
+        m_ActionButton = m_Gamepad.getButton("Button 0");
+        m_DirectionHat = m_Gamepad.getHat("Hat Switch");
         
     }
 
-    boolean asdf = true;
     @Override
     protected void update() 
     {
-        //Debug.log(button1.getName(),hat1.getPollData());
+        if (m_ActionButton.getDown())
+            Debug.log("Button getdown");
+        
+        //if (m_DirectionHat.get(Hat.HatDirection.Down))
+        //    Debug.log("Hat get");
+        
+        if (m_DirectionHat.getDown(Hat.Direction.Down))
+            Debug.log("Hat getDown");
        
     }
 

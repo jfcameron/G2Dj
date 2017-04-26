@@ -5,6 +5,7 @@
 package TileGridTest;
 
 import grimhaus.com.G2Dj.Debug;
+import grimhaus.com.G2Dj.Imp.Input.Gamepad;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Time;
@@ -25,6 +26,10 @@ public class PlayerController extends CharacterController
     private final KeyCode m_DownKey   = KeyCode.S;
     private final KeyCode m_UpKey     = KeyCode.W;
     private final KeyCode m_ActionKey = KeyCode.Space;
+    
+    private Gamepad        m_Gamepad     ;
+    private Gamepad.Hat    m_DirectionHat;
+    private Gamepad.Button m_ActionButton;
     
     //buffers
     private final Vector2 b_InputBuffer   = Vector2.Zero();
@@ -203,9 +208,9 @@ public class PlayerController extends CharacterController
         
         @Override public void OnUpdate()
         {
-            if (Input.getKey(m_ActionKey))
+            if (Input.getKey(m_ActionKey) || m_ActionButton.get())
                 handleMultiframeJumpMechanics();
-            else if (!Input.getKey(m_ActionKey))
+            else if (!Input.getKey(m_ActionKey) && !m_ActionButton.getDown())
                 multiFrameJumpFrameTimer = 0;
             
             handleLateralAirMovement();            
@@ -385,6 +390,17 @@ public class PlayerController extends CharacterController
     
     public PlayerController()
     {
+        Gamepad[] gamepads = Input.getGamepads();
+        
+        if (gamepads.length > 0)
+        {
+            m_Gamepad = gamepads[0]; 
+            
+            m_ActionButton = m_Gamepad.getButton("Button 0");
+            m_DirectionHat = m_Gamepad.getHat("Hat Switch");
+            
+        }
+        
         initStates
         (
             Idle.class,
