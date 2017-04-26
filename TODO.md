@@ -1,9 +1,13 @@
 ===NOW==========
-continue work in Gamepad, specifically inner classes button, axis, hat. get and getdown for component value getters.
-
 Input
- - Desktop
-  - ControllerHandler
+ - InputConfig
+    - input configs can be hard coded or loaded from file.
+    - a config scene should be supplied i think
+    - map of <String,Config> @ Input.getInputConfig("configname")
+    - list of supported real input devices, and a map between its buttons and the config aliases
+    - config aliases; they're virtual buttons.
+    - update looks like this: for each alias, for each supported device that is connected, check the state of the associated input component, return the largest magnitude.
+
 Physics2D
  - Raycasting
  - 2d point testing vs colliders, vs triggers: return Collider world.checkPoint(Vec2 aPoint, type). where type {collider,trigger,any}
