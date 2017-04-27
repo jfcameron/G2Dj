@@ -6,6 +6,7 @@ package TileGridTest;
 
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Input.Gamepad;
+import grimhaus.com.G2Dj.Imp.Input.InputConfig;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Time;
@@ -27,9 +28,7 @@ public class PlayerController extends CharacterController
     private final KeyCode m_UpKey     = KeyCode.W;
     private final KeyCode m_ActionKey = KeyCode.Space;
     
-    private Gamepad        m_Gamepad     ;
-    private Gamepad.Hat    m_DirectionHat;
-    private Gamepad.Button m_ActionButton;
+    private InputConfig m_PlayerControls;
     
     //buffers
     private final Vector2 b_InputBuffer   = Vector2.Zero();
@@ -51,30 +50,30 @@ public class PlayerController extends CharacterController
             tryWalk();
             tryCrouch();
             
-            if (Input.getKey(m_UpKey))
+            if (m_PlayerControls.get(s_Up))
                 m_Graphic.setCurrentCell(3, 0);
-            else if (!Input.getKey(m_UpKey))
+            else if (!m_PlayerControls.get(s_Up))
                 m_Graphic.setCurrentCell(0, 0);
 
         }
         
         private void tryWalk()
         {
-            if (Input.getKey(m_LeftKey) || Input.getKey(m_RightKey))
+            if (m_PlayerControls.get(s_Left) || m_PlayerControls.get(s_Right))
                 setState(Walk.class);
             
         }
         
         private void tryJump()
         {
-            if (Input.getKeyDown(m_ActionKey))
+            if (m_PlayerControls.getDown(s_Action))
                 setState(Jump.class);
                 
         }
         
         private void tryCrouch()
         {
-            if (Input.getKey(m_DownKey))
+            if (m_PlayerControls.get(s_Down))
                 setState(Crouch.class);
             
         }
@@ -114,7 +113,7 @@ public class PlayerController extends CharacterController
         //
         private void tryIdle()
         {
-            if ((!Input.getKey(m_LeftKey) && !Input.getKey(m_RightKey)) || (Input.getKey(m_LeftKey) && Input.getKey(m_RightKey)))
+            if ((!m_PlayerControls.get(s_Left) && !m_PlayerControls.get(s_Right)) || (m_PlayerControls.get(s_Left) && m_PlayerControls.get(s_Right)))
                 if (m_Rigidbody.getVelocity().length() <= idleSpeedThreshold)
                     setState(Idle.class);
             
@@ -122,7 +121,7 @@ public class PlayerController extends CharacterController
         
         private void tryJump()
         {
-            if (Input.getKeyDown(m_ActionKey))
+            if (m_PlayerControls.getDown(s_Action))
                 setState(Jump.class);
                 
         }
@@ -131,10 +130,10 @@ public class PlayerController extends CharacterController
         {
             b_InputBuffer.zero();
             
-            if (Input.getKey(KeyCode.A))
+            if (m_PlayerControls.get(s_Left))
                 b_InputBuffer.x += 1;
             
-            if (Input.getKey(KeyCode.D))
+            if (m_PlayerControls.get(s_Right))
                 b_InputBuffer.x -= 1;
             
             b_InputBuffer.multiplyInPlace(s_TranslationSpeed);
@@ -175,7 +174,7 @@ public class PlayerController extends CharacterController
         
         private void tryCrouch()
         {
-            if (Input.getKey(m_DownKey))
+            if (m_PlayerControls.get(s_Down))
                 setState(Crouch.class);
             
         }
@@ -208,9 +207,9 @@ public class PlayerController extends CharacterController
         
         @Override public void OnUpdate()
         {
-            if (Input.getKey(m_ActionKey) || m_ActionButton.get())
+            if (m_PlayerControls.get(s_Action))
                 handleMultiframeJumpMechanics();
-            else if (!Input.getKey(m_ActionKey) && !m_ActionButton.getDown())
+            else if (!m_PlayerControls.get(s_Action))
                 multiFrameJumpFrameTimer = 0;
             
             handleLateralAirMovement();            
@@ -259,7 +258,7 @@ public class PlayerController extends CharacterController
            
             handleLateralAirMovement();
             
-            if (Input.getKey(m_DownKey))
+            if (m_PlayerControls.get(s_Down))
                     setState(Cannonball.class);
             
         }
@@ -269,7 +268,7 @@ public class PlayerController extends CharacterController
             if (m_SouthSensor.equals(info.mine.get()))
                 if (m_Rigidbody.getVelocity().y <= 0.1f)
                 {
-                   if (Input.getKey(m_LeftKey) || Input.getKey(m_RightKey))
+                   if (m_PlayerControls.get(s_Left) || m_PlayerControls.get(s_Right))
                        setState(Walk.class);
                    else
                        setState(Idle.class);
@@ -290,10 +289,10 @@ public class PlayerController extends CharacterController
         
         @Override public void OnUpdate()
         {
-            if (!Input.getKey(m_DownKey))
+            if (!m_PlayerControls.get(s_Down))
                 setState(Idle.class);
             
-            if (Input.getKeyDown(m_ActionKey))
+            if (m_PlayerControls.getDown(s_Action))
                 setState(Jump.class);
             
         }
@@ -341,7 +340,7 @@ public class PlayerController extends CharacterController
             if (m_SouthSensor.equals(info.mine.get()))
                 if (m_Rigidbody.getVelocity().y <= 0.1f)
                 {
-                   if (Input.getKey(m_LeftKey) || Input.getKey(m_RightKey))
+                   if (m_PlayerControls.get(s_Left) || m_PlayerControls.get(s_Right))
                        setState(Walk.class);
                    else
                        setState(Idle.class);
@@ -363,43 +362,62 @@ public class PlayerController extends CharacterController
         
         if (m_Facing == Facing.Left)
         {
-            if (Input.getKey(m_LeftKey)) 
+            if (m_PlayerControls.get(s_Left)) 
             {
                 if (m_Rigidbody.getVelocity().x < +maxAirSpeed)
                     m_Rigidbody.applyImpulse(+forwardAirSpeed*(float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x/maxAirSpeed-0.75f), 0);
                 
             }
-            if (Input.getKey(m_RightKey))
+            if (m_PlayerControls.get(s_Right))
                 m_Rigidbody.applyImpulse(-backwardAirSpeed*(float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x/maxAirSpeed-0.75f), 0);
             
         }
         else if (m_Facing == Facing.Right)
         {
-            if (Input.getKey(m_RightKey)) 
+            if (m_PlayerControls.get(s_Right)) 
             {
                 if (m_Rigidbody.getVelocity().x > -maxAirSpeed)
                     m_Rigidbody.applyImpulse(-forwardAirSpeed*(float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x/maxAirSpeed+0.75f), 0);
                 
             }
-            if (Input.getKey(m_LeftKey))
+            if (m_PlayerControls.get(s_Left))
                 m_Rigidbody.applyImpulse(+backwardAirSpeed*(float)Time.getDeltaTime()*Math.abs(m_Rigidbody.getVelocity().x/maxAirSpeed+0.75f), 0);
             
         }
                         
     }
     
+    private final String s_Up     = "Up";
+    private final String s_Down   = "Down";
+    private final String s_Left   = "Left";
+    private final String s_Right  = "Right";
+    private final String s_Action = "Action";
+    
     public PlayerController()
     {
-        Gamepad[] gamepads = Input.getGamepads();
         
-        if (gamepads.length > 0)
-        {
-            m_Gamepad = gamepads[0]; 
-            
-            m_ActionButton = m_Gamepad.getButton("Button 0");
-            m_DirectionHat = m_Gamepad.getHat("Hat Switch");
-            
-        }
+        m_PlayerControls = new InputConfig
+        (
+            new InputConfig.InputEvent(s_Up    ),
+            new InputConfig.InputEvent(s_Down  ),
+            new InputConfig.InputEvent(s_Left  ),
+            new InputConfig.InputEvent(s_Right ),
+            new InputConfig.InputEvent(s_Action)
+                
+        );
+        
+        //Keyboard binds
+        m_PlayerControls.addKeysToAEvent(s_Up    , KeyCode.W    );
+        m_PlayerControls.addKeysToAEvent(s_Down  , KeyCode.S    );
+        m_PlayerControls.addKeysToAEvent(s_Left  , KeyCode.A    );
+        m_PlayerControls.addKeysToAEvent(s_Right , KeyCode.D    );
+        m_PlayerControls.addKeysToAEvent(s_Action, KeyCode.Space);
+        //Gamepad binds
+        m_PlayerControls.addGamepadHatToAEvent(s_Up   ,"Hat Switch",Gamepad.Hat.Direction.Up,Gamepad.Hat.Direction.UpLeft);
+        m_PlayerControls.addGamepadHatToAEvent(s_Down ,"Hat Switch",Gamepad.Hat.Direction.Down);
+        m_PlayerControls.addGamepadHatToAEvent(s_Left ,"Hat Switch",Gamepad.Hat.Direction.Left,Gamepad.Hat.Direction.UpLeft,Gamepad.Hat.Direction.DownLeft);
+        m_PlayerControls.addGamepadHatToAEvent(s_Right,"Hat Switch",Gamepad.Hat.Direction.Right,Gamepad.Hat.Direction.UpRight,Gamepad.Hat.Direction.DownRight);
+        m_PlayerControls.addGamepadButtonsToAEvent(s_Action,"Button 1");
         
         initStates
         (

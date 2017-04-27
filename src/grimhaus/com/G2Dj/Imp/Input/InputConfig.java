@@ -4,6 +4,7 @@
  */
 package grimhaus.com.G2Dj.Imp.Input;
 
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Imp.Input.Gamepad.Axis;
 import grimhaus.com.G2Dj.Imp.Input.Gamepad.Button;
 import grimhaus.com.G2Dj.Imp.Input.Gamepad.Hat;
@@ -58,16 +59,17 @@ public class InputConfig
     //
     // Gamepad functions
     //
-    public final void addGamepadHatToAEvent(final String aEventName,final String aHatName,final Hat.Direction aDirection)
+    public final void addGamepadHatToAEvent(final String aEventName,final String aHatName,final Hat.Direction... aDirection)
     {
-        m_InputEvents.get(aEventName).addGamepadHat(aHatName,aDirection);
+        if (aDirection != null)
+            m_InputEvents.get(aEventName).addGamepadHat(m_Gamepad,aHatName,aDirection);
         
     }
     
     public final void addGamepadButtonsToAEvent(final String aEventName, String... aButtonNames)
     {
         if (aButtonNames!=null)
-            m_InputEvents.get(aEventName).addGamepadButtons(aButtonNames);
+            m_InputEvents.get(aEventName).addGamepadButtons(m_Gamepad,aButtonNames);
         
     }
     
@@ -78,13 +80,56 @@ public class InputConfig
             for(int i=0,s=aInputEvents.length;i<s;i++)
                 m_InputEvents.put(aInputEvents[i].getName(),aInputEvents[i]);
         
+        requestGamepad();
+        
     }
+    
+    private Gamepad m_Gamepad = null;
+    private boolean requestGamepad()
+        {
+            Debug.log(m_Gamepad == null?true:false);
+            
+            if (m_Gamepad == null)
+            {                
+                Gamepad[] gamepads = Input.getGamepads();
+                
+                //if (gamepads==null || gamepads.length <= 0)
+                //    return false;
+            
+                //Debug.log("GAMEPAD IS NULL");
+            
+                m_Gamepad = gamepads[s_GamepadIndex];
+                s_GamepadIndex++;
+                
+            }
+            
+            return true;
+            
+        }
+    
+    private void releaseGamepad()
+        {
+            s_GamepadIndex--;
+            
+            if (s_GamepadIndex<0)
+                s_GamepadIndex = 0;
+            
+        }
+        
+        @Override
+        protected void finalize() throws Throwable
+        {
+            releaseGamepad();
+            
+            super.finalize();
+        
+        }
     
     //
     public static class InputEvent
     {
         private final String m_Name;
-        private Gamepad m_Gamepad;
+        
         
         private final ArrayList<KeyCode>             m_Keys    = new ArrayList<>();
         private final ArrayList<Button>              m_Buttons = new ArrayList<>();
@@ -140,54 +185,26 @@ public class InputConfig
             
         }
         
-        public final void addGamepadHat(final String aHatName,final Hat.Direction aDirection)
-        {//m_Hats
-            if (m_Gamepad == null)
-                if (!requestGamepad())
-                    return;
-                        
-            m_Hats.add(new HatAndDirectionPair(m_Gamepad.getHat(aHatName),aDirection));
+        public final void addGamepadHat(final Gamepad aGamepad, final String aHatName,final Hat.Direction... aDirections)
+        {
+            //if (requestGamepad() == false)
+            //    return;
+            
+            m_Hats.add(new HatAndDirectionPair(aGamepad.getHat(aHatName),aDirections));
             
         }
         
-        public final void addGamepadButtons(final String... aButtonNames)
+        public final void addGamepadButtons(final Gamepad aGamepad, final String... aButtonNames)
         {
-            if (m_Gamepad == null)
-                if (!requestGamepad())
-                    return;
+            //if (requestGamepad() == false)
+             //   return;
             
             if (aButtonNames != null)
                 for(int i=0,s=aButtonNames.length;i<s;i++)
                 {
-                    m_Buttons.add(m_Gamepad.getButton(aButtonNames[i]));
+                    m_Buttons.add(aGamepad.getButton(aButtonNames[i]));
                 
                 }
-            
-        }
-        
-        private boolean requestGamepad()
-        {
-            if (m_Gamepad != null)
-                return true;
-                
-            Gamepad[] gamepads = Input.getGamepads();
-            
-            if (gamepads==null || gamepads.length <= 0)
-                return false;
-            
-            m_Gamepad = gamepads[s_GamepadIndex];
-            s_GamepadIndex++;
-            
-            return true;
-            
-        }
-        
-        private void releaseGamepad()
-        {
-            s_GamepadIndex--;
-            
-            if (s_GamepadIndex<0)
-                s_GamepadIndex = 0;
             
         }
         
@@ -197,27 +214,37 @@ public class InputConfig
             
         }
         
-        @Override
-        protected void finalize() throws Throwable
-        {
-            releaseGamepad();
-            
-            super.finalize();
         
-        }
         
-        private static class HatAndDirectionPair
+        private class HatAndDirectionPair
         {
             public final Hat hat;
-            public final Hat.Direction direction;
+            public final Hat.Direction[] directions;
             
-            public final boolean get(){return hat.get(direction);}
-            public final boolean getDown(){return hat.getDown(direction);}
+            public final boolean get()
+            {
+                for(int i=0,s=directions.length;i<s;i++)
+                    if(hat.get(directions[i]))
+                        return true;
+                
+                return false;
             
-            public HatAndDirectionPair(final Hat aHat, final Hat.Direction aDirection)
+            }
+            
+            public final boolean getDown()
+            {
+                for(int i=0,s=directions.length;i<s;i++)
+                    if(hat.getDown(directions[i]))
+                        return true;
+                
+                return false;
+            
+            }
+            
+            public HatAndDirectionPair(final Hat aHat, final Hat.Direction[] aDirections)
             {
                 hat = aHat;
-                direction = aDirection;
+                directions = aDirections;
                 
             }
             

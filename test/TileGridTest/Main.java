@@ -46,6 +46,7 @@ public class Main
         createTestCamera(scene);
         createBox(scene);
         createSlime(scene);
+        createSpriteSheet(scene);
         
     }
     
