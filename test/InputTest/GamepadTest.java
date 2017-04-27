@@ -44,14 +44,11 @@ public class GamepadTest extends Component
     @Override
     protected void update() 
     {
-        if (m_ActionButton.getDown())
+        /*if (m_ActionButton.getDown())
             Debug.log("Button getdown");
         
-        //if (m_DirectionHat.get(Hat.HatDirection.Down))
-        //    Debug.log("Hat get");
-        
         if (m_DirectionHat.getDown(Hat.Direction.Down))
-            Debug.log("Hat getDown");
+            Debug.log("Hat getDown");*/
        
     }
 

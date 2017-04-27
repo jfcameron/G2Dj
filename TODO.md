@@ -119,6 +119,9 @@ Collections/Resources
     -prevent duplicate resources from being allocated (fail silently or throw?)
     -create a scene destruction test to see what havok is done to the heap
     
+Bugs
+   - arrow keys dont seem to fire on getKey and getKeyDown calls
+    
 Cleaning
     - replace excessive requirement of new vec[]{new vec...} using varags
     - clean up all public interfaces
