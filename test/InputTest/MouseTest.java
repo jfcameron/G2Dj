@@ -16,6 +16,7 @@ import grimhaus.com.G2Dj.Type.Math.Mat4x4;
 import grimhaus.com.G2Dj.Type.Math.Plane;
 import grimhaus.com.G2Dj.Type.Math.Vector3;
 import java.lang.ref.WeakReference;
+import javax.management.openmbean.CompositeData;
 
 /**
  *
@@ -31,6 +32,8 @@ public class MouseTest extends Component
     protected void initialize() 
     {
         m_Camera = (Camera)getGameObject().get().getScene().get().getGameObject("MainCamera").get().getComponent(Camera.class);
+        
+        GCTest.installGCMonitoring();
         
     }
 

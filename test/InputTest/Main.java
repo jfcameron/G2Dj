@@ -34,6 +34,8 @@ public class Main
         createGamepadTestGameObject(theScene.get());
         createInputConfigTestGameObject(theScene.get());
         
+        System.gc();
+        
     }
     
     //

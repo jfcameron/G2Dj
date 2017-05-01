@@ -1,12 +1,5 @@
 ===NOW==========
-Input
- - InputConfig
-    - input configs can be hard coded or loaded from file.
-    - a config scene should be supplied i think
-    - map of <String,Config> @ Input.getInputConfig("configname")
-    - list of supported real input devices, and a map between its buttons and the config aliases
-    - config aliases; they're virtual buttons.
-    - update looks like this: for each alias, for each supported device that is connected, check the state of the associated input component, return the largest magnitude.
+Tilebased level editor
 
 Physics2D
  - Raycasting
@@ -113,6 +106,8 @@ Midi Synthesizer
 Input
  - Improve mobile Touch API
  - think about recording input states for a variable number of frames (instead of just current and last)
+ - InputConfig
+    - improve the way gamepads are associated to bindings
 
 Collections/Resources
     -prevent duplicate names being entered

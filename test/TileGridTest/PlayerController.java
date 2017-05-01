@@ -4,11 +4,8 @@
  */
 package TileGridTest;
 
-import grimhaus.com.G2Dj.Debug;
-import grimhaus.com.G2Dj.Imp.Input.Gamepad;
 import grimhaus.com.G2Dj.Imp.Input.InputConfig;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
-import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Time;
 import grimhaus.com.G2Dj.Type.Math.Vector2;
 import grimhaus.com.G2Dj.Type.Physics2D.CollisionInfo;
@@ -19,15 +16,13 @@ import grimhaus.com.G2Dj.Type.Physics2D.CollisionInfo;
  */
 public class PlayerController extends CharacterController
 {
-    private static final float s_TranslationSpeed = 1E3f;
-    private float m_AnimationTimer = 0;
+    public static final String s_Up     = "Up";
+    public static final String s_Down   = "Down";
+    public static final String s_Left   = "Left";
+    public static final String s_Right  = "Right";
+    public static final String s_Action = "Action";
     
-    private final KeyCode m_LeftKey   = KeyCode.A;
-    private final KeyCode m_RightKey  = KeyCode.D;
-    private final KeyCode m_DownKey   = KeyCode.S;
-    private final KeyCode m_UpKey     = KeyCode.W;
-    private final KeyCode m_ActionKey = KeyCode.Space;
-    
+    //
     private InputConfig m_PlayerControls;
     
     //buffers
@@ -387,48 +382,24 @@ public class PlayerController extends CharacterController
                         
     }
     
-    private final String s_Up     = "Up";
-    private final String s_Down   = "Down";
-    private final String s_Left   = "Left";
-    private final String s_Right  = "Right";
-    private final String s_Action = "Action";
+    public void setControls(final InputConfig aInputConfig)
+    {
+        m_PlayerControls = aInputConfig;        
+        
+    }
     
     public PlayerController()
     {
-        
-        m_PlayerControls = new InputConfig
-        (
-            new InputConfig.InputEvent(s_Up    ),
-            new InputConfig.InputEvent(s_Down  ),
-            new InputConfig.InputEvent(s_Left  ),
-            new InputConfig.InputEvent(s_Right ),
-            new InputConfig.InputEvent(s_Action)
-                
-        );
-        
-        //Keyboard binds
-        m_PlayerControls.addKeysToAEvent(s_Up    , KeyCode.W    );
-        m_PlayerControls.addKeysToAEvent(s_Down  , KeyCode.S    );
-        m_PlayerControls.addKeysToAEvent(s_Left  , KeyCode.A    );
-        m_PlayerControls.addKeysToAEvent(s_Right , KeyCode.D    );
-        m_PlayerControls.addKeysToAEvent(s_Action, KeyCode.Space);
-        //Gamepad binds
-        m_PlayerControls.addGamepadHatToAEvent(s_Up   ,"Hat Switch",Gamepad.Hat.Direction.Up,Gamepad.Hat.Direction.UpLeft);
-        m_PlayerControls.addGamepadHatToAEvent(s_Down ,"Hat Switch",Gamepad.Hat.Direction.Down);
-        m_PlayerControls.addGamepadHatToAEvent(s_Left ,"Hat Switch",Gamepad.Hat.Direction.Left,Gamepad.Hat.Direction.UpLeft,Gamepad.Hat.Direction.DownLeft);
-        m_PlayerControls.addGamepadHatToAEvent(s_Right,"Hat Switch",Gamepad.Hat.Direction.Right,Gamepad.Hat.Direction.UpRight,Gamepad.Hat.Direction.DownRight);
-        m_PlayerControls.addGamepadButtonsToAEvent(s_Action,"Button 1");
-        
         initStates
         (
-            Idle.class,
+            PlayerController.Idle.class,
                 
-            new Idle(),
-            new Walk(),
-            new Jump(),
-            new Fall(),
-            new Crouch(),
-            new Cannonball()
+            new PlayerController.Idle(),
+            new PlayerController.Walk(),
+            new PlayerController.Jump(),
+            new PlayerController.Fall(),
+            new PlayerController.Crouch(),
+            new PlayerController.Cannonball()
         
         );
         

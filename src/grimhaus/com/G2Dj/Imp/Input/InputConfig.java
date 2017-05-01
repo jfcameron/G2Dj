@@ -93,8 +93,8 @@ public class InputConfig
             {                
                 Gamepad[] gamepads = Input.getGamepads();
                 
-                //if (gamepads==null || gamepads.length <= 0)
-                //    return false;
+                if (gamepads==null || gamepads.length <= 0 || s_GamepadIndex >= gamepads.length)
+                    return false;
             
                 //Debug.log("GAMEPAD IS NULL");
             
@@ -187,8 +187,8 @@ public class InputConfig
         
         public final void addGamepadHat(final Gamepad aGamepad, final String aHatName,final Hat.Direction... aDirections)
         {
-            //if (requestGamepad() == false)
-            //    return;
+            if (aGamepad == null)
+                return;
             
             m_Hats.add(new HatAndDirectionPair(aGamepad.getHat(aHatName),aDirections));
             
@@ -196,15 +196,12 @@ public class InputConfig
         
         public final void addGamepadButtons(final Gamepad aGamepad, final String... aButtonNames)
         {
-            //if (requestGamepad() == false)
-             //   return;
+            if (aGamepad == null)
+                return;
             
             if (aButtonNames != null)
                 for(int i=0,s=aButtonNames.length;i<s;i++)
-                {
                     m_Buttons.add(aGamepad.getButton(aButtonNames[i]));
-                
-                }
             
         }
         

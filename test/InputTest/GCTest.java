@@ -1,68 +1,29 @@
-/* 
+/*
  * G2Dj Game engine
- *  Written by Joseph Cameron
+ * Written by Joseph Cameron
  */
-package grimhaus.com.G2Dj;
-
-//.if ANDROID
+package InputTest;
 
 import com.sun.management.GarbageCollectionNotificationInfo;
+import grimhaus.com.G2Dj.Debug;
 import java.lang.management.GarbageCollectorMXBean;
+import java.lang.management.MemoryUsage;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.management.Notification;
 import javax.management.NotificationEmitter;
 import javax.management.NotificationListener;
 import javax.management.openmbean.CompositeData;
 
-//|
-//|import java.lang.reflect.Field;
-//|import java.lang.reflect.Modifier;
-//|import java.util.logging.Level;
-//|import java.util.logging.Logger;
-//|
-//|import android.app.Application;
-//|import android.util.Log;
-//|
-//|import java.lang.reflect.Field;
-//|import java.lang.reflect.Type;
-//.endif
-
 /**
  *
- * @author Joe
+ * @author Joseph Cameron
  */
-public class Debug 
+public class GCTest        
 {
-    private static final StringBuilder s_StringBuilder = new StringBuilder();
-    
-    public static void log(final Object... aObjects)
-    {
-        if (aObjects == null || aObjects.length <= 0)
-            return;
-        
-        s_StringBuilder.append(aObjects[0].toString());
-            
-        for(int i = 1, s = aObjects.length; i < s; i++)
-        {
-            s_StringBuilder.append(", ");
-            s_StringBuilder.append(aObjects[i].toString());
-        
-        }
-        
-        s_StringBuilder.append("\n");
-        
-        //.if DESKTOP
-        System.out.print(s_StringBuilder.toString());
-        //.elseif ANDROID
-        //|Log.d("G2Dj",s_StringBuilder.toString());
-        //.endif
-        
-        s_StringBuilder.setLength(0);
-        
-    }
-    
-    public static void enableGarbageCollectionLogging()
-    {
+     public static void installGCMonitoring()
+     {
         //get all the GarbageCollectorMXBeans - there's one for each heap generation
         //so probably two - the old generation and young generation
         List<java.lang.management.GarbageCollectorMXBean> gcbeans = java.lang.management.ManagementFactory.getGarbageCollectorMXBeans();
@@ -97,7 +58,7 @@ public class Debug
                         StringBuilder sb = new StringBuilder();
                         sb.append("**************************\nGarbage Collector invoked!\n**************************\n");
                         sb.append("GC Type: ").append(gctype).append("\n");
-                        //sb.append("ID: ").append(info.getGcInfo().getId()).append("\n");
+                        sb.append("ID: ").append(info.getGcInfo().getId()).append("\n");
                         sb.append("Cause: ").append(info.getGcCause()).append("\n");
                         sb.append("Duration: ").append(info.getGcInfo().getDuration()).append(" ms\n");
                         
@@ -135,7 +96,7 @@ public class Debug
             emitter.addNotificationListener(listener, null, null);
 
         }
-        
-    }
-    
+
+     }
+
 }
