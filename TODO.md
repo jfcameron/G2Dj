@@ -1,4 +1,6 @@
 ===NOW==========
+JOAL support
+JSON file loading support
 Tilebased level editor
 
 Physics2D
