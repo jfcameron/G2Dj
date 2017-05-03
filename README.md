@@ -33,7 +33,9 @@ While systems can be added arbitarily to G2Dj, there are a few that are present 
 * 2D & 3D Vectors, Mat4x4s
 
 ### Input
-* Keyboard key pressed, held, released states
+* Mouse
+* Keyboard
+* USB Gamepads
 * Touchscreen handler
 
 ### Time, Files, Debug.
@@ -182,9 +184,12 @@ public class PlayerController extends grimhaus.com.G2Dj.Type.Engine.Component
 ```
 
 ## Libraries used:
-* [JOGL](http://jogamp.org/)
-* [GLM](https://github.com/java-graphics/glm)
-* [jbox2D](https://github.com/jbox2d/jbox2d)
+* [JOGL](http://jogamp.org/) - OpenGL support on Desktop builds
+* [JOAL](http://jogamp.org/) - OpenAL
+* [jGLM](https://github.com/java-graphics/glm) - Reference material for Math.Mat4x4
+* [jbox2D](https://github.com/jbox2d/jbox2d) - Implementation dependency for Physics2D
+* [JInput](https://github.com/jinput/jinput) - Gamepad support on Desktop builds
+* [J-Ogg](http://j-ogg.de/) - Ogg Vorbis and FLAC decoder
 
 ## Tools used:
 * The desktop branch is setup for [Netbeans](https://netbeans.org/)
