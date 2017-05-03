@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
  *
  * @author Joseph Cameron
  */
-public class Sounds
+public class Audio
 {
     //context object
     static AL al;// al = ALFactory.getAL();

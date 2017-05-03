@@ -8,6 +8,7 @@ import com.jogamp.openal.AL;
 import com.jogamp.openal.ALException;
 import com.jogamp.openal.ALFactory;
 import com.jogamp.openal.util.ALut;
+import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Resources;
 import grimhaus.com.G2Dj.Type.Engine.Game;
@@ -110,6 +111,7 @@ public class Main
         // occurs.
         al.alSourcefv(source[0], AL.AL_POSITION, sourcePos, 0);
         al.alSourcefv(source[0], AL.AL_VELOCITY, sourceVel, 0);
+        al.alGetError();
         
         al.alListenerfv(AL.AL_POSITION, listenerPos, 0);
         al.alListenerfv(AL.AL_VELOCITY, listenerVel, 0);
@@ -117,6 +119,24 @@ public class Main
         
         
         al.alSourcePlay(source[0]);
+        
+        for (int i = 0;; i++)
+        {
+            if (i >= 9E8)
+            {
+                Debug.log("Cleanup all data");
+        
+                al.alDeleteBuffers(1, buffer, 0);
+                al.alDeleteSources(1, source, 0);
+                ALut.alutExit();
+                System.exit(0);
+                
+            }
+            
+        }
+        
+        
+        
         
     }
     

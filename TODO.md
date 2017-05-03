@@ -1,5 +1,9 @@
 ===NOW==========
-JOAL support
+Sounds
+    - Ogg Vorbis support in test
+    - think about how to support various source types (many buffer types as in ogg, single buffer as in wav)
+    - implement Sounds system (all class types are currently stubs, all imp is naive and in test)
+
 JSON file loading support
 Tilebased level editor
 

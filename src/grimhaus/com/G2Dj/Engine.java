@@ -49,7 +49,7 @@ public class Engine
     //
     public static void init(final Game aGame)
     {
-        Sounds.test();
+        Audio.test();
         
         Graphics.getModel();//
         

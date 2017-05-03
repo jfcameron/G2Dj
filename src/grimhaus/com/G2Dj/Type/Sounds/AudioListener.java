@@ -8,7 +8,7 @@ package grimhaus.com.G2Dj.Type.Sounds;
  *
  * @author Joseph Cameron
  */
-public class Listener 
+public class AudioListener 
 {
     
 }
