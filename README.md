@@ -46,7 +46,7 @@ While systems can be added arbitarily to G2Dj, there are a few that are present 
  
 ## Building the engine:
 ### Desktop
-* Include JOGL as lib. Choose the correct JOGL package for the desired platform (Win32, Win64, Mac, Linux).
+* Add the correct native libs for JOGL, JOAL and JInput to the project (Win32/64, Mac, Linux32/64).
 * Run PreprocessorWizard.pl with #define DESKTOP
 * Open the NetBeans project file and build G2Dj.
 
