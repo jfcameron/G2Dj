@@ -1,7 +1,7 @@
 # G2Dj
 ![alt tag](http://jfcameron.github.io/Images/GD2j_Sprites/Big.png "")
 ![alt tag](http://jfcameron.github.io/Github/G2Dj/Pong.png "")
-![alt tag](http://jfcameron.github.io/Github/G2Dj/Blocky.png "")
+![alt tag](https://jfcameron.github.io/Images/G2Dj_Platformer/Big.png "")
 ![alt tag](http://jfcameron.github.io/Images/G2Dj_Android/Big.png "")
 
 
