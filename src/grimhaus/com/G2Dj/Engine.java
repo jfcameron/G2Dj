@@ -49,8 +49,6 @@ public class Engine
     //
     public static void init(final Game aGame)
     {
-        Audio.test();
-        
         Graphics.getModel();//
         
         aGame.init();        

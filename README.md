@@ -18,7 +18,7 @@ While systems can be added arbitarily to G2Dj, there are a few that are present 
 * Resource managers for shaders, textures, models
 * Supports OpenGLES 2.0 standard
 * Basic 2D game shaders & programmable shader interface
-* Unicode Text renderer supporting the entire Basic Multilingual Plane 
+* Unicode Text renderer supporting the full Basic Multilingual Plane 
 * Tilegrid and spritesheet renderers
 
 

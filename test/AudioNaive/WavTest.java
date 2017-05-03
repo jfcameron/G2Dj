@@ -4,15 +4,16 @@
  */
 package AudioNaive;
 
-import com.jogamp.openal.AL;
 import com.jogamp.openal.ALException;
-import com.jogamp.openal.ALFactory;
 import com.jogamp.openal.util.ALut;
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
+import grimhaus.com.G2Dj.Imp.Audio.AL;
 import grimhaus.com.G2Dj.Resources;
 import grimhaus.com.G2Dj.Type.Engine.Game;
 import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 /**
  *
@@ -20,22 +21,14 @@ import java.nio.ByteBuffer;
  */
 public class WavTest 
 {
+    //private static com.jogamp.openal.AL al;
+    
     //Entry point
     public static void main(String[] args){Engine.init(new Game(){@Override public void init(){soundTest();}});}
     
-    private static AL al;
-    
     public static void soundTest()
     {
-        // Initialize OpenAL and clear the error bit.
-        try 
-        {
-            ALut.alutInit();
-            al = ALFactory.getAL();
-            al.alGetError();
-        
-        } 
-        catch (ALException e) {e.printStackTrace();}
+        //al = grimhaus.com.G2Dj.Imp.Audio.AL.al;
         
         ///////////////////////////////////////////////
          // Position of the source sound.
@@ -66,8 +59,9 @@ public class WavTest
         int[] loop = new int[1];
 
         // Load wav data into a buffer.
-        al.alGenBuffers(1, buffer, 0);
-        if (al.alGetError() != AL.AL_NO_ERROR)
+        AL.alGenBuffers(1, IntBuffer.wrap(buffer));
+        
+        if (AL.alGetError() != AL.AL_NO_ERROR)
           throw new ALException("Error generating OpenAL buffers");
 
         ALut.alutLoadWAVFile(
@@ -88,37 +82,36 @@ public class WavTest
         System.out.println("sound size = " + size[0]);
         System.out.println("sound freq = " + freq[0]);
         System.out.println("sound loop = " + loop[0]);
-        al.alBufferData(buffer[0], format[0], data[0], size[0], freq[0]);
+        AL.alBufferData(buffer[0], format[0], data[0], size[0], freq[0]);
 
         // Bind buffer with a source.
-        al.alGenSources(1, source, 0);
+        AL.alGenSources(1, IntBuffer.wrap(source));
 
-        if (al.alGetError() != AL.AL_NO_ERROR)
+        if (AL.alGetError() != AL.AL_NO_ERROR)
           throw new ALException("Error generating OpenAL source");
 
-        al.alSourcei(source[0], AL.AL_BUFFER, buffer[0]);
-        al.alSourcef(source[0], AL.AL_PITCH, 1.0f);
-        al.alSourcef(source[0], AL.AL_GAIN, 1.0f);
-        al.alSourcei(source[0], AL.AL_LOOPING, loop[0]);
+        AL.alSourcei(source[0], AL.AL_BUFFER, buffer[0]);
+        AL.alSourcef(source[0], AL.AL_PITCH, 1.0f);
+        AL.alSourcef(source[0], AL.AL_GAIN, 1.0f);
+        AL.alSourcei(source[0], AL.AL_LOOPING, loop[0]);
 
         // Do another error check
-        if (al.alGetError() != AL.AL_NO_ERROR)
+        if (AL.alGetError() != AL.AL_NO_ERROR)
             throw new ALException("Error setting up OpenAL source");
 
         // Note: for some reason the following two calls are producing an
         // error on one machine with NVidia's OpenAL implementation. This
         // appears to be harmless, so just continue past the error if one
         // occurs.
-        al.alSourcefv(source[0], AL.AL_POSITION, sourcePos, 0);
-        al.alSourcefv(source[0], AL.AL_VELOCITY, sourceVel, 0);
-        al.alGetError();
+        AL.alSourcefv(source[0], AL.AL_POSITION, FloatBuffer.wrap(sourcePos));//AL.alSourcefv(source[0], AL.AL_POSITION, sourcePos, 0);
+        AL.alSourcefv(source[0], AL.AL_VELOCITY, FloatBuffer.wrap(sourceVel));//AL.alSourcefv(source[0], AL.AL_VELOCITY, sourceVel, 0);
+        AL.alGetError();
         
-        al.alListenerfv(AL.AL_POSITION, listenerPos, 0);
-        al.alListenerfv(AL.AL_VELOCITY, listenerVel, 0);
-        al.alListenerfv(AL.AL_ORIENTATION, listenerOri, 0);
+        AL.alListenerfv(AL.AL_POSITION,    FloatBuffer.wrap(listenerPos));
+        AL.alListenerfv(AL.AL_VELOCITY,    FloatBuffer.wrap(listenerVel));
+        AL.alListenerfv(AL.AL_ORIENTATION, FloatBuffer.wrap(listenerOri));
         
-        
-        al.alSourcePlay(source[0]);
+        AL.alSourcePlay(source[0]);
         
         for (int i = 0;; i++)
         {
@@ -126,9 +119,8 @@ public class WavTest
             {
                 Debug.log("Cleanup all data");
         
-                al.alDeleteBuffers(1, buffer, 0);
-                al.alDeleteSources(1, source, 0);
-                ALut.alutExit();
+                AL.alDeleteBuffers(1, IntBuffer.wrap(buffer));
+                AL.alDeleteSources(1, IntBuffer.wrap(source));
                 System.exit(0);
                 
             }
