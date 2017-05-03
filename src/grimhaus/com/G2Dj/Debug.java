@@ -40,7 +40,10 @@ public class Debug
         if (aObjects == null || aObjects.length <= 0)
             return;
         
-        s_StringBuilder.append(aObjects[0].toString());
+        if (aObjects[0] != null)
+            s_StringBuilder.append(aObjects[0].toString());
+        else
+            s_StringBuilder.append("NULL");
             
         for(int i = 1, s = aObjects.length; i < s; i++)
         {

@@ -2,7 +2,7 @@
  * G2Dj Game engine
  * Written by Joseph Cameron
  */
-package Sounds;
+package AudioNaive;
 
 import com.jogamp.openal.AL;
 import com.jogamp.openal.ALException;
@@ -18,7 +18,7 @@ import java.nio.ByteBuffer;
  *
  * @author Joseph Cameron
  */
-public class Main 
+public class WavTest 
 {
     //Entry point
     public static void main(String[] args){Engine.init(new Game(){@Override public void init(){soundTest();}});}
@@ -71,7 +71,7 @@ public class Main
           throw new ALException("Error generating OpenAL buffers");
 
         ALut.alutLoadWAVFile(
-        Resources.class.getResourceAsStream("/Sounds/Test1.wav"),
+        Resources.class.getResourceAsStream("/AudioNaive/Test1.wav"),
         format,
         data,
         size,
