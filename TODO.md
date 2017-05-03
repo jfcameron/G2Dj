@@ -3,6 +3,9 @@ JOAL support
 JSON file loading support
 Tilebased level editor
 
+Sounds
+ - ALut.alutLoadWAVFile cannot handle wavs with meta data. Move away from using alut
+
 Physics2D
  - Raycasting
  - 2d point testing vs colliders, vs triggers: return Collider world.checkPoint(Vec2 aPoint, type). where type {collider,trigger,any}
