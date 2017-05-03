@@ -14,27 +14,36 @@ import java.io.File;
 import java.net.URL;
 import java.nio.ByteBuffer;
 
-public class OggStreamer {
-    
+public class OggStreamer 
+{    
     static AL al = null;
 
-    static {
+    static 
+    {
         // Initialize OpenAL and clear the error bit.
-        try {
+        try 
+        {
             ALut.alutInit();
             al = ALFactory.getAL();
             al.alGetError();
-        } catch (com.jogamp.openal.ALException e) {
+        
+        } 
+        catch (com.jogamp.openal.ALException e) 
+        {
             System.err.println("Error initializing OpenAL");
             e.printStackTrace();
+        
         }
+        
     }
     
     private static boolean debug = false;
     private static int totalBytes = 0;
 
-    private static void debugMsg(String str) {
+    private static void debugMsg(String str) 
+    {
 	if (debug) System.err.println(str);
+        
     }
 
     private OggDecoder oggDecoder;
@@ -64,20 +73,25 @@ public class OggStreamer {
     private long sleepTime = 0;
 
     /** Creates a new instance of OggStreamer */
-    public OggStreamer(URL url) {
+    public OggStreamer(URL url) 
+    {
 	this.url = url;
+        
     }
     
     /**
      * Open the Ogg/Vorbis stream and initialize OpenAL based
      * on the stream properties
      */
-    public boolean open() {
+    public boolean open() 
+    {
 	oggDecoder = new OggDecoder(url);
 
-        if (!oggDecoder.initialize()) {
+        if (!oggDecoder.initialize()) 
+        {
             System.err.println("Error initializing ogg stream...");
             return false;
+            
         }
         
 	int numChannels = oggDecoder.numChannels();
@@ -122,31 +136,39 @@ public class OggStreamer {
 	// System.err.println("source  = " + Arrays.toString(source ));
 	//
         return true;
+        
     }
     
     /**
      * OpenAL cleanup
      */
-    public void release() {
+    public void release() 
+    {
 	al.alSourceStop(source[0]);
 	empty();
 
-	for (int i = 0; i < NUM_BUFFERS; i++) {
+	for (int i = 0; i < NUM_BUFFERS; i++) 
+        {
 	    al.alDeleteSources(i, source, 0); check();
+            
 	}
+        
     }
 
     /**
      * Play the Ogg stream
      */
-    public boolean playback() {
+    public boolean playback() 
+    {
 	if (playing())
 	    return true;
         
 	debugMsg("playback(): stream all buffers");
-	for (int i = 0; i < NUM_BUFFERS; i++) {
+	for (int i = 0; i < NUM_BUFFERS; i++) 
+        {
 	    if (!stream(buffers[i]))
 		return false;
+            
 	}
     
 	debugMsg("playback(): queue all buffers & play source");
@@ -159,18 +181,21 @@ public class OggStreamer {
     /**
      * Check if the source is playing
      */
-    public boolean playing() {
+    public boolean playing() 
+    {
 	int[] state = new int[1];
     
 	al.alGetSourcei(source[0], AL.AL_SOURCE_STATE, state, 0);
     
 	return (state[0] == AL.AL_PLAYING);
+        
     }
     
     /**
      * Update the stream if necessary
      */
-    public boolean update() {
+    public boolean update() 
+    {
 	int[] processed = new int[1];
 	boolean active = true;
 
@@ -190,24 +215,31 @@ public class OggStreamer {
 	    al.alSourceQueueBuffers(source[0], 1, buffer, 0); check();
 
 	    processed[0]--;
+            
 	}
 
 	return active;
+        
     }
     
     /**
      * Reloads a buffer (reads in the next chunk)
      */
-    public boolean stream(int buffer) {
+    public boolean stream(int buffer) 
+    {
 	byte[] pcm = new byte[BUFFER_SIZE];
 	int    size = 0;
 
-	try {
+	try 
+        {
 	    if ((size = oggDecoder.read(pcm)) <= 0)
 		return false;
-	} catch (Exception e) {
+            
+	} catch (Exception e) 
+        {
 	    e.printStackTrace();
 	    return false;
+            
 	}
 
 	totalBytes += size;
@@ -218,12 +250,14 @@ public class OggStreamer {
 	check();
 	
 	return true;
+        
     }
 
     /**
      * Empties the queue
      */
-    protected void empty() {
+    protected void empty() 
+    {
 	int[] queued = new int[1];
 	
 	al.alGetSourcei(source[0], AL.AL_BUFFERS_QUEUED, queued, 0);
@@ -236,23 +270,28 @@ public class OggStreamer {
 	    check();
 
 	    queued[0]--;
+            
 	}
 
 	oggDecoder = null;
+        
     }
 
     /**
      * Check for OpenAL errors...
      */
-    protected void check() {
+    protected void check() 
+    {
         if (al.alGetError() != AL.AL_NO_ERROR)
             throw new ALException("OpenAL error raised...");
+        
     }
     
     /**
      * The main loop to initialize and play the entire stream
      */
-    public boolean playstream() {
+    public boolean playstream() 
+    {
         if (!open())
             return false;
         
@@ -261,49 +300,62 @@ public class OggStreamer {
         if (!playback())
             return false;
         
-        while (update()) {
+        while (update()) 
+        {
 	    // We will try sleeping for sometime so that we dont
 	    // peg the CPU...
-	    try {
+	    try 
+            {
 		Thread.sleep(sleepTime);
-	    } catch (Exception e) {
-		e.printStackTrace();
-	    }
+                
+	    } 
+            catch (Exception e) {e.printStackTrace();}
 
             if (playing()) continue;
             
             if (!playback())
                 return false;
+            
         }
         
         return true;
+        
     }
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         if (al == null)
             return;
         
 	URL url;
 
-        try {
+        try 
+        {
 	    boolean played = false;
-            for (int i = 0; i < args.length; i++) {
-		if ("-bs".equals(args[i])) {
+            for (int i = 0; i < args.length; i++) 
+            {
+		if ("-bs".equals(args[i])) 
+                {
 		    BUFFER_SIZE = Integer.valueOf(args[++i]).intValue();
 		    continue;
+                    
 		}
 
-		if ("-nb".equals(args[i])) {
+		if ("-nb".equals(args[i])) 
+                {
 		    NUM_BUFFERS = Integer.valueOf(args[++i]).intValue();
 		    continue;
+                    
 		}
 
-		if ("-d".equals(args[i])) {
+		if ("-d".equals(args[i]))
+                {
 		    debug = true;
 		    continue;
+                    
 		}
 
                 System.err.println("Playing Ogg stream : " + args[i]);
@@ -315,21 +367,23 @@ public class OggStreamer {
                 
 		played = true;
                 System.err.println("ERROR!!");
+                
             }
 
-	    if (!played) {
-		url = Resources.class.getClassLoader().getResource("AudioNaive/Example.ogg"); //OggStreamer.class.getClassLoader().getResource("/AudioNaive/Example.ogg");
-		
+	    if (!played) 
+            {
+		url = Resources.class.getClassLoader().getResource("AudioNaive/Example.ogg");
+                
                 Debug.log(url);
                 
                 (new OggStreamer(url)).playstream();
 	    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } 
+        catch (Exception e) {e.printStackTrace();}
 
         System.exit(0);
+        
     }
     
 }

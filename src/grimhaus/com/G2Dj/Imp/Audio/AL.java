@@ -17,7 +17,7 @@ import java.nio.IntBuffer;
  */
 public class AL 
 {
-    private static final com.jogamp.openal.AL al; //HIDE ME
+    public static final com.jogamp.openal.AL al; //HIDE ME
     
     //AL API
     public static int  alGetError(){return al.alGetError();}
