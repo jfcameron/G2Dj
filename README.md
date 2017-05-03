@@ -28,9 +28,13 @@ While systems can be added arbitarily to G2Dj, there are a few that are present 
 * When Rigidbodies collide with colliders or enter trigger areas, OnCollision and OnTigger callbacks on the Rigidbody's Gameobject are invoked
 * Implementation based on [jbox2D](https://github.com/jbox2d/jbox2d)
 
+### Audio
+* 3D sound system based on OpenAL
+* Supports wav, Ogg Vorbis, FLAC files
+
 ### Math
 * 2D and 3D linear algebra
-* 2D & 3D Vectors, Mat4x4s
+* 2-4d Vectors, Mat4x4
 
 ### Input
 * Mouse
