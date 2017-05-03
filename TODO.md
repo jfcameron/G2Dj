@@ -1,10 +1,11 @@
 ===NOW==========
-Sounds
-    - Ogg Vorbis support in test
-    - think about how to support various source types (many buffer types as in ogg, single buffer as in wav)
-    - implement Sounds system (all class types are currently stubs, all imp is naive and in test)
+Audio
+    - Design the audio hierarchy, public api, interfaces.
+        - think about how to support various source types (many buffer types as in ogg, single buffer as in wav)
+        - how are resource loaders, decoders, data buffers related? What is the relationship between these low level types and the ECS facing AudioSource and AudioListener Types?
 
 JSON file loading support
+Lua embedded interpreter (look into LuaJ)
 Tilebased level editor
 
 Sounds
