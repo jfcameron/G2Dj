@@ -10,17 +10,12 @@ import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.vorbis.IdentificationHeader;
 import de.jarnbjo.vorbis.VorbisStream;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.SourceDataLine;
 
 public class OggDecoder 
 {    
@@ -117,73 +112,7 @@ public class OggDecoder
 	}
         
     }
-
-    // play using JavaSound
-    public void play() 
-    {
-	if (!initialize())
-	    return;
-
-	dump();
-
-	try 
-        {
-	    DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
-	    SourceDataLine sourceDataLine = (SourceDataLine)AudioSystem.getLine(dataLineInfo);
-	    
-	    sourceDataLine.open(audioFormat);
-	    sourceDataLine.start();
-	    
-	    byte[] buffer = new byte[BLOCK_SIZE];
-	    int bytesRead;
-	    
-	    while (true) {
-		if ((bytesRead = read(buffer)) > 0)
-		    sourceDataLine.write(buffer, 0, bytesRead);
-
-		if (bytesRead < buffer.length)
-		    break;
-	    }
-	    
-	    sourceDataLine.drain();
-	    sourceDataLine.close();
-            
-	}
-        catch(Exception e) {e.printStackTrace();}
-        
-    }
-    
-    // play using JavaSound
-    public void toraw(String fileName) 
-    {
-	if (!initialize())
-	    return;
-
-	setSwap(true);
-	dump();
-
-	try 
-        {
-	    byte[] buffer = new byte[BLOCK_SIZE];
-	    int bytesRead;
-	    
-	    FileOutputStream fos = new FileOutputStream(fileName);
-
-	    while (true) {
-		if ((bytesRead = read(buffer)) > 0)
-		    fos.write(buffer, 0, bytesRead);
-
-		if (bytesRead < buffer.length)
-		    break;
-	    }
-
-	    fos.close();
-            
-	} 
-        catch(Exception e) {e.printStackTrace();}
-        
-    }
-    
+       
     public int read(byte[] buffer) throws IOException 
     {
 	if (endOfStream)
@@ -226,34 +155,14 @@ public class OggDecoder
 
     public static class VorbisInputStream extends InputStream 
     {
-        
         private VorbisStream source;
         
-        public VorbisInputStream(VorbisStream source) 
-        {
-            this.source = source;
-            
-        }
-        
-        public int read() throws IOException 
-        {
-            return 0;
-            
-        }
-        
-        public int read(byte[] buffer) throws IOException 
-        {
-            return read(buffer, 0, buffer.length);
-            
-        }
-        
+        public VorbisInputStream(VorbisStream source){this.source = source;}
+        public int read() throws IOException {return 0;}
+        public int read(byte[] buffer) throws IOException {return read(buffer, 0, buffer.length);}
         public int read(byte[] buffer, int offset, int length) throws IOException 
         {
-            try 
-            {
-                return source.readPcm(buffer, offset, length);
-                
-            } 
+            try {return source.readPcm(buffer, offset, length);} 
             catch(EndOfOggStreamException e) {return -1;}
             
         }

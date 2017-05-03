@@ -8,6 +8,13 @@ package grimhaus.com.G2Dj.Type.Audio;
  *
  * @author Joseph Cameron
  */
-public class AudioSource {
+public class AudioSource 
+{
+    public void play()
+    {
+        
+        
+    }
+    
     
 }
