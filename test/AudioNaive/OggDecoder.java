@@ -9,12 +9,13 @@ import de.jarnbjo.ogg.EndOfOggStreamException;
 import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.vorbis.IdentificationHeader;
 import de.jarnbjo.vorbis.VorbisStream;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.ByteBuffer;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -52,15 +53,18 @@ public class OggDecoder
 	    vStream = new VorbisStream(loStream);
 	    vStreamHdr = vStream.getIdentificationHeader();
 
-	    audioFormat = new AudioFormat(
-				(float)vStreamHdr.getSampleRate(),
-				16,
-				vStreamHdr.getChannels(),
-				true, true);
+	    audioFormat = new AudioFormat
+            (
+                (float)vStreamHdr.getSampleRate(),
+		16,
+		vStreamHdr.getChannels(),
+		true, 
+                true
+            
+            );
 	    
-	    ais = new AudioInputStream(
-			new VorbisInputStream(vStream), audioFormat, -1);
-
+	    ais = new AudioInputStream(new VorbisInputStream(vStream), audioFormat, -1);
+            
 	} 
         catch (Exception e) 
         {
@@ -208,12 +212,15 @@ public class OggDecoder
 
     public void dump() 
     {
-	System.err.println("#Channels: " + vStreamHdr.getChannels());
+	System.err.println("#Channels: "   + vStreamHdr.getChannels());
 	System.err.println("Sample rate: " + vStreamHdr.getSampleRate());
-	System.err.println("Bitrate: nominal="
-				 + vStreamHdr.getNominalBitrate() +
-			", max=" + vStreamHdr.getMaximumBitrate() +
-			", min=" + vStreamHdr.getMinimumBitrate());
+	System.err.println
+        (
+            "Bitrate: nominal=" + vStreamHdr.getNominalBitrate() +
+            ", max=" + vStreamHdr.getMaximumBitrate() +
+            ", min=" + vStreamHdr.getMinimumBitrate()
+        
+        );
         
     }
 
@@ -250,44 +257,6 @@ public class OggDecoder
             catch(EndOfOggStreamException e) {return -1;}
             
         }
-        
-    }
-    
-    public static void main(String args[]) 
-    {
-	URL url;
-	int i = 0;
-	String rawname = null;
-
-	try 
-        {
-	    if (args.length == 0) 
-            {
-		url = OggDecoder.class.getClassLoader().getResource("demos/data/broken_glass.ogg");
-		(new OggDecoder(url)).play();
-                
-	    }
-
-	    for (; i < args.length; i++) 
-            {
-		if (args[i].equals("-r")) 
-                {
-		    rawname = args[++i];
-		    continue;
-		}
-
-		System.err.println("Playing: " + args[i]);
-
-		url = ((new File(args[i])).exists()) ?
-                                new URL("file:" + args[i]) : new URL(args[i]);
-
-		if (rawname != null)	(new OggDecoder(url)).toraw(rawname);
-		else			(new OggDecoder(url)).play();
-                
-	    }
-            
-	} 
-        catch (Exception e) {e.printStackTrace();}
         
     }
     

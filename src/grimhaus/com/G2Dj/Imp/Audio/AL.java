@@ -22,21 +22,30 @@ public class AL
     //AL API
     public static int  alGetError(){return al.alGetError();}
     
+    //Buffer calls
     public static void alGenBuffers(int aNumberOfBuffersToGenerate, IntBuffer aBufferHandles){al.alGenBuffers(aNumberOfBuffersToGenerate,aBufferHandles);}
     public static void alBufferData(int i, int i1, Buffer buffer, int i2, int i3){al.alBufferData(i,i1,buffer,i2,i3);}
+    public static void alDeleteBuffers(int i, IntBuffer ib){al.alDeleteBuffers(i,ib);}
     
+    //Source calls
     public static void alGenSources(int i, IntBuffer ib){al.alGenSources(i,ib);}
+    public static void alDeleteSources(int i, IntBuffer ib){al.alDeleteSources(i,ib);}
+    
+    public static void alGetSourcei(int i, int i1, IntBuffer ib){al.alGetSourcei(i, i1, ib);}
     
     public static void alSourcei(int i, int i1, int i2){al.alSourcei(i,i1,i2);}
     public static void alSourcef(int i, int i1, float f){al.alSourcef(i,i1,f);}
     public static void alSourcefv(int i, int i1, FloatBuffer fb){al.alSourcefv(i,i1,fb);}
     
+    public static void alSourceQueueBuffers(int i, int i1, IntBuffer ib){al.alSourceQueueBuffers(i,i1,ib);}
+    public static void alSourceUnqueueBuffers(int i, int i1, IntBuffer ib){al.alSourceUnqueueBuffers(i,i1,ib);}
+    
+    //Listener calls
     public static void alListenerfv(int i, FloatBuffer fb){al.alListenerfv(i,fb);}
     
+    //Playback calls
     public static void alSourcePlay(int i){al.alSourcePlay(i);}
-    
-    public static void alDeleteBuffers(int i, IntBuffer ib){al.alDeleteBuffers(i,ib);}
-    public static void alDeleteSources(int i, IntBuffer ib){al.alDeleteSources(i,ib);}
+    public static void alSourceStop(int i){al.alSourceStop(i);}
     
     //AL Constants
     public static final int 
@@ -47,7 +56,17 @@ public class AL
     AL_LOOPING,
     AL_POSITION,
     AL_VELOCITY,
-    AL_ORIENTATION;
+    AL_ORIENTATION,
+    AL_FORMAT_MONO16,
+    AL_FORMAT_STEREO16,
+    AL_DIRECTION,
+    AL_ROLLOFF_FACTOR,
+    AL_SOURCE_RELATIVE,
+    AL_TRUE,
+    AL_SOURCE_STATE,
+    AL_PLAYING,
+    AL_BUFFERS_PROCESSED,
+    AL_BUFFERS_QUEUED;
     
     static
     {
@@ -71,15 +90,25 @@ public class AL
         }});
         
         //Constants
-        AL_NO_ERROR    = com.jogamp.openal.AL.AL_NO_ERROR;
-        AL_BUFFER      = com.jogamp.openal.AL.AL_BUFFER;
-        AL_PITCH       = com.jogamp.openal.AL.AL_PITCH;
-        AL_GAIN        = com.jogamp.openal.AL.AL_GAIN;
-        AL_LOOPING     = com.jogamp.openal.AL.AL_LOOPING;
-        AL_POSITION    = com.jogamp.openal.AL.AL_POSITION;
-        AL_VELOCITY    = com.jogamp.openal.AL.AL_VELOCITY;
-        AL_ORIENTATION = com.jogamp.openal.AL.AL_ORIENTATION;
-        
+        AL_NO_ERROR          = com.jogamp.openal.AL.AL_NO_ERROR;
+        AL_BUFFER            = com.jogamp.openal.AL.AL_BUFFER;
+        AL_PITCH             = com.jogamp.openal.AL.AL_PITCH;
+        AL_GAIN              = com.jogamp.openal.AL.AL_GAIN;
+        AL_LOOPING           = com.jogamp.openal.AL.AL_LOOPING;
+        AL_POSITION          = com.jogamp.openal.AL.AL_POSITION;
+        AL_VELOCITY          = com.jogamp.openal.AL.AL_VELOCITY;
+        AL_ORIENTATION       = com.jogamp.openal.AL.AL_ORIENTATION;
+        AL_FORMAT_MONO16     = com.jogamp.openal.AL.AL_FORMAT_MONO16;
+        AL_FORMAT_STEREO16   = com.jogamp.openal.AL.AL_FORMAT_STEREO16;
+        AL_DIRECTION         = com.jogamp.openal.AL.AL_DIRECTION;
+        AL_ROLLOFF_FACTOR    = com.jogamp.openal.AL.AL_ROLLOFF_FACTOR;
+        AL_SOURCE_RELATIVE   = com.jogamp.openal.AL.AL_SOURCE_RELATIVE;
+        AL_TRUE              = com.jogamp.openal.AL.AL_TRUE;
+        AL_SOURCE_STATE      = com.jogamp.openal.AL.AL_SOURCE_STATE;
+        AL_PLAYING           = com.jogamp.openal.AL.AL_PLAYING;
+        AL_BUFFERS_PROCESSED = com.jogamp.openal.AL.AL_BUFFERS_PROCESSED;
+        AL_BUFFERS_QUEUED    = com.jogamp.openal.AL.AL_BUFFERS_QUEUED;
+                
     } 
     
 }

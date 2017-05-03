@@ -2,7 +2,7 @@
  * G2Dj Game engine
  * Written by Joseph Cameron
  */
-package grimhaus.com.G2Dj.Type.Sounds;
+package grimhaus.com.G2Dj.Type.Audio;
 
 import grimhaus.com.G2Dj.Type.Engine.Component;
 import grimhaus.com.G2Dj.Type.Engine.Scene;

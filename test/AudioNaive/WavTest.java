@@ -26,16 +26,13 @@ public class WavTest
     
     public static void soundTest()
     {
-        // Position of the source sound.
+        // Position of the source sound. // Velocity of the source sound.
         float[] sourcePos = { 0.0f, 0.0f, 0.0f };
-        // Velocity of the source sound.
         float[] sourceVel = { 0.0f, 0.0f, 0.0f };
-
-        // Position of the listener.
+        
+        // Position of the listener. // Velocity of the listener. // Orientation of the listener. (first 3 elems are "at", second 3 are "up")
         float[] listenerPos = { 0.0f, 0.0f, 0.0f };
-        // Velocity of the listener.
         float[] listenerVel = { 0.0f, 0.0f, 0.0f };
-        // Orientation of the listener. (first 3 elems are "at", second 3 are "up")
         float[] listenerOri = { 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f };
         
         // variables to load into
@@ -54,13 +51,17 @@ public class WavTest
         if (AL.alGetError() != AL.AL_NO_ERROR)
           throw new ALException("Error generating OpenAL buffers");
 
-        ALut.alutLoadWAVFile(
-        Resources.class.getResourceAsStream("/AudioNaive/Test1.wav"),
-        format,
-        data,
-        size,
-        freq,
-        loop);
+        ALut.alutLoadWAVFile
+        (
+            Resources.class.getResourceAsStream("/AudioNaive/Test1.wav"),
+            format,
+            data,
+            size,
+            freq,
+            loop
+        
+        );
+        
         if (data[0] == null) 
         {
             throw new RuntimeException("Error loading WAV file");
@@ -117,6 +118,6 @@ public class WavTest
             
         }
         
-    }        
+    }
     
 }

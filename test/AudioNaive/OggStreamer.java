@@ -4,74 +4,47 @@
  */
 package AudioNaive;
 
-import com.jogamp.openal.AL;
 import com.jogamp.openal.ALException;
-import com.jogamp.openal.ALFactory;
-import com.jogamp.openal.util.ALut;
-import grimhaus.com.G2Dj.Debug;
-import grimhaus.com.G2Dj.Resources;
-import java.io.File;
+
+import grimhaus.com.G2Dj.Imp.Audio.AL;
+
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 public class OggStreamer 
 {    
-    static AL al = null;
-
-    static 
-    {
-        // Initialize OpenAL and clear the error bit.
-        try 
-        {
-            ALut.alutInit();
-            al = ALFactory.getAL();
-            al.alGetError();
-        
-        } 
-        catch (com.jogamp.openal.ALException e) 
-        {
-            System.err.println("Error initializing OpenAL");
-            e.printStackTrace();
-        
-        }
-        
-    }
-    
-    private static boolean debug = false;
-    private static int totalBytes = 0;
-
     private static void debugMsg(String str) 
     {
 	if (debug) System.err.println(str);
         
     }
-
+    
+    ///////////////////////////////////////////////////////////////////////////////////
+    private static boolean debug = false;
+    
     private OggDecoder oggDecoder;
     
-    // The size of a chunk from the stream that we want to read for each update.
-    private static int BUFFER_SIZE = 4096*16;
-
-    // The number of buffers used in the audio pipeline
-    private static int NUM_BUFFERS = 2;
+    private static int totalBytes = 0;
+    private static int BUFFER_SIZE = 4096*16;// The size of a chunk from the stream that we want to read for each update.    
+    private static int NUM_BUFFERS = 2;// The number of buffers used in the audio pipeline
     
-    // Buffers hold sound data. There are two of them by default (front/back)
-    private int[] buffers = new int[NUM_BUFFERS];
-    
-    // Sources are points emitting sound.
-    private int[] source = new int[1];
+    private int[] buffers = new int[NUM_BUFFERS];// Buffers hold sound data. There are two of them by default (front/back)
+    private int[] source = new int[1];// Sources are points emitting sound.
     
     private int format;	// OpenAL data format
     private int rate;	// sample rate
+    
+    private URL url;
+
+    private long sleepTime = 0;
     
     // Position, Velocity, Direction of the source sound.
     private float[] sourcePos = { 0.0f, 0.0f, 0.0f };
     private float[] sourceVel = { 0.0f, 0.0f, 0.0f };
     private float[] sourceDir = { 0.0f, 0.0f, 0.0f };
     
-    private URL url;
-
-    private long sleepTime = 0;
-
     /** Creates a new instance of OggStreamer */
     public OggStreamer(URL url) 
     {
@@ -79,10 +52,8 @@ public class OggStreamer
         
     }
     
-    /**
-     * Open the Ogg/Vorbis stream and initialize OpenAL based
-     * on the stream properties
-     */
+    
+    //Open the Ogg/Vorbis stream and initialize OpenAL based on the stream properties
     public boolean open() 
     {
 	oggDecoder = new OggDecoder(url);
@@ -122,19 +93,16 @@ public class OggStreamer
 	// problems I am having... but this seems to fix it on Linux
 	oggDecoder.setSwap(true);
 
-        al.alGenBuffers(NUM_BUFFERS, buffers, 0); check();
-        al.alGenSources(1, source, 0); check();
+        AL.alGenBuffers(NUM_BUFFERS, IntBuffer.wrap(buffers));
+        AL.alGenSources(1, IntBuffer.wrap(source));
 
-	al.alSourcefv(source[0], AL.AL_POSITION , sourcePos, 0);
-	al.alSourcefv(source[0], AL.AL_VELOCITY , sourceVel, 0);
-	al.alSourcefv(source[0], AL.AL_DIRECTION, sourceDir, 0);
+	AL.alSourcefv(source[0], AL.AL_POSITION , FloatBuffer.wrap(sourcePos));
+	AL.alSourcefv(source[0], AL.AL_VELOCITY , FloatBuffer.wrap(sourceVel));
+	AL.alSourcefv(source[0], AL.AL_DIRECTION, FloatBuffer.wrap(sourceDir));
         
-        al.alSourcef(source[0], AL.AL_ROLLOFF_FACTOR,  0.0f    );
-        al.alSourcei(source[0], AL.AL_SOURCE_RELATIVE, AL.AL_TRUE);
+        AL.alSourcef(source[0], AL.AL_ROLLOFF_FACTOR,  0.0f    );
+        AL.alSourcei(source[0], AL.AL_SOURCE_RELATIVE, AL.AL_TRUE);
         
-	// System.err.println("buffers = " + Arrays.toString(buffers));
-	// System.err.println("source  = " + Arrays.toString(source ));
-	//
         return true;
         
     }
@@ -144,14 +112,11 @@ public class OggStreamer
      */
     public void release() 
     {
-	al.alSourceStop(source[0]);
+	AL.alSourceStop(source[0]);
 	empty();
 
-	for (int i = 0; i < NUM_BUFFERS; i++) 
-        {
-	    al.alDeleteSources(i, source, 0); check();
-            
-	}
+	for (int i = 0; i < NUM_BUFFERS; i++)
+	    AL.alDeleteSources(i, IntBuffer.wrap(source));
         
     }
 
@@ -172,10 +137,11 @@ public class OggStreamer
 	}
     
 	debugMsg("playback(): queue all buffers & play source");
-	al.alSourceQueueBuffers(source[0], NUM_BUFFERS, buffers, 0);
-	al.alSourcePlay(source[0]);
+	AL.alSourceQueueBuffers(source[0], NUM_BUFFERS, IntBuffer.wrap(buffers));
+	AL.alSourcePlay(source[0]);
     
         return true;
+        
     }
     
     /**
@@ -185,7 +151,7 @@ public class OggStreamer
     {
 	int[] state = new int[1];
     
-	al.alGetSourcei(source[0], AL.AL_SOURCE_STATE, state, 0);
+	AL.alGetSourcei(source[0], AL.AL_SOURCE_STATE, IntBuffer.wrap(state));
     
 	return (state[0] == AL.AL_PLAYING);
         
@@ -200,19 +166,19 @@ public class OggStreamer
 	boolean active = true;
 
 	debugMsg("update()");
-	al.alGetSourcei(source[0], AL.AL_BUFFERS_PROCESSED, processed, 0);
+	AL.alGetSourcei(source[0], AL.AL_BUFFERS_PROCESSED, IntBuffer.wrap(processed));
 
 	while (processed[0] > 0)
 	{
 	    int[] buffer = new int[1];
 	    
-	    al.alSourceUnqueueBuffers(source[0], 1, buffer, 0); check();
+	    AL.alSourceUnqueueBuffers(source[0], 1, IntBuffer.wrap(buffer));
 	    debugMsg("update(): buffer unqueued => " + buffer[0]);
 
 	    active = stream(buffer[0]);
-
 	    debugMsg("update(): buffer queued => " + buffer[0]);
-	    al.alSourceQueueBuffers(source[0], 1, buffer, 0); check();
+            
+	    AL.alSourceQueueBuffers(source[0], 1, IntBuffer.wrap(buffer));
 
 	    processed[0]--;
             
@@ -246,7 +212,7 @@ public class OggStreamer
 	debugMsg("stream(): buffer data => " + buffer + " totalBytes:" + totalBytes);
 
 	ByteBuffer data = ByteBuffer.wrap(pcm, 0, size);
-	al.alBufferData(buffer, format, data, size, rate);
+	AL.alBufferData(buffer, format, data, size, rate);
 	check();
 	
 	return true;
@@ -260,13 +226,13 @@ public class OggStreamer
     {
 	int[] queued = new int[1];
 	
-	al.alGetSourcei(source[0], AL.AL_BUFFERS_QUEUED, queued, 0);
+	AL.alGetSourcei(source[0], AL.AL_BUFFERS_QUEUED, IntBuffer.wrap(queued));
 	
 	while (queued[0] > 0)
 	{
 	    int[] buffer = new int[1];
 	
-	    al.alSourceUnqueueBuffers(source[0], 1, buffer, 0);
+	    AL.alSourceUnqueueBuffers(source[0], 1, IntBuffer.wrap(buffer));
 	    check();
 
 	    queued[0]--;
@@ -282,7 +248,7 @@ public class OggStreamer
      */
     protected void check() 
     {
-        if (al.alGetError() != AL.AL_NO_ERROR)
+        if (AL.alGetError() != AL.AL_NO_ERROR)
             throw new ALException("OpenAL error raised...");
         
     }
@@ -319,70 +285,6 @@ public class OggStreamer
         }
         
         return true;
-        
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) 
-    {
-        if (al == null)
-            return;
-        
-	URL url;
-
-        try 
-        {
-	    boolean played = false;
-            for (int i = 0; i < args.length; i++) 
-            {
-		if ("-bs".equals(args[i])) 
-                {
-		    BUFFER_SIZE = Integer.valueOf(args[++i]).intValue();
-		    continue;
-                    
-		}
-
-		if ("-nb".equals(args[i])) 
-                {
-		    NUM_BUFFERS = Integer.valueOf(args[++i]).intValue();
-		    continue;
-                    
-		}
-
-		if ("-d".equals(args[i]))
-                {
-		    debug = true;
-		    continue;
-                    
-		}
-
-                System.err.println("Playing Ogg stream : " + args[i]);
-                
-                url = ((new File(args[i])).exists()) ?
-                    new URL("file:" + args[i]) : new URL(args[i]);
-                
-                if ((new OggStreamer(url)).playstream()) continue;
-                
-		played = true;
-                System.err.println("ERROR!!");
-                
-            }
-
-	    if (!played) 
-            {
-		url = Resources.class.getClassLoader().getResource("AudioNaive/Example.ogg");
-                
-                Debug.log(url);
-                
-                (new OggStreamer(url)).playstream();
-	    }
-
-        } 
-        catch (Exception e) {e.printStackTrace();}
-
-        System.exit(0);
         
     }
     
