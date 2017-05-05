@@ -2,7 +2,7 @@
  * G2Dj Game engine
  * Written by Joseph Cameron
  */
-package grimhaus.com.G2Dj.Type.Audio;
+package grimhaus.com.G2Dj.Imp.Audio;
 
 import grimhaus.com.G2Dj.Imp.Audio.OggDecoder;
 import grimhaus.com.G2Dj.Debug;
@@ -51,7 +51,7 @@ public class OggStreamer
     //*****************
     public void play() 
     {
-        m_PlaybackThread.start();
+        m_PlaybackThread.start(); 
         
     }
     
@@ -167,9 +167,9 @@ public class OggStreamer
     //************
     // Constructor
     //************
-    public OggStreamer(OggDecoder aOggDecoder) 
+    public OggStreamer(URL aURL) 
     {
-        m_OggDecoder = aOggDecoder;//new OggDecoder(url);
+        m_OggDecoder = new OggDecoder(aURL);
         
 	int numChannels = m_OggDecoder.getNumChannels();
 	int numBytesPerSample = 2;
@@ -209,17 +209,32 @@ public class OggStreamer
     private class PlaybackThread extends Thread
     {
         private volatile boolean exit = false;
+        private volatile boolean canStart = true;
+        
         public void kill(){exit = true;}
             
+        @Override public void start()
+        {
+            if (canStart)
+                super.start();
+            
+            canStart = false;
+            
+        }
+        
         @Override public void run() 
         {
-            playback();     
+            playback();  
+            
             while (update())
             {
                 try {Thread.sleep(sleepTime);} 
                 catch (InterruptedException ex) {Logger.getLogger(OggStreamer.class.getName()).log(Level.SEVERE, null, ex);}
             
             }
+            
+            canStart = true;
+            m_OggDecoder.reset();
             
         }
         

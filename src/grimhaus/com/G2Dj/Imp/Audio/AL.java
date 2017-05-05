@@ -24,7 +24,7 @@ public class AL
     
     //Buffer calls
     public static void alGenBuffers(int aNumberOfBuffersToGenerate, IntBuffer aBufferHandles){al.alGenBuffers(aNumberOfBuffersToGenerate,aBufferHandles);}
-    public static void alBufferData(int i, int i1, Buffer buffer, int i2, int i3){al.alBufferData(i,i1,buffer,i2,i3);}
+    public static void alBufferData(int aBufferHandle, int aDataFormat, Buffer aData, int aDataSize, int aDataFrequency){al.alBufferData(aBufferHandle,aDataFormat,aData,aDataSize,aDataFrequency);}
     public static void alDeleteBuffers(int i, IntBuffer ib){al.alDeleteBuffers(i,ib);}
     
     //Source calls

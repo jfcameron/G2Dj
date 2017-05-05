@@ -4,6 +4,8 @@
  */
 package grimhaus.com.G2Dj.Imp.Audio;
 
+import java.util.ArrayList;
+
 import grimhaus.com.G2Dj.Debug;
 
 import de.jarnbjo.ogg.EndOfOggStreamException;
@@ -15,6 +17,10 @@ import de.jarnbjo.vorbis.VorbisStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //will be a desktop/android implementation split
 import javax.sound.sampled.AudioFormat;
@@ -30,9 +36,9 @@ public class OggDecoder
     private IdentificationHeader vStreamHdr;
     
     private AudioFormat      audioFormat;
-    private AudioInputStream ais;
+    private ReusableAudioStream ais;
     
-    private boolean swap        = false;
+    private boolean swap        = true;
     private boolean endOfStream = false;
     
     //**********
@@ -43,9 +49,86 @@ public class OggDecoder
     
     public void setSwap(boolean swap){this.swap = swap;}
     
+    public void reset()
+    {
+        ais.reset();
+        
+    }
+    
+    private byte[] addBuffers(final byte[] aBuffer1, final byte[] aBuffer2)
+    {
+        byte[] temp = new byte[aBuffer1.length+aBuffer2.length];
+        
+        for(int i=0;i<aBuffer1.length;i++)
+            temp[i]=aBuffer1[i];
+        
+        for(int i=0;i<aBuffer2.length;i++)
+            temp[i+aBuffer1.length]=aBuffer2[i];
+        
+        return temp;
+        
+    }
+    
     //*****************
     // Public interface
     //*****************
+    public byte[] DUMPTEST()
+    {
+        Debug.log("DUMPTESTDUMPTESTDUMPTESTDUMPTESTDUMPTESTDUMPTESTDUMPTEST");
+        
+        byte[] rValue = new byte[0]; 
+        {
+            byte[] buffer = new byte[1024*1];
+            
+            //todo: work
+            for(;;)
+            {
+            try 
+            {
+                if (read(buffer) <= 0)
+                    break;
+                
+            } 
+            catch (IOException ex) {Logger.getLogger(OggDecoder.class.getName()).log(Level.SEVERE, null, ex);}
+            
+            rValue = addBuffers(rValue,buffer);
+            }
+            
+        }
+        
+        return rValue;
+        /*
+        byte[] asdf = new byte[1024*64];
+        
+        try 
+        {
+            read(asdf);
+        
+        } 
+        catch (IOException ex) {Logger.getLogger(OggDecoder.class.getName()).log(Level.SEVERE, null, ex);}
+        
+        return asdf;*/
+        /*
+        byte[] pcm = new byte[4096*16];
+	int    size = 0;
+        
+	try
+        {
+	    if ((size = read(pcm)) <= 0)
+            {}
+            
+	}
+        catch (Exception e)
+        {
+	    e.printStackTrace();
+            
+	}*/
+
+        
+        
+    }
+    
+    
     //read data into buffer, return # of bytes read
     public int read(byte[] buffer) throws IOException 
     {
@@ -115,7 +198,9 @@ public class OggDecoder
             
             );
 	    
-	    ais = new AudioInputStream(new VorbisInputStream(vStream), audioFormat, -1);
+	    ais = new ReusableAudioStream(new VorbisInputStream(vStream), audioFormat, -1);
+            ais.mark(Integer.MAX_VALUE);
+            //setSwap(true);
             
 	} 
         catch (Exception e) 
@@ -149,6 +234,25 @@ public class OggDecoder
             source = aSource;
         
         }
+        
+    }
+    
+    private class ReusableAudioStream extends AudioInputStream
+    {
+        public ReusableAudioStream(InputStream stream, AudioFormat format, long length){super(stream, format, length);}
+        
+        @Override
+        public void reset()
+        {
+            try 
+            {
+                super.reset();
+                //framePos = 0;
+            } 
+            catch (IOException ex) {Logger.getLogger(OggDecoder.class.getName()).log(Level.SEVERE, null, ex);}
+            
+        }
+        
         
     }
     

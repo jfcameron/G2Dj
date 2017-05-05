@@ -9,19 +9,23 @@ import com.jogamp.openal.util.ALut;
 import grimhaus.com.G2Dj.Debug;
 import grimhaus.com.G2Dj.Engine;
 import grimhaus.com.G2Dj.Imp.Audio.AL;
+import grimhaus.com.G2Dj.Imp.Audio.OggDecoder;
 import grimhaus.com.G2Dj.Imp.Input.KeyCode;
 import grimhaus.com.G2Dj.Input;
 import grimhaus.com.G2Dj.Resources;
 import grimhaus.com.G2Dj.Type.Engine.Game;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Joseph Cameron
  */
-public class WavTest 
+public class OggDumpTest 
 {
     //Entry point
     public static void main(String[] args){Engine.init(new Game(){@Override public void init(){soundTest();}});}
@@ -53,7 +57,26 @@ public class WavTest
         if (AL.alGetError() != AL.AL_NO_ERROR)
           throw new ALException("Error generating OpenAL buffers");
 
-        ALut.alutLoadWAVFile
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        OggDecoder oggDecoder = new OggDecoder(Resources.class.getClassLoader().getResource("AudioNaive/Example.ogg"));
+        
+	int numChannels = oggDecoder.getNumChannels();
+	int numBytesPerSample = 2;
+
+        if (numChannels == 1)
+	    format[0] = AL.AL_FORMAT_MONO16;
+	else
+	    format[0] = AL.AL_FORMAT_STEREO16;
+        
+        freq[0] = oggDecoder.getSampleRate();
+        data[0] = ByteBuffer.wrap(oggDecoder.DUMPTEST());
+        size[0] = data[0].array().length;
+        
+        Debug.log(data[0].array().length);
+        
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*ALut.alutLoadWAVFile
         (
             Resources.class.getResourceAsStream("/AudioNaive/Test1.wav"),
             format,
@@ -62,20 +85,10 @@ public class WavTest
             freq,
             loop
         
-        );
+        );*/
         
-        if (data[0] == null) 
-        {
-            throw new RuntimeException("Error loading WAV file");
-        
-        }
-        
-        System.out.println("sound format = " + format[0]);
-        System.out.println("sound data = " + data[0]);
-        System.out.println("sound size = " + size[0]);
-        System.out.println("sound freq = " + freq[0]);
-        System.out.println("sound loop = " + loop[0]);
         AL.alBufferData(buffer[0], format[0], data[0], size[0], freq[0]);
+        
 
         // Bind buffer with a source.
         AL.alGenSources(1, IntBuffer.wrap(source));
@@ -105,21 +118,6 @@ public class WavTest
         AL.alListenerfv(AL.AL_ORIENTATION, FloatBuffer.wrap(listenerOri));
         
         AL.alSourcePlay(source[0]);
-        /*
-        for (int i = 0;; i++)
-        {            
-            if (i >= 9E8)
-            {
-                Debug.log("Cleanup all data");
-        
-                AL.alDeleteBuffers(1, IntBuffer.wrap(buffer));
-                AL.alDeleteSources(1, IntBuffer.wrap(source));
-                System.exit(0);
-                
-            }
-            
-        }
-        */
         
         Thread thread = new Thread(){@Override public void run()
         {
@@ -134,8 +132,6 @@ public class WavTest
             
         }};
         thread.start();
-        
-        
         
     }
     
