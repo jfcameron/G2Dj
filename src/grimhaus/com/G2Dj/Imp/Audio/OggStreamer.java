@@ -51,7 +51,10 @@ public class OggStreamer
     //*****************
     public void play() 
     {
-        m_PlaybackThread.start(); 
+        Debug.log("OggDecoder.play()");
+        
+        m_PlaybackThread.start();
+        //(new PlaybackThread()).start();
         
     }
     
@@ -233,6 +236,7 @@ public class OggStreamer
             
             }
             
+            Debug.log("playback has ended");
             canStart = true;
             m_OggDecoder.reset();
             

@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference;
  *
  * @author Joseph Cameron
  */
-public class SoundsScene extends SceneGraph
+public class AudioScene extends SceneGraph
 {
     @Override
     public void fixedUpdate() {}
@@ -33,6 +33,6 @@ public class SoundsScene extends SceneGraph
     //************
     // Constructor
     //************
-    public SoundsScene(WeakReference<Scene> aScene){super(aScene);}
+    public AudioScene(WeakReference<Scene> aScene){super(aScene);}
     
 }

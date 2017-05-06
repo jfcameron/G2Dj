@@ -13,6 +13,7 @@ import de.jarnbjo.ogg.CachedUrlStream;
 import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.vorbis.IdentificationHeader;
 import de.jarnbjo.vorbis.VorbisStream;
+import java.io.BufferedInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -177,6 +178,8 @@ public class OggDecoder
     //************
     // Constructor
     //************
+    BufferedVorbisInputStream bvis;
+    
     public OggDecoder(URL url) 
     {
         try 
@@ -198,9 +201,13 @@ public class OggDecoder
             
             );
 	    
-	    ais = new ReusableAudioStream(new VorbisInputStream(vStream), audioFormat, -1);
+	    //ais = new ReusableAudioStream(new VorbisInputStream(vStream), audioFormat, -1);
+            bvis = new BufferedVorbisInputStream(new VorbisInputStream(vStream));
+            
+            ais = new ReusableAudioStream(bvis, audioFormat, -1);
             ais.mark(Integer.MAX_VALUE);
-            //setSwap(true);
+            
+            //BufferedVorbisInputStream bufferedVorbisInputStream = new BufferedVorbisInputStream(new VorbisInputStream(vStream));
             
 	} 
         catch (Exception e) 
@@ -215,6 +222,29 @@ public class OggDecoder
     //**************************
     // Private class definitions
     //**************************
+    private static class BufferedVorbisInputStream extends BufferedInputStream
+    {
+        private VorbisInputStream m_VIS;
+        
+        @Override public int read() throws IOException {return 0;}
+        @Override public int read(byte[] buffer) throws IOException {return m_VIS.read(buffer, 0, buffer.length);}
+        
+        @Override public int read(byte[] buffer, int offset, int length) throws IOException 
+        {
+            try {return m_VIS.source.readPcm(buffer, offset, length);} 
+            catch(EndOfOggStreamException e) {return -1;}
+            
+        }
+        
+        public BufferedVorbisInputStream(VorbisInputStream in) 
+        {
+            super(in);
+            m_VIS = in;
+        
+        }
+        
+    }
+    
     private static class VorbisInputStream extends InputStream 
     {
         private final VorbisStream source;
@@ -231,6 +261,8 @@ public class OggDecoder
         
         public VorbisInputStream(VorbisStream aSource)
         {
+            //super(aSource);
+            
             source = aSource;
         
         }
@@ -244,6 +276,14 @@ public class OggDecoder
         @Override
         public void reset()
         {
+            Debug.log("ReusableAudioStream.reset()");
+            try 
+            {
+                bvis.reset();
+                
+            } 
+            catch (IOException ex) {Logger.getLogger(OggDecoder.class.getName()).log(Level.SEVERE, null, ex);}
+            
             try 
             {
                 super.reset();

@@ -4,10 +4,9 @@
  */
 package grimhaus.com.G2Dj;
 
-import com.jogamp.openal.AL;
-import com.jogamp.openal.ALFactory;
-import com.jogamp.openal.util.ALut;
-import java.nio.ByteBuffer;
+import grimhaus.com.G2Dj.Type.Audio.Sound;
+import grimhaus.com.G2Dj.Type.Audio.SoundCollection;
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -15,6 +14,15 @@ import java.nio.ByteBuffer;
  */
 public class Audio
 {
+    //*************
+    // Data members
+    //*************
+    private static final SoundCollection s_SoundCollection = new SoundCollection();
     
+    //*****************
+    // Public interface
+    //*****************
+    public static WeakReference<Sound> getSound(final String aName){return s_SoundCollection.getSound(aName);}
+    public static WeakReference<Sound> loadFromResource(String aAbsoluteResourcePath){return s_SoundCollection.loadFromResource(aAbsoluteResourcePath);}
     
 }
