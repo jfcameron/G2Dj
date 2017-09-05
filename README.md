@@ -6,6 +6,9 @@
 
 
 ## Description:
+![asdf](https://img.shields.io/badge/development%20status-suspended-yellow.svg)
+![asdf](https://img.shields.io/badge/platforms-win32%20|%20osx%20|%20linux%20|%20android-lightgrey.svg)
+![asdf](https://img.shields.io/badge/license-MIT-blue.svg)
 Crossplatform game engine in Java & OpenGLES.
 Designed for 2D, low-fi graphics, but is capable of 3D perspective rendering for "2.5D" projects.
 Builds for Mac/Linux/Windows and Android.
